@@ -19,10 +19,42 @@
     "url": "https://github.com/goitacademy/parcel-project-template/issues"
   },
   "devDependencies": {
+    "browserslist": "^4.18.1",
+    "caniuse-lite": "^1.0.30001283",
     "parcel-bundler": "^1.12.5",
+    "parcel-plugin-custom-dist-structure": "^1.1.18",
     "parcel-plugin-handlebars-precompile": "^1.0.2",
     "parcel-plugin-nuke-dist": "^1.0.1",
     "posthtml-include": "^1.6.2",
     "sass": "^1.32.8"
+  },
+  "customDistStructure": {
+    "config": {
+      "js": [
+        ".js",
+        ".js.map"
+      ],
+      "css": [
+        ".css",
+        ".css.map"
+      ],
+      "fonts": [
+        ".otf",
+        ".woff",
+        ".woff2"
+      ],
+      "images/photos": [
+        ".jpg",
+        ".png",
+        ".webp",
+        ".ico"
+      ],
+      "images/svg": [
+        ".svg"
+      ]
+    },
+    "options": {
+      "development": true
+    }
   }
 }
