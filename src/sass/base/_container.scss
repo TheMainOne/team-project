@@ -1,0 +1,13 @@
+.conteiner {
+  max-width: 280px;
+  margin: 0 auto;
+  padding: 20px;
+  @media screen and (min-width: $second-bp) {
+    width: 618px;
+    padding: 60px 75px;
+  }
+  @media screen and (min-width: $third-bp) {
+    padding: 60px 70px;
+    width: 884px;
+  }
+}
