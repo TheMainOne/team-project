@@ -56,5 +56,8 @@
     "options": {
       "development": true
     }
+  },
+  "dependencies": {
+    "axios": "^0.24.0"
   }
 }
