@@ -1,16 +1,10 @@
-@import './_header.scss';
 @import './layout/indexing-file';
 
 // утилиты
-@import './utils/variables';
-@import './utils/visually-hidden';
+@import './utils/mainutils';
 
 // базовые стили
-@import './base/common';
-@import './base/container';
+@import './base/mainbase';
 
 // секции
-@import './layout/header';
-@import './layout/modal';
-@import './layout/gallery';
-@import './layout/footer';
+@import './layout/mainlayout';
