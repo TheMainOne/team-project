@@ -101,8 +101,30 @@
 }
 
 .button {
-  border: none;
+  width: 136px;
+  padding: 12px 38px 14px;
+  border: 1px solid var(--main-text-color);
   border-radius: 5px;
-  padding: 10px 20px;
-  cursor: pointer;
+  background-color: transparent;
+  color: var(--main-text-color);
+
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.33;
+  text-transform: uppercase;
+
+  &:not(:last-child) {
+    margin-right: 15px;
+  }
+
+  &:hover,
+  &:focus {
+    border: 1px solid var(--accent-color);
+    background-color: var(--accent-color);
+  }
+
+  &.is-active {
+    border: 1px solid var(--accent-color);
+    background-color: var(--accent-color);
+  }
 }

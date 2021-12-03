@@ -1,10 +1,36 @@
-<form class="search-form" id="search-form">
-  <input
-    class="input"
-    type="text"
-    name="searchQuery"
-    autocomplete="off"
-    placeholder="Search images..."
-  />
-  <button class="button" type="submit">Search</button>
-</form>
+<header class='header'>
+    <div class="container header__wrapper">
+        <div class="header__navbar">
+            <!-- logo -->
+            <div class="header__logo">
+                <svg class="logo" width="24" height="24">
+                    <!-- <use href="./images/sprite.svg"></use> -->
+                </svg>
+                <span class="text">Filmoteka</span>
+            </div>
+            <!-- /.logo -->
+            <!-- site-menu -->
+            <nav class="top-nav" data-action-controls>
+                <button class="top-nav__button is-active" data-action="js-home" >Home</button>
+                <button class="top-nav__button" data-action="js-library">my library</button>
+            </nav>
+            <!-- /.site-menu -->
+        </div>
+       
+        <!-- Changing block: show search-form or library-controls. -->
+        <div class="header__controls">
+            <form class="header__search js-form" id="search-form">
+                    <input class="input" type="text" name="searchQuery" autocomplete="off" placeholder="Поиск фильмов" />
+                    <button class="search-button" type="submit"></button>
+            </form>
+
+            <!-- Default header__library-controls is-hidden -->
+            <div class="header__library-controls is-hidden">
+                <button class="button is-active">watched</button>
+                <button class="button">queue</button>
+            </div>
+
+        </div>
+        <!-- /.search-form -->
+    </div>
+</header>
