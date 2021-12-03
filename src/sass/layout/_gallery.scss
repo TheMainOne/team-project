@@ -17,16 +17,18 @@
 
   @media screen and (min-width: $second-bp) {
     gap: 30px;
-    grid-template-columns: repeat(auto-fit, minmax(294px, 1fr));
+    grid-template-columns: repeat(2, minmax(294px, 1fr));
   }
 
   @media screen and (min-width: $third-bp) {
     max-width: $third-bp - 2 * 71px;
-    grid-template-columns: repeat(auto-fit, minmax(274px, 1fr));
+    grid-template-columns: repeat(3, minmax(274px, 1fr));
   }
 }
 
-// .gallery__item { }
+.gallery__item {
+  width: 100%;
+}
 
 // .card { }
 
@@ -42,6 +44,14 @@
   height: auto;
   display: block;
   max-height: 398px;
+
+  @media screen and (min-width: $second-bp) {
+    min-width: 294px;
+  }
+
+  @media screen and (min-width: $third-bp) {
+    min-width: 274px;
+  }
 }
 
 .card__title,
