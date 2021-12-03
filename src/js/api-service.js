@@ -38,7 +38,7 @@ class videoAPI {
     if (savedGenres) return savedGenres;
 
     const { genres } = await fetchData(genresURL);
-    storage.save(GENRES_KEY, genres);
+    storage.save(storage.GENRES_KEY, genres);
 
     return await genres;
   }

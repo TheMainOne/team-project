@@ -1,3 +1,7 @@
+html {
+  box-sizing: border-box;
+}
+
 h1,
 h2,
 h3,
@@ -8,15 +12,17 @@ p {
   margin-top: 0;
   margin-bottom: 0;
 }
+
 ul,
 ol {
   margin-top: 0;
   margin-bottom: 0;
   padding-left: 0;
 }
+
 img {
   display: block;
-  width: 100%;
+  max-width: 100%;
   height: auto;
 }
 
@@ -26,9 +32,13 @@ td {
   border-collapse: collapse;
 }
 
-.list {
-  list-style: none;
-}
-.link {
+a {
   text-decoration: none;
+  color: inherit;
+}
+
+li {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
