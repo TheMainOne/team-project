@@ -1,10 +1,10 @@
 // ============mobile ========
 
 .movie {
-  outline: 1px solid red;
-  * {
-    outline: 1px solid red;
-  }
+  // outline: 1px solid red;
+  // * {
+  //   outline: 1px solid red;
+  // }
 
   font-weight: 500;
   font-size: 12px;
@@ -31,7 +31,7 @@
   line-height: 1.15;
 
   text-transform: uppercase;
-  text-align: center;
+  text-align: start;
   margin-bottom: 20px;
 }
 
@@ -182,4 +182,10 @@
       max-height: 204px;
     }
   }
+}
+
+.test {
+  width: 30px;
+  height: 30px;
+  background-color: salmon;
 }
