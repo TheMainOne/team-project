@@ -5,7 +5,8 @@
   border: 1px solid;
   background-color: transparent;
   text-align: center;
-  padding: auto 7px;
+  padding-left: 7px;
+  padding-right: 7px;
   transform: scale(1);
 
   &:hover,
@@ -16,7 +17,7 @@
 
   &--accent {
     border: none;
-    color: #fff;
-    background-color: #ff6b01;
+    color: $main-text-color;
+    background-color: $accent-color;
   }
 }

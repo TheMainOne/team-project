@@ -6,26 +6,27 @@
     outline: 1px solid red;
   }
 
-  //   font-family: Roboto;
-  font-style: normal;
   font-weight: 500;
   font-size: 12px;
   line-height: 1.33;
-  color: #000000;
+  color: $secondary-text-color;
 
   &__container {
     width: 280px;
     padding: 48px 20px 41px 20px;
+
+    &--left-side {
+      margin-bottom: 30px;
+    }
   }
 }
 
-.mobile__img {
+.movie__img {
   display: block;
-  margin-bottom: 30px;
-  width: 240px;
+  object-fit: cover;
 }
 
-.mobile__title {
+.movie__title {
   font-size: 20px;
   line-height: 1.15;
 
@@ -70,21 +71,21 @@
       align-items: center;
       justify-content: center;
 
-      background-color: #f7f7f7;
-      color: #000;
+      background-color: main-bg-color;
+      color: $secondary-text-color;
       width: 36px;
       height: 16px;
       border-radius: 5px;
     }
 
     &-slash {
-      color: #8c8c8c;
+      color: $third-text-color;
       padding: 0 3px;
     }
 
     &--accent {
-      background-color: #ff6b01;
-      color: #ffffff;
+      background-color: $accent-color;
+      color: $main-text-color;
     }
   }
 }
@@ -97,13 +98,16 @@
 
   &-text {
     line-height: 1.67;
-    margin-bottom: 20px;
+    margin-bottom: 21px;
+    overflow: auto;
   }
 }
 
 .movie__btn {
   width: 100%;
   margin-right: 15px;
+  border-color: $secondary-text-color;
+  color: $secondary-text-color;
 
   &.btn--accent {
     padding: 0 20px;
@@ -121,7 +125,7 @@
 }
 
 // ========tablet======
-@media screen and (min-width: 768px) {
+@media screen and (min-width: $tablet) {
   .movie {
     &__container {
       display: flex;
@@ -132,16 +136,50 @@
 
       &--left-side {
         width: 264px;
+        margin-bottom: 0px;
       }
       &--rigth-side {
         width: 264px;
       }
+    }
+    &__about-text {
+      max-height: 240px;
     }
   }
 
   .movie__btn {
     &.btn--accent {
       padding: 0;
+    }
+  }
+}
+
+// ======= desktop =====
+
+@media screen and (min-width: $desktop) {
+  .movie {
+    &__container {
+      width: 882px;
+      height: 568px;
+      padding: 50px 30px 40px 30px;
+
+      &--left-side {
+        width: 396px;
+        height: 478px;
+        overflow: hidden;
+      }
+      &--rigth-side {
+        width: 396px;
+      }
+    }
+
+    &__title {
+      font-size: 30px;
+      line-height: 1.17;
+    }
+
+    &__about-text {
+      max-height: 204px;
     }
   }
 }
