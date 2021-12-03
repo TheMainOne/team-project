@@ -26,6 +26,12 @@ img {
   height: auto;
 }
 
+table,
+th,
+td {
+  border-collapse: collapse;
+}
+
 a {
   text-decoration: none;
   color: inherit;

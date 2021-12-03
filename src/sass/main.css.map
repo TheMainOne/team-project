@@ -10,7 +10,6 @@
         "utils/_variables.scss",
         "utils/_visually-hidden.scss",
         "base/_mainbase.scss",
-        "base/_common.scss",
         "base/_container.scss",
         "layout/_mainlayout.scss",
         "layout/_header.scss",
