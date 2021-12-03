@@ -1,0 +1,22 @@
+.btn {
+  height: 44px;
+  border-radius: 5px;
+  text-transform: uppercase;
+  border: 1px solid;
+  background-color: transparent;
+  text-align: center;
+  padding: auto 7px;
+  transform: scale(1);
+
+  &:hover,
+  &:focus {
+    transform: scale(1.1);
+    transition: cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
+
+  &--accent {
+    border: none;
+    color: #fff;
+    background-color: #ff6b01;
+  }
+}
