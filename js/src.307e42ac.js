@@ -67,4 +67,4 @@ module.exports=require("./lib/axios");
 },{"./lib/axios":"nUiQ"}],"Focm":[function(require,module,exports) {
 "use strict";require("./sass/main.scss");var e=a(require("./js/gallery-card-template")),t=a(require("axios"));function a(e){return e&&e.__esModule?e:{default:e}}const{log:r,error:s}=console,o="0bd610b1a3557ac4e7f9b5501edcfef4",l="https://api.themoviedb.org/3/",n="https://image.tmdb.org/t/p/",i="movie/550",u=`?api_key=${o}`,c=`${l}${u}`,d=document.querySelector("[data-gallery]"),g="trending/",p="movie/",f="week",m=`${l}trending/movie/week${u}`,y=async()=>{const e=await(0,t.default)(m);if(200!==e.status)throw Error(`status: ${e.status}`);return e.data},b=async()=>{try{const{page:a,results:o,total_results:l,total_pages:n}=await y(),i=Math.floor(l/n);r({page:a,results:o,totalPages:n,totalResults:l,perPage:i});const u=o.map(e.default);r("renderGallery ~ galleryMarkup",u),d.innerHTML="",d.insertAdjacentHTML("beforeend",u)}catch(t){s(t)}};b();
 },{"./sass/main.scss":"clu1","./js/gallery-card-template":"DLtg","axios":"dZBD"}]},{},["Focm"], null)
-//# sourceMappingURL=/team-project/js/src.f1d3f5ac.js.map
+//# sourceMappingURL=/team-project/js/src.307e42ac.js.map
