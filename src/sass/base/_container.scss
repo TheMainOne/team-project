@@ -7,11 +7,12 @@
   @media screen and (min-width: $tablet) {
     max-width: $tablet;
     padding-left: 75px;
-    padding-right: 75px;
+    padding-right: 75px - 17px;
   }
-  @media screen and (min-width: $decktop) {
-    max-width: $decktop;
+
+  @media screen and (min-width: $desktop) {
+    max-width: $desktop;
     padding-left: 71px;
-    padding-right: 71px;
+    padding-right: 71px - 17px;
   }
 }
