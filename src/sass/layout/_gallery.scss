@@ -1,7 +1,7 @@
 .gallery {
   padding: 20px 0;
 
-  @media screen and (min-width: 1024px) {
+  @media screen and (min-width: $desktop) {
     padding: 60px 0;
   }
 }
@@ -15,34 +15,19 @@
   margin: 0 auto;
   list-style: none;
 
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: $tablet) {
     gap: 30px;
-    grid-template-columns: repeat(auto-fit, minmax(293px, 1fr));
+    grid-template-columns: repeat(2, minmax(294px, 1fr));
   }
 
-  @media screen and (min-width: 1024px) {
-    grid-template-columns: repeat(auto-fit, minmax(274px, 1fr));
-  }
-
-  @media screen and (min-width: 1600px) {
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  @media screen and (min-width: $desktop) {
+    max-width: $desktop - 2 * 71px;
+    grid-template-columns: repeat(3, minmax(274px, 1fr));
   }
 }
 
 .gallery__item {
-  max-width: 75vw;
-
-  @media screen and (min-width: 768px) {
-    max-width: 50vw;
-  }
-
-  @media screen and (min-width: 1024px) {
-    max-width: 33.3vw;
-  }
-
-  @media screen and (min-width: 1600px) {
-    max-width: 25vw;
-  }
+  width: 100%;
 }
 
 // .card { }
@@ -60,8 +45,12 @@
   display: block;
   max-height: 398px;
 
-  @media screen and (min-width: 1024px) {
-    max-height: 80vh;
+  @media screen and (min-width: $tablet) {
+    min-width: 294px;
+  }
+
+  @media screen and (min-width: $desktop) {
+    min-width: 274px;
   }
 }
 
