@@ -1,4 +1,6 @@
 import './sass/main.scss';
+
+import './js/header';
 import debounce from 'lodash/debounce';
 import { Notify } from 'notiflix';
 import videoAPI from './js/api-service';
