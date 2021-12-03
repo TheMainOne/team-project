@@ -6,12 +6,13 @@
 
   @media screen and (min-width: $tablet) {
     max-width: $tablet;
-    padding-left: 75px;
-    padding-right: 75px;
+    padding-left: 75px - 8px;
+    padding-right: 75px - 9px;
   }
-  @media screen and (min-width: $decktop) {
-    max-width: $decktop;
-    padding-left: 71px;
-    padding-right: 71px;
+
+  @media screen and (min-width: $desktop) {
+    max-width: $desktop;
+    padding-left: 71px - 8px;
+    padding-right: 71px - 9px;
   }
 }

@@ -11,7 +11,6 @@ const { log, error } = console;
 
 const DEBOUNCE_DELAY = 300;
 const DEBOUNCE_OPTIONS = { leading: true, trailing: false };
-const NOTIFY_CONFIG = { timeout: 3500 };
 
 const videoapi = new videoAPI();
 
@@ -31,12 +30,12 @@ const renderGallery = async results => {
 
 const notifyStatus = (videosCount, page, totalResults) => {
   if (videosCount < 1) {
-    failure('Sorry, no results. Please try another query.', NOTIFY_CONFIG);
+    failure('Sorry, no results. Please try another query.');
     return 1;
   }
 
   if (totalResults > 0 && page === 1) {
-    success(`Hooray! We found ${totalResults} results.`, NOTIFY_CONFIG);
+    success(`Hooray! We found ${totalResults} results.`);
     return 0;
   }
 };
@@ -70,7 +69,7 @@ const onSubmit = async e => {
     const search = e.target.elements.searchQuery.value.trim();
 
     if (search.length === 0) {
-      return info('Please, enter search query.', NOTIFY_CONFIG);
+      return info('Please, enter search query.');
     }
 
     videoapi.query = search;
