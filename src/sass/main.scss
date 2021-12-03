@@ -1,5 +1,14 @@
 @import './layout/indexing-file';
+
+
+// утилиты
+@import './utils/mainutils';
+
+// базовые стили
+@import './base/mainbase';
+
+// секции
+@import './layout/mainlayout';
+
+
 @import './layout/footer';
-@import './layout/modal-window';
-@import './layout/common';
-@import './layout/btn';
