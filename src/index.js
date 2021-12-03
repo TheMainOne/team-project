@@ -1,4 +1,5 @@
 import './sass/main.scss';
+import './js/header';
 import galleryCardTemplate from './js/gallery-card-template';
 import axios from 'axios';
 const { log, error } = console;

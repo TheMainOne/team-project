@@ -7,6 +7,7 @@
   --footer-text-color: #545454;
   --main-bg-color: #f7f7f7;
   --icon-color: #818181;
+  --gradient-color: rgba(0, 0, 0, 0.56);
 
   /*  ---------------- Animation ----------------- */
   --time: 250ms;
@@ -20,9 +21,10 @@ $third-text-color: #8c8c8c;
 $footer-text-color: #545454;
 $main-bg-color: #f7f7f7;
 $icon-color: #818181;
+$gradient-color: rgba(0, 0, 0, 0.56);
 
 // breakpoints
 
-$first-bp: 320px;
-$second-bp: 768px;
-$third-bp: 1024px;
+$mobile: 320px;
+$tablet: 768px;
+$decktop: 1024px;
