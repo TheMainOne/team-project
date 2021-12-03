@@ -1,7 +1,7 @@
 .gallery {
   padding: 20px 0;
 
-  @media screen and (min-width: $third-bp) {
+  @media screen and (min-width: $desktop) {
     padding: 60px 0;
   }
 }
@@ -15,13 +15,13 @@
   margin: 0 auto;
   list-style: none;
 
-  @media screen and (min-width: $second-bp) {
+  @media screen and (min-width: $tablet) {
     gap: 30px;
     grid-template-columns: repeat(2, minmax(294px, 1fr));
   }
 
-  @media screen and (min-width: $third-bp) {
-    max-width: $third-bp - 2 * 71px;
+  @media screen and (min-width: $desktop) {
+    max-width: $desktop - 2 * 71px;
     grid-template-columns: repeat(3, minmax(274px, 1fr));
   }
 }
@@ -45,11 +45,11 @@
   display: block;
   max-height: 398px;
 
-  @media screen and (min-width: $second-bp) {
+  @media screen and (min-width: $tablet) {
     min-width: 294px;
   }
 
-  @media screen and (min-width: $third-bp) {
+  @media screen and (min-width: $desktop) {
     min-width: 274px;
   }
 }
