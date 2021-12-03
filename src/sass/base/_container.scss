@@ -7,11 +7,12 @@
   @media screen and (min-width: $second-bp) {
     max-width: $second-bp;
     padding-left: 75px;
-    padding-right: 75px;
+    padding-right: 75px - 17px;
   }
+
   @media screen and (min-width: $third-bp) {
     max-width: $third-bp;
     padding-left: 71px;
-    padding-right: 71px;
+    padding-right: 71px - 17px;
   }
 }
