@@ -1,33 +1,37 @@
+// ============mobile ========
+
 .movie {
-  //   outline: 1px solid red;
-  //   * {
-  //     outline: 1px solid red;
-  //   }
+  outline: 1px solid red;
+  * {
+    outline: 1px solid red;
+  }
 
   //   font-family: Roboto;
   font-style: normal;
   font-weight: 500;
   font-size: 12px;
   line-height: 1.33;
-
   color: #000000;
-  width: 280px;
-  padding: 48px 20px 41px 20px;
 
-  &__img {
-    display: block;
-    margin-bottom: 30px;
-    width: 240px;
+  &__container {
+    width: 280px;
+    padding: 48px 20px 41px 20px;
   }
+}
 
-  &__title {
-    font-size: 20px;
-    line-height: 1.15;
+.mobile__img {
+  display: block;
+  margin-bottom: 30px;
+  width: 240px;
+}
 
-    text-transform: uppercase;
-    text-align: center;
-    margin-bottom: 20px;
-  }
+.mobile__title {
+  font-size: 20px;
+  line-height: 1.15;
+
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 .movie__info {
@@ -111,3 +115,5 @@
     justify-content: space-between;
   }
 }
+
+// ========tablet======
