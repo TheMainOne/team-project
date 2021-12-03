@@ -25,7 +25,7 @@ const galleryCardTemplate = async ({
   poster_path: posterPath,
   genre_ids: genreIds = null,
   genres = null,
-  release_date: releaseDate = null,
+  release_date: releaseDate,
 
   title,
 }) => {
@@ -40,7 +40,7 @@ const galleryCardTemplate = async ({
 
   if (genreIds?.length > 0 && genreIds.length < 3) {
     genresJoined = await Promise.all(genreIds.map(getGenreName));
-    genresJoined.join(', ');
+    genresJoined = genresJoined.join(', ');
   }
 
   if (genreIds?.length >= 3) {
@@ -61,7 +61,7 @@ const galleryCardTemplate = async ({
   //     .map(({ name }) => `${name}`)
   //     .join(', ')}, Other`;
 
-  const releaseYear = releaseDate ? Date(releaseDate).slice(11, 15) : '';
+  const releaseYear = releaseDate.slice(0, 4);
 
   return `
 <li class="gallery__item">

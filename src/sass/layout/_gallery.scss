@@ -2,7 +2,7 @@
   padding: 20px 0;
 
   @media screen and (min-width: 1024px) {
-    padding: 30px 0;
+    padding: 60px 0;
   }
 }
 
@@ -48,7 +48,7 @@
 // .card { }
 
 .card__thumb {
-  margin: 0 auto;
+  margin: 0 auto 10px;
   border-radius: 5px;
 }
 
@@ -58,10 +58,38 @@
   width: 100%;
   height: auto;
   display: block;
+  max-height: 398px;
+
+  @media screen and (min-width: 1024px) {
+    max-height: 80vh;
+  }
+}
+
+.card__title,
+.card__genres,
+.card__release-date {
+  font-family: 'Roboto', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 133%;
+}
+
+.card__title {
+  margin-bottom: 6px;
+}
+
+.card__genres {
+}
+
+.card__description {
+  margin: 0;
+  color: orange;
 }
 
 .card__release-date {
   margin-left: 1px;
   padding-left: 5px;
-  border-left: 1px solid rgba(#000000, 0.21);
+
+  border-left: 1px solid rgba(orange, 0.21);
 }
