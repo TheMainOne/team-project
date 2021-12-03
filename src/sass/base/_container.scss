@@ -1,17 +1,17 @@
 .container {
-  max-width: $first-bp;
+  max-width: $mobile;
   margin: 0 auto;
   padding-left: 20px;
   padding-right: 20px;
 
-  @media screen and (min-width: $second-bp) {
-    max-width: $second-bp;
+  @media screen and (min-width: $tablet) {
+    max-width: $tablet;
     padding-left: 75px;
     padding-right: 75px - 17px;
   }
 
-  @media screen and (min-width: $third-bp) {
-    max-width: $third-bp;
+  @media screen and (min-width: $desktop) {
+    max-width: $desktop;
     padding-left: 71px;
     padding-right: 71px - 17px;
   }
