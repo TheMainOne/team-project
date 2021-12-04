@@ -1,16 +1,32 @@
 .header {
   color: var(--main-text-color);
-  background-image: linear-gradient(to right, var(--gradient-color), var(--gradient-color)),
-    url(../images/header/home/header-home-bg-1024.jpg);
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
 
   font-family: 'Roboto', sans-serif;
 
-  @media (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
-    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
-      url(../images/header/home/header-home-bg-1024@2x.jpg);
+  &--home {
+    background-image: linear-gradient(to right, var(--gradient-color), var(--gradient-color)),
+      url(../images/header/home/header-home-bg-1024.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+
+    @media (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+      background-image: linear-gradient(to right, var(--gradient-color), var(--gradient-color)),
+        url(../images/header/home/header-home-bg-1024@2x.jpg);
+    }
+  }
+
+  &--library {
+    background-image: linear-gradient(to right, var(--gradient-color), var(--gradient-color)),
+      url(../images/header/library/header-library-bg-1024.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+
+    @media (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+      background-image: linear-gradient(to right, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
+        url(../images/header/library/header-library-bg-1024@2x.jpg);
+    }
   }
 
   &__wrapper {
@@ -27,15 +43,17 @@
 
   &__logo {
     flex-grow: 1;
-    .logo {
+
+    &-image {
       // Заглушка!!!!!!!! Поменять
       background-color: #fff;
     }
 
-    .text {
+    &-text {
       font-size: 30px;
       font-weight: 500;
       line-height: 1.17;
+      cursor: pointer;
     }
   }
 
@@ -76,12 +94,13 @@
   &__search {
     text-align: center;
     border-bottom: 0.5px solid var(--main-text-color);
+
     .input {
       width: 320px;
       border: none;
       outline: none;
       background: transparent;
-      color: inherit;
+      color: var(--main-text-color);
 
       &::placeholder {
         color: inherit;
@@ -97,9 +116,6 @@
       // Дописать стили, после добавления иконки из спрайта
       background-color: var(--main-text-color);
     }
-  }
-
-  &__library-controls {
   }
 }
 
