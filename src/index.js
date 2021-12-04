@@ -5,7 +5,6 @@ import './js/header';
 
 import debounce from 'lodash/debounce';
 import { Notify } from 'notiflix';
-import initPagination from './js/pagination';
 
 import videoAPI from './js/api-service';
 import galleryCardTemplate from './js/gallery-card-template';
@@ -21,6 +20,7 @@ const videoapi = new videoAPI();
 export { videoapi };
 
 const refs = getRefs();
+let pagination = null;
 
 const renderGallery = async results => {
   try {
@@ -48,8 +48,6 @@ const notifyStatus = (videosCount, page, totalResults) => {
   }
 };
 
-let pagination = null;
-
 const initGallery = async () => {
   try {
     /* page: 1, results: Array(20), total_pages: 1000, total_results: 20000 */
@@ -60,13 +58,6 @@ const initGallery = async () => {
       total_results: totalResults,
     } = await videoapi.getTrendingVideos();
 
-    pagination = await initPagination({
-      page,
-      type: videoapi.type,
-      itemsPerPage: results.length,
-      totalItems: totalResults,
-    });
-
     // console.log(pagination);
     // console.log('res', page, results, totalPages, totalResults);
 
@@ -74,13 +65,11 @@ const initGallery = async () => {
 
     await renderGallery(results);
 
-    const pagination = await initPagination({
+    pagination = await initPagination({
       page,
       itemsPerPage: results.length,
       totalItems: totalResults,
     });
-
-    pagination.on('afterMove', ({ page }) => log(page));
   } catch (err) {
     error(err);
   }
