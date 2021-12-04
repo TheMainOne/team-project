@@ -1,25 +1,18 @@
-// import getHeaderRefs from './getHearedRefs';
+import getHeaderRefs from './getHearedRefs';
 
-const refs = {
-  headerBackground: document.querySelector('.js-header'),
-  navbar: document.querySelector('[data-action-controls]'),
-  logo: document.querySelector('[data-action="logo"]'),
-  homeBtn: document.querySelector('[data-action="js-home"]'),
-  libraryBtn: document.querySelector('[data-action="js-library"]'),
-  headerControlBox: document.querySelector('[data-header-controls]'),
-  // searchButton: document.querySelector('[data-action="search"]'),
-  headerForm: document.querySelector('[data-action="js-form"]'),
-  headerLibraryButtons: document.querySelector('[data-action="library-buttons"]'),
-};
+const refs = getHeaderRefs();
 
 refs.navbar.addEventListener('click', onTopNavBtnClick);
+
+// Для работы с кнопками watched и queue слушатель вешать на этот контейнер refs.headerControlBox и отлавливать через e.target.dataset.action
+refs.headerControlBox.addEventListener('click', onLibraryButtonClick);
 
 renderSearchForm();
 
 function onTopNavBtnClick(e) {
   const nextButton = e.target;
-
-  if (!nextButton.dataset.action) return;
+  const hasDataAttr = nextButton.dataset.action;
+  if (!hasDataAttr) return;
 
   const prevButton = refs.navbar.querySelector('.is-active');
   if (prevButton) {
@@ -28,19 +21,17 @@ function onTopNavBtnClick(e) {
 
   nextButton.classList.add('is-active');
 
-  if (nextButton.dataset.action === 'js-library') {
+  if (hasDataAttr === 'js-library') {
     setLibraryBackground();
     renderLibraryButtons();
-    const buttons = document.querySelector('[data-header-controls]');
-    console.log(buttons);
   }
 
-  if (nextButton.dataset.action === 'js-home') {
+  if (hasDataAttr === 'js-home') {
     setHomeBackground();
     renderSearchForm();
   }
 
-  if (nextButton.dataset.action === 'logo') {
+  if (hasDataAttr === 'logo') {
     nextButton.classList.remove('is-active');
     refs.homeBtn.classList.add('is-active');
     setHomeBackground();
@@ -49,9 +40,19 @@ function onTopNavBtnClick(e) {
 }
 
 function onLibraryButtonClick(e) {
-  console.log(e.target);
+  const nextButton = e.target;
+  const hasDataAttr = nextButton.dataset.action;
+  if (!hasDataAttr) return;
+
+  const prevButton = refs.headerControlBox.querySelector('.is-active');
+  if (prevButton) {
+    prevButton.classList.remove('is-active');
+  }
+
+  nextButton.classList.add('is-active');
 }
 
+// Функции подмены background
 function setLibraryBackground() {
   refs.headerBackground.classList.remove('header--home');
   refs.headerBackground.classList.add('header--library');
@@ -62,6 +63,7 @@ function setHomeBackground() {
   refs.headerBackground.classList.add('header--home');
 }
 
+// Функции подмены разметки поиска и кнопок библиотерки
 function renderSearchForm() {
   refs.headerControlBox.innerHTML =
     '<form class="header__search" id="search-form" data-action="js-form"><input class="input" type="text" name="searchQuery" autocomplete="off" placeholder="Поиск фильмов" /><button class="search-button" type="submit"  data-action="search"></button></form>';
@@ -69,5 +71,5 @@ function renderSearchForm() {
 
 function renderLibraryButtons() {
   refs.headerControlBox.innerHTML =
-    '<div class="header__library-controls" data-action="library-buttons"><button class="button is-active" data-action="watched">watched</button><button class="button"data-action="queue">queue</button></div>';
+    '<div class="header__library-controls" data-library-buttons"><button class="button is-active" data-action="watched">watched</button><button class="button"data-action="queue">queue</button></div>';
 }

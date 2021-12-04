@@ -44,11 +44,6 @@
   &__logo {
     flex-grow: 1;
 
-    &-image {
-      // Заглушка!!!!!!!! Поменять
-      background-color: #fff;
-    }
-
     &-text {
       font-size: 30px;
       font-weight: 500;
@@ -73,11 +68,11 @@
       cursor: pointer;
 
       &:hover {
-        border-bottom: 2px solid var(--accent-color);
+        border-bottom: 3px solid var(--accent-color);
       }
 
       &.is-active {
-        border-bottom: 2px solid var(--accent-color);
+        border-bottom: 3px solid var(--accent-color);
       }
     }
 
@@ -111,10 +106,13 @@
     }
 
     .search-button {
-      width: 12px;
-      height: 12px;
       // Дописать стили, после добавления иконки из спрайта
-      background-color: var(--main-text-color);
+      // background-color: transparent;
+      // border: none;
+
+      & .search-icon {
+        stroke: #fff;
+      }
     }
   }
 }
