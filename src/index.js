@@ -1,6 +1,8 @@
-import './sass/main.scss';
+import initPagination from './js/pagination';
 
+import './sass/main.scss';
 import './js/header';
+
 import debounce from 'lodash/debounce';
 import { Notify } from 'notiflix';
 import videoAPI from './js/api-service';
@@ -13,6 +15,8 @@ const DEBOUNCE_DELAY = 300;
 const DEBOUNCE_OPTIONS = { leading: true, trailing: false };
 
 const videoapi = new videoAPI();
+
+export { videoapi };
 
 const refs = getRefs();
 
@@ -28,6 +32,8 @@ const renderGallery = async results => {
   }
 };
 
+export { renderGallery };
+
 const notifyStatus = (videosCount, page, totalResults) => {
   if (videosCount < 1) {
     failure('Sorry, no results. Please try another query.');
@@ -40,6 +46,8 @@ const notifyStatus = (videosCount, page, totalResults) => {
   }
 };
 
+let pagination = null;
+
 const initGallery = async () => {
   try {
     /* page: 1, results: Array(20), total_pages: 1000, total_results: 20000 */
@@ -50,6 +58,14 @@ const initGallery = async () => {
       total_results: totalResults,
     } = await videoapi.getTrendingVideos();
 
+    pagination = await initPagination({
+      page,
+      type: videoapi.type,
+      itemsPerPage: results.length,
+      totalItems: totalResults,
+    });
+
+    // console.log(pagination);
     // console.log('res', page, results, totalPages, totalResults);
 
     if (notifyStatus(results.length, page, totalResults)) return;
@@ -82,7 +98,11 @@ const onSubmit = async e => {
       total_results: totalResults,
     } = await videoapi.getVideos();
 
-    // console.log('res', page, results, totalPages, totalResults);
+    pagination.reset(totalPages);
+    videoapi.type = 'videos';
+    pagination.movePageTo(1);
+
+    console.log('res', page, results, totalPages, totalResults);
 
     if (notifyStatus(results.length, page, totalResults)) return;
 
@@ -93,10 +113,7 @@ const onSubmit = async e => {
 };
 
 const initListeners = () => {
-  refs.form.addEventListener(
-    'submit',
-    debounce(onSubmit, DEBOUNCE_DELAY, DEBOUNCE_OPTIONS),
-  );
+  refs.form.addEventListener('submit', debounce(onSubmit, DEBOUNCE_DELAY, DEBOUNCE_OPTIONS));
 };
 
 initListeners();

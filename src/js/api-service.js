@@ -20,6 +20,7 @@ class videoAPI {
   #media = 'movie';
   #period = 'week';
   #language = 'en-US';
+  #type = 'trendingVideos';
 
   async fetchData(dataURL = '') {
     if (!dataURL) return;
@@ -45,8 +46,8 @@ class videoAPI {
 
   async getTrendingVideos() {
     // https://api.themoviedb.org/3/trending/movie/week?api_key=0bd610b1a3557ac4e7f9b5501edcfef4
-    const { media, period, fetchData } = this;
-    const trendingVideosURL = `${movieBaseURL}trending/${media}/${period}${api_key}`;
+    const { media, period, fetchData, page } = this;
+    const trendingVideosURL = `${movieBaseURL}trending/${media}/${period}${api_key}&page=${page}`;
 
     const trendingVideos = await fetchData(trendingVideosURL);
 
@@ -108,6 +109,14 @@ class videoAPI {
     if (newPage <= 0 || isNaN(newPage)) return;
 
     this.#page = newPage;
+  }
+
+  get type() {
+    return this.#type;
+  }
+
+  set type(newType) {
+    this.#type = newType;
   }
 }
 
