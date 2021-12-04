@@ -1,12 +1,14 @@
-<header class='header'>
+<header class='header header--home js-header'>
     <div class="container header__wrapper">
-        <div class="header__navbar">
+        <div class="header__navbar" data-action-controls >
             <!-- logo -->
-            <div class="header__logo">
-                <svg class="logo" width="24" height="24">
-                    <!-- <use href="./images/sprite.svg"></use> -->
-                </svg>
-                <span class="text">Filmoteka</span>
+            <div class="header__logo" >
+                <span class="header__logo-text" data-action="logo">
+                    <svg class="header__logo-image" width="24" height="24" data-action="logo">
+                        <use href="./images/optimsprite.svg#icon-film" data-action="logo"></use>
+                    </svg>
+                    Filmoteka
+                </span>
             </div>
             <!-- /.logo -->
             <!-- site-menu -->
@@ -18,19 +20,7 @@
         </div>
        
         <!-- Changing block: show search-form or library-controls. -->
-        <div class="header__controls">
-            <form class="header__search js-form" id="search-form">
-                    <input class="input" type="text" name="searchQuery" autocomplete="off" placeholder="Поиск фильмов" />
-                    <button class="search-button" type="submit"></button>
-            </form>
-
-            <!-- Default header__library-controls is-hidden -->
-            <div class="header__library-controls is-hidden">
-                <button class="button is-active">watched</button>
-                <button class="button">queue</button>
-            </div>
-
-        </div>
+        <div class="header__controls" data-header-controls></div>
         <!-- /.search-form -->
     </div>
 </header>

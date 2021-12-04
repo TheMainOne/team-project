@@ -41,7 +41,7 @@ class videoAPI {
     const { genres } = await fetchData(genresURL);
     storage.save(storage.GENRES_KEY, genres);
 
-    return await genres;
+    return genres;
   }
 
   async getTrendingVideos() {

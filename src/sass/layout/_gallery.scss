@@ -58,27 +58,37 @@
 .card__title,
 .card__genres,
 .card__release-date {
-  font-family: 'Roboto', sans-serif;
+  font-family: var(--main-font);
   font-style: normal;
   font-weight: 500;
   font-size: 12px;
-  line-height: 133%;
+  line-height: 1.33;
 }
 
 .card__title {
-  margin-bottom: 6px;
+  text-transform: uppercase;
+  color: var(--secondary-text-color);
 }
 
+<<<<<<< HEAD
 .card__genres {}
+=======
+// .card__genres {}
+>>>>>>> main
 
 .card__description {
   margin: 0;
-  color: orange;
+  color: var(--accent-color);
 }
 
 .card__release-date {
   margin-left: 1px;
   padding-left: 5px;
 
+<<<<<<< HEAD
   border-left: 1px solid rgba(orange, 0.21);
 }
+=======
+  border-left: 1px solid var(--accent-color);
+}
+>>>>>>> main
