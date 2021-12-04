@@ -4,7 +4,7 @@ import { renderGallery, videoapi } from '../index';
 
 const { log, error } = console;
 
-const initPagination = async ({ page, itemsPerPage, totalItems, type }) => {
+const initPagination = async ({ page, itemsPerPage, totalItems }) => {
   const options = {
     page,
 
