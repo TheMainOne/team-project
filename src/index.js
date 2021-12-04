@@ -3,6 +3,8 @@ import './sass/main.scss';
 import './js/header';
 import debounce from 'lodash/debounce';
 import { Notify } from 'notiflix';
+import initPagination from './js/pagination';
+
 import videoAPI from './js/api-service';
 import galleryCardTemplate from './js/gallery-card-template';
 import getRefs from './js/refs';
@@ -55,6 +57,14 @@ const initGallery = async () => {
     if (notifyStatus(results.length, page, totalResults)) return;
 
     await renderGallery(results);
+
+    const pagination = await initPagination({
+      page,
+      itemsPerPage: results.length,
+      totalItems: totalResults,
+    });
+
+    pagination.on('afterMove', ({ page }) => log(page));
   } catch (err) {
     error(err);
   }
