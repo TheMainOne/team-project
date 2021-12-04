@@ -30,8 +30,14 @@ ol {
 
 img {
   display: block;
-  max-width: 100%;
+  width: 100%;
   height: auto;
+}
+
+table,
+th,
+td {
+  border-collapse: collapse;
 }
 
 a {
@@ -43,4 +49,9 @@ li {
   list-style: none;
   padding: 0;
   margin: 0;
+}
+
+body {
+  font-family: $main-font;
+  font-style: normal;
 }
