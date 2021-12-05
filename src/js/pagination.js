@@ -47,12 +47,19 @@ const initPagination = async ({ page, itemsPerPage, totalItems }) => {
   pagination.on('afterMove', async ({ page }) => {
     videoapi.page = page;
 
-    if (videoapi.type === 'trendingVideos') {
-      const { results } = await videoapi.getTrendingVideos();
-      renderGallery(results);
-    } else if (videoapi.type === 'videos') {
-      const { results } = await videoapi.getVideos();
-      renderGallery(results);
+    switch (videoapi.type) {
+      case 'trendingVideos': {
+        const { results } = await videoapi.getTrendingVideos();
+        renderGallery(results);
+        break;
+      }
+      case 'videos': {
+        const { results } = await videoapi.getVideos();
+        renderGallery(results);
+        break;
+      }
+      default:
+        return;
     }
   });
   log('pagination', pagination);
