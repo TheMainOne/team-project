@@ -12,7 +12,6 @@
   color: $secondary-text-color;
 
   &__container {
-    max-width: 280px;
     padding: 48px 20px 41px 20px;
 
     &--left-side {
@@ -133,7 +132,6 @@
       justify-content: space-between;
       flex-wrap: nowrap;
       width: 618px;
-      max-width: 618px;
       padding: 42px 32px 40px 28px;
 
       &--left-side {
@@ -162,7 +160,6 @@
   .movie {
     &__container {
       width: 882px;
-      max-width: 882px;
       height: 568px;
       padding: 50px 30px 40px 30px;
 
@@ -186,11 +183,28 @@
     }
   }
 }
-
+// ===================BUTTON CLOSE =====================//
 .btnClose {
   position: absolute;
   top: 10px;
   right: 10px;
   width: 30px;
   height: 30px;
+}
+// ======================STYLE TINGLE.JS==================//
+.custom-class-1 .tingle-modal-box__content {
+  padding: 0;
+}
+
+.custom-class-1 .tingle-modal-box {
+  width: 85%;
+  margin: auto;
+
+  @media screen and (min-width: $tablet) {
+    width: 618px;
+  }
+
+  @media screen and (min-width: $desktop) {
+    width: 882px;
+  }
 }

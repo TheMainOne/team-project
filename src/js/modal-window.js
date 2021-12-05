@@ -41,6 +41,9 @@ function onCloseModal() {
 }
 
 function contentModal() {
+    const tingleModal = document.querySelector(".tingle-modal");
+    tingleModal.style.cursor = "none";
+
  return `
 <div class="modal-window">
     <div class="movie movie__container">
