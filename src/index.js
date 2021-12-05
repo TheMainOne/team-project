@@ -5,15 +5,16 @@ import './js/header';
 import './js/modal-window';
 import debounce from 'lodash/debounce';
 import { Notify } from 'notiflix';
-
 import videoAPI from './js/api-service';
 import galleryCardTemplate from './js/gallery-card-template';
 import getRefs from './js/refs';
+import { scrollFunction, backToTop } from './js/back-to-top-btn';
 const { info, failure, success } = Notify;
 const { log, error } = console;
 
 const DEBOUNCE_DELAY = 300;
 const DEBOUNCE_OPTIONS = { leading: true, trailing: false };
+const mybutton = document.querySelector(".btn-back-to-top");
 
 const videoapi = new videoAPI();
 
@@ -120,3 +121,9 @@ const initListeners = () => {
 };
 
 initListeners();
+
+// ====== функционал отвечающий за кнопку и прокрутку в вверх страницы =======
+mybutton.addEventListener("click", backToTop);
+window.onscroll = function (mybutton) {
+  scrollFunction(mybutton);
+};
