@@ -1,20 +1,23 @@
 body.light-theme {
     background-color: var(--main-text-color);
-    color: #111111;
+    color:  #202124;
   }
   
   body.dark-theme {
-    background-color: #111111;
+    background-color:  #202124;
     color: var(--main-text-color);
   }
-.movie__btn.dark-theme{
-    background-color: var(--third-text-color);
-    border-color: #fff;
-  }
-.movie.dark-theme{
-color: var(--third-text-color);
-}
+// .movie__btn.dark-theme{
+//     background-color: var(--third-text-color);
+//     border-color: #fff;
+//   }
+// .movie.dark-theme{
+// color: var(--third-text-color);
+// }
   .toolbar {
+    position: absolute;
+    top: 0;
+    right: 0;
     display: flex;
     justify-content: flex-end;
   }
@@ -65,7 +68,7 @@ color: var(--third-text-color);
     height: 100%;
     color: transparent;
     user-select: none;
-    background-color: #111;
+    background-color: #202124;
     border-radius: inherit;
     z-index: 1;
     cursor: pointer;
