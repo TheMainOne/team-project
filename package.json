@@ -64,6 +64,7 @@
     "axios": "^0.24.0",
     "basiclightbox": "^5.0.4",
     "notiflix": "^3.2.2",
+    "tingle.js": "^0.16.0",
     "tui-pagination": "^3.4.1"
   }
 }

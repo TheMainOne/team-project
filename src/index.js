@@ -2,7 +2,7 @@ import initPagination from './js/pagination';
 
 import './sass/main.scss';
 import './js/header';
-
+import './js/modal-window';
 import debounce from 'lodash/debounce';
 import { Notify } from 'notiflix';
 
