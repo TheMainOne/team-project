@@ -12,7 +12,7 @@
   color: $secondary-text-color;
 
   &__container {
-    width: 280px;
+    max-width: 280px;
     padding: 48px 20px 41px 20px;
 
     &--left-side {
@@ -133,6 +133,7 @@
       justify-content: space-between;
       flex-wrap: nowrap;
       width: 618px;
+      max-width: 618px;
       padding: 42px 32px 40px 28px;
 
       &--left-side {
@@ -161,6 +162,7 @@
   .movie {
     &__container {
       width: 882px;
+      max-width: 882px;
       height: 568px;
       padding: 50px 30px 40px 30px;
 
@@ -185,8 +187,10 @@
   }
 }
 
-.test {
+.btnClose {
+  position: absolute;
+  top: 10px;
+  right: 10px;
   width: 30px;
   height: 30px;
-  background-color: salmon;
 }
