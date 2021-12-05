@@ -78,6 +78,12 @@ const initGallery = async () => {
 
 initGallery();
 
+const setPagination = (type, totalPages) => {
+  pagination.reset(totalPages);
+  videoapi.type = type;
+  pagination.movePageTo(1);
+};
+
 const onSubmit = async e => {
   e.preventDefault();
 
@@ -98,9 +104,7 @@ const onSubmit = async e => {
       total_results: totalResults,
     } = await videoapi.getVideos();
 
-    pagination.reset(totalPages);
-    videoapi.type = 'videos';
-    pagination.movePageTo(1);
+    setPagination('videos', totalPages);
 
     console.log('res', page, results, totalPages, totalResults);
 

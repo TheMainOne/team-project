@@ -45,10 +45,18 @@
     flex-grow: 1;
 
     &-text {
+      display: flex;
+      align-items: center;
       font-size: 30px;
       font-weight: 500;
       line-height: 1.17;
       cursor: pointer;
+    }
+
+    &-image {
+      width: 24px;
+      height: 24px;
+      margin-right: 10px;
     }
   }
 
