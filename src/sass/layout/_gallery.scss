@@ -12,11 +12,12 @@
   gap: 20px;
   display: grid;
 
-  margin: 0 auto;
+  margin: 0 auto 40px;
   list-style: none;
 
   @media screen and (min-width: $tablet) {
     gap: 30px;
+    margin-bottom: 50px;
     grid-template-columns: repeat(2, minmax(294px, 1fr));
   }
 

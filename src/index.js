@@ -1,10 +1,10 @@
-import './sass/main.scss';
+import initPagination from './js/pagination';
 
+import './sass/main.scss';
 import './js/header';
 import './js/modal-window';
 import debounce from 'lodash/debounce';
 import { Notify } from 'notiflix';
-import initPagination from './js/pagination';
 
 import videoAPI from './js/api-service';
 import galleryCardTemplate from './js/gallery-card-template';
@@ -17,7 +17,10 @@ const DEBOUNCE_OPTIONS = { leading: true, trailing: false };
 
 const videoapi = new videoAPI();
 
+export { videoapi };
+
 const refs = getRefs();
+let pagination = null;
 
 const renderGallery = async results => {
   try {
@@ -30,6 +33,8 @@ const renderGallery = async results => {
     error(err);
   }
 };
+
+export { renderGallery };
 
 const notifyStatus = (videosCount, page, totalResults) => {
   if (videosCount < 1) {
@@ -53,19 +58,18 @@ const initGallery = async () => {
       total_results: totalResults,
     } = await videoapi.getTrendingVideos();
 
+    // console.log(pagination);
     // console.log('res', page, results, totalPages, totalResults);
 
     if (notifyStatus(results.length, page, totalResults)) return;
 
     await renderGallery(results);
 
-    const pagination = await initPagination({
+    pagination = await initPagination({
       page,
       itemsPerPage: results.length,
       totalItems: totalResults,
     });
-
-    pagination.on('afterMove', ({ page }) => log(page));
   } catch (err) {
     error(err);
   }
@@ -93,7 +97,11 @@ const onSubmit = async e => {
       total_results: totalResults,
     } = await videoapi.getVideos();
 
-    // console.log('res', page, results, totalPages, totalResults);
+    pagination.reset(totalPages);
+    videoapi.type = 'videos';
+    pagination.movePageTo(1);
+
+    console.log('res', page, results, totalPages, totalResults);
 
     if (notifyStatus(results.length, page, totalResults)) return;
 
