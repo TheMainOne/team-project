@@ -1,4 +1,5 @@
 import getHeaderRefs from './getHearedRefs';
+import '../images/optimsprite.svg';
 
 const refs = getHeaderRefs();
 
@@ -66,7 +67,7 @@ function setHomeBackground() {
 // Функции подмены разметки поиска и кнопок библиотерки
 function renderSearchForm() {
   refs.headerControlBox.innerHTML =
-    '<form class="header__search" id="search-form" data-action="js-form"><input class="input" type="text" name="searchQuery" autocomplete="off" placeholder="Поиск фильмов" /><button class="search-button" type="submit"  data-action="search"></button></form>';
+    '<form class="header__search" id="search-form" data-action="js-form"><input class="input" type="text" name="searchQuery" autocomplete="off" placeholder="Поиск фильмов" /><button class="search-button" type="submit" data-action="search"><svg class="icon" width="12" height="12"><use href="./images/optimsprite.svg#icon-search"></use></svg></button></form>';
 }
 
 function renderLibraryButtons() {
