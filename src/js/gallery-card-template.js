@@ -35,8 +35,7 @@ const galleryCardTemplate = async ({
 
   let genresJoined = '';
 
-  const getGenreName = async id =>
-    await (await genresParsed).find(genre => genre.id === id).name;
+  const getGenreName = async id => await (await genresParsed).find(genre => genre.id === id).name;
 
   if (genreIds?.length > 0 && genreIds.length < 3) {
     genresJoined = await Promise.all(genreIds.map(getGenreName));
