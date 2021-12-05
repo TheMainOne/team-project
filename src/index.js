@@ -1,5 +1,6 @@
 import './sass/main.scss';
 
+import './js/change-theme';
 import './js/header';
 import debounce from 'lodash/debounce';
 import { Notify } from 'notiflix';
