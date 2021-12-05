@@ -57,3 +57,46 @@
 .tui-pagination .tui-ico-ellip {
   margin-top: 0px;
 }
+
+.tui-page-btn .tui-first {
+  display: none;
+}
+
+.tui-page-btn .tui-is-disabled .tui-first {
+  display: none;
+  visibility: hidden;
+}
+
+.tui-page-btn .tui-is-disabled .tui-last {
+  display: none;
+  visibility: hidden;
+}
+
+a.tui-page-btn:nth-child(1) {
+  display: none;
+  visibility: hidden;
+}
+
+span.tui-page-btn:nth-child(1) {
+  display: none;
+  visibility: hidden;
+}
+
+a.tui-page-btn:nth-child(11) {
+  display: none;
+  visibility: hidden;
+}
+
+span.tui-page-btn:nth-child(10) {
+  display: none;
+  visibility: hidden;
+}
+
+.tui-ico-last {
+  display: none;
+}
+
+html body main section.section.gallery div.container div#pagination.tui-pagination a.tui-page-btn.tui-last {
+  display: none;
+  visibility: hidden;
+}
