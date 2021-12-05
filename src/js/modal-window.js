@@ -42,7 +42,7 @@ function onCloseModal() {
 
 function contentModal() {
     const tingleModal = document.querySelector(".tingle-modal");
-    tingleModal.style.cursor = "none";
+    tingleModal.style.cursor = "default";
 
  return `
 <div class="modal-window">
