@@ -9,6 +9,7 @@ import { Notify } from 'notiflix';
 import videoAPI from './js/api-service';
 import galleryCardTemplate from './js/gallery-card-template';
 import getRefs from './js/refs';
+import Preloader from './js/preloader';
 const { info, failure, success } = Notify;
 const { log, error } = console;
 
@@ -16,6 +17,8 @@ const DEBOUNCE_DELAY = 300;
 const DEBOUNCE_OPTIONS = { leading: true, trailing: false };
 
 const videoapi = new videoAPI();
+
+const preloader = new Preloader({ selector: '.preloader' });
 
 export { videoapi };
 
@@ -53,7 +56,7 @@ const initGallery = async () => {
     /* page: 1, results: Array(20), total_pages: 1000, total_results: 20000 */
     const {
       page,
-      results,
+      results,  
       total_pages: totalPages,
       total_results: totalResults,
     } = await videoapi.getTrendingVideos();
@@ -62,7 +65,6 @@ const initGallery = async () => {
     // console.log('res', page, results, totalPages, totalResults);
 
     if (notifyStatus(results.length, page, totalResults)) return;
-
     await renderGallery(results);
 
     pagination = await initPagination({
@@ -78,12 +80,14 @@ const initGallery = async () => {
 initGallery();
 
 const onSubmit = async e => {
+  preloader.show();
   e.preventDefault();
 
   try {
     const search = e.target.elements.searchQuery.value.trim();
 
     if (search.length === 0) {
+      preloader.hide();
       return info('Please, enter search query.');
     }
 
@@ -96,6 +100,7 @@ const onSubmit = async e => {
       total_pages: totalPages,
       total_results: totalResults,
     } = await videoapi.getVideos();
+    preloader.hide();
 
     pagination.reset(totalPages);
     videoapi.type = 'videos';

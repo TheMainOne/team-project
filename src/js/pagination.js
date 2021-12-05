@@ -48,14 +48,17 @@ const initPagination = async ({ page, itemsPerPage, totalItems }) => {
     videoapi.page = page;
 
     if (videoapi.type === 'trendingVideos') {
+      
       const { results } = await videoapi.getTrendingVideos();
       renderGallery(results);
     } else if (videoapi.type === 'videos') {
+     
       const { results } = await videoapi.getVideos();
       renderGallery(results);
     }
   });
   log('pagination', pagination);
+
 
   return pagination;
 };
