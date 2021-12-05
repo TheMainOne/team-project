@@ -12,7 +12,6 @@
   color: $secondary-text-color;
 
   &__container {
-    width: 280px;
     padding: 48px 20px 41px 20px;
 
     &--left-side {
@@ -184,9 +183,28 @@
     }
   }
 }
-
-.test {
+// ===================BUTTON CLOSE =====================//
+.btnClose {
+  position: absolute;
+  top: 10px;
+  right: 10px;
   width: 30px;
   height: 30px;
-  background-color: salmon;
+}
+// ======================STYLE TINGLE.JS==================//
+.custom-class-1 .tingle-modal-box__content {
+  padding: 0;
+}
+
+.custom-class-1 .tingle-modal-box {
+  width: 85%;
+  margin: auto;
+
+  @media screen and (min-width: $tablet) {
+    width: 618px;
+  }
+
+  @media screen and (min-width: $desktop) {
+    width: 882px;
+  }
 }

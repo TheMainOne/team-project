@@ -1,23 +1,28 @@
-import './sass/main.scss';
-
-import './js/change-theme';
-import './js/header';
-import debounce from 'lodash/debounce';
-import { Notify } from 'notiflix';
 import initPagination from './js/pagination';
 
+// import './js/change-theme';
+import './sass/main.scss';
+import './js/header';
+import './js/modal-window';
+import debounce from 'lodash/debounce';
+import { Notify } from 'notiflix';
 import videoAPI from './js/api-service';
 import galleryCardTemplate from './js/gallery-card-template';
 import getRefs from './js/refs';
+import { scrollFunction, backToTop } from './js/back-to-top-btn';
 const { info, failure, success } = Notify;
 const { log, error } = console;
 
 const DEBOUNCE_DELAY = 300;
 const DEBOUNCE_OPTIONS = { leading: true, trailing: false };
+const mybutton = document.querySelector(".btn-back-to-top");
 
 const videoapi = new videoAPI();
 
+export { videoapi };
+
 const refs = getRefs();
+let pagination = null;
 
 const renderGallery = async results => {
   try {
@@ -30,6 +35,8 @@ const renderGallery = async results => {
     error(err);
   }
 };
+
+export { renderGallery };
 
 const notifyStatus = (videosCount, page, totalResults) => {
   if (videosCount < 1) {
@@ -53,25 +60,30 @@ const initGallery = async () => {
       total_results: totalResults,
     } = await videoapi.getTrendingVideos();
 
+    // console.log(pagination);
     // console.log('res', page, results, totalPages, totalResults);
 
     if (notifyStatus(results.length, page, totalResults)) return;
 
     await renderGallery(results);
 
-    const pagination = await initPagination({
+    pagination = await initPagination({
       page,
       itemsPerPage: results.length,
       totalItems: totalResults,
     });
-
-    pagination.on('afterMove', ({ page }) => log(page));
   } catch (err) {
     error(err);
   }
 };
 
 initGallery();
+
+const setPagination = (type, totalPages) => {
+  pagination.reset(totalPages);
+  videoapi.type = type;
+  pagination.movePageTo(1);
+};
 
 const onSubmit = async e => {
   e.preventDefault();
@@ -93,7 +105,9 @@ const onSubmit = async e => {
       total_results: totalResults,
     } = await videoapi.getVideos();
 
-    // console.log('res', page, results, totalPages, totalResults);
+    setPagination('videos', totalPages);
+
+    console.log('res', page, results, totalPages, totalResults);
 
     if (notifyStatus(results.length, page, totalResults)) return;
 
@@ -108,3 +122,9 @@ const initListeners = () => {
 };
 
 initListeners();
+
+// ====== функционал отвечающий за кнопку и прокрутку в вверх страницы =======
+mybutton.addEventListener("click", backToTop);
+window.onscroll = function (mybutton) {
+  scrollFunction(mybutton);
+};
