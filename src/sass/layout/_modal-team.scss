@@ -55,7 +55,9 @@
   }
 
   @media screen and (min-width: $desktop) {
-    width: 600px;
+    width: 700px;
+    height: 500px;
+    padding-bottom: 20px;
   }
 }
 .team__lead {
@@ -73,7 +75,7 @@
   flex-direction: column;
   align-items: center;
 
-  margin: 10px 30px;
+  margin: 10px 10px;
 
   width: calc((100% - 80px) / 1);
 
@@ -146,10 +148,10 @@
   width: calc(100% / 1);
   @media screen and (min-width: $tablet) and (max-width: ($tablet - 1)) {
     margin-bottom: 30px;
-    margin-top: 30px;
+    margin-top: 20px;
   }
   @media screen and (min-width: $desktop) {
-    margin-top: 30px;
+    margin-top: 20px;
     margin-bottom: 10px;
   }
 }
