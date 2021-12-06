@@ -2,6 +2,7 @@
   position: fixed;
   display: flex;
   justify-content: center;
+  align-items: center;
   top: 0;
   left: 0;
   padding-top: 20px;
@@ -56,8 +57,8 @@
 
   @media screen and (min-width: $desktop) {
     width: 700px;
-    height: 500px;
-    padding-bottom: 20px;
+    height: 700px;
+    padding: 25px;
   }
 }
 .team__lead {
