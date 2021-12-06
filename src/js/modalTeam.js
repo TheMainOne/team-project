@@ -20,10 +20,10 @@ const markup = `<ul class="team__wrapper">
 <img class="logo" src="https://goit.ua/wp-content/themes/2/images/Layer.png" alt="GoIt" loading="lazy" width="274" height="398">
 </a>
 </div>
-<li class="team__lead list">
+<li class="team__card list">
 <img src="${Max}" alt="Max" class="team__image">
     <p class="team__name">Max</p>
-    <p class="team__role">Team Lead / Developer </p>
+    <p class="team__role">Team Lead </p>
     <ul class="team__social">
  <li class="team__icon list"><a class="team__git" href="https://github.com/TheMainOne" target="_blank"><svg
                          type="image/svg+xml" class="logo__icon" width="16" height="16" style="fill: black">
