@@ -70,7 +70,7 @@ function setHomeBackground() {
 // Функции подмены разметки поиска и кнопок библиотерки
 function renderSearchForm() {
   refs.headerControlBox.innerHTML =
-    '<form class="header__search" id="search-form" data-action="js-form"><input class="input" type="text" name="searchQuery" autocomplete="off" placeholder="Поиск фильмов" /><button class="search-button" type="submit" data-action="search"><svg class="search-icon" data-action="search"><use href="./optimsprite.svg#icon-search" data-action="search"></use></svg></button></form>';
+    '<form class="header__search" id="search-form" data-action="js-form"><input class="input" type="text" name="searchQuery" autocomplete="off" placeholder="Поиск фильмов" /><button class="search-button" type="submit" data-action="search"><svg class="search-icon" data-action="search"><use href="/images/svg/optimsprite.svg#icon-search" data-action="search"></use></svg></button></form>';
 }
 
 function renderLibraryButtons() {
