@@ -1,5 +1,4 @@
 import videoAPI from './api-service';
-import storage from './storage';
 
 const { log, error } = console;
 const desktop = () => window.matchMedia('(min-width: 1024px)').matches;
@@ -35,7 +34,8 @@ const galleryCardTemplate = async ({
 
   let genresJoined = '';
 
-  const getGenreName = async id => await (await genresParsed).find(genre => genre.id === id).name;
+  const getGenreName = async id =>
+    await (await genresParsed).find(genre => genre.id === id).name;
 
   if (genreIds?.length > 0 && genreIds.length < 3) {
     genresJoined = await Promise.all(genreIds.map(getGenreName));
@@ -64,7 +64,7 @@ const galleryCardTemplate = async ({
 
   return `
 <li class="gallery__item">
-  <div class="card">
+  <a href="#" class="card">
     <div class="card__thumb">
       <picture>
         <source
@@ -90,7 +90,7 @@ const galleryCardTemplate = async ({
         <span class="card__release-date">${releaseYear}</span>
       </p>
     </div>
-  </div>
+  </a>
 </li>
 `;
 };

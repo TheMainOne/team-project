@@ -31,11 +31,26 @@
   width: 100%;
 }
 
-// .card { }
+.card {
+  transition: var(--time) var(--cubic);
+  transition-property: transform, box-shadow;
+
+  &:focus-within,
+  &:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 10px 2px rgba(#000000, 0.21);
+  }
+  border-radius: 5px;
+  background-color: white;
+}
 
 .card__thumb {
   margin: 0 auto 10px;
   border-radius: 5px;
+}
+
+.card__meta {
+  padding: 0 5px;
 }
 
 .card__poster {

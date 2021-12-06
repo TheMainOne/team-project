@@ -1,50 +1,54 @@
 import getRefs from './refs';
-import tingle from "tingle.js";
-import 'tingle.js/src/tingle.css'
+import tingle from 'tingle.js';
+import 'tingle.js/src/tingle.css';
+import { load } from './storage';
+import { videoapi } from '../index';
 
 const refs = getRefs();
 
 var modal = new tingle.modal({
-        footer: false,
-    stickyFooter: false,
-    closeMethods: ['overlay', 'escape'],
-    closeLabel: "Close",
-    cssClass: ['custom-class-1','custom-class-2'],
-    onOpen: function() {
-        console.log('modal open');
-    },
-    onClose: function() {
-        console.log('modal closed');
-    },
-    beforeClose: function () {
-        // here's goes some logic
-        // e.g. save content before closing the modal
-        return true; // close the modal
-        return false;
-    }
+  footer: false,
+  stickyFooter: false,
+  closeMethods: ['overlay', 'escape'],
+  closeLabel: 'Close',
+  cssClass: ['custom-class-1', 'custom-class-2'],
+  onOpen: function () {
+    console.log('modal open');
+  },
+  onClose: function () {
+    console.log('modal closed');
+  },
+  beforeClose: function () {
+    // here's goes some logic
+    // e.g. save content before closing the modal
+    return true; // close the modal
+    return false;
+  },
 });
-        
-refs.gallery.addEventListener("click", (event) => {
-    if (event.target.nodeName !== "IMG") {
-        return
-    }
-    modal.setContent(contentModal());
-    modal.open();
-    onCloseModal();
-})
+
+refs.gallery.addEventListener('click', event => {
+  if (event.target.nodeName !== 'IMG') {
+    return;
+  }
+  modal.setContent(contentModal());
+  modal.open();
+  onCloseModal();
+});
 
 function onCloseModal() {
-    const btnClose = document.querySelector(".btnClose");
-    btnClose.addEventListener("click", () => {
-        modal.close();
-})
+  const btnClose = document.querySelector('.btnClose');
+  btnClose.addEventListener('click', () => {
+    modal.close();
+  });
 }
 
 function contentModal() {
-    const tingleModal = document.querySelector(".tingle-modal");
-    tingleModal.style.cursor = "default";
+  const tingleModal = document.querySelector('.tingle-modal');
+  tingleModal.style.cursor = 'default';
 
- return `
+  const key = videoapi.checkType();
+
+  return `
 <div class="modal-window">
     <div class="movie movie__container">
     <button class="btnClose">
@@ -65,8 +69,8 @@ function contentModal() {
         <tr class="movie__info-rows">
             <td class="movie__info-name">Vote / Votes</td>
             <td class="movie__info-rating">
-                <span class="movie__info-rating-value movie__info-rating--accent">7.3 </span>  
-                <span class="movie__info-rating-slash">/</span>  
+                <span class="movie__info-rating-value movie__info-rating--accent">7.3 </span>
+                <span class="movie__info-rating-slash">/</span>
                 <span class="movie__info-rating-value">1260</span>
             </td>
         </tr>
@@ -100,5 +104,5 @@ function contentModal() {
 
 </div>
 </div>
-</div>`  
+</div>`;
 }

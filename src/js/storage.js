@@ -1,5 +1,3 @@
-const GENRES_KEY = 'filmoteka_genres';
-
 const save = (key, obj) => {
   try {
     localStorage.setItem(key, JSON.stringify(obj));
@@ -17,4 +15,4 @@ const load = key => {
   }
 };
 
-export default { save, load, GENRES_KEY };
+export { save, load };
