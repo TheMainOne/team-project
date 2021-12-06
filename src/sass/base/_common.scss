@@ -2,6 +2,14 @@ html {
   box-sizing: border-box;
 }
 
+body {
+  font-family: $main-font;
+  font-size: 14px;
+  letter-spacing: 0.03em;
+  background-color: $main-text-color;
+  color: $secondary-text-color;
+}
+
 h1,
 h2,
 h3,
@@ -22,8 +30,14 @@ ol {
 
 img {
   display: block;
-  max-width: 100%;
+  width: 100%;
   height: auto;
+}
+
+table,
+th,
+td {
+  border-collapse: collapse;
 }
 
 a {
@@ -35,4 +49,9 @@ li {
   list-style: none;
   padding: 0;
   margin: 0;
+}
+
+body {
+  font-family: $main-font;
+  font-style: normal;
 }

@@ -1,4 +1,103 @@
+.gallery {
+  padding: 20px 0;
+
+  @media screen and (min-width: $desktop) {
+    padding: 60px 0;
+  }
+}
+
 .gallery__list {
-  display: flex;
-  flex-wrap: wrap;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  gap: 20px;
+  display: grid;
+
+  margin: 0 auto 40px;
+  list-style: none;
+
+  @media screen and (min-width: $tablet) {
+    gap: 30px;
+    margin-bottom: 50px;
+    grid-template-columns: repeat(2, minmax(294px, 1fr));
+  }
+
+  @media screen and (min-width: $desktop) {
+    max-width: $desktop - 2 * 71px;
+    grid-template-columns: repeat(3, minmax(274px, 1fr));
+  }
+}
+
+.gallery__item {
+  width: 100%;
+}
+
+.card {
+  display: block;
+
+  transition: var(--time) var(--cubic);
+  transition-property: transform, box-shadow;
+
+  border-radius: 5px;
+  background-color: white;
+
+  &:focus-within,
+  &:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 10px 2px rgba(#000000, 0.21);
+  }
+}
+
+.card__thumb {
+  margin: 0 auto 10px;
+  border-radius: 5px;
+}
+
+.card__meta {
+  padding: 0 5px;
+}
+
+.card__poster {
+  margin: 0 auto;
+  border-radius: 5px;
+  width: 100%;
+  height: auto;
+  display: block;
+  max-height: 398px;
+
+  @media screen and (min-width: $tablet) {
+    min-width: 294px;
+  }
+
+  @media screen and (min-width: $desktop) {
+    min-width: 274px;
+  }
+}
+
+.card__title,
+.card__genres,
+.card__release-date {
+  font-family: var(--main-font);
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.33;
+}
+
+.card__title {
+  text-transform: uppercase;
+  color: var(--secondary-text-color);
+}
+
+// .card__genres {}
+
+.card__description {
+  margin: 0;
+  color: var(--accent-color);
+}
+
+.card__release-date {
+  margin-left: 1px;
+  padding-left: 5px;
+
+  border-left: 1px solid var(--accent-color);
 }

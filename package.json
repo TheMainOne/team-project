@@ -21,12 +21,16 @@
   "devDependencies": {
     "browserslist": "^4.18.1",
     "caniuse-lite": "^1.0.30001283",
+    "i": "^0.3.7",
+    "npm": "^8.2.0",
     "parcel-bundler": "^1.12.5",
     "parcel-plugin-custom-dist-structure": "^1.1.18",
     "parcel-plugin-handlebars-precompile": "^1.0.2",
     "parcel-plugin-nuke-dist": "^1.0.1",
+    "parcel-plugin-static-files-copy": "^2.6.0",
     "posthtml-include": "^1.6.2",
-    "sass": "^1.32.8"
+    "sass": "^1.32.8",
+    "tui-pagination": "^3.4.1"
   },
   "customDistStructure": {
     "config": {
@@ -57,9 +61,20 @@
       "development": true
     }
   },
+  "staticFiles": {
+    "staticPath": [
+      {
+        "staticPath": "static",
+        "staticOutDir": "images/svg"
+      }
+    ]
+  },
   "dependencies": {
     "axios": "^0.24.0",
     "basiclightbox": "^5.0.4",
     "simplelightbox": "^2.10.1"
+    "notiflix": "^3.2.2",
+    "tingle.js": "^0.16.0",
+    "tui-pagination": "^3.4.1"
   }
 }

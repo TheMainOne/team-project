@@ -1,0 +1,95 @@
+.tui-pagination .tui-is-selected,
+.tui-pagination strong {
+  color: #fff;
+  background: var(--accent-color);
+  border-color: var(--accent-color);
+  cursor: default;
+}
+
+#pagination {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-bottom: 10px;
+}
+
+.tui-pagination .tui-is-selected:hover {
+  background-color: var(--accent-color);
+}
+
+.tui-pagination .tui-first-child.tui-is-selected,
+.tui-pagination strong.tui-first-child {
+  margin-left: 0
+}
+
+.tui-pagination .tui-first-child.tui-is-selected {
+  border-left: 1px solid var(--accent-color)
+}
+
+.tui-pagination .tui-last-child.tui-is-selected {
+  border-right: 1px solid var(--accent-color)
+}
+
+.tui-pagination .tui-first,
+.tui-pagination .tui-last,
+.tui-pagination .tui-next,
+.tui-pagination .tui-next-is-ellip,
+.tui-pagination .tui-prev,
+.tui-pagination .tui-prev-is-ellip {
+  border: none;
+}
+
+.tui-pagination .tui-page-btn {
+  border: none;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  font-family: var(--main-font);
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.tui-pagination .tui-ico-ellip {
+  margin-top: 0px;
+}
+
+.tui-page-btn .tui-first {
+  display: none;
+}
+
+.tui-page-btn .tui-is-disabled .tui-first {
+  display: none;
+}
+
+.tui-page-btn .tui-is-disabled .tui-last {
+  display: none;
+}
+
+a.tui-page-btn:nth-child(1) {
+  display: none;
+}
+
+span.tui-page-btn:nth-child(1) {
+  display: none;
+}
+
+a.tui-page-btn:nth-child(11) {
+  display: none;
+}
+
+span.tui-page-btn:nth-child(10) {
+  display: none;
+}
+
+.tui-ico-last {
+  display: none;
+}
+
+div#pagination.tui-pagination a.tui-page-btn.tui-last {
+  display: none;
+}
