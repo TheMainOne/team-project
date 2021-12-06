@@ -1,6 +1,7 @@
 import getHeaderRefs from './getHearedRefs';
-import icon from '../images/optimsprite.svg';
-console.log(icon);
+
+import '../images/optimsprite.svg';
+import { videoapi } from './api-service';
 
 const refs = getHeaderRefs();
 
@@ -14,6 +15,9 @@ function onTopNavBtnClick(e) {
   const nextButton = e.target;
   const hasDataAttr = nextButton.dataset.action;
   if (!hasDataAttr) return;
+
+  videoapi.currentPage = hasDataAttr;
+  console.log('onTopNavBtnClick ~ videoapi.currentPage', videoapi.currentPage);
 
   const prevButton = refs.navbar.querySelector('.is-active');
 
@@ -48,6 +52,9 @@ function onLibraryButtonClick(e) {
   const hasDataAttr = nextButton.dataset.action;
 
   if (!hasDataAttr) return;
+
+  videoapi.type = hasDataAttr;
+  console.log('onLibraryButtonClick ~ videoapi.type', videoapi.type);
 
   const prevButton = refs.headerControlBox.querySelector('.is-active');
   if (prevButton) {

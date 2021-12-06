@@ -29,40 +29,47 @@
 
 .gallery__item {
   width: 100%;
+  border-radius: 5px;
 }
 
 .card {
+  display: flex;
+  flex-direction: column;
+
   transition: var(--time) var(--cubic);
   transition-property: transform, box-shadow;
 
   border-radius: 5px;
-  background-color: white;
+
+  // background-color: var(--main-text-color);
 
   &:focus-within,
   &:hover {
-    transform: scale(1.02);
-    box-shadow: 0 0 10px 2px rgba(#000000, 0.21);
+    transform: scale(1.04);
+    box-shadow: var(--card-shadow);
   }
 }
 
 .card__thumb {
   margin: 0 auto 10px;
+  background-color: #efececeb;
   border-radius: 5px;
 }
 
 .card__meta {
-  padding: 0 5px 5px;
+  contain: content;
   max-width: 100%;
   max-height: 3rem;
-  contain: content;
+  padding: 0 5px 5px;
+  white-space: nowrap;
 }
 
 .card__poster {
+  display: block;
+  width: 100%;
+  height: 398px;
   margin: 0 auto;
   border-radius: 5px;
-  width: 100%;
-  display: block;
-  height: 398px;
 
   @media screen and (min-width: $tablet) {
     min-width: 294px;
@@ -77,17 +84,18 @@
 .card__genres,
 .card__release-date {
   font-family: var(--main-font);
+  font-size: 12px;
   font-style: normal;
   font-weight: 500;
-  font-size: 12px;
   line-height: 1.33;
   word-wrap: break-word;
 }
 
 .card__title {
-  text-transform: uppercase;
+  contain: content;
   max-height: 2rem;
   color: var(--secondary-text-color);
+  text-transform: uppercase;
 }
 
 // .card__genres {}
@@ -98,8 +106,15 @@
 }
 
 .card__release-date {
-  margin-left: 1px;
   padding-left: 5px;
-
+  margin: 0 10px 0 1px;
+  margin-left: 1px;
   border-left: 1px solid var(--accent-color);
+}
+
+.card__vote {
+  padding: 1px 10px;
+  color: var(--main-text-color);
+  background-color: var(--accent-color);
+  border-radius: 5px;
 }
