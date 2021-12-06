@@ -7,16 +7,39 @@ const secureBaseUrl = 'https://image.tmdb.org/t/p/';
 // poster_sizes: (7) ['w92', 'w154', 'w185', 'w342', 'w500', 'w780', 'original']
 const size = desktop() ? 'w500' : 'w342';
 
+// const getImageUrl = posterPath => {
+//   const PLACEHOLDER = './images/svg/placeholder.svg';
+
+//   let poster = PLACEHOLDER;
+//   if (posterPath && posterPath !== '') {
+//     poster = `${secureBaseUrl}${size}${posterPath}`;
+//   }
+
+//   return poster;
+// };
+
+
 const getImageUrl = posterPath => {
-  const PLACEHOLDER = './images/svg/placeholder.svg';
+  if (posterPath && posterPath !== '') {
+   return `${secureBaseUrl}${size}${posterPath}`;
+  }
+ };
+
+
+const getPoster = posterUrl => {
+    const PLACEHOLDER = './images/svg/placeholder.svg';
 
   let poster = PLACEHOLDER;
-  if (posterPath && posterPath !== '') {
-    poster = `${secureBaseUrl}${size}${posterPath}`;
-  }
-
+  if (posterUrl) {
+   poster = posterUrl
+ }
   return poster;
-};
+}
+
+
+
+
+
 export { getImageUrl };
 
 const initGenres = async () => {
@@ -65,7 +88,9 @@ const galleryCardTemplate = async (
   /* example image: https://image.tmdb.org/t/p/w342/pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg */
   // poster_path: "/rjkmN1dniUHVYAtwuV3Tji7FsDO.jpg"
 
-  const poster = getImageUrl(posterPath);
+  const posterUrl = getImageUrl(posterPath);
+
+  const poster = getPoster(posterUrl)
 
   const genresJoined = await getGenres(genreIds);
 
