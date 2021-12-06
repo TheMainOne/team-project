@@ -8,6 +8,7 @@ import debounce from 'lodash/debounce';
 import { Notify } from 'notiflix';
 import videoAPI from './js/api-service';
 import galleryCardTemplate from './js/gallery-card-template';
+import './js/modalTeam';
 import getRefs from './js/refs';
 import { scrollFunction, backToTop } from './js/back-to-top-btn';
 const { info, failure, success } = Notify;
