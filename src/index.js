@@ -1,5 +1,6 @@
 import initPagination from './js/pagination';
 
+import './js/change-theme';
 import './sass/main.scss';
 import './js/header';
 import './js/modal-window';
