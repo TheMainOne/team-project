@@ -98,19 +98,22 @@
   &__navbar {
     display: flex;
     align-items: flex-end;
+    justify-content: space-between;
     margin-bottom: 37px;
   }
 
   &__logo {
-    flex-grow: 1;
-
+    display: flex;
+    align-items: center;
     &-text {
-      display: flex;
-      align-items: center;
-      font-size: 30px;
-      font-weight: 500;
-      line-height: 1.17;
-      cursor: pointer;
+      display: none;
+
+      @media (min-width: $tablet) {
+        display: inline-block;
+        font-size: 30px;
+        font-weight: 500;
+        line-height: 1.17;
+      }
     }
 
     &-image {
@@ -158,9 +161,13 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 336px;
+    width: 280px;
     text-align: center;
     border-bottom: 0.5px solid var(--main-text-color);
+
+    @media (min-width: $tablet) {
+      width: 336px;
+    }
 
     .input {
       width: 314px;
@@ -194,7 +201,7 @@
       }
 
       &:active {
-        border: 2px solid var(--accent-color);
+        border: 2px solid var(--main-text-color);
         box-shadow: 0px 8px 43px rgba(255, 107, 1, 0.6);
       }
 
