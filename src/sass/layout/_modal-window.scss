@@ -70,7 +70,7 @@
       align-items: center;
       justify-content: center;
 
-      background-color: main-bg-color;
+      background-color: $main-bg-color;
       color: $secondary-text-color;
       width: 36px;
       height: 16px;
@@ -183,17 +183,16 @@
     }
   }
 }
-// ===================BUTTON CLOSE =====================//
-.btnClose {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 30px;
-  height: 30px;
-}
+
 // ======================STYLE TINGLE.JS==================//
 .custom-class-1 .tingle-modal-box__content {
   padding: 0;
+}
+
+.tingle-modal.custom-class-1 {
+  cursor: none;
+  backdrop-filter: blur(1px);
+  background: rgb(0 0 0 / 25%);
 }
 
 .custom-class-1 .tingle-modal-box {
