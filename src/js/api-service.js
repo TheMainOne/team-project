@@ -42,6 +42,7 @@ class videoAPI {
     const { keys, media, language, fetchData } = this;
 
     const savedGenres = load(keys.GENRES);
+
     if (savedGenres) return savedGenres;
 
     const genresURL = `${movieBaseURL}genre/${media}/list${api_key}&language=${language}`;
@@ -55,10 +56,7 @@ class videoAPI {
     // https://api.themoviedb.org/3/trending/movie/week?api_key=0bd610b1a3557ac4e7f9b5501edcfef4
     const { keys, period, page, media, fetchData } = this;
 
-    const key = `${keys[`TRENDING_${period.toUpperCase()}`]}-${page}`;
-
-    const savedTrending = load(key);
-    if (savedTrending) return savedTrending;
+    const key = `${keys[`TRENDING_${period.toUpperCase()}`]}`;
 
     const trendingVideosURL = `${movieBaseURL}trending/${media}/${period}${api_key}&page=${page}`;
     const trendingVideos = await fetchData(trendingVideosURL);
@@ -71,10 +69,7 @@ class videoAPI {
     // https://api.themoviedb.org/3/search/movie?api_key=<<api_key>>&language=en-US&page=1&include_adult=false
     const { keys, query, page, media, language, fetchData } = this;
 
-    const key = `${keys.MOVIES}-${query}-${page}`;
-
-    const savedSearchVideos = load(key);
-    if (savedSearchVideos) return savedSearchVideos;
+    const key = `${keys.MOVIES}-${query}`;
 
     const searchVideosURL = `${movieBaseURL}search/${media}${api_key}&query=${query}&${language}&page=${page}&include_adult=false}`;
     const searchedVideos = await fetchData(searchVideosURL);
@@ -89,15 +84,15 @@ class videoAPI {
     console.log('checkType ~ type', type);
 
     if (type === 'trendingVideosWeek') {
-      key = `${this.#keys.TRENDING_WEEK}-${page}`;
+      key = `${this.#keys.TRENDING_WEEK}`;
     }
 
     if (type === 'trendingVideosDay') {
-      key = `${this.#keys.TRENDING_DAY}-${page}`;
+      key = `${this.#keys.TRENDING_DAY}`;
     }
 
     if (type === 'videos') {
-      key = `${this.#keys.MOVIES}-${query}-${page}`;
+      key = `${this.#keys.MOVIES}-${query}`;
     }
 
     return key;
