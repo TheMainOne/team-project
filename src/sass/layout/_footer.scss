@@ -1,19 +1,19 @@
 .footer {
-    color: #545454;
-    background-color: #f7f7f7;
+    color: $footer-text-color;
+    background-color: $main-bg-color;
     text-align: center;
     padding-top: 30px;
     padding-bottom: 30px;
     font-size: 14px;
     line-height: 1.14;
   
-    @media screen and(min-width: 768px) {
+    @media screen and(min-width:$second-bp) {
       font-size: 16px;
       line-height: 1.19;
     }
   }
   .footer__container {
-    @media screen and(min-width: 768px) {
+    @media screen and(min-width: $second-bp) {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -22,10 +22,10 @@
   .footer__icon {
     margin-right: 10px;
     margin-left: 10px;
-    fill: #ff6b08;;
+    fill: var(--accent-color);
   }
   .footer__copyright {
-    @media screen and(max-width: 767px) {
+    @media screen and(max-width: $second-bp) {
       margin-bottom: 10px;
     }
   }
@@ -33,16 +33,16 @@
     display: inline-flex;
     align-items: center;
   
-    @media screen and(min-width: 768px) {
+    @media screen and(min-width: $second-bp) {
       margin-left: 4px;
-    }
+      }
   }
-  .footer__link {
+  .team__modal {
     color: inherit;
-    // transition: color 250ms $cubic, transform 250ms $cubic;
+    transition: color 250ms var(--cubic), transform 250ms var(--cubic);
   
     &:hover {
-      color:  #ff6b08;
+      color: var(--accent-color);
       transform: scale(1.1);
     }
   }

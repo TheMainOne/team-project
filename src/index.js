@@ -1,6 +1,8 @@
 import './sass/main.scss';
 import galleryCardTemplate from './js/gallery-card-template';
 import axios from 'axios';
+import './js/modalTeam';
+
 const { log, error } = console;
 const KEY = '0bd610b1a3557ac4e7f9b5501edcfef4';
 const baseURL = 'https://api.themoviedb.org/3/';
