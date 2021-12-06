@@ -21,11 +21,14 @@ class videoAPI {
   #period = 'week';
   #language = 'en-US';
   #type = 'trendingVideosWeek';
+  #currentPage = '';
   #keys = {
     GENRES: 'filmoteka-genres',
     TRENDING_DAY: 'filmoteka-trending-day',
     TRENDING_WEEK: 'filmoteka-trending-week',
     MOVIES: 'filmoteka-movies',
+    WATCHED: 'filmoteka-watched',
+    QUEUE: 'filmoteka-queue',
   };
 
   async fetchData(dataURL = '') {
@@ -81,18 +84,17 @@ class videoAPI {
   checkType() {
     let key = null;
     const { type, query, page } = this;
-    console.log('checkType ~ type', type);
 
-    if (type === 'trendingVideosWeek') {
-      key = `${this.#keys.TRENDING_WEEK}`;
-    }
+    const types = {
+      trendingVideosWeek: `${this.#keys.TRENDING_WEEK}`,
+      trendingVideosDay: `${this.#keys.TRENDING_DAY}`,
+      videos: `${this.#keys.MOVIES}-${query}`,
+      watched: `${this.#keys.WATCHED}`,
+      queue: `${this.#keys.QUEUE}`,
+    };
 
-    if (type === 'trendingVideosDay') {
-      key = `${this.#keys.TRENDING_DAY}`;
-    }
-
-    if (type === 'videos') {
-      key = `${this.#keys.MOVIES}-${query}`;
+    if (Object.keys(types).includes(type)) {
+      key = types[type];
     }
 
     return key;
@@ -161,6 +163,17 @@ class videoAPI {
   set keys(newKeys) {
     this.#keys = newKeys;
   }
+
+  get currentPage() {
+    return this.#currentPage;
+  }
+
+  set currentPage(newCurrentPage) {
+    if (typeof newCurrentPage !== 'string') return;
+
+    this.#currentPage = newCurrentPage;
+  }
 }
 
-export default videoAPI;
+const videoapi = new videoAPI();
+export { videoapi };
