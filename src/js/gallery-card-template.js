@@ -1,5 +1,4 @@
 import videoAPI from './api-service';
-import storage from './storage';
 
 const { log, error } = console;
 const desktop = () => window.matchMedia('(min-width: 1024px)').matches;
@@ -7,6 +6,41 @@ const desktop = () => window.matchMedia('(min-width: 1024px)').matches;
 const secureBaseUrl = 'https://image.tmdb.org/t/p/';
 // poster_sizes: (7) ['w92', 'w154', 'w185', 'w342', 'w500', 'w780', 'original']
 const size = desktop() ? 'w500' : 'w342';
+
+// const getImageUrl = posterPath => {
+//   const PLACEHOLDER = './images/svg/placeholder.svg';
+
+//   let poster = PLACEHOLDER;
+//   if (posterPath && posterPath !== '') {
+//     poster = `${secureBaseUrl}${size}${posterPath}`;
+//   }
+
+//   return poster;
+// };
+
+
+const getImageUrl = posterPath => {
+  if (posterPath && posterPath !== '') {
+   return `${secureBaseUrl}${size}${posterPath}`;
+  }
+ };
+
+
+const getPoster = posterUrl => {
+    const PLACEHOLDER = './images/svg/placeholder.svg';
+
+  let poster = PLACEHOLDER;
+  if (posterUrl) {
+   poster = posterUrl
+ }
+  return poster;
+}
+
+
+
+
+
+export { getImageUrl };
 
 const initGenres = async () => {
   try {
@@ -21,22 +55,11 @@ const initGenres = async () => {
 
 const genresParsed = initGenres();
 
-const galleryCardTemplate = async ({
-  poster_path: posterPath,
-  genre_ids: genreIds = null,
-  genres = null,
-  release_date: releaseDate,
+const getGenreName = async id =>
+  await (await genresParsed).find(genre => genre.id === id).name;
 
-  title,
-}) => {
-  /* example image: https://image.tmdb.org/t/p/w342/pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg */
-  // poster_path: "/rjkmN1dniUHVYAtwuV3Tji7FsDO.jpg"
-  const poster = `${secureBaseUrl}${size}${posterPath}`;
-
+const getGenres = async genreIds => {
   let genresJoined = '';
-
-  const getGenreName = async id => await (await genresParsed).find(genre => genre.id === id).name;
-
   if (genreIds?.length > 0 && genreIds.length < 3) {
     genresJoined = await Promise.all(genreIds.map(getGenreName));
     genresJoined = genresJoined.join(', ');
@@ -47,6 +70,29 @@ const galleryCardTemplate = async ({
 
     genresJoined = `${genresIDS.join(', ')}, Other`;
   }
+  return genresJoined;
+};
+export { getGenres };
+
+const galleryCardTemplate = async (
+  {
+    poster_path: posterPath,
+    genre_ids: genreIds = [],
+    genres = null,
+    release_date: releaseDate,
+
+    title,
+  },
+  idx,
+) => {
+  /* example image: https://image.tmdb.org/t/p/w342/pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg */
+  // poster_path: "/rjkmN1dniUHVYAtwuV3Tji7FsDO.jpg"
+
+  const posterUrl = getImageUrl(posterPath);
+
+  const poster = getPoster(posterUrl)
+
+  const genresJoined = await getGenres(genreIds);
 
   // const genresObjLength = genres && Object.keys(genres)?.length;
   // if (genresObjLength > 0 && genresObjLength < 3)
@@ -63,8 +109,8 @@ const galleryCardTemplate = async ({
   const releaseYear = releaseDate.slice(0, 4);
 
   return `
-<li class="gallery__item">
-  <div class="card">
+<li class="gallery__item" data-idx=${idx}>
+  <a href="#" class="card">
     <div class="card__thumb">
       <picture>
         <source
@@ -90,7 +136,7 @@ const galleryCardTemplate = async ({
         <span class="card__release-date">${releaseYear}</span>
       </p>
     </div>
-  </div>
+  </a>
 </li>
 `;
 };
