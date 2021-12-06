@@ -15,9 +15,9 @@ body.dark-theme {
 // color: var(--third-text-color);
 // }
 .toolbar {
-  position: absolute;
-  top: 0;
-  right: 0;
+  // position: absolute;
+  // top: 0;
+  // right: 0;
   display: flex;
   justify-content: flex-end;
 }
@@ -26,15 +26,20 @@ body.dark-theme {
 .theme-switch {
   display: flex;
   align-items: center;
-  padding-top: 10px;
 }
 
 .theme-switch__icon {
   color: currentColor;
-  height: 24px;
-  width: 24px;
-  margin-right: 8px;
-  margin-left: 8px;
+  height: 14px;
+  width: 14px;
+
+  &--left {
+    margin-right: 8px;
+  }
+
+  &--right {
+    margin-left: 8px;
+  }
 }
 
 .theme-switch__control {
@@ -42,10 +47,15 @@ body.dark-theme {
   align-items: center;
   flex-shrink: 0;
   position: relative;
-  width: 64px;
-  height: 32px;
+  width: 32px;
+  height: 18px;
   border-radius: 50em;
   padding: 3px 0;
+
+  @media (min-width: $tablet) {
+    width: 40px;
+    height: 20px;
+  }
 }
 
 .theme-switch__toggle {
@@ -77,14 +87,18 @@ body.dark-theme {
 .theme-switch__marker {
   position: relative;
   background-color: var(--main-text-color);
-  width: 26px;
-  height: 26px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
   z-index: 2;
   pointer-events: none;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
-  transform: translateX(3px);
   transition: transform 250ms var(--cubic);
+
+  @media (min-width: $tablet) {
+    width: 20px;
+    height: 20px;
+  }
 }
 
 .theme-switch__toggle:checked + .theme-switch__track {
@@ -92,7 +106,10 @@ body.dark-theme {
 }
 
 .theme-switch__toggle:checked ~ .theme-switch__marker {
-  transform: translateX(35px);
+  transform: translateX(14px);
+  @media (min-width: $tablet) {
+    transform: translateX(20px);
+  }
 }
 
 .theme-switch__toggle:focus + .theme-switch__track,
