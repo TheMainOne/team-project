@@ -5,27 +5,87 @@
 
   &--home {
     background-image: linear-gradient(to right, var(--gradient-color), var(--gradient-color)),
-      url(../images/header/home/header-home-bg-1024.jpg);
+      url(../images/header/home/header-home-bg-320.jpg);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
 
     @media (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
       background-image: linear-gradient(to right, var(--gradient-color), var(--gradient-color)),
-        url(../images/header/home/header-home-bg-1024@2x.jpg);
+        url(../images/header/home/header-home-bg-320@2x.jpg);
+    }
+
+    @media (min-width: $tablet) {
+      background-image: linear-gradient(to right, var(--gradient-color), var(--gradient-color)),
+        url(../images/header/home/header-home-bg-768.jpg);
+
+      @media (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+        background-image: linear-gradient(to right, var(--gradient-color), var(--gradient-color)),
+          url(../images/header/home/header-home-bg-768@2x.jpg);
+      }
+    }
+
+    @media (min-width: $desktop) {
+      background-image: linear-gradient(to right, var(--gradient-color), var(--gradient-color)),
+        url(../images/header/home/header-home-bg-1024.jpg);
+
+      @media (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+        background-image: linear-gradient(to right, var(--gradient-color), var(--gradient-color)),
+          url(../images/header/home/header-home-bg-1024@2x.jpg);
+      }
+    }
+
+    @media (min-width: 1300px) {
+      background-image: linear-gradient(to right, var(--gradient-color), var(--gradient-color)),
+        url(../images/header/home/header-home-bg-big.jpg);
+
+      @media (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+        background-image: linear-gradient(to right, var(--gradient-color), var(--gradient-color)),
+          url(../images/header/home/header-home-bg-big@2x.jpg);
+      }
     }
   }
 
   &--library {
     background-image: linear-gradient(to right, var(--gradient-color), var(--gradient-color)),
-      url(../images/header/library/header-library-bg-1024.jpg);
+      url(../images/header/library/header-library-bg-320.jpg);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
 
     @media (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
       background-image: linear-gradient(to right, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
-        url(../images/header/library/header-library-bg-1024@2x.jpg);
+        url(../images/header/library/header-library-bg-320@2x.jpg);
+    }
+
+    @media (min-width: $tablet) {
+      background-image: linear-gradient(to right, var(--gradient-color), var(--gradient-color)),
+        url(../images/header/library/header-library-bg-768.jpg);
+
+      @media (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+        background-image: linear-gradient(to right, var(--gradient-color), var(--gradient-color)),
+          url(../images/header/library/header-library-bg-768@2x.jpg);
+      }
+    }
+
+    @media (min-width: $desktop) {
+      background-image: linear-gradient(to right, var(--gradient-color), var(--gradient-color)),
+        url(../images/header/library/header-library-bg-1024.jpg);
+
+      @media (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+        background-image: linear-gradient(to right, var(--gradient-color), var(--gradient-color)),
+          url(../images/header/library/header-library-bg-1024@2x.jpg);
+      }
+    }
+
+    @media (min-width: 1300px) {
+      background-image: linear-gradient(to right, var(--gradient-color), var(--gradient-color)),
+        url(../images/header/library/header-library-bg-big.jpg);
+
+      @media (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+        background-image: linear-gradient(to right, var(--gradient-color), var(--gradient-color)),
+          url(../images/header/library/header-library-bg-big@2x.jpg);
+      }
     }
   }
 
@@ -95,11 +155,17 @@
   }
 
   &__search {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 336px;
     text-align: center;
     border-bottom: 0.5px solid var(--main-text-color);
 
     .input {
-      width: 320px;
+      width: 314px;
+      margin-top: 4px;
+      margin-bottom: 4px;
       border: none;
       outline: none;
       background: transparent;
@@ -114,12 +180,28 @@
     }
 
     .search-button {
-      // Дописать стили, после добавления иконки из спрайта
-      // background-color: transparent;
-      // border: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2px;
+      background-color: transparent;
+      border: 2px solid transparent;
+      border-radius: 2px;
+      transition: all var(--cubic) var(--time);
+
+      &:hover {
+        border: 2px solid var(--accent-color);
+      }
+
+      &:active {
+        border: 2px solid var(--accent-color);
+        box-shadow: 0px 8px 43px rgba(255, 107, 1, 0.6);
+      }
 
       & .search-icon {
-        stroke: #fff;
+        width: 12px;
+        height: 12px;
+        cursor: pointer;
       }
     }
   }
@@ -148,8 +230,15 @@
     background-color: var(--accent-color);
   }
 
+  &:active {
+    border: 1px solid var(--accent-color);
+    background-color: var(--accent-color);
+    box-shadow: 0px 5px 5px 2px rgba(211, 90, 4, 0.6) inset;
+  }
+
   &.is-active {
     border: 1px solid var(--accent-color);
     background-color: var(--accent-color);
+    box-shadow: 0px 8px 43px rgba(255, 107, 1, 0.6);
   }
 }
