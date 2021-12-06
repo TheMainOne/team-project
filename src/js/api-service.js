@@ -85,18 +85,19 @@ class videoAPI {
 
   checkType() {
     let key = null;
-    const { type } = this;
+    const { type, query, page } = this;
+    console.log('checkType ~ type', type);
 
     if (type === 'trendingVideosWeek') {
-      key = this.#keys.TRENDING_WEEK;
+      key = `${this.#keys.TRENDING_WEEK}-${page}`;
     }
 
     if (type === 'trendingVideosDay') {
-      key = this.#keys.TRENDING_DAY;
+      key = `${this.#keys.TRENDING_DAY}-${page}`;
     }
 
     if (type === 'videos') {
-      key = this.#keys.MOVIES;
+      key = `${this.#keys.MOVIES}-${query}-${page}`;
     }
 
     return key;
