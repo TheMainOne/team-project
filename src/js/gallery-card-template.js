@@ -7,38 +7,21 @@ const secureBaseUrl = 'https://image.tmdb.org/t/p/';
 // poster_sizes: (7) ['w92', 'w154', 'w185', 'w342', 'w500', 'w780', 'original']
 const size = desktop() ? 'w500' : 'w342';
 
-// const getImageUrl = posterPath => {
-//   const PLACEHOLDER = './images/svg/placeholder.svg';
-
-//   let poster = PLACEHOLDER;
-//   if (posterPath && posterPath !== '') {
-//     poster = `${secureBaseUrl}${size}${posterPath}`;
-//   }
-
-//   return poster;
-// };
-
-
 const getImageUrl = posterPath => {
   if (posterPath && posterPath !== '') {
-   return `${secureBaseUrl}${size}${posterPath}`;
+    return `${secureBaseUrl}${size}${posterPath}`;
   }
- };
-
+};
 
 const getPoster = posterUrl => {
-    const PLACEHOLDER = './images/svg/placeholder.svg';
+  const PLACEHOLDER = './images/svg/placeholder.svg';
 
   let poster = PLACEHOLDER;
   if (posterUrl) {
-   poster = posterUrl
- }
+    poster = posterUrl;
+  }
   return poster;
-}
-
-
-
-
+};
 
 export { getImageUrl };
 
@@ -90,7 +73,7 @@ const galleryCardTemplate = async (
 
   const posterUrl = getImageUrl(posterPath);
 
-  const poster = getPoster(posterUrl)
+  const poster = getPoster(posterUrl);
 
   const genresJoined = await getGenres(genreIds);
 
