@@ -1,4 +1,4 @@
-import videoAPI from './api-service';
+import { videoapi } from './api-service';
 
 const { log, error } = console;
 const desktop = () => window.matchMedia('(min-width: 1024px)').matches;
@@ -27,7 +27,6 @@ export { getImageUrl };
 
 const initGenres = async () => {
   try {
-    const videoapi = new videoAPI();
     const genresParsed = await videoapi.getGenres();
 
     return genresParsed;
@@ -63,8 +62,8 @@ const galleryCardTemplate = async (
     genre_ids: genreIds = [],
     genres = null,
     release_date: releaseDate,
-
     title,
+    vote_average: voteAverage = '',
   },
   idx,
 ) => {
@@ -76,6 +75,11 @@ const galleryCardTemplate = async (
   const poster = getPoster(posterUrl);
 
   const genresJoined = await getGenres(genreIds);
+
+  const type = videoapi.checkType();
+  if (type !== 'watched' && type !== 'queue') {
+    voteAverage = '';
+  }
 
   // const genresObjLength = genres && Object.keys(genres)?.length;
   // if (genresObjLength > 0 && genresObjLength < 3)
@@ -117,6 +121,7 @@ const galleryCardTemplate = async (
       <p class="card__description">
         <span class="card__genres">${genresJoined}</span>
         <span class="card__release-date">${releaseYear}</span>
+       ${voteAverage ? `<span class="card__vote">${voteAverage}</span>` : ''}
       </p>
     </div>
   </a>
