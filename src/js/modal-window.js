@@ -47,7 +47,7 @@ async function contentModal(idx) {
       original_title: originalTitle,
       vote_average: voteAverage,
       vote_count: voteCount,
-    } = load(key)?.results[idx];
+    } = load(key).results[idx];
 
     const posterUrl = getImageUrl(posterPath);
     const genresJoined = await getGenres(genreIds);

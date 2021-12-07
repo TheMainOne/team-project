@@ -1,3 +1,15 @@
+import sprite from './images/svg/sprite.svg';
+export { sprite };
+// console.log('sprite', sprite);
+
+// prettier-ignore
+// const iconsArr = ['arrow-prev', 'heart', 'search', 'close', 'dots', 'film', 'placeholder', 'arrow-back-to-top', 'youtube', 'github', 'linkedin', 'moon', 'sun','arrow-next'];
+
+// const icons = iconsArr
+//   .map(icon => `<svg><use href="${sprite}#icon-${icon}"></use></svg>`)
+//   .join('');
+// document.body.insertAdjacentHTML('beforebegin', icons);
+
 import initPagination from './js/pagination';
 
 import './js/change-theme';
@@ -54,7 +66,7 @@ const initGallery = async () => {
     /* page: 1, results: Array(20), total_pages: 1000, total_results: 20000 */
     const {
       page,
-      results,  
+      results,
       total_pages: totalPages,
       total_results: totalResults,
     } = await videoapi.getTrendingVideos();
