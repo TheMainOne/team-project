@@ -107,6 +107,7 @@
   margin-right: 15px;
   border-color: $secondary-text-color;
   color: $secondary-text-color;
+  transform: scale(1);
 
   &.btn--accent {
     padding: 0 20px;
@@ -128,10 +129,9 @@
     background-color: #81818140;
   }
 
-  &:hover {
-    background-color: $accent-color;
-    color: #fff;
-    border: none;
+  &:hover,
+  &:focus {
+    transform: scale(1.06);
   }
 }
 
@@ -192,29 +192,5 @@
     &__about-text {
       max-height: 204px;
     }
-  }
-}
-
-// ======================STYLE TINGLE.JS==================//
-.custom-class-1 .tingle-modal-box__content {
-  padding: 0;
-}
-
-.tingle-modal.custom-class-1 {
-  cursor: default;
-  backdrop-filter: blur(1px);
-  background: rgb(0 0 0 / 25%);
-}
-
-.custom-class-1 .tingle-modal-box {
-  width: 85%;
-  margin: auto;
-
-  @media screen and (min-width: $tablet) {
-    width: 618px;
-  }
-
-  @media screen and (min-width: $desktop) {
-    width: 882px;
   }
 }
