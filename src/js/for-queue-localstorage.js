@@ -42,7 +42,7 @@ export async function removeFromQueue(refQueueBtn, ourFilm) {
   save(LOCAL_STORAGE_QUEUE, filmsOfQueue);
   
   refQueueBtn.dataset.action = 'add-to-queue';
-  refQueueBtn.innerHTML = "addtoqueue";
+  refQueueBtn.innerHTML = "add to queue";
 
   }
 

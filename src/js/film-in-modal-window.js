@@ -6,7 +6,8 @@ import { load } from './storage';
 import { getImageUrl, getGenres } from './gallery-card-template';
 import { createMarkup, createPoster } from './markup-of-modal';
 import * as queue from './for-queue-btn'
-import { searchFilmInQueue} from './for-queue-localstorage';
+import { searchFilmInQueue } from './for-queue-localstorage';
+import {darkTheameForModal} from './change-theme'
 
 
 const refs = getRefs();
@@ -33,20 +34,8 @@ refs.gallery.addEventListener('click', async event => {
   modal.open();
   queue.queueAddEventListener();
   // =================
-  const theme = localStorage.getItem('theme')
-  const modalForTheme = modal.modalBoxContent.children[0].children[0];
-  const butInModal = modal.modalBoxContent.children[0].children[0].children[2].children[4].children[1];
-  console.log(modal);
-
-  
-  if (theme === 'dark-theme') {
-    modalForTheme.style.backgroundColor = '#202124';
-    modalForTheme.style.color = '#ffffff';
-    butInModal.style.color = '#ffffff';
-    butInModal.style.borderColor = '#ffffff';
-  }
+  darkTheameForModal(modal);
   // =================
-
   onCloseModal();
 });
 
