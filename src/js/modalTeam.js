@@ -181,6 +181,7 @@ const markup = `<ul class="team__wrapper">
         </li>
         </ul>`
 
+        
 const modal = basicLightbox.create(markup);
 container.addEventListener('click', openModal);
 
