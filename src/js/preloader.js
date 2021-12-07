@@ -1,7 +1,6 @@
 export default class Preloader {
   constructor({ selector }) {
     this.preloader = document.querySelector(selector);
-    console.log(this.preloader);
   }
 
   show() {
@@ -11,3 +10,4 @@ export default class Preloader {
     this.preloader.classList.add('is-hidden');
   }
 }
+

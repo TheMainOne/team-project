@@ -83,14 +83,14 @@ const setPagination = (type, totalPages) => {
 };
 
 const onSubmit = async e => {
-  preloader.show();
   e.preventDefault();
+  // preloader.show();
 
   try {
     const search = e.target.elements.searchQuery.value.trim();
 
     if (search.length === 0) {
-      preloader.hide();
+      // preloader.hide();
       return info('Please, enter search query.');
     }
 
@@ -103,7 +103,7 @@ const onSubmit = async e => {
       total_pages: totalPages,
       total_results: totalResults,
     } = await videoapi.getVideos();
-    preloader.hide();
+    // preloader.hide();
 
     setPagination('videos', totalPages);
 
