@@ -107,6 +107,7 @@
   margin-right: 15px;
   border-color: $secondary-text-color;
   color: $secondary-text-color;
+  
 
   &.btn--accent {
     padding: 0 20px;
@@ -115,6 +116,7 @@
 
   &:last-child {
     margin-right: 0;
+    margin-bottom: 15px;
   }
 
   &-container {
@@ -122,6 +124,12 @@
     flex-wrap: nowrap;
     justify-content: space-between;
   }
+  
+}
+.movie__btn:hover {
+  background-color: $accent-color;
+  color: #fff;
+  border: none;
 }
 
 // ========tablet======
@@ -207,3 +215,7 @@
     width: 882px;
   }
 }
+
+
+
+
