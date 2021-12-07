@@ -3,15 +3,15 @@ import { videoapi } from './api-service';
 
 const addToLocalStorage = idx => {
   const modalAddToWatchBtn = document.querySelector('.add-to-watch');
-  const madalAddToQueneBtn = document.querySelector('.add-to-quene');
+  const madalAddToQueueBtn = document.querySelector('.add-to-queue');
 
   let key = videoapi.checkType();
   let currentMovie = load(key).results[idx];
   let watched = [];
-  let quene = [];
+  let queue = [];
   let id = 'id';
   load('watched') ? (watched = load('watched')) : null;
-  load('quene') ? (quene = load('quene')) : null;
+  load('queue') ? (queue = load('queue')) : null;
 
   const onClickModalAddToWatchButton = e => {
     e.preventDefault();
@@ -21,15 +21,15 @@ const addToLocalStorage = idx => {
     save('watched', uniqueWatched);
   };
 
-  const onClickModalAddToQueneButton = e => {
+  const onClickModalAddToQueueButton = e => {
     e.preventDefault();
-    quene.push(currentMovie);
-    const uniqueQuene = [...new Map(quene.map(video => [video[id], video])).values()];
-    save('quene', uniqueQuene);
+    queue.push(currentMovie);
+    const uniqueQueue = [...new Map(queue.map(video => [video[id], video])).values()];
+    save('queue', uniqueQueue);
   };
 
   modalAddToWatchBtn.addEventListener('click', onClickModalAddToWatchButton);
-  madalAddToQueneBtn.addEventListener('click', onClickModalAddToQueneButton);
+  madalAddToQueueBtn.addEventListener('click', onClickModalAddToQueueButton);
 };
 
 export default addToLocalStorage;
