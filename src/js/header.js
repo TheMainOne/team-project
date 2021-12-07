@@ -1,6 +1,6 @@
 import getHeaderRefs from './getHearedRefs';
 
-import '../images/optimsprite.svg';
+import icon from '../images/optimsprite.svg';
 import { videoapi } from './api-service';
 
 const refs = getHeaderRefs();
