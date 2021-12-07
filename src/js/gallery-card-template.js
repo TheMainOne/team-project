@@ -98,6 +98,7 @@ const galleryCardTemplate = async (
   return `
 <li class="gallery__item" data-idx=${idx}>
   <a href="#" class="card">
+  <a class="card__list-link card__list-link-wrapper link" href="#">
     <div class="card__thumb">
       <picture>
         <source
@@ -114,8 +115,9 @@ const galleryCardTemplate = async (
           decoding="async"
         />
       </picture>
+      <p class="card__list-overlay">YOUTUBE TRAILER</p>
     </div>
-
+</a>
     <div class="card__meta">
       <h2 class="card__title">${title}</h2>
       <p class="card__description">

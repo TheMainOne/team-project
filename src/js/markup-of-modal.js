@@ -68,7 +68,13 @@ return `
     <div class="movie__btn-container">
     <button type="submit" class="movie__btn btn btn--accent"> add to Watched </button>
     <button type="submit" class="movie__btn btn "> add to queue </button>
+   
     </div>
+    </div>
+    
+    </div>
+   
+  </div>
 
 
 </div>

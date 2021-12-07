@@ -1,4 +1,8 @@
 .basicLightbox {
+  overflow: scroll;
+}
+
+.basicLightbox {
   position: fixed;
   display: flex;
   justify-content: center;
@@ -26,21 +30,18 @@
   opacity: 1;
 }
 
-.basicLightbox {
-  overflow: scroll;
-}
-
 .team__modal {
   text-decoration: underline;
   cursor: pointer;
 }
 
 .team__wrapper {
+ 
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 
-  @media screen and (max-width: ($tablet - 1)) {
+  @media screen and (max-width: (618px - 1)) {
     margin-top: 70px;
   }
 
