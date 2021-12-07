@@ -107,7 +107,7 @@
   margin-right: 15px;
   border-color: $secondary-text-color;
   color: $secondary-text-color;
-  transform: scale(1);
+  // transform: scale(1);
 
   &.btn--accent {
     padding: 0 20px;
@@ -129,9 +129,9 @@
     background-color: #81818140;
   }
 
-  &:hover,
-  &:focus {
+  &:hover {
     transform: scale(1.06);
+    box-shadow: 1px 2px 5px 0 #ff6b082b;
   }
 }
 
