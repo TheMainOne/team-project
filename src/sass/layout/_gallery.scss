@@ -148,7 +148,7 @@
   transition: transform var(--time);
 
   .card__list-link-wrapper:hover &,
-.card__list-link-wrapper:focus & {
-  transform: translateY(0%);
-}
+  .card__list-link-wrapper:focus & {
+    transform: translateY(0%);
+  }
 }
