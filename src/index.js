@@ -25,7 +25,7 @@ import getRefs from './js/refs';
 import Preloader from './js/preloader';
 import { scrollFunction, backToTop } from './js/back-to-top-btn';
 import { changeTheme } from './js/change-theme';
-const { info, failure, success } = Notify;
+const { info } = Notify;
 const { log, error } = console;
 
 const DEBOUNCE_DELAY = 300;
