@@ -122,6 +122,10 @@
     flex-wrap: nowrap;
     justify-content: space-between;
   }
+
+  &.remove-queue {
+    background-color: #81818140;
+  }
 }
 
 // ========tablet======

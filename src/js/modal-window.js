@@ -2,7 +2,7 @@ import getRefs from './refs';
 import tingle from 'tingle.js';
 import 'tingle.js/src/tingle.css';
 import { createMarkup, createPoster } from './markup-of-modal';
-
+import addToQueue from './add_to_queue';
 import { load } from './storage';
 import { videoapi } from './api-service';
 import { getImageUrl, getGenres } from './gallery-card-template';
@@ -24,7 +24,90 @@ refs.gallery.addEventListener('click', async event => {
   const { idx } = li?.dataset;
   modal.setContent(await contentModal(idx));
   modal.open();
+
+
+
+
+
+
+// ================
+
+
+  
+  
+  
+ function queueAddEventListener(){
+      const queue = document.querySelector("#queue-btn");
+      queue.addEventListener('click', onClickBtnQuequ);
+  }
+  
+
+
+
+
+
+
+
+  function onClickBtnQuequ(e) {
+     
+    const film = e.currentTarget;
+
+     if (film.dataset.action = 'add-to-queue') {
+        return addToQueue(film)
+     }
+    return removeFromQueue(film);
+    
+
+  };
+
+
+
+  
+
+     
+  async function removeFromQueue() {
+    
+  }
+ 
+    
+
+
+
+  queueAddEventListener();
+
+// ================
   onCloseModal();
+// ===================засунуть в клоуз модал 
+  function queueRemoveEventListener() {
+        const queue = document.querySelector(["data-action='add-to-queue'"]);
+    queue.removeEventListener('click', onClickBtnQuequ);
+}
+  // ===================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 });
 
 function onCloseModal() {
@@ -49,11 +132,13 @@ async function contentModal(idx) {
       vote_count: voteCount,
     } = load(key)?.results[idx];
 
+
     const posterUrl = getImageUrl(posterPath);
     const genresJoined = await getGenres(genreIds);
     const poster = createPoster(posterUrl, title);
 
     const makrup = createMarkup({
+      idx,
       poster,
       title,
       overview,

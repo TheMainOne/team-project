@@ -18,11 +18,11 @@ export function createPoster(poster, title) {
 
 
 
-export function createMarkup({ poster, genresJoined, title, voteAverage, voteCount, popularity, originalTitle, overview }) {
-    
+export function createMarkup({ idx, poster, genresJoined, title, voteAverage, voteCount, popularity, originalTitle, overview }) {
+
 return `
 <div class="modal-window">
-    <div class="movie movie__container">
+    <div class="movie movie__container" data-idx="${idx}">
      <button class="btnClose">
         <svg width="30" height="30" viewBox="0 0 30 30"  xmlns="http://www.w3.org/2000/svg">
             <path d="M8 8L22 22" stroke="black" stroke-width="2"/>
@@ -66,8 +66,8 @@ return `
     <p class="movie__about-text">${overview}</p>
 
     <div class="movie__btn-container">
-    <button type="submit" class="movie__btn btn btn--accent"> add to Watched </button>
-    <button type="submit" class="movie__btn btn "> add to queue </button>
+    <button type="submit" id="watched-btn" data-action="add-to-watched" class="movie__btn btn btn--accent"> add to Watched </button>
+    <button type="submit" id="queue-btn" data-action="add-to-queue" class="movie__btn btn "> add to queue </button>
     </div>
 
 
