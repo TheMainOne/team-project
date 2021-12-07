@@ -3,6 +3,7 @@ import { videoapi } from './api-service';
 const { log, error } = console;
 const desktop = () => window.matchMedia('(min-width: 1024px)').matches;
 
+
 const secureBaseUrl = 'https://image.tmdb.org/t/p/';
 // poster_sizes: (7) ['w92', 'w154', 'w185', 'w342', 'w500', 'w780', 'original']
 const size = desktop() ? 'w500' : 'w342';
