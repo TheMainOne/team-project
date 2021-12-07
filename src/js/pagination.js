@@ -50,6 +50,7 @@ const initPagination = async ({ page, itemsPerPage, totalItems }) => {
   pagination.on('afterMove', async ({ page }) => {
     videoapi.page = page;
 
+
     switch (videoapi.type) {
       case 'trendingVideosWeek': {
         videoapi.period = 'week';
@@ -72,6 +73,7 @@ const initPagination = async ({ page, itemsPerPage, totalItems }) => {
         return;
     }
   });
+
 
   return pagination;
 };

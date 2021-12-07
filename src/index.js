@@ -11,6 +11,7 @@ import { videoapi } from './js/api-service';
 import galleryCardTemplate from './js/gallery-card-template';
 import './js/modalTeam';
 import getRefs from './js/refs';
+import Preloader from './js/preloader';
 import { scrollFunction, backToTop } from './js/back-to-top-btn';
 const { info, failure, success } = Notify;
 const { log, error } = console;
@@ -53,7 +54,7 @@ const initGallery = async () => {
     /* page: 1, results: Array(20), total_pages: 1000, total_results: 20000 */
     const {
       page,
-      results,
+      results,  
       total_pages: totalPages,
       total_results: totalResults,
     } = await videoapi.getTrendingVideos();
@@ -61,7 +62,6 @@ const initGallery = async () => {
     // console.log('res', page, results, totalPages, totalResults);
 
     if (notifyStatus(results.length, page, totalResults)) return;
-
     await renderGallery(results);
 
     pagination = await initPagination({
@@ -83,12 +83,14 @@ const setPagination = (type, totalPages) => {
 };
 
 const onSubmit = async e => {
+  preloader.show();
   e.preventDefault();
 
   try {
     const search = e.target.elements.searchQuery.value.trim();
 
     if (search.length === 0) {
+      preloader.hide();
       return info('Please, enter search query.');
     }
 
@@ -101,6 +103,7 @@ const onSubmit = async e => {
       total_pages: totalPages,
       total_results: totalResults,
     } = await videoapi.getVideos();
+    preloader.hide();
 
     setPagination('videos', totalPages);
 
