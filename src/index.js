@@ -1,6 +1,5 @@
 import initPagination from './js/pagination';
 
-import './js/change-theme';
 import './sass/main.scss';
 import './js/header';
 import './js/modal-window';
@@ -13,11 +12,13 @@ import './js/modalTeam';
 import getRefs from './js/refs';
 import Preloader from './js/preloader';
 import { scrollFunction, backToTop } from './js/back-to-top-btn';
+import { changeTheme } from './js/change-theme';
 const { info, failure, success } = Notify;
 const { log, error } = console;
 
 const DEBOUNCE_DELAY = 300;
 const DEBOUNCE_OPTIONS = { leading: true, trailing: false };
+const themSwitcher = document.querySelector(".theme-switch__control");
 const mybutton = document.querySelector('.btn-back-to-top');
 
 const refs = getRefs();
@@ -30,6 +31,25 @@ const renderGallery = async results => {
 
     refs.gallery.innerHTML = '';
     refs.gallery.insertAdjacentHTML('beforeend', galleryMarkup);
+
+    // ============
+    const cardTitles = document.querySelectorAll('.card__title');
+    const footer = document.querySelector('.footer');
+
+  if (localStorage.getItem("theme") === 'dark-theme') {
+    cardTitles.forEach(title => title.style.color = '#ffffff');
+    footer.style.backgroundColor = '#202124';
+    }
+    
+    themSwitcher.addEventListener('change', event => {
+      if (event.target.checked) {
+            cardTitles.forEach(title => title.style.color = '#ffffff');
+      } else {
+        cardTitles.forEach(title => title.style.color = '#000000');
+          }
+        })
+    // ============
+
   } catch (err) {
     error(err);
   }
@@ -74,7 +94,7 @@ const initGallery = async () => {
   }
 };
 
-initGallery();
+initGallery();galleryCardTemplate
 
 const setPagination = (type, totalPages) => {
   pagination.reset(totalPages);
@@ -131,3 +151,6 @@ mybutton.addEventListener('click', backToTop);
 window.onscroll = function (mybutton) {
   scrollFunction(mybutton);
 };
+
+// ======смена темы============
+changeTheme();
