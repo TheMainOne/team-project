@@ -23,9 +23,10 @@ export function createMarkup({
   popularity,
   originalTitle,
   overview,
+  idx,
 }) {
   return `
-<div class="modal-window">
+<div class="modal-window" data-idx=${idx}>
     <div class="movie movie__container">
      <button class="btnClose">
         <svg width="30" height="30" viewBox="0 0 30 30"  xmlns="http://www.w3.org/2000/svg">
@@ -70,8 +71,8 @@ export function createMarkup({
     <p class="movie__about-text">${overview}</p>
 
     <div class="movie__btn-container">
-    <button type="submit" class="movie__btn btn btn--accent"> add to Watched </button>
-    <button type="submit" class="movie__btn btn "> add to queue </button>
+    <button type="submit" class="movie__btn add-to-watch btn btn--accent"> add to Watched </button>
+    <button type="submit" class="movie__btn add-to-quene btn "> add to queue </button>
 
     </div>
     </div>
