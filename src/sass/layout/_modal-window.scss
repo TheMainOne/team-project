@@ -123,7 +123,7 @@
     justify-content: space-between;
   }
 
-  &.remove-queue {
+  &[data-action='remove-from-queue'] {
     background-color: #81818140;
   }
 }
