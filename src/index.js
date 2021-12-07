@@ -6,7 +6,8 @@ import './js/header';
 import './js/modal-window';
 import debounce from 'lodash/debounce';
 import { Notify } from 'notiflix';
-import videoAPI from './js/api-service';
+import { videoapi } from './js/api-service';
+
 import galleryCardTemplate from './js/gallery-card-template';
 import './js/modalTeam';
 import getRefs from './js/refs';
@@ -17,13 +18,7 @@ const { log, error } = console;
 
 const DEBOUNCE_DELAY = 300;
 const DEBOUNCE_OPTIONS = { leading: true, trailing: false };
-const mybutton = document.querySelector(".btn-back-to-top");
-
-const videoapi = new videoAPI();
-
-const preloader = new Preloader({ selector: '.preloader' });
-
-export { videoapi };
+const mybutton = document.querySelector('.btn-back-to-top');
 
 const refs = getRefs();
 let pagination = null;
@@ -64,7 +59,6 @@ const initGallery = async () => {
       total_results: totalResults,
     } = await videoapi.getTrendingVideos();
 
-    // console.log(pagination);
     // console.log('res', page, results, totalPages, totalResults);
 
     if (notifyStatus(results.length, page, totalResults)) return;
@@ -113,7 +107,7 @@ const onSubmit = async e => {
 
     setPagination('videos', totalPages);
 
-    console.log('res', page, results, totalPages, totalResults);
+    // console.log('res', page, results, totalPages, totalResults);
 
     if (notifyStatus(results.length, page, totalResults)) return;
 
@@ -124,13 +118,16 @@ const onSubmit = async e => {
 };
 
 const initListeners = () => {
-  refs.form.addEventListener('submit', debounce(onSubmit, DEBOUNCE_DELAY, DEBOUNCE_OPTIONS));
+  refs.form.addEventListener(
+    'submit',
+    debounce(onSubmit, DEBOUNCE_DELAY, DEBOUNCE_OPTIONS),
+  );
 };
 
 initListeners();
 
 // ====== функционал отвечающий за кнопку и прокрутку в вверх страницы =======
-mybutton.addEventListener("click", backToTop);
+mybutton.addEventListener('click', backToTop);
 window.onscroll = function (mybutton) {
   scrollFunction(mybutton);
 };

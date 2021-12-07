@@ -1,7 +1,7 @@
 import Pagination from 'tui-pagination';
 import 'tui-pagination/dist/tui-pagination.min.css';
-import { renderGallery, videoapi } from '../index';
-
+import { renderGallery } from '../index';
+import { videoapi } from './api-service';
 const { log, error } = console;
 
 const initPagination = async ({ page, itemsPerPage, totalItems }) => {
@@ -73,7 +73,6 @@ const initPagination = async ({ page, itemsPerPage, totalItems }) => {
         return;
     }
   });
-  log('pagination', pagination);
 
 
   return pagination;

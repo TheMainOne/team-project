@@ -1,6 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <path
-    fill="#bbb"
-    d="M27.5 5h-23A1.5 1.5 0 0 0 3 6.5v19A1.5 1.5 0 0 0 4.5 27h23a1.5 1.5 0 0 0 1.5-1.5v-19A1.5 1.5 0 0 0 27.5 5ZM26 18.5l-4.8-5.23a1 1 0 0 0-1.44-.03l-5.35 5.35L19.83 24H17l-4.8-4.8a1 1 0 0 0-1.4 0L6 24V8h20Zm-17.9-6a2.4 2.4 0 1 1 2.4 2.4 2.4 2.4 0 0 1-2.4-2.4Z"
-  />
+<!-- prettier-ignore -->
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" id="Layer_1" x="0" y="0" version="1.1" viewBox="0 0 125 125">
+  <style>
+    .st0{fill:none;stroke:#000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10}
+  </style>
+  <path d="m41.7 32.2 51.8-10.8 2.2 10.8m-74.6 45-8.1-39 8.1-1.7m45.1 58.8-39.6 8.2-1.7-8.2m76.6-35.8 5.6 27.3-5.7 1.2m-80.3 7.3h80.4V32.2m-5.7 0H21.1v57.3" class="st0"/>
+  <path d="m34.4 79.6 12.3-32.8L58 61m2.6 3.1 5.6 6.9 9.7-7.3 14.5 21.8H33m54.4-42.2a7.3 7.3 0 0 1-4.3 13.1c-3 0-5.6-1.8-6.7-4.4m-.4-4a7.2 7.2 0 0 1 8.1-6M115 21.5l-105 82" class="st0"/>
 </svg>

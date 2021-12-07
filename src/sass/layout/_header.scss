@@ -98,19 +98,23 @@
   &__navbar {
     display: flex;
     align-items: flex-end;
+    justify-content: space-between;
     margin-bottom: 37px;
   }
 
   &__logo {
-    flex-grow: 1;
+    display: flex;
+    align-items: center;
 
     &-text {
-      display: flex;
-      align-items: center;
-      font-size: 30px;
-      font-weight: 500;
-      line-height: 1.17;
-      cursor: pointer;
+      display: none;
+
+      @media (min-width: $tablet) {
+        display: inline-block;
+        font-size: 30px;
+        font-weight: 500;
+        line-height: 1.17;
+      }
     }
 
     &-image {
@@ -121,9 +125,13 @@
   }
 
   .top-nav {
+    display: flex;
+    align-items: center;
+
     &__button {
       padding: 0;
       border: none;
+      border-bottom: 3px solid transparent;
 
       background-color: transparent;
       color: var(--main-text-color);
@@ -146,6 +154,10 @@
 
     &__button:not(:last-child) {
       margin-right: 39px;
+
+      @media (max-width: $tablet) {
+        margin-right: 15px;
+      }
     }
   }
 
@@ -158,9 +170,13 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 336px;
+    width: 280px;
     text-align: center;
     border-bottom: 0.5px solid var(--main-text-color);
+
+    @media (min-width: $tablet) {
+      width: 336px;
+    }
 
     .input {
       width: 314px;
@@ -187,20 +203,24 @@
       background-color: transparent;
       border: 2px solid transparent;
       border-radius: 2px;
+
       transition: all var(--cubic) var(--time);
 
       &:hover {
-        border: 2px solid var(--accent-color);
+        .search-icon {
+          stroke: var(--accent-color);
+        }
       }
 
       &:active {
-        border: 2px solid var(--accent-color);
         box-shadow: 0px 8px 43px rgba(255, 107, 1, 0.6);
       }
 
-      & .search-icon {
+      .search-icon {
         width: 12px;
         height: 12px;
+        stroke: var(--main-text-color);
+        fill: transparent;
         cursor: pointer;
       }
     }
@@ -208,8 +228,9 @@
 }
 
 .button {
-  width: 136px;
-  padding: 12px 38px 14px;
+  width: 129px;
+
+  padding: 12px 36px 14px;
   border: 1px solid var(--main-text-color);
   border-radius: 5px;
   background-color: transparent;
@@ -219,6 +240,10 @@
   font-weight: 500;
   line-height: 1.33;
   text-transform: uppercase;
+  @media (min-width: $tablet) {
+    width: 136px;
+    padding: 12px 38px 14px;
+  }
 
   &:not(:last-child) {
     margin-right: 15px;

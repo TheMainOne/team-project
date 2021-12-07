@@ -1,5 +1,7 @@
 import getHeaderRefs from './getHearedRefs';
-import '../images/optimsprite.svg';
+
+import icon from '../images/optimsprite.svg';
+import { videoapi } from './api-service';
 
 const refs = getHeaderRefs();
 
@@ -13,6 +15,9 @@ function onTopNavBtnClick(e) {
   const nextButton = e.target;
   const hasDataAttr = nextButton.dataset.action;
   if (!hasDataAttr) return;
+
+  videoapi.currentPage = hasDataAttr;
+  console.log('onTopNavBtnClick ~ videoapi.currentPage', videoapi.currentPage);
 
   const prevButton = refs.navbar.querySelector('.is-active');
 
@@ -48,6 +53,9 @@ function onLibraryButtonClick(e) {
 
   if (!hasDataAttr) return;
 
+  videoapi.type = hasDataAttr;
+  console.log('onLibraryButtonClick ~ videoapi.type', videoapi.type);
+
   const prevButton = refs.headerControlBox.querySelector('.is-active');
   if (prevButton) {
     prevButton.classList.remove('is-active');
@@ -69,8 +77,7 @@ function setHomeBackground() {
 
 // Функции подмены разметки поиска и кнопок библиотерки
 function renderSearchForm() {
-  refs.headerControlBox.innerHTML =
-    '<form class="header__search" id="search-form" data-action="js-form"><input class="input" type="text" name="searchQuery" autocomplete="off" placeholder="Поиск фильмов" /><button class="search-button" type="submit" data-action="search"><svg class="search-icon" data-action="search"><use href="./optimsprite.svg#icon-search" data-action="search"></use></svg></button></form>';
+  refs.headerControlBox.innerHTML = `<form class="header__search" id="search-form" data-action="js-form"><input class="input" type="text" name="searchQuery" autocomplete="off" placeholder="Поиск фильмов" /><button class="search-button" type="submit" data-action="search"><svg class="search-icon" data-action="search"><use href="${icon}#icon-search" data-action="search"></use></svg></button></form>`;
 }
 
 function renderLibraryButtons() {
