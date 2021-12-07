@@ -14,6 +14,8 @@ const initPagination = async ({ page, itemsPerPage, totalItems }) => {
 
     visiblePages: 5,
 
+    centerAlign: true,
+
     usageStatistics: false,
 
     firstItemClassName: 'tui-first-child',
@@ -23,7 +25,8 @@ const initPagination = async ({ page, itemsPerPage, totalItems }) => {
     template: {
       page: '<a href="#" class="tui-page-btn">{{page}}</a>',
 
-      currentPage: '<strong class="tui-page-btn tui-is-selected">{{page}}</strong>',
+      currentPage:
+        '<strong class="tui-page-btn tui-is-selected">{{page}}</strong>',
 
       moveButton:
         '<a href="#" class="tui-page-btn tui-{{type}}">' +
@@ -47,14 +50,27 @@ const initPagination = async ({ page, itemsPerPage, totalItems }) => {
   pagination.on('afterMove', async ({ page }) => {
     videoapi.page = page;
 
-    if (videoapi.type === 'trendingVideos') {
-      
-      const { results } = await videoapi.getTrendingVideos();
-      renderGallery(results);
-    } else if (videoapi.type === 'videos') {
-     
-      const { results } = await videoapi.getVideos();
-      renderGallery(results);
+
+    switch (videoapi.type) {
+      case 'trendingVideosWeek': {
+        videoapi.period = 'week';
+        const { results } = await videoapi.getTrendingVideos();
+        renderGallery(results);
+        break;
+      }
+      case 'trendingVideosDay': {
+        videoapi.period = 'day';
+        const { results } = await videoapi.getTrendingVideos();
+        renderGallery(results);
+        break;
+      }
+      case 'videos': {
+        const { results } = await videoapi.getVideos();
+        renderGallery(results);
+        break;
+      }
+      default:
+        return;
     }
   });
   log('pagination', pagination);

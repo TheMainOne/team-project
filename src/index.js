@@ -1,20 +1,23 @@
 import initPagination from './js/pagination';
 
+import './js/change-theme';
 import './sass/main.scss';
 import './js/header';
 import './js/modal-window';
 import debounce from 'lodash/debounce';
 import { Notify } from 'notiflix';
-
 import videoAPI from './js/api-service';
 import galleryCardTemplate from './js/gallery-card-template';
+import './js/modalTeam';
 import getRefs from './js/refs';
 import Preloader from './js/preloader';
+import { scrollFunction, backToTop } from './js/back-to-top-btn';
 const { info, failure, success } = Notify;
 const { log, error } = console;
 
 const DEBOUNCE_DELAY = 300;
 const DEBOUNCE_OPTIONS = { leading: true, trailing: false };
+const mybutton = document.querySelector(".btn-back-to-top");
 
 const videoapi = new videoAPI();
 
@@ -79,6 +82,12 @@ const initGallery = async () => {
 
 initGallery();
 
+const setPagination = (type, totalPages) => {
+  pagination.reset(totalPages);
+  videoapi.type = type;
+  pagination.movePageTo(1);
+};
+
 const onSubmit = async e => {
   preloader.show();
   e.preventDefault();
@@ -102,9 +111,7 @@ const onSubmit = async e => {
     } = await videoapi.getVideos();
     preloader.hide();
 
-    pagination.reset(totalPages);
-    videoapi.type = 'videos';
-    pagination.movePageTo(1);
+    setPagination('videos', totalPages);
 
     console.log('res', page, results, totalPages, totalResults);
 
@@ -121,3 +128,9 @@ const initListeners = () => {
 };
 
 initListeners();
+
+// ====== функционал отвечающий за кнопку и прокрутку в вверх страницы =======
+mybutton.addEventListener("click", backToTop);
+window.onscroll = function (mybutton) {
+  scrollFunction(mybutton);
+};

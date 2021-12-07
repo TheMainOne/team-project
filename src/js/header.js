@@ -1,11 +1,11 @@
 import getHeaderRefs from './getHearedRefs';
+import '../images/optimsprite.svg';
 
 const refs = getHeaderRefs();
 
 refs.navbar.addEventListener('click', onTopNavBtnClick);
 
 // Для работы с кнопками watched и queue слушатель вешать на этот контейнер refs.headerControlBox и отлавливать через e.target.dataset.action
-refs.headerControlBox.addEventListener('click', onLibraryButtonClick);
 
 renderSearchForm();
 
@@ -15,6 +15,7 @@ function onTopNavBtnClick(e) {
   if (!hasDataAttr) return;
 
   const prevButton = refs.navbar.querySelector('.is-active');
+
   if (prevButton) {
     prevButton.classList.remove('is-active');
   }
@@ -24,11 +25,13 @@ function onTopNavBtnClick(e) {
   if (hasDataAttr === 'js-library') {
     setLibraryBackground();
     renderLibraryButtons();
+    refs.headerControlBox.addEventListener('click', onLibraryButtonClick);
   }
 
   if (hasDataAttr === 'js-home') {
     setHomeBackground();
     renderSearchForm();
+    refs.headerControlBox.removeEventListener('click', onLibraryButtonClick);
   }
 
   if (hasDataAttr === 'logo') {
@@ -42,6 +45,7 @@ function onTopNavBtnClick(e) {
 function onLibraryButtonClick(e) {
   const nextButton = e.target;
   const hasDataAttr = nextButton.dataset.action;
+
   if (!hasDataAttr) return;
 
   const prevButton = refs.headerControlBox.querySelector('.is-active');
@@ -66,7 +70,7 @@ function setHomeBackground() {
 // Функции подмены разметки поиска и кнопок библиотерки
 function renderSearchForm() {
   refs.headerControlBox.innerHTML =
-    '<form class="header__search" id="search-form" data-action="js-form"><input class="input" type="text" name="searchQuery" autocomplete="off" placeholder="Поиск фильмов" /><button class="search-button" type="submit"  data-action="search"></button></form>';
+    '<form class="header__search" id="search-form" data-action="js-form"><input class="input" type="text" name="searchQuery" autocomplete="off" placeholder="Поиск фильмов" /><button class="search-button" type="submit" data-action="search"><svg class="search-icon" data-action="search"><use href="./optimsprite.svg#icon-search" data-action="search"></use></svg></button></form>';
 }
 
 function renderLibraryButtons() {
