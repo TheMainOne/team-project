@@ -30,7 +30,7 @@ const { log, error } = console;
 
 const DEBOUNCE_DELAY = 300;
 const DEBOUNCE_OPTIONS = { leading: true, trailing: false };
-const themSwitcher = document.querySelector(".theme-switch__control");
+const themSwitcher = document.querySelector('.theme-switch__control');
 const mybutton = document.querySelector('.btn-back-to-top');
 
 const refs = getRefs();
@@ -48,20 +48,19 @@ const renderGallery = async results => {
     const cardTitles = document.querySelectorAll('.card__title');
     const footer = document.querySelector('.footer');
 
-  if (localStorage.getItem("theme") === 'dark-theme') {
-    cardTitles.forEach(title => title.style.color = '#ffffff');
-    footer.style.backgroundColor = '#202124';
+    if (localStorage.getItem('theme') === 'dark-theme') {
+      cardTitles.forEach(title => (title.style.color = '#ffffff'));
+      footer.style.backgroundColor = '#202124';
     }
-    
+
     themSwitcher.addEventListener('change', event => {
       if (event.target.checked) {
-            cardTitles.forEach(title => title.style.color = '#ffffff');
+        cardTitles.forEach(title => (title.style.color = '#ffffff'));
       } else {
-        cardTitles.forEach(title => title.style.color = '#000000');
-          }
-        })
+        cardTitles.forEach(title => (title.style.color = '#000000'));
+      }
+    });
     // ============
-
   } catch (err) {
     error(err);
   }
@@ -71,12 +70,10 @@ export { renderGallery };
 
 const notifyStatus = (videosCount, page, totalResults) => {
   if (videosCount < 1) {
-    failure('Sorry, no results. Please try another query.');
     return 1;
   }
 
   if (totalResults > 0 && page === 1) {
-    success(`Hooray! We found ${totalResults} results.`);
     return 0;
   }
 };
@@ -106,7 +103,8 @@ const initGallery = async () => {
   }
 };
 
-initGallery();galleryCardTemplate
+initGallery();
+galleryCardTemplate;
 
 const setPagination = (type, totalPages) => {
   pagination.reset(totalPages);
