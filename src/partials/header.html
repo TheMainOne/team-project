@@ -1,33 +1,5 @@
 <header class='header header--home js-header'>
-    <div class="toolbar">
-        <!-- Разметка переключателя темы -->
-        <div class="theme-switch">
-          <svg class="theme-switch__icon" role="img" aria-label="Иконка солнца">
-            <use href="./images/theme.svg#sun"></use>
-          </svg>
     
-          <div class="theme-switch__control">
-            <input
-              class="theme-switch__toggle"
-              type="checkbox"
-              name="theme"
-              id="theme-switch-toggle"
-              aria-label="Переключить между тёмной и светлой темой"
-            />
-            <label
-              aria-hidden="true"
-              class="theme-switch__track"
-              for="theme-switch-toggle"
-            >
-            </label>
-            <div aria-hidden="true" class="theme-switch__marker"></div>
-          </div>
-    
-          <svg class="theme-switch__icon" aria-label="Иконка луны">
-            <use href="./images/theme.svg#moon"></use>
-          </svg>
-        </div>
-      </div>
     <div class="container header__wrapper">
         <div class="header__navbar" data-action-controls >
             <!-- logo -->
@@ -42,6 +14,26 @@
             <nav class="top-nav" data-action-controls>
                 <button class="top-nav__button is-active" data-action="js-home" >Home</button>
                 <button class="top-nav__button" data-action="js-library">my library</button>
+                <div class="toolbar">
+                  <!-- Разметка переключателя темы -->
+                  <div class="theme-switch">
+                    <svg class="theme-switch__icon theme-switch__icon--left" role="img" aria-label="Иконка солнца">
+                      <use href="./images/theme.svg#sun"></use>
+                    </svg>
+                
+                    <div class="theme-switch__control">
+                      <input class="theme-switch__toggle" type="checkbox" name="theme" id="theme-switch-toggle"
+                        aria-label="Переключить между тёмной и светлой темой" />
+                      <label aria-hidden="true" class="theme-switch__track" for="theme-switch-toggle">
+                      </label>
+                      <div aria-hidden="true" class="theme-switch__marker"></div>
+                    </div>
+                
+                    <svg class="theme-switch__icon theme-switch__icon--right" aria-label="Иконка луны">
+                      <use href="./images/theme.svg#moon"></use>
+                    </svg>
+                  </div>
+                </div>
             </nav>
             <!-- /.site-menu -->
         </div>
