@@ -1,8 +1,18 @@
 import Pagination from 'tui-pagination';
 import 'tui-pagination/dist/tui-pagination.min.css';
-import { renderGallery } from '../index';
+import { renderGallery, sprite } from '../index';
 import { videoapi } from './api-service';
 const { log, error } = console;
+
+const iconDots = `${sprite}#icon-dots`;
+const iconArrow = `${sprite}#icon-arrow`;
+
+/*
+.tui-pagination .tui-ico-ellip,
+.tui-pagination .tui-ico-first,
+.tui-pagination .tui-ico-last,
+.tui-pagination .tui-ico-next,
+.tui-pagination .tui-ico-prev */
 
 const initPagination = async ({ page, itemsPerPage, totalItems }) => {
   const options = {
@@ -30,7 +40,7 @@ const initPagination = async ({ page, itemsPerPage, totalItems }) => {
 
       moveButton:
         '<a href="#" class="tui-page-btn tui-{{type}}">' +
-        '<span class="tui-ico-{{type}}">{{type}}</span>' +
+        `<svg class="tui-ico-{{type}}"><use href="${iconArrow}-{{type}}"></use></svg>` +
         '</a>',
 
       disabledMoveButton:
@@ -40,7 +50,7 @@ const initPagination = async ({ page, itemsPerPage, totalItems }) => {
 
       moreButton:
         '<a href="#" class="tui-page-btn tui-{{type}}-is-ellip">' +
-        '<span class="tui-ico-ellip">...</span>' +
+        `<svg class="tui-ico-ellip"><use href="${iconDots}"></use></svg>` +
         '</a>',
     },
   };

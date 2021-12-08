@@ -24,6 +24,21 @@ refs.gallery.addEventListener('click', async event => {
   const { idx } = li?.dataset;
   modal.setContent(await contentModal(idx));
   modal.open();
+  // =================
+  const theme = localStorage.getItem('theme')
+  const modalForTheme = modal.modalBoxContent.children[0].children[0];
+  const butInModal = modal.modalBoxContent.children[0].children[0].children[2].children[4].children[1];
+  console.log(modal);
+
+  
+  if (theme === 'dark-theme') {
+    modalForTheme.style.backgroundColor = '#202124';
+    modalForTheme.style.color = '#ffffff';
+    butInModal.style.color = '#ffffff';
+    butInModal.style.borderColor = '#ffffff';
+  }
+  // =================
+
   onCloseModal();
 });
 
@@ -47,7 +62,7 @@ async function contentModal(idx) {
       original_title: originalTitle,
       vote_average: voteAverage,
       vote_count: voteCount,
-    } = load(key)?.results[idx];
+    } = load(key).results[idx];
 
     const posterUrl = getImageUrl(posterPath);
     const genresJoined = await getGenres(genreIds);

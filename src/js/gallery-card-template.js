@@ -1,7 +1,11 @@
+import { sprite } from '../index';
 import { videoapi } from './api-service';
+const iconYoutube = `${sprite}#icon-youtube`;
+const iconPlaceholder = `${sprite}#icon-placeholder`;
 
 const { log, error } = console;
 const desktop = () => window.matchMedia('(min-width: 1024px)').matches;
+
 
 const secureBaseUrl = 'https://image.tmdb.org/t/p/';
 // poster_sizes: (7) ['w92', 'w154', 'w185', 'w342', 'w500', 'w780', 'original']
@@ -11,16 +15,6 @@ const getImageUrl = posterPath => {
   if (posterPath && posterPath !== '') {
     return `${secureBaseUrl}${size}${posterPath}`;
   }
-};
-
-const getPoster = posterUrl => {
-  const PLACEHOLDER = './images/svg/placeholder.svg';
-
-  let poster = PLACEHOLDER;
-  if (posterUrl) {
-    poster = posterUrl;
-  }
-  return poster;
 };
 
 export { getImageUrl };
@@ -71,8 +65,7 @@ const galleryCardTemplate = async (
   // poster_path: "/rjkmN1dniUHVYAtwuV3Tji7FsDO.jpg"
 
   const posterUrl = getImageUrl(posterPath);
-
-  const poster = getPoster(posterUrl);
+  const poster = posterPath !== '' && posterUrl ? posterUrl : iconPlaceholder;
 
   const genresJoined = await getGenres(genreIds);
 
@@ -97,33 +90,33 @@ const galleryCardTemplate = async (
 
   return `
 <li class="gallery__item" data-idx=${idx}>
-  <a href="#" class="card">
+  <a href="#" class="card card__list-link-wrapper">
     <div class="card__thumb">
-      <picture>
-        <source
-          media="(min-width: 1024px)"
-          srcset="${poster}"
-          sizes="(min-width: 1024px) 396px"
-        />
+        ${
+          posterUrl
+            ? `<picture>
+                <source media="(min-width: 1024px)" srcset="${poster}" sizes="(min-width: 1024px) 396px" />
+                  <img class="card__poster" src="${poster}" alt="Video poster image - ${title}" loading="lazy" decoding="async" />
+                </picture>`
+            : `<svg class="card__poster"><use href="${poster}"></use><svg>`
+        }
 
-        <img
-          class="card__poster"
-          src="${poster}"
-          alt="Video poster image - ${title}"
-          loading="lazy"
-          decoding="async"
-        />
-      </picture>
+      <p class="card__list-overlay">YOUTUBE TRAILER
+        <svg class="trailer-link__svg" height="21" width="50"><use href="${iconYoutube}"></use></svg>
+      </p>
+
     </div>
 
     <div class="card__meta">
       <h2 class="card__title">${title}</h2>
+
       <p class="card__description">
         <span class="card__genres">${genresJoined}</span>
         <span class="card__release-date">${releaseYear}</span>
        ${voteAverage ? `<span class="card__vote">${voteAverage}</span>` : ''}
       </p>
     </div>
+
   </a>
 </li>
 `;
