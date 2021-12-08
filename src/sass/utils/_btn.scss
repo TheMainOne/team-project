@@ -7,11 +7,10 @@
   text-align: center;
   padding-left: 7px;
   padding-right: 7px;
-  transform: scale(1);
 
-  &:hover,
-  &:focus {
-    transform: scale(1.04);
+  &:hover {
+    transform: scale(1.06);
+    box-shadow: 1px 2px 5px 0 #ff6b082b;
     transition: cubic-bezier(0.165, 0.84, 0.44, 1);
   }
 

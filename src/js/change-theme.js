@@ -62,12 +62,10 @@ export { changeTheme };
 
 
 export function darkTheameForModal(modal) {
-  const theme = localStorage.getItem('theme')
+   const theme = localStorage.getItem('theme');
   const modalForTheme = modal.modalBoxContent.children[0].children[0];
   const butInModal = modal.modalBoxContent.children[0].children[0].children[2].children[4].children[1];
-  console.log(modal);
 
-  
   if (theme === 'dark-theme') {
     modalForTheme.style.backgroundColor = '#202124';
     modalForTheme.style.color = '#ffffff';
