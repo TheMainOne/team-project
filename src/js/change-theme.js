@@ -10,8 +10,8 @@ function changeTheme() {
   const themeToggle = document.querySelector('.theme-switch__toggle');
   const bgColor = document.querySelector('body');
   const teamRef = document.querySelector('.team__modal');
-  const lightThemeIcon = themSwitcher.previousElementSibling;
-  const darkThemeIcon = themSwitcher.nextElementSibling;
+  const lightThemeIcon = themeSwitcher.previousElementSibling;
+  const darkThemeIcon = themeSwitcher.nextElementSibling;
 
   teamRef.addEventListener('click', () => {
     const teamModalRef = document.querySelector('.team__wrapper');
