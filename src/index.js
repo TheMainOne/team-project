@@ -23,7 +23,6 @@ import { videoapi } from './js/api-service';
 import galleryCardTemplate from './js/gallery-card-template';
 import './js/modalTeam';
 import getRefs from './js/refs';
-import Preloader from './js/preloader';
 import { scrollFunction, backToTop } from './js/back-to-top-btn';
 import { changeTheme } from './js/change-theme';
 const { info } = Notify;
@@ -36,6 +35,11 @@ const mybutton = document.querySelector('.btn-back-to-top');
 
 const refs = getRefs();
 let pagination = null;
+
+
+window.addEventListener('DOMContentLoaded',function(){
+  document.querySelector('body').classList.add("loaded")  
+});
 
 const renderGallery = async results => {
   try {
@@ -52,6 +56,7 @@ const renderGallery = async results => {
     if (localStorage.getItem('theme') === 'dark-theme') {
       cardTitles.forEach(title => (title.style.color = '#ffffff'));
       footer.style.backgroundColor = '#202124';
+      footer.style.color = '#ffffff';
     }
 
     themeSwitcher.addEventListener('change', event => {
@@ -115,13 +120,11 @@ const setPagination = (type, totalPages) => {
 
 const onSubmit = async e => {
   e.preventDefault();
-  // preloader.show();
 
   try {
     const search = e.target.elements.searchQuery.value.trim();
 
     if (search.length === 0) {
-      // preloader.hide();
       return info('Please, enter search query.');
     }
 
@@ -134,7 +137,6 @@ const onSubmit = async e => {
       total_pages: totalPages,
       total_results: totalResults,
     } = await videoapi.getVideos();
-    // preloader.hide();
 
     setPagination('videos', totalPages);
 

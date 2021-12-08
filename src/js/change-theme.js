@@ -24,18 +24,19 @@ function changeTheme() {
     themeSwitcher.addEventListener("change", onControlThemeSwitch);
     populateChooseTheme();
     
-  console.log(footer);
     function onControlThemeSwitch(event) {
       if (event.target.checked) {
           bgColor.classList.remove(LIGHT);
           bgColor.classList.add(DARK);
-          footer.style.backgroundColor = '#202124';
+        footer.style.backgroundColor = '#202124';
+        footer.style.color = '#ffffff';
 
           localStorage.setItem("theme", DARK);
       } else {
           bgColor.classList.remove(DARK);
         bgColor.classList.add(LIGHT);
         footer.style.backgroundColor = '#f7f7f7';
+        footer.style.color = '#545454';
 
           localStorage.setItem("theme", LIGHT);
       }
