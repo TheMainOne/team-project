@@ -56,6 +56,7 @@ const renderGallery = async results => {
     if (localStorage.getItem('theme') === 'dark-theme') {
       cardTitles.forEach(title => (title.style.color = '#ffffff'));
       footer.style.backgroundColor = '#202124';
+      footer.style.color = '#ffffff';
     }
 
     themeSwitcher.addEventListener('change', event => {
