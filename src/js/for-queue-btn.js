@@ -1,4 +1,5 @@
-import {addToQueue, removeFromQueue} from './for-queue-localstorage';
+import { addToQueue, removeFromQueue } from './for-queue-localstorage';
+import { load } from './storage';
 const LOCAL_STORAGE_WEEK = 'filmoteka-trending-week';
 
 
@@ -23,7 +24,7 @@ export function queueRemoveEventListener() {
 export async function onClickBtnQuequ(e) {
     const refQueueBtn = e.currentTarget;
     const movieIndex = document.querySelector('.movie').dataset.idx
-    const filmOfWeek = await JSON.parse(localStorage.getItem(LOCAL_STORAGE_WEEK)).results;
+    const filmOfWeek = await load(LOCAL_STORAGE_WEEK).results;
     const ourFilm = filmOfWeek[movieIndex];
 
   if (refQueueBtn.getAttribute('data-action') === 'add-to-queue') {

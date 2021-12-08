@@ -6,9 +6,14 @@ export function createPoster(poster, title) {
 }
 
 
-export function createMarkup({ queueStatus, idx, poster, genresJoined, title, voteAverage, voteCount, popularity, originalTitle, overview }) {
 
-return `
+
+
+export function createMarkup({ isFilmInQueue, idx, poster, genresJoined, title, voteAverage, voteCount, popularity, originalTitle, overview }) {
+
+    const queueStatus = isFilmInQueue ? { data: "remove-from-queue", text: "remove from queue" } : { data: "add-to-queue", text: "add to queue" };
+
+    return `
 <div class="modal-window">
     <div class="movie movie__container" data-idx="${idx}">
      <button class="btnClose">

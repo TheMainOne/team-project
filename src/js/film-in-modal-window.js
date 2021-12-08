@@ -75,10 +75,10 @@ async function contentModal(idx) {
     const genresJoined = await getGenres(genreIds);
     const poster = createPoster(posterUrl, title);
     const isFilmInQueue = searchFilmInQueue(ourFilm);
-    const queueStatus = isFilmInQueue ? { data: "remove-from-queue", text: "remove from queue" } : { data: "add-to-queue", text: "add to queue" };
+    
    
     const makrup = createMarkup({
-      queueStatus,
+      isFilmInQueue,
       idx,
       poster,
       title,
