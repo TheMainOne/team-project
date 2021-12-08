@@ -6,16 +6,13 @@ export function createPoster(poster, title) {
 }
 
 
-
-
-
-export function createMarkup({ isFilmInQueue, idx, poster, genresJoined, title, voteAverage, voteCount, popularity, originalTitle, overview }) {
+export function createMarkup({ isFilmInQueue, id, poster, genresJoined, title, voteAverage, voteCount, popularity, originalTitle, overview }) {
 
     const queueStatus = isFilmInQueue ? { data: "remove-from-queue", text: "remove from queue" } : { data: "add-to-queue", text: "add to queue" };
 
     return `
 <div class="modal-window">
-    <div class="movie movie__container" data-idx="${idx}">
+    <div class="movie movie__container" data-id="${id}">
      <button class="btnClose">
         <svg width="30" height="30" viewBox="0 0 30 30"  xmlns="http://www.w3.org/2000/svg">
             <path d="M8 8L22 22" stroke="black" stroke-width="2"/>

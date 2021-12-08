@@ -65,6 +65,7 @@ async function contentModal(idx) {
     const ourFilm = load(key)?.results[idx]
     
     const {
+      id,
       title,
       overview,
       popularity,
@@ -84,7 +85,7 @@ async function contentModal(idx) {
    
     const makrup = createMarkup({
       isFilmInQueue,
-      idx,
+      id,
       poster,
       title,
       overview,
