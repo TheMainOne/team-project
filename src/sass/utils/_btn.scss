@@ -11,11 +11,11 @@
 
   &:hover {
     transform: scale(1.06);
-    box-shadow: 1px 2px 5px 0 #ff6b082b;
+    box-shadow: 1px 0px 20px 0 #ff6b0859;
     transition: cubic-bezier(0.165, 0.84, 0.44, 1);
-    color: $main-text-color;
-    background-color: $accent-color;
-    border: none;
+    // color: $main-text-color;
+    // background-color: $accent-color;
+    // border: none;
   }
 
   &--accent {
