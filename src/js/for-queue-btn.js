@@ -22,7 +22,7 @@ export async function onClickBtnQuequ(e) {
     const ourFilm = filmOfWeek.find(film => film.id === movieId);
     
 
-  if (refQueueBtn.getAttribute('data-action') === 'add-to-queue') {
+  if (refQueueBtn.dataset.action === 'add-to-queue') {
         return addToQueue(refQueueBtn, ourFilm)
     };    
         return removeFromQueue(refQueueBtn, ourFilm);

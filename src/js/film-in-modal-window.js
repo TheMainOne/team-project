@@ -20,10 +20,8 @@ var modal = new tingle.modal({
   closeMethods: ['overlay', 'escape'],
   closeLabel: 'Close',
   cssClass: ['custom-class-1', 'custom-class-2'],
-  beforeClose: function () {
+  onClose: function () {
      queue.queueRemoveEventListener();
-        return true; // close the modal
-        return false; // nothing happens
     }
 });
 
@@ -84,7 +82,7 @@ async function contentModal(idx) {
     const posterUrl = getImageUrl(posterPath);
     const genresJoined = await getGenres(genreIds);
     const poster = createPoster(posterUrl, title);
-    const isFilmInQueue = searchFilmInQueue(ourFilm);
+    const isFilmInQueue = searchFilmInQueue(id);
     
    
     const makrup = createMarkup({
@@ -99,7 +97,6 @@ async function contentModal(idx) {
       voteAverage,
       voteCount,
       genresJoined,
-      idx,
     });
 
     return makrup;
