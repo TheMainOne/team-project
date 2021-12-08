@@ -3,7 +3,7 @@ const refs = getRefs();
 
 const libraryBtnRef = document.querySelector('[data-action="js-library"]');
 
-libraryBtnRef.addEventListener('click', onLibraryBtnClick);
+libraryBtnRef.addEventListener('click', onLibraryBtnClick, {once:true});
 function onLibraryBtnClick() {
   refs.gallery.innerHTML = '';
   const pagesRef = document.querySelector('#pagination');
@@ -15,7 +15,7 @@ function onLibraryBtnClick() {
   const sectionRef = document.querySelector('section');
 sectionRef.classList.add('section__js');
     const markup = `<h1 class="title__library">Add a movie</h1>
-    <a href="../index.html"><button class="glow-on-hover" type="button">GO BACK</button></a>`; //и при клике на батон надо будет повесить слушателя идти домой
+    <a href="./index.html"><button class="glow-on-hover" type="button">GO BACK</button></a>`; //и при клике на батон надо будет повесить слушателя идти домой
    sectionRef.insertAdjacentHTML("afterbegin", markup);
    function fl(){
     //get and store canvas & context

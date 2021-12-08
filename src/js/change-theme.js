@@ -17,6 +17,8 @@ function changeTheme() {
         if (localStorage.getItem('theme') === 'dark-theme') {
           
           teamModalRef.style.backgroundColor = '#111111';
+        } else {
+          teamModalRef.style.backgroundColor = '#ffffff';
         }
     
     })
