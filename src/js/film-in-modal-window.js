@@ -20,6 +20,11 @@ var modal = new tingle.modal({
   closeMethods: ['overlay', 'escape'],
   closeLabel: 'Close',
   cssClass: ['custom-class-1', 'custom-class-2'],
+  beforeClose: function () {
+     queue.queueRemoveEventListener();
+        return true; // close the modal
+        return false; // nothing happens
+    }
 });
 
 
@@ -54,7 +59,6 @@ function onCloseModal() {
   const btnClose = document.querySelector('.btnClose');
   btnClose.addEventListener('click', () => {
     modal.close();
-    queue.queueRemoveEventListener();
   });
 }
 

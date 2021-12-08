@@ -2,14 +2,15 @@ import { addToQueue, removeFromQueue } from './for-queue-localstorage';
 import { load } from './storage';
 
 const LOCAL_STORAGE_WEEK = 'filmoteka-trending-week';
-const queue = document.querySelector("#queue-btn");
 
-export function queueAddEventListener(){
+export function queueAddEventListener() {
+  const queue = document.querySelector("#queue-btn");
     queue.addEventListener('click', onClickBtnQuequ);
   }
 
 
 export function queueRemoveEventListener() {
+  const queue = document.querySelector("#queue-btn");
     queue.removeEventListener('click', onClickBtnQuequ);
 }
 
