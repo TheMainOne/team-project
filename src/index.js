@@ -23,7 +23,7 @@ const refs = getRefs();
 let pagination = null;
 
 
-window.addEventListener('load',function(){
+window.addEventListener('DOMContentLoaded',function(){
   document.querySelector('body').classList.add("loaded")  
 });
 
