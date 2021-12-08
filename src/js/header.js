@@ -93,3 +93,6 @@ function renderLibraryButtons() {
   refs.headerControlBox.innerHTML =
     '<div class="header__library-controls" data-library-buttons"><button class="button" data-action="watched">watched</button><button class="button  is-active" data-action="queue">queue</button></div>';
 }
+
+// Cлушатель событий на кнопке home для возврата на главную страницу
+refs.homeBtn.addEventListener('click', () => { window.location = './' });

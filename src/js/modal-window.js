@@ -6,6 +6,7 @@ import { createMarkup, createPoster } from './markup-of-modal';
 import { load } from './storage';
 import { videoapi } from './api-service';
 import { getImageUrl, getGenres } from './gallery-card-template';
+import addToLocalStorage from './add-to-local-storage';
 
 const refs = getRefs();
 
@@ -25,19 +26,23 @@ refs.gallery.addEventListener('click', async event => {
   modal.setContent(await contentModal(idx));
   modal.open();
   // =================
-  const theme = localStorage.getItem('theme')
+  const theme = localStorage.getItem('theme');
   const modalForTheme = modal.modalBoxContent.children[0].children[0];
   const butInModal = modal.modalBoxContent.children[0].children[0].children[2].children[4].children[1];
-  console.log(modal);
+  const partOfcloseButtonOne = modal.modalBoxContent.children[0].children[0].children[0].children[0].children[0];
+  const partOfcloseButtonTwo = modal.modalBoxContent.children[0].children[0].children[0].children[0].children[1];
 
-  
+
   if (theme === 'dark-theme') {
     modalForTheme.style.backgroundColor = '#202124';
     modalForTheme.style.color = '#ffffff';
     butInModal.style.color = '#ffffff';
     butInModal.style.borderColor = '#ffffff';
+    partOfcloseButtonOne.style.stroke = '#ffffff';
+    partOfcloseButtonTwo.style.stroke = '#ffffff';
   }
   // =================
+  addToLocalStorage(idx);
 
   onCloseModal();
 });
@@ -78,6 +83,7 @@ async function contentModal(idx) {
       voteAverage,
       voteCount,
       genresJoined,
+      idx,
     });
 
     return makrup;

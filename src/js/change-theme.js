@@ -6,14 +6,21 @@ function changeTheme() {
   const { LIGHT, DARK } = Theme;
 
   const footer = document.querySelector('.footer');
-  const themSwitcher = document.querySelector('.theme-switch__control');
+  const themeSwitcher = document.querySelector('.theme-switch__control');
   const themeToggle = document.querySelector('.theme-switch__toggle');
   const bgColor = document.querySelector('body');
-
+  const teamRef = document.querySelector('.team__modal');
   const lightThemeIcon = themSwitcher.previousElementSibling;
   const darkThemeIcon = themSwitcher.nextElementSibling;
 
-  themSwitcher.addEventListener('change', onControlThemeSwitch);
+  teamRef.addEventListener('click', () => {
+    const teamModalRef = document.querySelector('.team__wrapper');
+    if (localStorage.getItem('theme') === 'dark-theme') {
+      teamModalRef.style.backgroundColor = '#111111';
+    }
+  });
+
+  themeSwitcher.addEventListener('change', onControlThemeSwitch);
 
   populateChooseTheme();
 
@@ -23,6 +30,7 @@ function changeTheme() {
       bgColor.classList.remove(LIGHT);
       bgColor.classList.add(DARK);
       footer.style.backgroundColor = '#202124';
+      footer.style.color = '#ffffff';
       setDarkThemeIcon();
 
       localStorage.setItem('theme', DARK);
@@ -30,6 +38,7 @@ function changeTheme() {
       bgColor.classList.remove(DARK);
       bgColor.classList.add(LIGHT);
       footer.style.backgroundColor = '#f7f7f7';
+      footer.style.color = '#545454';
       setLightThemeIcon();
 
       localStorage.setItem('theme', LIGHT);
