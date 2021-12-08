@@ -72,7 +72,7 @@ export function createMarkup({
 
     <div class="movie__btn-container">
     <button type="submit" class="movie__btn add-to-watch btn btn--accent"> add to Watched </button>
-    <button type="submit" class="movie__btn add-to-queue btn "> add to queue </button>
+    <button type="submit" class="movie__btn btn "> add to queue </button>
 
     </div>
     </div>
