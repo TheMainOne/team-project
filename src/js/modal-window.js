@@ -28,9 +28,7 @@ refs.gallery.addEventListener('click', async event => {
   // =================
   const theme = localStorage.getItem('theme');
   const modalForTheme = modal.modalBoxContent.children[0].children[0];
-  const butInModal =
-    modal.modalBoxContent.children[0].children[0].children[2].children[4].children[1];
-  console.log(modal);
+  const butInModal = modal.modalBoxContent.children[0].children[0].children[2].children[4].children[1];
 
   if (theme === 'dark-theme') {
     modalForTheme.style.backgroundColor = '#202124';
