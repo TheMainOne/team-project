@@ -12,6 +12,7 @@ export { sprite };
 
 import initPagination from './js/pagination';
 
+import './js/library';
 import './sass/main.scss';
 import './js/header';
 import './js/modal-window';
