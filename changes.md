@@ -1,31 +1,6 @@
-
-### `_modal-window.js`
-
-```js
-// <li class="gallery__item" data-id=${id}></li>
-console.log('videoapi.type', videoapi.type);
-const key = videoapi.checkType();
-
-const {
-  title,
-  overview,
-  popularity,
-  poster_path: posterPath,
-  genre_ids: genreIds,
-  original_title: originalTitle,
-  vote_average: voteAverage,
-  vote_count: voteCount,
-} = load(key).results.find(({ id }) => id === idx);
-
-markup;
-```
-
 ### `header.js`
 
 ```js
-import { sprite } from '../index';
-const iconSearch = `${sprite}#icon-search`;
-
 videoapi.type = hasDataAttr;
 
 `href="${iconSearch}"`;

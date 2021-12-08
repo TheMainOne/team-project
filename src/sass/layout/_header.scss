@@ -203,13 +203,11 @@
       background-color: transparent;
       border: 2px solid transparent;
       border-radius: 2px;
-
-      transition: all var(--cubic) var(--time);
+      color: var(--main-text-color);
+      transition: color var(--cubic) var(--time);
 
       &:hover {
-        .search-icon {
-          stroke: var(--accent-color);
-        }
+        color: var(--accent-color);
       }
 
       &:active {
@@ -219,7 +217,7 @@
       .search-icon {
         width: 12px;
         height: 12px;
-        stroke: var(--main-text-color);
+        color: currentColor;
         fill: transparent;
         cursor: pointer;
       }
