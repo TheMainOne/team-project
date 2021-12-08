@@ -6,7 +6,6 @@ const iconPlaceholder = `${sprite}#icon-placeholder`;
 const { log, error } = console;
 const desktop = () => window.matchMedia('(min-width: 1024px)').matches;
 
-
 const secureBaseUrl = 'https://image.tmdb.org/t/p/';
 // poster_sizes: (7) ['w92', 'w154', 'w185', 'w342', 'w500', 'w780', 'original']
 const size = desktop() ? 'w500' : 'w342';
@@ -58,6 +57,7 @@ const galleryCardTemplate = async (
     release_date: releaseDate,
     title,
     vote_average: voteAverage = '',
+    id = null,
   },
   idx,
 ) => {
@@ -89,7 +89,7 @@ const galleryCardTemplate = async (
   const releaseYear = releaseDate.slice(0, 4);
 
   return `
-<li class="gallery__item" data-idx=${idx}>
+<li class="gallery__item" data-idx=${idx} data-videoid="${id}">
   <a href="#" class="card card__list-link-wrapper">
     <div class="card__thumb">
         ${

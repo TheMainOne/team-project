@@ -1,17 +1,3 @@
-### `_modal-team.scss`
-
-```scss
-.logo__icon {
-  fill: #000;
-
-  width: 16px;
-  height: 16px;
-}
-
-.logo__icon-linkedin {
-  fill: rgba(66, 114, 247, 0.993);
-}
-```
 
 ### `_modal-window.js`
 
