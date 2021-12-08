@@ -107,7 +107,6 @@
   margin-right: 15px;
   border-color: $secondary-text-color;
   color: $secondary-text-color;
-  // transform: scale(1);
 
   &.btn--accent {
     padding: 0 20px;
@@ -128,11 +127,6 @@
   &[data-action='remove-from-queue'] {
     background-color: #81818140;
   }
-
-  &:hover {
-    transform: scale(1.06);
-    box-shadow: 1px 2px 5px 0 #ff6b082b;
-  }
 }
 
 // ========tablet======
@@ -149,10 +143,12 @@
         width: 264px;
         margin-bottom: 0px;
       }
+
       &--rigth-side {
         width: 264px;
       }
     }
+
     &__about-text {
       max-height: 240px;
     }
@@ -179,6 +175,7 @@
         height: 478px;
         overflow: hidden;
       }
+
       &--rigth-side {
         width: 396px;
       }

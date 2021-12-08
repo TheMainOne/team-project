@@ -1,5 +1,18 @@
+import sprite from './images/svg/sprite.svg';
+export { sprite };
+// console.log('sprite', sprite);
+
+// prettier-ignore
+// const iconsArr = ['arrow-prev', 'heart', 'search', 'close', 'dots', 'film', 'placeholder', 'arrow-back-to-top', 'youtube', 'github', 'linkedin', 'moon', 'sun','arrow-next'];
+
+// const icons = iconsArr
+//   .map(icon => `<svg><use href="${sprite}#icon-${icon}"></use></svg>`)
+//   .join('');
+// document.body.insertAdjacentHTML('beforebegin', icons);
+
 import initPagination from './js/pagination';
 
+import './js/library';
 import './sass/main.scss';
 import './js/header';
 import './js/film-in-modal-window';
@@ -13,12 +26,12 @@ import getRefs from './js/refs';
 import Preloader from './js/preloader';
 import { scrollFunction, backToTop } from './js/back-to-top-btn';
 import { changeTheme } from './js/change-theme';
-const { info, failure, success } = Notify;
+const { info } = Notify;
 const { log, error } = console;
 
 const DEBOUNCE_DELAY = 300;
 const DEBOUNCE_OPTIONS = { leading: true, trailing: false };
-const themSwitcher = document.querySelector(".theme-switch__control");
+const themeSwitcher = document.querySelector('.theme-switch__control');
 const mybutton = document.querySelector('.btn-back-to-top');
 
 const refs = getRefs();
@@ -36,20 +49,19 @@ const renderGallery = async results => {
     const cardTitles = document.querySelectorAll('.card__title');
     const footer = document.querySelector('.footer');
 
-  if (localStorage.getItem("theme") === 'dark-theme') {
-    cardTitles.forEach(title => title.style.color = '#ffffff');
-    footer.style.backgroundColor = '#202124';
+    if (localStorage.getItem('theme') === 'dark-theme') {
+      cardTitles.forEach(title => (title.style.color = '#ffffff'));
+      footer.style.backgroundColor = '#202124';
     }
-    
-    themSwitcher.addEventListener('change', event => {
-      if (event.target.checked) {
-            cardTitles.forEach(title => title.style.color = '#ffffff');
-      } else {
-        cardTitles.forEach(title => title.style.color = '#000000');
-          }
-        })
-    // ============
 
+    themeSwitcher.addEventListener('change', event => {
+      if (event.target.checked) {
+        cardTitles.forEach(title => (title.style.color = '#ffffff'));
+      } else {
+        cardTitles.forEach(title => (title.style.color = '#000000'));
+      }
+    });
+    // ============
   } catch (err) {
     error(err);
   }
@@ -59,12 +71,10 @@ export { renderGallery };
 
 const notifyStatus = (videosCount, page, totalResults) => {
   if (videosCount < 1) {
-    failure('Sorry, no results. Please try another query.');
     return 1;
   }
 
   if (totalResults > 0 && page === 1) {
-    success(`Hooray! We found ${totalResults} results.`);
     return 0;
   }
 };
@@ -74,7 +84,7 @@ const initGallery = async () => {
     /* page: 1, results: Array(20), total_pages: 1000, total_results: 20000 */
     const {
       page,
-      results,  
+      results,
       total_pages: totalPages,
       total_results: totalResults,
     } = await videoapi.getTrendingVideos();
@@ -94,7 +104,8 @@ const initGallery = async () => {
   }
 };
 
-initGallery();galleryCardTemplate
+initGallery();
+galleryCardTemplate;
 
 const setPagination = (type, totalPages) => {
   pagination.reset(totalPages);
@@ -154,3 +165,5 @@ window.onscroll = function (mybutton) {
 
 // ======смена темы============
 changeTheme();
+
+

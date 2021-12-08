@@ -9,6 +9,7 @@ import * as queue from './for-queue-btn'
 import { searchFilmInQueue } from './for-queue-localstorage';
 import {darkTheameForModal} from './change-theme'
 
+import addToLocalStorage from './add-to-local-storage';
 
 const refs = getRefs();
 
@@ -36,6 +37,10 @@ refs.gallery.addEventListener('click', async event => {
   // =================
   darkTheameForModal(modal);
   // =================
+  addToLocalStorage(idx);
+  // =================
+ 
+
   onCloseModal();
 });
 
@@ -89,6 +94,7 @@ async function contentModal(idx) {
       voteAverage,
       voteCount,
       genresJoined,
+      idx,
     });
 
     return makrup;
