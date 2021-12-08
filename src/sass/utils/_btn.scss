@@ -25,7 +25,7 @@
 .btn-back-to-top {
   position: fixed;
   bottom: 70px;
-  right: 20px;
+  right: 10px;
   display: none;
 
   background-color: var(--accent-color);
@@ -37,6 +37,20 @@
 
   border-radius: 20px;
   border: none;
+
+  @media screen and(min-width: $tablet) {
+    bottom: 150px;
+    right: 15px;
+  }
+
+  @media screen and(min-width: $desktop) {
+    bottom: 330px;
+    right: 25px;
+
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+  }
 }
 
 // ========= modal close button=========

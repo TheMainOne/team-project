@@ -1,6 +1,18 @@
+import sprite from './images/svg/sprite.svg';
+export { sprite };
+// console.log('sprite', sprite);
+
+// prettier-ignore
+// const iconsArr = ['arrow-prev', 'heart', 'search', 'close', 'dots', 'film', 'placeholder', 'arrow-back-to-top', 'youtube', 'github', 'linkedin', 'moon', 'sun','arrow-next'];
+
+// const icons = iconsArr
+//   .map(icon => `<svg><use href="${sprite}#icon-${icon}"></use></svg>`)
+//   .join('');
+// document.body.insertAdjacentHTML('beforebegin', icons);
+
 import initPagination from './js/pagination';
 
-import './js/change-theme';
+import './js/library';
 import './sass/main.scss';
 import './js/header';
 import './js/modal-window';
@@ -12,11 +24,13 @@ import galleryCardTemplate from './js/gallery-card-template';
 import './js/modalTeam';
 import getRefs from './js/refs';
 import { scrollFunction, backToTop } from './js/back-to-top-btn';
-const { info, failure, success } = Notify;
+import { changeTheme } from './js/change-theme';
+const { info } = Notify;
 const { log, error } = console;
 
 const DEBOUNCE_DELAY = 300;
 const DEBOUNCE_OPTIONS = { leading: true, trailing: false };
+const themeSwitcher = document.querySelector('.theme-switch__control');
 const mybutton = document.querySelector('.btn-back-to-top');
 
 const refs = getRefs();
@@ -34,6 +48,24 @@ const renderGallery = async results => {
 
     refs.gallery.innerHTML = '';
     refs.gallery.insertAdjacentHTML('beforeend', galleryMarkup);
+
+    // ============
+    const cardTitles = document.querySelectorAll('.card__title');
+    const footer = document.querySelector('.footer');
+
+    if (localStorage.getItem('theme') === 'dark-theme') {
+      cardTitles.forEach(title => (title.style.color = '#ffffff'));
+      footer.style.backgroundColor = '#202124';
+    }
+
+    themeSwitcher.addEventListener('change', event => {
+      if (event.target.checked) {
+        cardTitles.forEach(title => (title.style.color = '#ffffff'));
+      } else {
+        cardTitles.forEach(title => (title.style.color = '#000000'));
+      }
+    });
+    // ============
   } catch (err) {
     error(err);
   }
@@ -43,12 +75,10 @@ export { renderGallery };
 
 const notifyStatus = (videosCount, page, totalResults) => {
   if (videosCount < 1) {
-    failure('Sorry, no results. Please try another query.');
     return 1;
   }
 
   if (totalResults > 0 && page === 1) {
-    success(`Hooray! We found ${totalResults} results.`);
     return 0;
   }
 };
@@ -79,6 +109,7 @@ const initGallery = async () => {
 };
 
 initGallery();
+galleryCardTemplate;
 
 const setPagination = (type, totalPages) => {
   pagination.reset(totalPages);
@@ -132,3 +163,8 @@ mybutton.addEventListener('click', backToTop);
 window.onscroll = function (mybutton) {
   scrollFunction(mybutton);
 };
+
+// ======смена темы============
+changeTheme();
+
+

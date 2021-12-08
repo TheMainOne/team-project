@@ -30,24 +30,23 @@
 .gallery__item {
   width: 100%;
   border-radius: 5px;
-}
-
-.card {
-  display: flex;
-  flex-direction: column;
-
   transition: var(--time) var(--cubic);
   transition-property: transform, box-shadow;
-
-  border-radius: 5px;
-
-  // background-color: var(--main-text-color);
 
   &:focus-within,
   &:hover {
     transform: scale(1.04);
     box-shadow: var(--card-shadow);
   }
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+
+  border-radius: 5px;
+
+  // background-color: var(--main-text-color);
 }
 
 .card__thumb {
@@ -120,9 +119,6 @@
   background-color: var(--accent-color);
   border-radius: 5px;
 }
-.card__link-wrapper {
-  display: block;
-}
 
 .card__list-overlay {
   position: absolute;
@@ -140,6 +136,7 @@
   letter-spacing: 0.03em;
   color: rgb(228, 30, 30);
   overflow: hidden;
+  contain: content;
   padding-left: 24px;
   padding-right: 24px;
   padding-top: 63px;
