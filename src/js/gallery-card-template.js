@@ -118,6 +118,7 @@ const galleryCardTemplate = async (
 
       <p class="card__description">
 ${genresJoined ? `<span class="card__genres">${genresJoined}</span>` : ''}
+${(genresJoined && releaseYear) || (genresJoined && voteAverage) ? `<span class=".card__slash">|</span>` : '' }
  ${releaseYear ? `<span class="card__release-date">${releaseYear}</span>` : ''}
  ${voteAverage ? `<span class="card__vote ">${voteAverage}</span>` : ''}
       </p>
