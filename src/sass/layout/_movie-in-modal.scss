@@ -107,6 +107,7 @@
   margin-right: 15px;
   border-color: $secondary-text-color;
   color: $secondary-text-color;
+  cursor: pointer;
 
   &.btn--accent {
     padding: 0 20px;
@@ -170,7 +171,7 @@
   .movie {
     &__container {
       width: 882px;
-      height: 568px;
+      height: 620px;
       padding: 50px 30px 40px 30px;
 
       &--left-side {
@@ -193,4 +194,90 @@
       max-height: 204px;
     }
   }
+}
+
+// ======================STYLE TINGLE.JS==================//
+.custom-class-1 .tingle-modal-box__content {
+  padding: 0;
+}
+
+.tingle-modal.custom-class-1 {
+  cursor: default;
+  backdrop-filter: blur(1px);
+  background: rgb(0 0 0 / 25%);
+}
+
+.custom-class-1 .tingle-modal-box {
+  width: 85%;
+  margin: auto;
+
+  @media screen and (min-width: $tablet) {
+    width: 618px;
+  }
+
+  @media screen and (min-width: $desktop) {
+    width: 882px;
+  }
+}
+
+//==========Styles-Trailer-Btn ============//
+
+.trailer-link {
+  display: none;
+  width: 100%;
+  height: 50px;
+  font-weight: 900;
+  line-height: 30px;
+  border: 2px solid $accent-color;
+  border-radius: 5px;
+  padding: 10px 20px;
+
+  @media screen and (min-width: 768px) {
+    padding: 10px 35px;
+  }
+
+  @media screen and (min-width: 1024px) {
+    padding: 10px 105px;
+  }
+}
+
+.trailer-link:hover {
+  box-shadow: 0px -2px 32px 1px $accent-color;
+  transform: scale(1.08);
+}
+
+.trailer-link__text {
+  position: relative;
+  color: brown;
+}
+
+.trailer-link__svg {
+  position: absolute;
+  top: -5px;
+  right: -55px;
+}
+
+.search-for-trailer {
+  width: 100%;
+  height: 50px;
+
+  @media screen and (min-width: $tablet) {
+    padding: 10px 15px;
+  }
+
+  @media screen and (min-width: $desktop) {
+    padding: 10px 100px;
+  }
+}
+
+.enable {
+  display: block;
+}
+
+.unable {
+  display: none;
+}
+
+.search-trailer-btn {
+  display: flex;
 }

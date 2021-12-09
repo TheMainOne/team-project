@@ -1,5 +1,6 @@
 import sprite from './images/svg/sprite.svg';
 export { sprite };
+
 // console.log('sprite', sprite);
 
 // prettier-ignore
