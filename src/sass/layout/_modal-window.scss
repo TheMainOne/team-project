@@ -10,10 +10,11 @@
   font-size: 12px;
   line-height: 1.33;
   color: $secondary-text-color;
- 
+
 
   &__container {
     padding: 48px 20px 41px 20px;
+    
 
     &--left-side {
       margin-bottom: 30px;
@@ -170,7 +171,7 @@
   .movie {
     &__container {
       width: 882px;
-      height: 568px;
+      height: 620px;
       padding: 50px 30px 40px 30px;
 
       &--left-side {

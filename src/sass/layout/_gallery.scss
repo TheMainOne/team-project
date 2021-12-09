@@ -119,33 +119,3 @@
   background-color: var(--accent-color);
   border-radius: 5px;
 }
-
-// .card__list-overlay {
-//   position: absolute;
-//   top: 0;
-//   bottom: 0;
-//   width: 100%;
-//   height: 100%;
-//   background-color: rgba(245, 171, 101, 0.37);
-//   font-family: Roboto;
-//   font-style: normal;
-//   font-weight: normal;
-//   font-size: 18px;
-//   font-weight: 700;
-//   line-height: 1.56;
-//   letter-spacing: 0.03em;
-//   color: rgb(228, 30, 30);
-//   overflow: hidden;
-//   contain: content;
-//   padding-left: 24px;
-//   padding-right: 24px;
-//   padding-top: 63px;
-//   padding-bottom: 63px;
-//   transform: translateY(100%);
-//   transition: transform var(--time);
-
-//   .card__list-link-wrapper:hover &,
-//   .card__list-link-wrapper:focus & {
-//     transform: translateY(0%);
-//   }
-// }
