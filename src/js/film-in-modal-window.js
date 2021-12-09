@@ -39,7 +39,11 @@ refs.gallery.addEventListener('click', async event => {
 
   // =====нужно потом удалить
   const { idx } = li?.dataset;
-  modal.setContent(await contentModal(id));
+
+  const loaded = await contentModal(id);
+  if (!loaded || loaded === '') return;
+
+  modal.setContent(loaded);
   modal.open();
   const searchRef = document.querySelector('.search-for-trailer');
   searchRef.addEventListener('click', enableTrailerLink);
@@ -60,17 +64,21 @@ async function contentModal(idOfFilm) {
   try {
     let key = videoapi.type;
     console.log('contentModal ~ key', key);
-    let arrayOfFilms = [];
-    let ourFilm = {};
 
-    if (refs.gallery.dataset.gallery === 'queue') {
-      key = videoapi.keys.QUEUE;
-    } else if (refs.gallery.dataset.gallery === 'watch') {
-      key = videoapi.keys.WATCHED;
-    }
+    // if (refs.gallery.dataset.gallery === 'queue') {
+    //   key = videoapi.keys.QUEUE;
+    // } else if (refs.gallery.dataset.gallery === 'watch') {
+    //   key = videoapi.keys.WATCHED;
+    // }
 
-    arrayOfFilms = load(key);
-    ourFilm = arrayOfFilms.find(film => film.id === Number(idOfFilm));
+    console.log(typeof load(key), load(key));
+
+    const arrayOfFilms = load(key)?.results || [];
+    console.log('contentModal ~ arrayOfFilms', arrayOfFilms);
+
+    const ourFilm =
+      arrayOfFilms.find(film => film.id === Number(idOfFilm)) || {};
+    console.log('contentModal ~ ourFilm', ourFilm);
 
     const {
       id,

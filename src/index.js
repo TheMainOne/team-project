@@ -50,7 +50,7 @@ const onSubmit = async e => {
       total_results: totalResults,
     } = await videoapi.getVideos();
 
-    setPagination('videos', totalPages);
+    setPagination(videoapi.keys.SEARCH, totalPages);
 
     // console.log('res', page, results, totalPages, totalResults);
 
