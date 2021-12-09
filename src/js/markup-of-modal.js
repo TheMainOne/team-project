@@ -11,24 +11,25 @@ export function createPoster(poster, title) {
 
 export function createMarkup({
   isFilmInQueue,
-  isFilmInWatch,
-  id,
-  poster,
-  genresJoined,
-  title,
-  voteAverage,
-  voteCount,
-  popularity,
-  originalTitle,
-  overview,
+      isFilmInWatched,
+      id,
+      poster,
+      title,
+      overview,
+      popularity,
+      originalTitle,
+      voteAverage,
+      voteCount,
+      genresJoined,
 }) {
-  const queueStatus = isFilmInQueue
-    ? { data: 'remove-from-queue', text: 'remove from queue' }
-    : { data: 'add-to-queue', text: 'add to queue' };
-  const watchStatus = isFilmInWatch
-    ? { data: 'remove-from-watched', text: 'remove from watched' }
-    : { data: 'add-to-watched', text: 'add to watched' };
 
+  const queueStatus = isFilmInQueue ? { data: 'remove-from-queue', text: 'remove from queue' } : { data: 'add-to-queue', text: 'add to queue' };
+  const watchStatus = isFilmInWatched ? { data: 'remove-from-watched', text: 'remove from watched' } : { data: 'add-to-watched', text: 'add to watched' };
+
+
+  
+
+  
   return `<div class="modal-window">
     <div class="movie movie__container" data-id="${id}">
         <button class="btnClose">

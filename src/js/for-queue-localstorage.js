@@ -1,14 +1,15 @@
 import { save, load } from './storage';
+import { videoapi } from './api-service';
+const {QUEUE} = videoapi.keys
 
-const LOCAL_STORAGE_QUEUE = 'filmoteka-queue';
 
 
 export function addToQueue(refQueueBtn, ourFilm) {
       
       let filmsForQueue = [];
 
-      if (load(LOCAL_STORAGE_QUEUE)) {
-        filmsForQueue = load(LOCAL_STORAGE_QUEUE);
+      if (load(QUEUE)) {
+        filmsForQueue = load(QUEUE);
       };
   
       filmsForQueue = [
@@ -16,7 +17,7 @@ export function addToQueue(refQueueBtn, ourFilm) {
         ...filmsForQueue,
       ];
 
-      save(LOCAL_STORAGE_QUEUE, filmsForQueue);
+      save(QUEUE, filmsForQueue);
     
       refQueueBtn.dataset.action = 'remove-from-queue';
       refQueueBtn.innerHTML = "Remove from queue"
@@ -25,7 +26,7 @@ export function addToQueue(refQueueBtn, ourFilm) {
 
 export  function removeFromQueue(refQueueBtn, ourFilm) {
       
-  const filmsOfQueue =  load(LOCAL_STORAGE_QUEUE);
+  const filmsOfQueue =  load(QUEUE);
   let indexOfFilm = null;
 
    filmsOfQueue.forEach((element, index) => {
@@ -35,7 +36,7 @@ export  function removeFromQueue(refQueueBtn, ourFilm) {
   })
 
   filmsOfQueue.splice(indexOfFilm, 1);
-  save(LOCAL_STORAGE_QUEUE, filmsOfQueue);
+  save(QUEUE, filmsOfQueue);
   
   refQueueBtn.dataset.action = 'add-to-queue';
   refQueueBtn.innerHTML = "add to queue";
@@ -47,11 +48,11 @@ export  function searchFilmInQueue(id) {
 
   let filmsOfQueue = [];
 
-  if (load(LOCAL_STORAGE_QUEUE)) {
-    filmsOfQueue = load(LOCAL_STORAGE_QUEUE);
+  if (load(QUEUE)) {
+    filmsOfQueue = load(QUEUE);
   };
 
- return filmsOfQueue.find(element => element.id === id);
+  return filmsOfQueue.find(element => element.id === id);
 }
   
 

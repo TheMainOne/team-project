@@ -11,9 +11,12 @@ import { searchFilmInQueue } from './for-queue-localstorage';
 import { searchFilmInWatched } from './for-watched-localstorage';
 import { darkThemeForModal } from './change-theme';
 
-const refs = getRefs();
+import { enableTrailerLink } from './trailer';
 
-const LOCAL_STORAGE_QUEUE = 'filmoteka-queue';
+const refs = getRefs();
+const {QUEUE, WATCHED, TRENDING, SEARCH} = videoapi.keys
+
+
 
 const modal = new tingle.modal({
   footer: false,
@@ -22,8 +25,9 @@ const modal = new tingle.modal({
   closeLabel: 'Close',
   cssClass: ['custom-class-1', 'custom-class-2'],
   onOpen: function () {
+    darkThemeForModal(modal);
     queue.queueAddEventListener();
-    darkThemeForModal(this);
+    watched.watchedAddEventListener(); 
   },
   onClose: function () {
     queue.queueRemoveEventListener();
@@ -31,23 +35,20 @@ const modal = new tingle.modal({
   },
 });
 
+
 refs.gallery.addEventListener('click', async event => {
   const li = event.target.closest('.gallery__item');
-
   if (!li) return;
-  const { id } = li?.dataset;
+  
+  const id = Number(li.dataset.id);
 
-  // =====нужно потом удалить
-  const { idx } = li?.dataset;
-
-  const loaded = await contentModal(id);
-  if (!loaded || loaded === '') return;
-
-  modal.setContent(loaded);
-  modal.open();
+  modal.setContent(await contentModal(id)); 
+  modal.open();  
+  
   const searchRef = document.querySelector('.search-for-trailer');
   searchRef.addEventListener('click', enableTrailerLink);
-  watched.watchedAddEventListener();
+
+
   onBtnCloseModal();
 });
 
@@ -61,25 +62,30 @@ function onBtnCloseModal() {
 }
 
 async function contentModal(idOfFilm) {
+
   try {
-    let key = videoapi.type;
-    console.log('contentModal ~ key', key);
+    const gallaryData = refs.gallery.dataset.gallery;
+    let arrayOfFilms = [];
+    let ourFilm = {};
 
-    // if (refs.gallery.dataset.gallery === 'queue') {
-    //   key = videoapi.keys.QUEUE;
-    // } else if (refs.gallery.dataset.gallery === 'watch') {
-    //   key = videoapi.keys.WATCHED;
-    // }
 
-    console.log(typeof load(key), load(key));
+    if (gallaryData === "queue") {
+      arrayOfFilms = load(QUEUE);
+    } else if (gallaryData === "watch") {
+      arrayOfFilms = load(WATCHED);
+    } else if (gallaryData === "home") {
+      arrayOfFilms = load(TRENDING.WEEK).results;
+    }
 
-    const arrayOfFilms = load(key)?.results || [];
-    console.log('contentModal ~ arrayOfFilms', arrayOfFilms);
+    ourFilm = arrayOfFilms.find(film => film.id === idOfFilm);
 
-    const ourFilm =
-      arrayOfFilms.find(film => film.id === Number(idOfFilm)) || {};
-    console.log('contentModal ~ ourFilm', ourFilm);
-
+    
+    if (!ourFilm) {
+      arrayOfFilms = load(SEARCH).results
+      ourFilm = arrayOfFilms.find(film => film.id === idOfFilm);  
+    } 
+    
+ 
     const {
       id,
       title,
@@ -91,12 +97,13 @@ async function contentModal(idOfFilm) {
       vote_average: voteAverage,
       vote_count: voteCount,
     } = ourFilm;
-
+    
     const posterUrl = getImageUrl(posterPath);
     const genresJoined = await getGenres(genreIds);
     const poster = createPoster(posterUrl, title);
-    const isFilmInQueue = searchFilmInQueue(id);
+    const isFilmInQueue = searchFilmInQueue(idOfFilm);
     const isFilmInWatched = searchFilmInWatched(id);
+  
 
     const makrup = createMarkup({
       isFilmInQueue,
@@ -117,39 +124,4 @@ async function contentModal(idOfFilm) {
   } catch (error) {
     console.log(error);
   }
-}
-
-//======trailer======//
-
-function enableTrailerLink() {
-  const targetName = document.querySelector('.movie__title').textContent;
-  const trailerLinkRef = document.querySelector('.trailer-link');
-  const trailerTextRef = document.querySelector('.trailer-link__text');
-  const searchRef = document.querySelector('.search-for-trailer');
-  searchRef.classList.add('unable');
-  trailerLinkRef.classList.add('enable');
-
-  const youtubeKeyApi = 'AIzaSyCrnGnV2GS29bGv6ktcqjAdI_UxuU_ESyQ';
-  const baseYoutubeUrl = `https://www.googleapis.com/youtube/v3/search?q=${targetName}+official+trailer&key=${youtubeKeyApi}&part=snippet,id&kind='youtube#video'order=date&maxResults=1`;
-  fetch(baseYoutubeUrl)
-    .then(response => {
-      if (!response.ok) {
-        trailerLinkRef.target = '_self';
-        trailerTextRef.textContent = 'Sorry, CURRENTLY UNAVAILABLE';
-        trailerLinkRef.title =
-          'The request cannot be completed because the youtube quota is exceeded';
-        return;
-      }
-
-      return response.json();
-    })
-    .then(data => {
-      const movieId = data.items[0].id.videoId;
-      return movieId;
-    })
-    .then(data => {
-      trailerLinkRef.addEventListener('click', function () {
-        trailerLinkRef.href = `https://www.youtube.com/embed/${data}?enablejsapi=1`;
-      });
-    });
 }

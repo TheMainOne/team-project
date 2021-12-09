@@ -75,18 +75,18 @@ function changeTheme() {
   }
 }
 
-export function darkThemeForModal(modal) {
+ function darkThemeForModal(modal) {
   const theme = localStorage.getItem('theme');
   const modalForTheme = modal.modalBoxContent.children[0].children[0];
-  const butInModal =
-    modal.modalBoxContent.children[0].children[0].children[2].children[4]
-      .children[1];
   const btnClose = modal.modal.querySelector('.btnClose-icon');
+const butInModal = modal.modalBoxContent.children[0].children[0].children[2].children[4].children[1];
 
+
+   
   if (theme === 'dark-theme') {
     modalForTheme.style.backgroundColor = '#202124';
     modalForTheme.style.color = '#ffffff';
-    butInModal.style.color = '#ffffff';
+      butInModal.style.color = '#ffffff';
     butInModal.style.borderColor = '#ffffff';
     btnClose.style.stroke = '#ffffff';
   }
@@ -118,4 +118,4 @@ const onThemeToggle = async event => {
 
 // ============
 
-export { changeTheme, onThemeToggle, initThemeSwitcher };
+export { changeTheme, onThemeToggle, initThemeSwitcher, darkThemeForModal};

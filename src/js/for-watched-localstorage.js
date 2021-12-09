@@ -1,6 +1,7 @@
 import { save, load } from './storage';
-
-const LOCAL_STORAGE_WATCHED = 'filmoteka-watched';
+import { videoapi } from './api-service';
+const {WATCHED} = videoapi.keys
+const LOCAL_STORAGE_WATCHED = WATCHED;
 
 export function addToWatch(refWatchedBtn, currentMovie) {
   let movieForWatched = [];
@@ -39,8 +40,9 @@ export function searchFilmInWatched(id) {
 
   if (load(LOCAL_STORAGE_WATCHED)) {
     movieOfWatched = load(LOCAL_STORAGE_WATCHED);
-    console.log(movieOfWatched);
+
   }
 
   return movieOfWatched.find(movie => movie.id === id);
+ 
 }
