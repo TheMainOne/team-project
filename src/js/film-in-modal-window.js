@@ -72,20 +72,16 @@ async function contentModal(idOfFilm) {
 
     if (gallaryData === "queue") {
       arrayOfFilms = load(QUEUE);
-       console.log("~ arrayOfFilms1", arrayOfFilms)
     } else if (gallaryData === "watch") {
       arrayOfFilms = load(WATCHED);
-       console.log("~ arrayOfFilms2", arrayOfFilms)
     } else if (gallaryData === "home") {
       arrayOfFilms = load(TRENDING_WEEK)?.results;
-      console.log("~ arrayOfFilms3", arrayOfFilms)
     }
-    console.log("~ arrayOfFilms4", arrayOfFilms)
+
     ourFilm = arrayOfFilms.find(film => film.id === Number(idOfFilm));
     
     if (!ourFilm) {
       arrayOfFilms = load(SEARCH)
-      console.log("~ arrayOfFilms5", arrayOfFilms)
       ourFilm = arrayOfFilms.find(film => film.id === Number(idOfFilm));
     } 
     
