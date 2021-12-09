@@ -75,7 +75,7 @@ function changeTheme() {
   }
 }
 
-export function darkTheameForModal(modal) {
+export function darkThemeForModal(modal) {
   const theme = localStorage.getItem('theme');
   const modalForTheme = modal.modalBoxContent.children[0].children[0];
   const butInModal =

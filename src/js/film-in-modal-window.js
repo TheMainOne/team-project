@@ -9,7 +9,7 @@ import * as queue from './for-queue-btn';
 import * as watched from './for-watched-btn';
 import { searchFilmInQueue } from './for-queue-localstorage';
 import { searchFilmInWatched } from './for-watched-localstorage';
-import { darkTheameForModal } from './change-theme';
+import { darkThemeForModal } from './change-theme';
 
 const refs = getRefs();
 
@@ -23,13 +23,12 @@ const modal = new tingle.modal({
   cssClass: ['custom-class-1', 'custom-class-2'],
   onOpen: function () {
     queue.queueAddEventListener();
-    darkTheameForModal(this);
-    },
+    darkThemeForModal(this);
+  },
   onClose: function () {
     queue.queueRemoveEventListener();
     watched.watchedRemoveEventListener();
   },
-
 });
 
 refs.gallery.addEventListener('click', async event => {
@@ -40,17 +39,19 @@ refs.gallery.addEventListener('click', async event => {
 
   // =====нужно потом удалить
   const { idx } = li?.dataset;
-  modal.setContent(await contentModal(id));
+
+  const loaded = await contentModal(id);
+  if (!loaded || loaded === '') return;
+
+  modal.setContent(loaded);
   modal.open();
   const searchRef = document.querySelector('.search-for-trailer');
   searchRef.addEventListener('click', enableTrailerLink);
-   watched.watchedAddEventListener();
+  watched.watchedAddEventListener();
   onBtnCloseModal();
-
 });
 
 // ===================== функции для модалки ===============
-
 
 function onBtnCloseModal() {
   const btnClose = document.querySelector('.btnClose');
@@ -61,20 +62,23 @@ function onBtnCloseModal() {
 
 async function contentModal(idOfFilm) {
   try {
-    let key = videoapi.checkType();
-    let arrayOfFilms = [];
-    let ourFilm = {};
+    let key = videoapi.type;
+    console.log('contentModal ~ key', key);
 
-    if (refs.gallery.dataset.gallery === "queue") {
-      key = videoapi.keys.QUEUE;
-      arrayOfFilms = load(key)
-    } else if (refs.gallery.dataset.gallery === 'watch') {
-      key = videoapi.keys.WATCHED;
-      arrayOfFilms = load(key);
-    }
+    // if (refs.gallery.dataset.gallery === 'queue') {
+    //   key = videoapi.keys.QUEUE;
+    // } else if (refs.gallery.dataset.gallery === 'watch') {
+    //   key = videoapi.keys.WATCHED;
+    // }
 
-    ourFilm = arrayOfFilms.find(film => film.id === Number(idOfFilm));
+    console.log(typeof load(key), load(key));
 
+    const arrayOfFilms = load(key)?.results || [];
+    console.log('contentModal ~ arrayOfFilms', arrayOfFilms);
+
+    const ourFilm =
+      arrayOfFilms.find(film => film.id === Number(idOfFilm)) || {};
+    console.log('contentModal ~ ourFilm', ourFilm);
 
     const {
       id,
@@ -115,8 +119,6 @@ async function contentModal(idOfFilm) {
   }
 }
 
-
-
 //======trailer======//
 
 function enableTrailerLink() {
@@ -124,7 +126,7 @@ function enableTrailerLink() {
   const trailerLinkRef = document.querySelector('.trailer-link');
   const trailerTextRef = document.querySelector('.trailer-link__text');
   const searchRef = document.querySelector('.search-for-trailer');
-  searchRef.classList.add('unable')
+  searchRef.classList.add('unable');
   trailerLinkRef.classList.add('enable');
 
   const youtubeKeyApi = 'AIzaSyCrnGnV2GS29bGv6ktcqjAdI_UxuU_ESyQ';
@@ -132,10 +134,11 @@ function enableTrailerLink() {
   fetch(baseYoutubeUrl)
     .then(response => {
       if (!response.ok) {
-          trailerLinkRef.target = '_self';
-          trailerTextRef.textContent = 'Sorry, CURRENTLY UNAVAILABLE';
-          trailerLinkRef.title='The request cannot be completed because the youtube quota is exceeded';
-          return;
+        trailerLinkRef.target = '_self';
+        trailerTextRef.textContent = 'Sorry, CURRENTLY UNAVAILABLE';
+        trailerLinkRef.title =
+          'The request cannot be completed because the youtube quota is exceeded';
+        return;
       }
 
       return response.json();
@@ -146,7 +149,7 @@ function enableTrailerLink() {
     })
     .then(data => {
       trailerLinkRef.addEventListener('click', function () {
-      trailerLinkRef.href = `https://www.youtube.com/embed/${data}?enablejsapi=1`;
+        trailerLinkRef.href = `https://www.youtube.com/embed/${data}?enablejsapi=1`;
       });
     });
 }

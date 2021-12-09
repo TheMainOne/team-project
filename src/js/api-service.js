@@ -82,12 +82,6 @@ class videoAPI {
     return searchedVideos;
   }
 
-  checkType() {
-    const { keys, type } = this;
-    const key = keys[type];
-    return key;
-  }
-
   get baseURL() {
     return this.#baseURL;
   }

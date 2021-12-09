@@ -69,8 +69,8 @@ const galleryCardTemplate = async (
 
   const genresJoined = await getGenres(genreIds);
 
-  const type = videoapi.checkType();
-  if (type !== 'watched' && type !== 'queue') {
+  const { type, keys } = videoapi;
+  if (type !== keys.WATCHED && type !== keys.QUEUE) {
     voteAverage = '';
   }
 
