@@ -8,12 +8,14 @@ import { createMarkup, createPoster } from './markup-of-modal';
 import * as queue from './for-queue-btn'
 import { searchFilmInQueue } from './for-queue-localstorage';
 import {darkTheameForModal} from './change-theme'
-
 import addToLocalStorage from './add-to-local-storage';
 
 const refs = getRefs();
+const gallaryData = refs.gallery.dataset.gallery;
+const { QUEUE, WATCHED, TRENDING_WEEK, SEARCH } = videoapi.keys
+// const {QUEUE, WATCHED, TRENDING, SEARCH} = videoapi.keys
 
-const LOCAL_STORAGE_QUEUE = 'filmoteka-queue';
+
 
 const modal = new tingle.modal({
   footer: false,
@@ -65,22 +67,29 @@ function onBtnCloseModal() {
 
 async function contentModal(idOfFilm) {
   try {
-    let key = videoapi.checkType();
     let arrayOfFilms = [];
     let ourFilm = {};
 
-    if (refs.gallery.dataset.gallery === "queue") {
-      key = LOCAL_STORAGE_QUEUE;
-      arrayOfFilms = load(key)
-    } else if (refs.gallery.dataset.gallery === "watch") {
-      key = "watched";
-      arrayOfFilms = load(key)
-    } else {
-      arrayOfFilms = load(key)?.results;
+    if (gallaryData === "queue") {
+      arrayOfFilms = load(QUEUE);
+       console.log("~ arrayOfFilms1", arrayOfFilms)
+    } else if (gallaryData === "watch") {
+      arrayOfFilms = load(WATCHED);
+       console.log("~ arrayOfFilms2", arrayOfFilms)
+    } else if (gallaryData === "home") {
+      arrayOfFilms = load(TRENDING_WEEK)?.results;
+      console.log("~ arrayOfFilms3", arrayOfFilms)
     }
- 
+    console.log("~ arrayOfFilms4", arrayOfFilms)
     ourFilm = arrayOfFilms.find(film => film.id === Number(idOfFilm));
- 
+    
+    if (!ourFilm) {
+      arrayOfFilms = load(SEARCH)
+      console.log("~ arrayOfFilms5", arrayOfFilms)
+      ourFilm = arrayOfFilms.find(film => film.id === Number(idOfFilm));
+    } 
+    
+  
  
     const {
       id,
