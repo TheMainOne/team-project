@@ -102,11 +102,7 @@ const galleryCardTemplate = async (
             : `<svg class="card__poster"><use href="${poster}"></use><svg>`
         }
 
-      <p class="card__list-overlay">YOUTUBE TRAILER
-        <svg class="trailer-link__svg" height="21" width="50"><use href="${iconYoutube}"></use></svg>
-      </p>
-
-    </div>
+     </div>
 
     <div class="card__meta">
       <h2 class="card__title">${title}</h2>

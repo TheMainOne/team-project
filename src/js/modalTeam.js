@@ -48,7 +48,6 @@ const markup = `<ul class="team__wrapper">
                          type="image/svg+xml" class="logo__icon" width="16" height="16" style=" fill: rgba(66, 114, 247, 0.993)">
                          <use type="image/svg+xml" type="image/svg+xml" href="${sprite}#icon-linkedin"></use>
                      </svg></a></li>
-
         </ul>
         </li>
         <li class="team__card">
@@ -64,7 +63,6 @@ const markup = `<ul class="team__wrapper">
                          type="image/svg+xml" class="logo__icon" width="16" height="16" style=" fill: rgba(66, 114, 247, 0.993)">
                          <use type="image/svg+xml" type="image/svg+xml" href="${sprite}#icon-linkedin"></use>
                      </svg></a></li>
-
         </ul>
         </li>
         <li class="team__card">
@@ -80,7 +78,6 @@ const markup = `<ul class="team__wrapper">
                          type="image/svg+xml" class="logo__icon" width="16" height="16" style=" fill: rgba(66, 114, 247, 0.993)">
                          <use type="image/svg+xml" type="image/svg+xml" href="${sprite}#icon-linkedin"></use>
                      </svg></a></li>
-
          </ul>
         </li>
         <li class="team__card">
@@ -96,7 +93,6 @@ const markup = `<ul class="team__wrapper">
                                type="image/svg+xml" class="logo__icon" width="16" height="16" style=" fill: rgba(66, 114, 247, 0.993)">
                                 <use type="image/svg+xml" type="image/svg+xml" href="${sprite}#icon-linkedin"></use>
                             </svg></a></li>
-
                </ul>
         </li>
         <li class="team__card">
@@ -112,7 +108,6 @@ const markup = `<ul class="team__wrapper">
                                type="image/svg+xml" class="logo__icon" width="16" height="16" style=" fill: rgba(66, 114, 247, 0.993)">
                                 <use type="image/svg+xml" type="image/svg+xml" href="${sprite}#icon-linkedin"></use>
                             </svg></a></li>
-
                </ul>
         </li>
         <li class="team__card">
@@ -128,7 +123,6 @@ const markup = `<ul class="team__wrapper">
                                type="image/svg+xml" class="logo__icon" width="16" height="16" style=" fill: rgba(66, 114, 247, 0.993)">
                                 <use type="image/svg+xml" type="image/svg+xml" href="${sprite}#icon-linkedin"></use>
                             </svg></a></li>
-
                </ul>
         </li>
         <li class="team__card">
@@ -144,7 +138,6 @@ const markup = `<ul class="team__wrapper">
                                type="image/svg+xml" class="logo__icon" width="16" height="16" style=" fill: rgba(66, 114, 247, 0.993)">
                                 <use type="image/svg+xml" type="image/svg+xml" href="${sprite}#icon-linkedin"></use>
                             </svg></a></li>
-
                </ul>
         </li>
         <li class="team__card">
@@ -160,7 +153,6 @@ const markup = `<ul class="team__wrapper">
                                type="image/svg+xml" class="logo__icon" width="16" height="16" style=" fill: rgba(66, 114, 247, 0.993)">
                                 <use type="image/svg+xml" type="image/svg+xml" href="${sprite}#icon-linkedin"></use>
                             </svg></a></li>
-
                </ul>
         </li>
         <li class="team__card">
@@ -176,7 +168,6 @@ const markup = `<ul class="team__wrapper">
                                type="image/svg+xml" class="logo__icon" width="16" height="16" style=" fill: rgba(66, 114, 247, 0.993)">
                                 <use type="image/svg+xml" type="image/svg+xml" class="linkedin" href="${sprite}#icon-linkedin"></use>
                             </svg></a></li>
-
                </ul>
         </li>
         </ul>`;
@@ -195,3 +186,4 @@ function openModal(e) {
     }
   }
 }
+
