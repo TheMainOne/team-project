@@ -1,4 +1,4 @@
-import { renderGallery } from '..';
+import {  renderGallery } from './init-gallery';
 import getHeaderRefs from './getHearedRefs';
 import { load } from './storage';
 import './film-in-modal-window'
@@ -7,14 +7,14 @@ const libraryBtn = document.querySelector(`[data-action="js-library"]`);
 
 
 refs.headerControlBox.addEventListener("click", (e)=>{
-    
+
     if (e.target.dataset.action === "queue" && load('filmoteka-queue')) {
         renderCard();
     }
 })
 
 libraryBtn.addEventListener("click", ()=>{
-    if (load('filmoteka-queue')) { 
+    if (load('filmoteka-queue')) {
     renderCard();
     }
 })

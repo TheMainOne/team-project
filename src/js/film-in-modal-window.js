@@ -51,6 +51,7 @@ refs.gallery.addEventListener('click', async event => {
 
 // ===================== функции для модалки ===============
 
+
 function onBtnCloseModal() {
   const btnClose = document.querySelector('.btnClose');
   btnClose.addEventListener('click', () => {
@@ -65,18 +66,16 @@ async function contentModal(idOfFilm) {
     let ourFilm = {};
 
     if (refs.gallery.dataset.gallery === "queue") {
-      key = LOCAL_STORAGE_QUEUE;
+      key = videoapi.keys.QUEUE;
       arrayOfFilms = load(key)
-    } else if (refs.gallery.dataset.gallery === "watch") {
-      key = "watched";
-      arrayOfFilms = load(key)
-    } else {
-      arrayOfFilms = load(key)?.results;
+    } else if (refs.gallery.dataset.gallery === 'watch') {
+      key = videoapi.keys.WATCHED;
+      arrayOfFilms = load(key);
     }
- 
+
     ourFilm = arrayOfFilms.find(film => film.id === Number(idOfFilm));
- 
- 
+
+
     const {
       id,
       title,
@@ -151,4 +150,3 @@ function enableTrailerLink() {
       });
     });
 }
-

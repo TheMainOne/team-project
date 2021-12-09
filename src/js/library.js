@@ -1,8 +1,10 @@
 import getRefs from './refs';
 
 import { save, load } from './storage';
-import { renderGallery } from '../index';
+import { renderGallery } from './init-gallery';
+
 const refs = getRefs();
+
 const libraryBtnRef = document.querySelector('[data-action="js-library"]');
 
 libraryBtnRef.addEventListener('click', onLibraryBtnClick, { once: true });
@@ -76,6 +78,11 @@ function onLibraryBtnClick() {
   } else {
     if (load('watched')) {
       const watched = load('watched');
+
+      if (watched.length === 0) {
+        return;
+      }
+
       renderGallery(watched);
 
 

@@ -1,9 +1,8 @@
 import Pagination from 'tui-pagination';
-import 'tui-pagination/dist/tui-pagination.min.css';
-import { renderGallery, sprite } from '../index';
 import { videoapi } from './api-service';
-const { log, error } = console;
+import { renderGallery } from './init-gallery';
 
+import { sprite } from '../index';
 const iconDots = `${sprite}#icon-dots`;
 const iconArrow = `${sprite}#icon-arrow`;
 
@@ -14,76 +13,97 @@ const iconArrow = `${sprite}#icon-arrow`;
 .tui-pagination .tui-ico-next,
 .tui-pagination .tui-ico-prev */
 
-const initPagination = async ({ page, itemsPerPage, totalItems }) => {
-  const options = {
-    page,
+const options = {
+  page: 1,
 
-    totalItems,
+  totalItems: 0,
 
-    itemsPerPage,
+  itemsPerPage: 20,
 
-    visiblePages: 5,
+  visiblePages: 5,
 
-    centerAlign: true,
+  centerAlign: true,
 
-    usageStatistics: false,
+  usageStatistics: false,
 
-    firstItemClassName: 'tui-first-child',
+  firstItemClassName: 'tui-first-child',
 
-    lastItemClassName: 'tui-last-child',
+  lastItemClassName: 'tui-last-child',
 
-    template: {
-      page: '<a href="#" class="tui-page-btn">{{page}}</a>',
+  template: {
+    page: '<a href="#" class="tui-page-btn">{{page}}</a>',
 
-      currentPage:
-        '<strong class="tui-page-btn tui-is-selected">{{page}}</strong>',
+    currentPage:
+      '<strong class="tui-page-btn tui-is-selected">{{page}}</strong>',
 
-      moveButton:
-        '<a href="#" class="tui-page-btn tui-{{type}}">' +
-        `<svg class="tui-ico-{{type}}"><use href="${iconArrow}-{{type}}"></use></svg>` +
-        '</a>',
+    moveButton:
+      '<a href="#" class="tui-page-btn tui-{{type}}">' +
+      `<svg class="tui-ico-{{type}}"><use href="${iconArrow}-{{type}}"></use></svg>` +
+      '</a>',
 
-      disabledMoveButton:
-        '<span class="tui-page-btn tui-is-disabled tui-{{type}}">' +
-        '<span class="tui-ico-{{type}}">{{type}}</span>' +
-        '</span>',
+    disabledMoveButton:
+      '<span class="tui-page-btn tui-is-disabled tui-{{type}}">' +
+      '<span class="tui-ico-{{type}}">{{type}}</span>' +
+      '</span>',
 
-      moreButton:
-        '<a href="#" class="tui-page-btn tui-{{type}}-is-ellip">' +
-        `<svg class="tui-ico-ellip"><use href="${iconDots}"></use></svg>` +
-        '</a>',
-    },
-  };
+    moreButton:
+      '<a href="#" class="tui-page-btn tui-{{type}}-is-ellip">' +
+      `<svg class="tui-ico-ellip"><use href="${iconDots}"></use></svg>` +
+      '</a>',
+  },
+};
+const containerID = 'pagination';
+const pagination = new Pagination(containerID, options);
 
-  const pagination = await new Pagination('pagination', options);
+const removeDOM = async els => els.map(el => el.remove());
 
-  pagination.on('afterMove', async ({ page }) => {
-    videoapi.page = page;
+const removeTuiButtons = async resultsLength => {
+  const { first, last, disabledFirst, disabledLast } =
+    pagination._view._buttons;
 
-    switch (videoapi.type) {
-      case 'trendingVideosWeek': {
-        videoapi.period = 'week';
-        const { results } = await videoapi.getTrendingVideos();
-        renderGallery(results);
-        break;
-      }
-      case 'trendingVideosDay': {
-        videoapi.period = 'day';
-        const { results } = await videoapi.getTrendingVideos();
-        renderGallery(results);
-        break;
-      }
-      case 'videos': {
-        const { results } = await videoapi.getVideos();
-        renderGallery(results);
-        break;
-      }
-      default:
-        return;
-    }
-  });
+  if (resultsLength < 1) {
+    removeDOM([...document.querySelectorAll('.tui-page-btn')]);
+    return;
+  }
 
-  return pagination;
+  removeDOM([first, last, disabledFirst, disabledLast]);
 };
 
-export default initPagination;
+// delete pagination._view._buttons.first;
+// delete pagination._view._buttons.last;
+// delete pagination._view._buttons.disabledFirst;
+// delete pagination._view._buttons.disabledLast;
+
+pagination.on('afterMove', async ({ page }) => {
+  videoapi.page = page;
+
+  switch (videoapi.type) {
+    case videoapi.keys.TRENDING.WEEK: {
+      videoapi.period = 'week';
+      const { results } = await videoapi.getTrendingVideos();
+      renderGallery(results);
+      break;
+    }
+    case videoapi.keys.TRENDING.DAY: {
+      videoapi.period = 'day';
+      const { results } = await videoapi.getTrendingVideos();
+      renderGallery(results);
+      break;
+    }
+    case videoapi.keys.SEARCH: {
+      const { results } = await videoapi.getVideos();
+      renderGallery(results);
+      break;
+    }
+    default:
+      return;
+  }
+});
+
+const setPagination = async (type, totalPages) => {
+  videoapi.type = type;
+  pagination.reset(totalPages);
+  pagination.movePageTo(1);
+};
+
+export { setPagination, removeTuiButtons };
