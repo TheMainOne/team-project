@@ -1,3 +1,5 @@
+const { error } = console;
+
 const save = (key, obj) => {
   try {
     localStorage.setItem(key, JSON.stringify(obj));
@@ -9,7 +11,7 @@ const save = (key, obj) => {
 const load = key => {
   try {
     const isStored = localStorage.getItem(key);
-    return isStored ? JSON.parse(isStored) : null;
+    return isStored ? JSON.parse(isStored) : undefined;
   } catch (err) {
     error(err);
   }

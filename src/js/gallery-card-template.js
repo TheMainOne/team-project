@@ -34,7 +34,7 @@ const getGenreName = async id =>
   await (await genresParsed).find(genre => genre.id === id).name;
 
 const getGenres = async genreIds => {
-  let genresJoined = '';
+  let genresJoined = genreIds.length === 0 ? '' : genreIds;
   if (genreIds?.length > 0 && genreIds.length < 3) {
     genresJoined = await Promise.all(genreIds.map(getGenreName));
     genresJoined = genresJoined.join(', ');
@@ -52,7 +52,7 @@ export { getGenres };
 const galleryCardTemplate = async (
   {
     poster_path: posterPath,
-    genre_ids: genreIds = [],
+    genre_ids: genreIds,
     genres = null,
     release_date: releaseDate,
     title,
@@ -111,9 +111,9 @@ const galleryCardTemplate = async (
       <h2 class="card__title">${title}</h2>
 
       <p class="card__description">
-        <span class="card__genres">${genresJoined}</span>
-        <span class="card__release-date">${releaseYear}</span>
-       ${voteAverage ? `<span class="card__vote">${voteAverage}</span>` : ''}
+${genresJoined ? `<span class="card__genres">${genresJoined}</span>` : ''}
+ ${releaseYear ? `<span class="card__release-date">${releaseYear}</span>` : ''}
+ ${voteAverage ? `<span class="card__vote">${voteAverage}</span>` : ''}
       </p>
     </div>
 
