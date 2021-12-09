@@ -1,7 +1,7 @@
 import sprite from './images/svg/sprite.svg';
 export { sprite };
 
-import { setPagination } from './js/pagination';
+import { listenPaginationClick, setPagination } from './js/pagination';
 import 'tui-pagination/dist/tui-pagination.min.css';
 
 import './js/queue';
@@ -29,7 +29,6 @@ initGallery();
 
 const onSubmit = async e => {
   e.preventDefault();
-
   try {
     e.target.elements.submitSearch.disabled = true;
     setTimeout(() => (e.target.elements.submitSearch.disabled = false), 1000);
@@ -79,6 +78,8 @@ const initListeners = () => {
   refs.themeSwitcher.addEventListener('change', onThemeToggle, passive);
 
   refs.backToTopBtn.addEventListener('click', backToTop, passive);
+
+  listenPaginationClick();
 };
 
 initListeners();
