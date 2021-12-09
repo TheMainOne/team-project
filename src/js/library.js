@@ -77,6 +77,10 @@ function onLibraryBtnClick() {
     if (load('watched')) {
       const watched = load('watched');
       renderGallery(watched);
+
+
+
+      
     }
   }
 }
