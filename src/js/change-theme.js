@@ -49,11 +49,14 @@ function changeTheme() {
     if (currentTheme) {
       bgColor.classList.toggle(currentTheme);
     }
-    };
-    
+
+    if (currentTheme === DARK) {
+      themeToggle.checked = true;
+    }
+  }
+}
+
 export { changeTheme };
-
-
 
 
 
@@ -74,10 +77,6 @@ export function darkTheameForModal(modal) {
   }
 }
 
-    if (currentTheme === DARK) {
-      themeToggle.checked = true;
-    }
-  }
 
 
-export { changeTheme };
+
