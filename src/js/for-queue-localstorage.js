@@ -52,7 +52,6 @@ export  function searchFilmInQueue(id) {
   };
 
  return filmsOfQueue.find(element => element.id === id);
-  
 }
   
 
