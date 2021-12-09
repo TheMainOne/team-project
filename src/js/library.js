@@ -85,9 +85,6 @@
 
 //       renderGallery(watched);
 
-
-
-      
 //     }
 //   }
 // }

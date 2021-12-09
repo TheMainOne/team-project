@@ -14,9 +14,7 @@ import { darkThemeForModal } from './change-theme';
 import { enableTrailerLink } from './trailer';
 
 const refs = getRefs();
-const {QUEUE, WATCHED, TRENDING, SEARCH} = videoapi.keys
-
-
+const { QUEUE, WATCHED, TRENDING, SEARCH } = videoapi.keys;
 
 const modal = new tingle.modal({
   footer: false,
@@ -27,7 +25,7 @@ const modal = new tingle.modal({
   onOpen: function () {
     darkThemeForModal(modal);
     queue.queueAddEventListener();
-    watched.watchedAddEventListener(); 
+    watched.watchedAddEventListener();
   },
   onClose: function () {
     queue.queueRemoveEventListener();
@@ -35,19 +33,21 @@ const modal = new tingle.modal({
   },
 });
 
-
 refs.gallery.addEventListener('click', async event => {
   const li = event.target.closest('.gallery__item');
   if (!li) return;
-  
+
   const id = Number(li.dataset.id);
 
-  modal.setContent(await contentModal(id)); 
-  modal.open();  
-  
+  const loaded = await contentModal(id);
+
+  console.log(id);
+  if (!loaded || loaded === '') return;
+
+  modal.setContent(loaded);
+  modal.open();
   const searchRef = document.querySelector('.search-for-trailer');
   searchRef.addEventListener('click', enableTrailerLink);
-
 
   onBtnCloseModal();
 });
@@ -62,30 +62,27 @@ function onBtnCloseModal() {
 }
 
 async function contentModal(idOfFilm) {
-
   try {
     const gallaryData = refs.gallery.dataset.gallery;
+
     let arrayOfFilms = [];
     let ourFilm = {};
 
-
-    if (gallaryData === "queue") {
+    if (gallaryData === 'queue') {
       arrayOfFilms = load(QUEUE);
-    } else if (gallaryData === "watch") {
+    } else if (gallaryData === 'watch') {
       arrayOfFilms = load(WATCHED);
-    } else if (gallaryData === "home") {
+    } else if (gallaryData === 'home') {
       arrayOfFilms = load(TRENDING.WEEK).results;
     }
 
     ourFilm = arrayOfFilms.find(film => film.id === idOfFilm);
 
-    
     if (!ourFilm) {
-      arrayOfFilms = load(SEARCH).results
-      ourFilm = arrayOfFilms.find(film => film.id === idOfFilm);  
-    } 
-    
- 
+      arrayOfFilms = load(SEARCH).results;
+      ourFilm = arrayOfFilms.find(film => film.id === idOfFilm);
+    }
+
     const {
       id,
       title,
@@ -97,13 +94,13 @@ async function contentModal(idOfFilm) {
       vote_average: voteAverage,
       vote_count: voteCount,
     } = ourFilm;
-    
+    console.log(ourFilm);
+
     const posterUrl = getImageUrl(posterPath);
     const genresJoined = await getGenres(genreIds);
     const poster = createPoster(posterUrl, title);
     const isFilmInQueue = searchFilmInQueue(idOfFilm);
     const isFilmInWatched = searchFilmInWatched(id);
-  
 
     const makrup = createMarkup({
       isFilmInQueue,

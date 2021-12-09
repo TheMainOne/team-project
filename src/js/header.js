@@ -2,6 +2,8 @@ import getHeaderRefs from './getHearedRefs';
 import { videoapi } from './api-service';
 import { sprite } from '../index';
 import { renderGallery } from './init-gallery';
+import { isWatched } from './render-watched';
+
 const iconSearch = `${sprite}#icon-search`;
 
 const refs = getHeaderRefs();
@@ -62,6 +64,7 @@ function onLibraryButtonClick(e) {
 
   if (hasDataAttr === 'watched') {
     videoapi.type = videoapi.keys.WATCHED;
+    isWatched();
   }
 
   console.log('onLibraryButtonClick ~ videoapi.type', videoapi.type);

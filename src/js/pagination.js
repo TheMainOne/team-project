@@ -33,8 +33,7 @@ const options = {
   template: {
     page: '<a href="#" class="tui-page-btn">{{page}}</a>',
 
-    currentPage:
-      '<strong class="tui-page-btn tui-is-selected">{{page}}</strong>',
+    currentPage: '<strong class="tui-page-btn tui-is-selected">{{page}}</strong>',
 
     moveButton:
       '<a href="#" class="tui-page-btn tui-{{type}}">' +
@@ -58,8 +57,7 @@ const pagination = new Pagination(containerID, options);
 const removeDOM = async els => els.map(el => el.remove());
 
 const removeTuiButtons = async resultsLength => {
-  const { first, last, disabledFirst, disabledLast } =
-    pagination._view._buttons;
+  const { first, last, disabledFirst, disabledLast } = pagination._view._buttons;
 
   if (resultsLength < 1) {
     removeDOM([...document.querySelectorAll('.tui-page-btn')]);
