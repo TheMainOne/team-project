@@ -11,7 +11,7 @@ const save = (key, obj) => {
 const load = key => {
   try {
     const isStored = localStorage.getItem(key);
-    return isStored ? JSON.parse(isStored) : undefined;
+    return isStored === null ? undefined : JSON.parse(isStored);
   } catch (err) {
     error(err);
   }

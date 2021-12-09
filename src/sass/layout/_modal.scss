@@ -1,0 +1,23 @@
+// ======================STYLE TINGLE.JS==================//
+.custom-class-1 .tingle-modal-box__content {
+  padding: 0;
+}
+
+.tingle-modal.custom-class-1 {
+  cursor: default;
+  backdrop-filter: blur(1px);
+  background: rgb(0 0 0 / 25%);
+}
+
+.custom-class-1 .tingle-modal-box {
+  width: 85%;
+  margin: auto;
+
+  @media screen and (min-width: $tablet) {
+    width: 618px;
+  }
+
+  @media screen and (min-width: $desktop) {
+    width: 882px;
+  }
+}
