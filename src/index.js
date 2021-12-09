@@ -11,7 +11,7 @@ export { sprite };
 // document.body.insertAdjacentHTML('beforebegin', icons);
 
 import initPagination from './js/pagination';
-
+import './js/queue'
 import './js/library';
 import './sass/main.scss';
 import './js/header';

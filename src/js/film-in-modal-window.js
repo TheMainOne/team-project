@@ -14,7 +14,7 @@ import addToLocalStorage from './add-to-local-storage';
 const refs = getRefs();
 
 
-var modal = new tingle.modal({
+const modal = new tingle.modal({
   footer: false,
   stickyFooter: false,
   closeMethods: ['overlay', 'escape'],
@@ -104,3 +104,5 @@ async function contentModal(idx) {
     console.log(error);
   }
 }
+
+ 
