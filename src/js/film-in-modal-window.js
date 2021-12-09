@@ -25,7 +25,6 @@ const modal = new tingle.modal({
   closeLabel: 'Close',
   cssClass: ['custom-class-1', 'custom-class-2'],
   onOpen: function () {
-
     darkThemeForModal(modal);
     queue.queueAddEventListener();
     watched.watchedAddEventListener(); 
@@ -39,8 +38,8 @@ const modal = new tingle.modal({
 
 refs.gallery.addEventListener('click', async event => {
   const li = event.target.closest('.gallery__item');
-  
   if (!li) return;
+  
   const id = Number(li.dataset.id);
 
   modal.setContent(await contentModal(id)); 
@@ -72,24 +71,20 @@ async function contentModal(idOfFilm) {
 
     if (gallaryData === "queue") {
       arrayOfFilms = load(QUEUE);
-      console.log("~ QUEUE", arrayOfFilms)
     } else if (gallaryData === "watch") {
       arrayOfFilms = load(WATCHED);
-      console.log("~ watch", arrayOfFilms)
     } else if (gallaryData === "home") {
       arrayOfFilms = load(TRENDING.WEEK).results;
-      console.log("~ home", arrayOfFilms)
     }
 
     ourFilm = arrayOfFilms.find(film => film.id === idOfFilm);
+
     
     if (!ourFilm) {
       arrayOfFilms = load(SEARCH).results
-      console.log("~ SEARCH", arrayOfFilms)
       ourFilm = arrayOfFilms.find(film => film.id === idOfFilm);  
     } 
     
-
  
     const {
       id,
@@ -103,17 +98,12 @@ async function contentModal(idOfFilm) {
       vote_count: voteCount,
     } = ourFilm;
     
-
-
     const posterUrl = getImageUrl(posterPath);
     const genresJoined = await getGenres(genreIds);
     const poster = createPoster(posterUrl, title);
-
     const isFilmInQueue = searchFilmInQueue(idOfFilm);
     const isFilmInWatched = searchFilmInWatched(id);
   
-
-    
 
     const makrup = createMarkup({
       isFilmInQueue,

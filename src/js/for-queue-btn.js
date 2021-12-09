@@ -4,7 +4,7 @@ import { load } from './storage';
 import getRefs from './refs';
 import { renderGallery } from './init-gallery';
 
-const {TRENDING, QUEUE} = videoapi.keys
+const {TRENDING, QUEUE, SEARCH} = videoapi.keys
 const refs = getRefs();
 const refsGallery = refs.gallery;
 
@@ -29,9 +29,15 @@ export async function onClickBtnQuequ(e) {
   const refQueueBtn = e.currentTarget;
   const movieId = Number(document.querySelector('.movie').dataset.id);
   const filmOfWeek = await load(TRENDING.WEEK).results;
-  const ourFilm = filmOfWeek.find(film => film.id === movieId);
-  
+  let ourFilm = filmOfWeek.find(film => film.id === movieId);
 
+   if (!ourFilm) {
+     const arrayOfFilms = load(SEARCH).results
+     ourFilm = arrayOfFilms.find(film => film.id === movieId);  
+    } 
+  
+  
+  
   if (refQueueBtn.dataset.action === 'add-to-queue') {
         addToQueue(refQueueBtn, ourFilm);
         return

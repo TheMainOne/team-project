@@ -17,7 +17,6 @@ export function createMarkup({
       title,
       overview,
       popularity,
-      posterPath,
       originalTitle,
       voteAverage,
       voteCount,
