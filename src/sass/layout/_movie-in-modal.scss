@@ -222,6 +222,43 @@
 
 //==========Styles-Trailer-Btn ============//
 
+.modal__btn {
+  width: 112.58px;
+  height: 44px;
+  background-color: #ffff;
+  border: 1px solid #000000;
+  box-sizing: border-box;
+  border-radius: 5px;
+  font-weight: 500;
+  cursor: pointer;
+
+  @media screen and (min-width: 768px) {
+    width: 124.5px;
+  }
+
+  @media screen and (min-width: 1024px) {
+    width: 136px;
+  }
+}
+
+.modal__btn:not(:last-child) {
+  margin-right: 14px;
+
+  @media screen and (min-width: 768px) {
+    margin-right: 14.94px;
+  }
+
+  @media screen and (min-width: 1024px) {
+    margin-right: 15px;
+  }
+}
+
+.modal__btn:hover {
+  background-color: $accent-color;
+  color: #fff;
+  border: none;
+}
+
 .trailer-link {
   display: none;
   width: 100%;
@@ -257,15 +294,16 @@
   right: -55px;
 }
 
+
 .search-for-trailer {
   width: 100%;
   height: 50px;
 
-  @media screen and (min-width: $tablet) {
-    padding: 10px 15px;
+  @media screen and (min-width: 768px) {
+    padding: 10px 35px;
   }
 
-  @media screen and (min-width: $desktop) {
+  @media screen and (min-width: 1024px) {
     padding: 10px 100px;
   }
 }
@@ -276,8 +314,4 @@
 
 .unable {
   display: none;
-}
-
-.search-trailer-btn {
-  display: flex;
 }
