@@ -147,6 +147,14 @@
       width: 24px;
       height: 24px;
       margin-right: 10px;
+
+      transition-property: transform;
+      transition-duration: 200ms;
+      transition-timing-function: linear;
+
+      &:hover {
+        transform: rotate(180deg);
+      }
     }
   }
 
