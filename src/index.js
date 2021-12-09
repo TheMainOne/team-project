@@ -15,7 +15,7 @@ import initPagination from './js/pagination';
 import './js/library';
 import './sass/main.scss';
 import './js/header';
-import './js/modal-window';
+import './js/film-in-modal-window';
 import debounce from 'lodash/debounce';
 import { Notify } from 'notiflix';
 import { videoapi } from './js/api-service';

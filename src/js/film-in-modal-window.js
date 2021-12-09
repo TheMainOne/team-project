@@ -1,14 +1,18 @@
 import getRefs from './refs';
 import tingle from 'tingle.js';
 import 'tingle.js/src/tingle.css';
-import { createMarkup, createPoster } from './markup-of-modal';
-
-import { load } from './storage';
 import { videoapi } from './api-service';
+import { load } from './storage';
 import { getImageUrl, getGenres } from './gallery-card-template';
+import { createMarkup, createPoster } from './markup-of-modal';
+import * as queue from './for-queue-btn'
+import { searchFilmInQueue } from './for-queue-localstorage';
+import {darkTheameForModal} from './change-theme'
+
 import addToLocalStorage from './add-to-local-storage';
 
 const refs = getRefs();
+
 
 var modal = new tingle.modal({
   footer: false,
@@ -16,36 +20,38 @@ var modal = new tingle.modal({
   closeMethods: ['overlay', 'escape'],
   closeLabel: 'Close',
   cssClass: ['custom-class-1', 'custom-class-2'],
+  onClose: function () {
+     queue.queueRemoveEventListener();
+    }
 });
+
 
 refs.gallery.addEventListener('click', async event => {
   const li = event.target.closest('.gallery__item');
   if (!li) return;
 
   const { idx } = li?.dataset;
+
+ 
+
   modal.setContent(await contentModal(idx));
   modal.open();
+  queue.queueAddEventListener();
   // =================
-  const theme = localStorage.getItem('theme');
-  const modalForTheme = modal.modalBoxContent.children[0].children[0];
-  const butInModal = modal.modalBoxContent.children[0].children[0].children[2].children[4].children[1];
-  const partOfcloseButtonOne = modal.modalBoxContent.children[0].children[0].children[0].children[0].children[0];
-  const partOfcloseButtonTwo = modal.modalBoxContent.children[0].children[0].children[0].children[0].children[1];
-
-
-  if (theme === 'dark-theme') {
-    modalForTheme.style.backgroundColor = '#202124';
-    modalForTheme.style.color = '#ffffff';
-    butInModal.style.color = '#ffffff';
-    butInModal.style.borderColor = '#ffffff';
-    partOfcloseButtonOne.style.stroke = '#ffffff';
-    partOfcloseButtonTwo.style.stroke = '#ffffff';
-  }
+  darkTheameForModal(modal);
   // =================
   addToLocalStorage(idx);
+  // =================
+ 
 
   onCloseModal();
 });
+
+
+
+
+// ===================== функции для модалки ===============
+  
 
 function onCloseModal() {
   const btnClose = document.querySelector('.btnClose');
@@ -54,11 +60,14 @@ function onCloseModal() {
   });
 }
 
+
 async function contentModal(idx) {
   try {
     const key = videoapi.checkType();
-
+    const ourFilm = load(key)?.results[idx]
+    
     const {
+      id,
       title,
       overview,
       popularity,
@@ -67,13 +76,18 @@ async function contentModal(idx) {
       original_title: originalTitle,
       vote_average: voteAverage,
       vote_count: voteCount,
-    } = load(key).results[idx];
+    } = ourFilm;
 
+  
     const posterUrl = getImageUrl(posterPath);
     const genresJoined = await getGenres(genreIds);
     const poster = createPoster(posterUrl, title);
-
+    const isFilmInQueue = searchFilmInQueue(id);
+    
+   
     const makrup = createMarkup({
+      isFilmInQueue,
+      id,
       poster,
       title,
       overview,
@@ -83,7 +97,6 @@ async function contentModal(idx) {
       voteAverage,
       voteCount,
       genresJoined,
-      idx,
     });
 
     return makrup;
