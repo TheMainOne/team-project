@@ -152,10 +152,7 @@ const onSubmit = async e => {
 };
 
 const initListeners = () => {
-  refs.form.addEventListener(
-    'submit',
-    debounce(onSubmit, DEBOUNCE_DELAY, DEBOUNCE_OPTIONS),
-  );
+  refs.form.addEventListener('submit', debounce(onSubmit, DEBOUNCE_DELAY, DEBOUNCE_OPTIONS));
 };
 
 initListeners();

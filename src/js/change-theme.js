@@ -10,6 +10,9 @@ function changeTheme() {
   const themeToggle = document.querySelector('.theme-switch__toggle');
   const bgColor = document.querySelector('body');
   const teamRef = document.querySelector('.team__modal');
+  const lightThemeIcon = themeSwitcher.previousElementSibling;
+  const darkThemeIcon = themeSwitcher.nextElementSibling;
+
   teamRef.addEventListener('click', () => {
     const teamModalRef = document.querySelector('.team__wrapper');
     const gitRef = document.querySelectorAll('.logo__icon-git');
@@ -31,6 +34,7 @@ function changeTheme() {
       bgColor.classList.add(DARK);
       footer.style.backgroundColor = '#202124';
       footer.style.color = '#ffffff';
+      setDarkThemeIcon();
 
       localStorage.setItem('theme', DARK);
     } else {
@@ -38,6 +42,7 @@ function changeTheme() {
       bgColor.classList.add(LIGHT);
       footer.style.backgroundColor = '#f7f7f7';
       footer.style.color = '#545454';
+      setLightThemeIcon();
 
       localStorage.setItem('theme', LIGHT);
     }
@@ -52,13 +57,22 @@ function changeTheme() {
 
     if (currentTheme === DARK) {
       themeToggle.checked = true;
+      setDarkThemeIcon();
     }
+  }
+
+  function setLightThemeIcon() {
+    darkThemeIcon.classList.remove('is-active');
+    lightThemeIcon.classList.add('is-active');
+  }
+
+  function setDarkThemeIcon() {
+    lightThemeIcon.classList.remove('is-active');
+    darkThemeIcon.classList.add('is-active');
   }
 }
 
 export { changeTheme };
-
-
 
 
 export function darkTheameForModal(modal) {
@@ -76,7 +90,3 @@ export function darkTheameForModal(modal) {
     btnClose.style.stroke = '#ffffff';
   }
 }
-
-
-
-

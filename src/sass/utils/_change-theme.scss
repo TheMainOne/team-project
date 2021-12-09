@@ -14,12 +14,15 @@ body.dark-theme {
 // .movie.dark-theme{
 // color: var(--third-text-color);
 // }
+
 .toolbar {
-  // position: absolute;
-  // top: 0;
-  // right: 0;
   display: flex;
   justify-content: flex-end;
+  margin-bottom: 20px;
+
+  @media (min-width: $tablet) {
+    margin-bottom: 0;
+  }
 }
 
 /* THEME SWITCH */
@@ -33,12 +36,8 @@ body.dark-theme {
   height: 14px;
   width: 14px;
 
-  &--left {
-    margin-right: 8px;
-  }
-
-  &--right {
-    margin-left: 8px;
+  &.is-active {
+    color: var(--accent-color);
   }
 }
 
@@ -47,10 +46,12 @@ body.dark-theme {
   align-items: center;
   flex-shrink: 0;
   position: relative;
-  width: 32px;
-  height: 18px;
+  width: 28px;
+  height: 14px;
   border-radius: 50em;
   padding: 3px 0;
+  margin-left: 8px;
+  margin-right: 8px;
 
   @media (min-width: $tablet) {
     width: 40px;
@@ -87,8 +88,8 @@ body.dark-theme {
 .theme-switch__marker {
   position: relative;
   background-color: var(--main-text-color);
-  width: 18px;
-  height: 18px;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
   z-index: 2;
   pointer-events: none;
@@ -106,7 +107,7 @@ body.dark-theme {
 }
 
 .theme-switch__toggle:checked ~ .theme-switch__marker {
-  transform: translateX(14px);
+  transform: translateX(13px);
   @media (min-width: $tablet) {
     transform: translateX(20px);
   }
