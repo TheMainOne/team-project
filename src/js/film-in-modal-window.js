@@ -5,10 +5,12 @@ import { videoapi } from './api-service';
 import { load } from './storage';
 import { getImageUrl, getGenres } from './gallery-card-template';
 import { createMarkup, createPoster } from './markup-of-modal';
-import * as queue from './for-queue-btn'
+import * as queue from './for-queue-btn';
+import * as watched from './for-watched-btn';
 import { searchFilmInQueue } from './for-queue-localstorage';
-import {darkTheameForModal} from './change-theme'
-import addToLocalStorage from './add-to-local-storage';
+import { searchFilmInWatched } from './for-watched-localstorage';
+import { darkTheameForModal } from './change-theme'
+import {enableTrailerLink} from './trailer'
 
 const refs = getRefs();
 const gallaryData = refs.gallery.dataset.gallery;
@@ -25,37 +27,31 @@ const modal = new tingle.modal({
   cssClass: ['custom-class-1', 'custom-class-2'],
   onOpen: function () {
     queue.queueAddEventListener();
+    watched.watchedAddEventListener();
     darkTheameForModal(this);
     },
   onClose: function () {
     queue.queueRemoveEventListener();
-    }
-});
+    watched.watchedRemoveEventListener();
+  },
 
+});
 
 refs.gallery.addEventListener('click', async event => {
   const li = event.target.closest('.gallery__item');
-
+  const searchRef = document.querySelector('.search-for-trailer');
+  
   if (!li) return;
   const { id } = li?.dataset;
 
-  // =====нужно потом удалить
-  const { idx } = li?.dataset;
   modal.setContent(await contentModal(id));
   modal.open();
-  const searchRef = document.querySelector('.search-for-trailer');
   searchRef.addEventListener('click', enableTrailerLink);
-  // ================= Дима исправь код!
-  addToLocalStorage(idx);
-  // =================
   onBtnCloseModal();
 
 });
 
-
-
 // ===================== функции для модалки ===============
-  
 
 function onBtnCloseModal() {
   const btnClose = document.querySelector('.btnClose');
@@ -63,7 +59,6 @@ function onBtnCloseModal() {
     modal.close();
   });
 }
-
 
 async function contentModal(idOfFilm) {
   try {
@@ -99,16 +94,15 @@ async function contentModal(idOfFilm) {
       vote_count: voteCount,
     } = ourFilm;
 
-  
     const posterUrl = getImageUrl(posterPath);
     const genresJoined = await getGenres(genreIds);
     const poster = createPoster(posterUrl, title);
     const isFilmInQueue = searchFilmInQueue(id);
-    
-    
-   
+    const isFilmInWatched = searchFilmInWatched(id);
+
     const makrup = createMarkup({
       isFilmInQueue,
+      isFilmInWatched,
       id,
       poster,
       title,
@@ -126,40 +120,3 @@ async function contentModal(idOfFilm) {
     console.log(error);
   }
 }
-
-
-
-//======trailer======//
-
-function enableTrailerLink() {
-  const targetName = document.querySelector('.movie__title').textContent;
-  const trailerLinkRef = document.querySelector('.trailer-link');
-  const trailerTextRef = document.querySelector('.trailer-link__text');
-  const searchRef = document.querySelector('.search-for-trailer');
-  searchRef.classList.add('unable')
-  trailerLinkRef.classList.add('enable');
-
-  const youtubeKeyApi = 'AIzaSyCrnGnV2GS29bGv6ktcqjAdI_UxuU_ESyQ';
-  const baseYoutubeUrl = `https://www.googleapis.com/youtube/v3/search?q=${targetName}+official+trailer&key=${youtubeKeyApi}&part=snippet,id&kind='youtube#video'order=date&maxResults=1`;
-  fetch(baseYoutubeUrl)
-    .then(response => {
-      if (!response.ok) {
-          trailerLinkRef.target = '_self';
-          trailerTextRef.textContent = 'Sorry, CURRENTLY UNAVAILABLE';
-          trailerLinkRef.title='The request cannot be completed because the youtube quota is exceeded';
-          return;
-      }
-
-      return response.json();
-    })
-    .then(data => {
-      const movieId = data.items[0].id.videoId;
-      return movieId;
-    })
-    .then(data => {
-      trailerLinkRef.addEventListener('click', function () {
-      trailerLinkRef.href = `https://www.youtube.com/embed/${data}?enablejsapi=1`;
-      });
-    });
-}
-
