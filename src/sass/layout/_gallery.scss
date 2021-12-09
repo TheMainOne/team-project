@@ -1,5 +1,6 @@
 .gallery {
   padding: 20px 0;
+  min-height: 50vh;
 
   @media screen and (min-width: $desktop) {
     padding: 60px 0;
@@ -62,7 +63,6 @@
   max-width: 100%;
   max-height: 3rem;
   padding: 0 5px 5px;
-  white-space: nowrap;
 }
 
 .card__poster {
@@ -99,19 +99,18 @@
   text-transform: uppercase;
 }
 
-// .card__genres {}
+.card__genres {
+  border-right: 1px solid var(--accent-color);
+  margin-right: 5px;
+  padding-right: 8px;
+}
 
 .card__description {
   margin: 0;
   color: var(--accent-color);
 }
 
-.card__release-date {
-  padding-left: 5px;
-  margin: 0 10px 0 1px;
-  margin-left: 1px;
-  border-left: 1px solid var(--accent-color);
-}
+// .card__release-date { }
 
 .card__vote {
   padding: 1px 10px;

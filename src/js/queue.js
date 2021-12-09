@@ -1,4 +1,4 @@
-import { renderGallery } from '..';
+import {  renderGallery } from './init-gallery';
 import getHeaderRefs from './getHearedRefs';
 import { load } from './storage';
 import './film-in-modal-window'
@@ -15,12 +15,12 @@ btnLibrary.addEventListener("click", () => {
     if (load(LOCAL_STORAGE_QUEUE)) {
         renderCard()
     }
-    
+
 
 })
 
 refs.headerControlBox.addEventListener("click", (e) => {
-    
+
     if (load(LOCAL_STORAGE_QUEUE) && e.target.dataset.action === "queue") {
         renderCard()
     }

@@ -40,9 +40,9 @@ refs.gallery.addEventListener('click', async event => {
   
   if (!li) return;
   const { id } = li?.dataset;
+  console.log("~ id", id)
 
-  modal.setContent(await contentModal(id));
-  
+  modal.setContent(await contentModal(id)); 
   modal.open();
   
   const searchRef = document.querySelector('.search-for-trailer');
@@ -53,6 +53,7 @@ refs.gallery.addEventListener('click', async event => {
 
 // ===================== функции для модалки ===============
 
+
 function onBtnCloseModal() {
   const btnClose = document.querySelector('.btnClose');
   btnClose.addEventListener('click', () => {
@@ -61,6 +62,7 @@ function onBtnCloseModal() {
 }
 
 async function contentModal(idOfFilm) {
+
   try {
     const gallaryData = refs.gallery.dataset.gallery;
     let arrayOfFilms = [];
@@ -76,14 +78,14 @@ async function contentModal(idOfFilm) {
     }
 
     ourFilm = arrayOfFilms.find(film => film.id === Number(idOfFilm));
- 
+
     
     if (!ourFilm) {
-      arrayOfFilms = load(SEARCH)
-      ourFilm = arrayOfFilms.find(film => film.id === Number(idOfFilm));
+      arrayOfFilms = load(SEARCH).results
+      ourFilm = arrayOfFilms.find(film => film.id === Number(idOfFilm));  
     } 
     
-  
+  console.log("~ ourFilm", ourFilm.id)
  
     const {
       id,
@@ -101,6 +103,7 @@ async function contentModal(idOfFilm) {
     const genresJoined = await getGenres(genreIds);
     const poster = createPoster(posterUrl, title);
     const isFilmInQueue = searchFilmInQueue(id);
+    console.log("~ isFilmInQueue", isFilmInQueue)
     const isFilmInWatched = searchFilmInWatched(id);
 
     const makrup = createMarkup({

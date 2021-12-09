@@ -24,11 +24,13 @@ class videoAPI {
   #currentPage = '';
   #keys = {
     GENRES: 'filmoteka-genres',
-    TRENDING_DAY: 'filmoteka-trending-day',
-    TRENDING_WEEK: 'filmoteka-trending-week',
-    MOVIES: 'filmoteka-movies',
-    WATCHED: 'filmoteka-watched',
+    SEARCH: 'filmoteka-search',
+    TRENDING: {
+      DAY: 'filmoteka-trending-day',
+      WEEK: 'filmoteka-trending-week',
+    },
     QUEUE: 'filmoteka-queue',
+    WATCHED: 'filmoteka-watched',
   };
 
   async fetchData(dataURL = '') {
@@ -57,9 +59,8 @@ class videoAPI {
 
   async getTrendingVideos() {
     // https://api.themoviedb.org/3/trending/movie/week?api_key=0bd610b1a3557ac4e7f9b5501edcfef4
-    const { keys, period, page, media, fetchData } = this;
-
-    const key = `${keys[`TRENDING_${period.toUpperCase()}`]}`;
+    let { keys, period, page, media, fetchData } = this;
+    const key = `${keys.TRENDING[`${period.toUpperCase()}`]}`;
 
     const trendingVideosURL = `${movieBaseURL}trending/${media}/${period}${api_key}&page=${page}`;
     const trendingVideos = await fetchData(trendingVideosURL);
@@ -72,7 +73,7 @@ class videoAPI {
     // https://api.themoviedb.org/3/search/movie?api_key=<<api_key>>&language=en-US&page=1&include_adult=false
     const { keys, query, page, media, language, fetchData } = this;
 
-    const key = `${keys.MOVIES}-${query}`;
+    const key = `${keys.SEARCH}`;
 
     const searchVideosURL = `${movieBaseURL}search/${media}${api_key}&query=${query}&${language}&page=${page}&include_adult=false}`;
     const searchedVideos = await fetchData(searchVideosURL);
@@ -82,21 +83,8 @@ class videoAPI {
   }
 
   checkType() {
-    let key = null;
-    const { type, query, page } = this;
-
-    const types = {
-      trendingVideosWeek: `${this.#keys.TRENDING_WEEK}`,
-      trendingVideosDay: `${this.#keys.TRENDING_DAY}`,
-      videos: `${this.#keys.MOVIES}-${query}`,
-      watched: `${this.#keys.WATCHED}`,
-      queue: `${this.#keys.QUEUE}`,
-    };
-
-    if (Object.keys(types).includes(type)) {
-      key = types[type];
-    }
-
+    const { keys, type } = this;
+    const key = keys[type];
     return key;
   }
 

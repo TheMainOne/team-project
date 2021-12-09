@@ -67,15 +67,12 @@
   }
 }
 
-.tui-page-btn .tui-first,
-.tui-page-btn .tui-is-disabled .tui-first,
-.tui-page-btn .tui-is-disabled .tui-last,
-span.tui-page-btn:nth-child(1),
-span.tui-page-btn:nth-child(10),
-.tui-ico-last,
-a.tui-page-btn.tui-last,
-a.tui-page-btn:nth-child(1),
-a.tui-page-btn:nth-child(11) {
+.tui-page-btn.tui-first,
+.tui-page-btn.tui-last,
+.tui-page-btn.tui-is-disabled.tui-first,
+.tui-page-btn.tui-is-disabled.tui-last,
+.tui-pagination.tui-next + .tui-last,
+.tui-ico-last {
   display: none;
   background: none;
 }

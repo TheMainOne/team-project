@@ -1,3 +1,6 @@
+import getRefs from './refs';
+const refs = getRefs();
+
 function changeTheme() {
   const Theme = {
     LIGHT: 'light-theme',
@@ -72,15 +75,13 @@ function changeTheme() {
   }
 }
 
-export { changeTheme };
-
-
 export function darkTheameForModal(modal) {
-   const theme = localStorage.getItem('theme');
+  const theme = localStorage.getItem('theme');
   const modalForTheme = modal.modalBoxContent.children[0].children[0];
-  const butInModal = modal.modalBoxContent.children[0].children[0].children[2].children[4].children[1];
-  const btnClose = modal.modal.querySelector('.btnClose-icon')
- 
+  const butInModal =
+    modal.modalBoxContent.children[0].children[0].children[2].children[4]
+      .children[1];
+  const btnClose = modal.modal.querySelector('.btnClose-icon');
 
   if (theme === 'dark-theme') {
     modalForTheme.style.backgroundColor = '#202124';
@@ -90,3 +91,31 @@ export function darkTheameForModal(modal) {
     btnClose.style.stroke = '#ffffff';
   }
 }
+
+// ============
+
+const getCardTitles = async () => document.querySelectorAll('.card__title');
+
+const initThemeSwitcher = async () => {
+  const cardTitles = await getCardTitles();
+
+  if (localStorage.getItem('theme') === 'dark-theme') {
+    cardTitles.forEach(title => (title.style.color = '#ffffff'));
+    refs.footer.style.backgroundColor = '#202124';
+    refs.footer.style.color = '#ffffff';
+  }
+};
+
+const onThemeToggle = async event => {
+  const cardTitles = await getCardTitles();
+
+  if (event.target.checked) {
+    cardTitles.forEach(title => (title.style.color = '#ffffff'));
+  } else {
+    cardTitles.forEach(title => (title.style.color = '#000000'));
+  }
+};
+
+// ============
+
+export { changeTheme, onThemeToggle, initThemeSwitcher };

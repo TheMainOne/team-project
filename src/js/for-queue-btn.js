@@ -1,8 +1,9 @@
+import { videoapi } from './api-service';
 import { addToQueue, removeFromQueue } from './for-queue-localstorage';
 import { load } from './storage';
 import getRefs from './refs';
-import { videoapi } from './api-service';
-import { renderGallery } from '..';
+import { renderGallery } from './init-gallery';
+
 const {TRENDING, QUEUE} = videoapi.keys
 const refs = getRefs();
 const refsGallery = refs.gallery;
