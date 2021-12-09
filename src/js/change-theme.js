@@ -15,16 +15,19 @@ function changeTheme() {
 
   teamRef.addEventListener('click', () => {
     const teamModalRef = document.querySelector('.team__wrapper');
+    const gitRef = document.querySelectorAll('.logo__icon-git');
     if (localStorage.getItem('theme') === 'dark-theme') {
+      gitRef.forEach(git => (git.style.fill = '#ffffff'));
       teamModalRef.style.backgroundColor = '#111111';
+    } else {
+      gitRef.forEach(git => (git.style.fill = '#000000'));
+      teamModalRef.style.backgroundColor = '#ffffff';
     }
   });
 
   themeSwitcher.addEventListener('change', onControlThemeSwitch);
-
   populateChooseTheme();
 
-  console.log(footer);
   function onControlThemeSwitch(event) {
     if (event.target.checked) {
       bgColor.classList.remove(LIGHT);
@@ -70,3 +73,20 @@ function changeTheme() {
 }
 
 export { changeTheme };
+
+
+export function darkTheameForModal(modal) {
+   const theme = localStorage.getItem('theme');
+  const modalForTheme = modal.modalBoxContent.children[0].children[0];
+  const butInModal = modal.modalBoxContent.children[0].children[0].children[2].children[4].children[1];
+  const btnClose = modal.modal.querySelector('.btnClose-icon')
+ 
+
+  if (theme === 'dark-theme') {
+    modalForTheme.style.backgroundColor = '#202124';
+    modalForTheme.style.color = '#ffffff';
+    butInModal.style.color = '#ffffff';
+    butInModal.style.borderColor = '#ffffff';
+    btnClose.style.stroke = '#ffffff';
+  }
+}
