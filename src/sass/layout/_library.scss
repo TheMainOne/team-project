@@ -1,84 +1,154 @@
-section.section__js{
-    background-image:url('https://www.hypnoticworld.com/site/image-credited.php?image=107.jpg');
-    background-size:cover;
-    margin:0;
-    padding:0;
-    max-height: 1000px;
-  }
-  #sky{
-    display: none;
-  }
-  .title__library{
-    padding-top: 30px;
-    text-align: center;
-    color: var(--main-text-color);
-  }
-  .glow-on-hover {
-    display: block;
-    margin-top: 50px;
-    margin-left: auto;
-    margin-right: auto;
-    width: 136px;
-    padding: 12px 38px 14px;
-    border-radius: 10px;
-    font-size: 12px;
-    font-weight: 500;
-    line-height: 1.33;
-    height: 50px;
-    border: none;
-    outline: none;
-    
-    color: var(--main-text-color);
-    background: var(--main-text-color);
-    cursor: pointer;
-    position: relative;
-    z-index: 0;
-    // border-radius: 10px;
+main {
+  position: relative;
+}
+section.section__js {
+  background-image: url('../images/library.jpg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin: 0;
+  padding: 118px 0;
+  height: 1000px;
+  width: 100%;
+}
+#sky {
+  z-index: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  display: none;
+  width: 100%;
+}
+
+.title__library {
+  text-align: center;
+  color: var(--main-text-color);
+}
+.glow-on-hover {
+  position: relative;
+  z-index: 1;
+  display: block;
+  margin-top: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 136px;
+  padding: 12px 38px 14px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.33;
+  height: 50px;
+  border: none;
+  outline: none;
+
+  color: var(--main-text-color);
+  background: var(--main-text-color);
+  cursor: pointer;
 }
 
 .glow-on-hover:before {
-    content: '';
-    background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
-    position: absolute;
-    top: -2px;
-    left:-2px;
-    background-size: 400%;
-    z-index: -1;
-    filter: blur(5px);
-    width: calc(100% + 4px);
-    height: calc(100% + 4px);
-    animation: glowing 20s linear infinite;
-    opacity: 0;
-    transition: opacity .3s ease-in-out;
-    border-radius: 10px;
+  content: '';
+  background: linear-gradient(
+    45deg,
+    #ff0000,
+    #ff7300,
+    #fffb00,
+    #48ff00,
+    #00ffd5,
+    #002bff,
+    #7a00ff,
+    #ff00c8,
+    #ff0000
+  );
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  background-size: 400%;
+  z-index: -1;
+  filter: blur(5px);
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  animation: glowing 20s linear infinite;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  border-radius: 10px;
 }
 
 .glow-on-hover:active {
-    color: var(--secondary-text-color);
+  color: var(--secondary-text-color);
 }
 
 .glow-on-hover:active:after {
-    background: transparent;
+  background: transparent;
 }
 
 .glow-on-hover:hover:before {
-    opacity: 1;
+  opacity: 1;
 }
 
 .glow-on-hover:after {
-    z-index: -1;
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: #111;
-    left: 0;
-    top: 0;
-    border-radius: 10px;
+  z-index: -1;
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #111;
+  left: 0;
+  top: 0;
+  border-radius: 10px;
 }
 
 @keyframes glowing {
-    0% { background-position: 0 0; }
-    50% { background-position: 400% 0; }
-    100% { background-position: 0 0; }
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
 }
+// section.section__js{
+//     // background-image:
+//     //   url('.././images/library.jpg');
+//     background-repeat: no-repeat;
+//     background-position: center;
+//     // background-size: cover;
+
+//     @media (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+//       background-image:
+//         url('.././images/library.jpg');
+//     }
+
+//     @media (min-width: $tablet) {
+//       background-image:
+//         url('.././images/library.jpg');
+
+//       @media (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+//         background-image:
+//           url('.././images/library.jpg');
+//       }
+//     }
+
+//     @media (min-width: $desktop) {
+//       background-image:
+//         url('.././images/library.jpg');
+
+//       @media (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+//         background-image:
+//           url('.././images/library.jpg');
+//       }
+//     }
+
+//     @media (min-width: 1300px) {
+//       background-image:
+//         url('.././images/library.jpg');
+
+//       @media (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+//         background-image:
+//           url('.././images/library.jpg');
+//       }
+//     }
+//   }
