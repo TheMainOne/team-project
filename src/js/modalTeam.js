@@ -26,7 +26,7 @@ const markup = `<ul class="team__wrapper">
     <p class="team__role">Team Lead </p>
     <ul class="team__social">
  <li class="team__icon list"><a class="team__git" href="https://github.com/TheMainOne" target="_blank"><svg
-                         type="image/svg+xml" class="logo__icon" width="16" height="16" style="fill: black">
+                         type="image/svg+xml" class="logo__icon logo__icon-git" width="16" height="16" style="fill: black">
                          <use type="image/svg+xml" href="${sprite}#icon-github"></use>
                      </svg></a></li>
             <li class="team__icon list"><a class="team__git" href="https://www.linkedin.com/in/maksym-lvov-390617202/" target="_blank"><svg
@@ -41,7 +41,7 @@ const markup = `<ul class="team__wrapper">
         <p class="team__role">Scrum/Developer</p>
         <ul class="team__social">
    <li class="team__icon list"><a class="team__git" href="https://github.com/anastasia1756" target="_blank"><svg
-                         type="image/svg+xml" class="logo__icon" width="16" height="16" style="fill: black">
+                         type="image/svg+xml" class="logo__icon logo__icon-git" width="16" height="16" style="fill: black">
                          <use type="image/svg+xml" href="${sprite}#icon-github"></use>
                      </svg></a></li>
              <li class="team__icon list"><a class="team__git" href="http://linkedin.com/in/anastasiia-kolomiiets-frontend-developer" target="_blank"><svg
@@ -57,7 +57,7 @@ const markup = `<ul class="team__wrapper">
         <p class="team__role">Developer</p>
         <ul class="team__social">
              <li class="team__icon list"><a class="team__git" href="https://github.com/Natatashkin" target="_blank"><svg
-                         type="image/svg+xml" class="logo__icon" width="16" height="16" style="fill: black">
+                         type="image/svg+xml" class="logo__icon logo__icon-git" width="16" height="16" style="fill: black">
                          <use type="image/svg+xml" href="${sprite}#icon-github"></use>
                      </svg></a></li>
              <li class="team__icon list"><a class="team__git" href="https://linkedin.com" target="_blank"><svg
@@ -73,7 +73,7 @@ const markup = `<ul class="team__wrapper">
         <p class="team__role">Developer</p>
         <ul class="team__social">
              <li class="team__icon list"><a class="team__git" href="https://github.com/Malogon-Anastasia" target="_blank"><svg
-                         type="image/svg+xml" class="logo__icon" width="16" height="16" style="fill: black">
+                         type="image/svg+xml" class="logo__icon logo__icon-git" width="16" height="16" style="fill: black">
                          <use type="image/svg+xml" href="${sprite}#icon-github"></use>
                     </svg></a></li>
              <li class="team__icon list"><a class="team__git" href="https://www.linkedin.com/in/anastasia-mal%D0%BEgon-835bb2207/" target="_blank"><svg
@@ -89,7 +89,7 @@ const markup = `<ul class="team__wrapper">
         <p class="team__role">Developer</p>
         <ul class="team__social">
                    <li class="team__icon list"><a class="team__git" href="https://github.com" target="_blank"><svg
-                               type="image/svg+xml" class="logo__icon" width="16" height="16" style="fill: black">
+                               type="image/svg+xml" class="logo__icon logo__icon-git" width="16" height="16" style="fill: black">
                                <use type="image/svg+xml" href="${sprite}#icon-github"></use>
                            </svg></a></li>
                 <li class="team__icon list"><a class="team__git" href="https://linkedin.com" target="_blank"><svg
@@ -105,7 +105,7 @@ const markup = `<ul class="team__wrapper">
         <p class="team__role">Developer</p>
         <ul class="team__social">
                    <li class="team__icon list"><a class="team__git" href="https://github.com" target="_blank"><svg
-                               type="image/svg+xml" class="logo__icon" width="16" height="16" style="fill: black">
+                               type="image/svg+xml" class="logo__icon logo__icon-git" width="16" height="16" style="fill: black">
                                <use type="image/svg+xml" href="${sprite}#icon-github"></use>
                            </svg></a></li>
                 <li class="team__icon list"><a class="team__git" href="https://linkedin.com" target="_blank"><svg
@@ -121,7 +121,7 @@ const markup = `<ul class="team__wrapper">
         <p class="team__role">Developer</p>
         <ul class="team__social">
                    <li class="team__icon list"><a class="team__git" href="https://github.com/AlexKarb" target="_blank"><svg
-                               type="image/svg+xml" class="logo__icon" width="16" height="16" style="fill: black">
+                               type="image/svg+xml" class="logo__icon logo__icon-git" width="16" height="16" style="fill: black">
                                <use type="image/svg+xml" href="${sprite}#icon-github"></use>
                            </svg></a></li>
                 <li class="team__icon list"><a class="team__git" href="https://linkedin.com" target="_blank"><svg
@@ -137,7 +137,7 @@ const markup = `<ul class="team__wrapper">
         <p class="team__role">Developer</p>
         <ul class="team__social">
                    <li class="team__icon list"><a class="team__git" href="https://github.com/drdolgiy" target="_blank"><svg
-                               type="image/svg+xml" class="logo__icon" width="16" height="16" style="fill: black">
+                               type="image/svg+xml" class="logo__icon logo__icon-git" width="16" height="16" style="fill: black">
                                <use type="image/svg+xml" href="${sprite}#icon-github"></use>
                            </svg></a></li>
                 <li class="team__icon list"><a class="team__git" href="https://linkedin.com" target="_blank"><svg
@@ -153,7 +153,7 @@ const markup = `<ul class="team__wrapper">
         <p class="team__role">Developer</p>
         <ul class="team__social">
                    <li class="team__icon list"><a class="team__git" href="https://github.com/dimahalaiskiy/" target="_blank"><svg
-                               type="image/svg+xml" class="logo__icon" width="16" height="16" style="fill: black">
+                               type="image/svg+xml" class="logo__icon logo__icon-git" width="16" height="16" style="fill: black">
                                <use type="image/svg+xml" href="${sprite}#icon-github"></use>
                            </svg></a></li>
                 <li class="team__icon list"><a class="team__git" href="https://linkedin.com" target="_blank"><svg
@@ -169,7 +169,7 @@ const markup = `<ul class="team__wrapper">
         <p class="team__role">Developer</p>
         <ul class="team__social">
                    <li class="team__icon list"><a class="team__git" href="https://github.com/KostiantynO" target="_blank"><svg
-                               type="image/svg+xml" class="logo__icon" width="16" height="16" style="fill: black">
+                               type="image/svg+xml" class="logo__icon logo__icon-git" width="16" height="16" style="fill: black">
                                <use type="image/svg+xml" href="${sprite}#icon-github"></use>
                            </svg></a></li>
                 <li class="team__icon list"><a class="team__git" href="https://linkedin.com" target="_blank"><svg
