@@ -1,7 +1,7 @@
 import sprite from './images/svg/sprite.svg';
 export { sprite };
 
-import { setPagination } from './js/pagination';
+import { listenPaginationClick, setPagination } from './js/pagination';
 import 'tui-pagination/dist/tui-pagination.min.css';
 
 import './js/queue';
@@ -29,7 +29,6 @@ initGallery();
 
 const onSubmit = async e => {
   e.preventDefault();
-
   try {
     e.target.elements.submitSearch.disabled = true;
     setTimeout(() => (e.target.elements.submitSearch.disabled = false), 1000);
@@ -51,7 +50,7 @@ const onSubmit = async e => {
       total_results: totalResults,
     } = await videoapi.getVideos();
 
-    setPagination('videos', totalPages);
+    setPagination(videoapi.keys.SEARCH, totalPages);
 
     // console.log('res', page, results, totalPages, totalResults);
 
@@ -79,6 +78,8 @@ const initListeners = () => {
   refs.themeSwitcher.addEventListener('change', onThemeToggle, passive);
 
   refs.backToTopBtn.addEventListener('click', backToTop, passive);
+
+  listenPaginationClick();
 };
 
 initListeners();

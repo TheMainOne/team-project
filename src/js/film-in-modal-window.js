@@ -32,7 +32,6 @@ const modal = new tingle.modal({
     queue.queueRemoveEventListener();
     watched.watchedRemoveEventListener();
   },
-
 });
 
 refs.gallery.addEventListener('click', async event => {
@@ -40,19 +39,24 @@ refs.gallery.addEventListener('click', async event => {
   
   if (!li) return;
   const { id } = li?.dataset;
-  console.log("~ id", id)
+
 
   modal.setContent(await contentModal(id)); 
+  // // =====нужно потом удалить
+  // const { idx } = li?.dataset;
+
+  // const loaded = await contentModal(id);
+  // if (!loaded || loaded === '') return;
+
+  // modal.setContent(loaded);
   modal.open();
   
   const searchRef = document.querySelector('.search-for-trailer');
   searchRef.addEventListener('click', enableTrailerLink);
   onBtnCloseModal();
-
 });
 
 // ===================== функции для модалки ===============
-
 
 function onBtnCloseModal() {
   const btnClose = document.querySelector('.btnClose');
@@ -77,7 +81,8 @@ async function contentModal(idOfFilm) {
       arrayOfFilms = load(TRENDING.WEEK)?.results;
     }
 
-    ourFilm = arrayOfFilms.find(film => film.id === Number(idOfFilm));
+    const arrayOfFilms = load(key)?.results || [];
+    console.log('contentModal ~ arrayOfFilms', arrayOfFilms);
 
     
     if (!ourFilm) {

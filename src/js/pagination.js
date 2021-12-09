@@ -74,7 +74,7 @@ const removeTuiButtons = async resultsLength => {
 // delete pagination._view._buttons.disabledFirst;
 // delete pagination._view._buttons.disabledLast;
 
-pagination.on('afterMove', async ({ page }) => {
+const onPaginationClick = async ({ page }) => {
   videoapi.page = page;
 
   switch (videoapi.type) {
@@ -98,7 +98,11 @@ pagination.on('afterMove', async ({ page }) => {
     default:
       return;
   }
-});
+};
+
+const listenPaginationClick = () => {
+  pagination.on('afterMove', onPaginationClick);
+};
 
 const setPagination = async (type, totalPages) => {
   videoapi.type = type;
@@ -106,4 +110,4 @@ const setPagination = async (type, totalPages) => {
   pagination.movePageTo(1);
 };
 
-export { setPagination, removeTuiButtons };
+export { setPagination, removeTuiButtons, listenPaginationClick };
