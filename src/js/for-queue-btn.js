@@ -3,8 +3,7 @@ import { load } from './storage';
 import getRefs from './refs';
 import { videoapi } from './api-service';
 import { renderGallery } from '..';
-// const { TRENDING } = videoapi.keys
-const {TRENDING_WEEK, QUEUE} = videoapi.keys
+const {TRENDING, QUEUE} = videoapi.keys
 const refs = getRefs();
 const refsGallery = refs.gallery;
 
@@ -28,8 +27,7 @@ export async function onClickBtnQuequ(e) {
   const gallaryData = refs.gallery.dataset.gallery;
   const refQueueBtn = e.currentTarget;
   const movieId = Number(document.querySelector('.movie').dataset.id);
-  // const filmOfWeek = await load(TRENDING.WEEK).results;
-  const filmOfWeek = await load(TRENDING_WEEK).results;
+  const filmOfWeek = await load(TRENDING.WEEK).results;
   const ourFilm = filmOfWeek.find(film => film.id === movieId);
   
 
@@ -45,7 +43,5 @@ export async function onClickBtnQuequ(e) {
     refsGallery.innerHTML = ''
     renderGallery(load(QUEUE));
   };
-
-
 
   };

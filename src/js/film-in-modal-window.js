@@ -13,9 +13,7 @@ import { darkTheameForModal } from './change-theme'
 import {enableTrailerLink} from './trailer'
 
 const refs = getRefs();
-
-const { QUEUE, WATCHED, TRENDING_WEEK, SEARCH } = videoapi.keys
-// const {QUEUE, WATCHED, TRENDING, SEARCH} = videoapi.keys
+const {QUEUE, WATCHED, TRENDING, SEARCH} = videoapi.keys
 
 
 
@@ -68,12 +66,13 @@ async function contentModal(idOfFilm) {
     let arrayOfFilms = [];
     let ourFilm = {};
 
+
     if (gallaryData === "queue") {
       arrayOfFilms = load(QUEUE);
     } else if (gallaryData === "watch") {
       arrayOfFilms = load(WATCHED);
     } else if (gallaryData === "home") {
-      arrayOfFilms = load(TRENDING_WEEK)?.results;
+      arrayOfFilms = load(TRENDING.WEEK)?.results;
     }
 
     ourFilm = arrayOfFilms.find(film => film.id === Number(idOfFilm));
