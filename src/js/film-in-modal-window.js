@@ -5,14 +5,13 @@ import { videoapi } from './api-service';
 import { load } from './storage';
 import { getImageUrl, getGenres } from './gallery-card-template';
 import { createMarkup, createPoster } from './markup-of-modal';
-import * as queue from './for-queue-btn'
+import * as queue from './for-queue-btn';
+import * as watched from './for-watched-btn';
 import { searchFilmInQueue } from './for-queue-localstorage';
-import {darkTheameForModal} from './change-theme'
-
-import addToLocalStorage from './add-to-local-storage';
+import { searchFilmInWatched } from './for-watched-localstorage';
+import { darkTheameForModal } from './change-theme';
 
 const refs = getRefs();
-
 
 var modal = new tingle.modal({
   footer: false,
@@ -21,10 +20,10 @@ var modal = new tingle.modal({
   closeLabel: 'Close',
   cssClass: ['custom-class-1', 'custom-class-2'],
   onClose: function () {
-     queue.queueRemoveEventListener();
-    }
+    queue.queueRemoveEventListener();
+    watched.watchedRemoveEventListener();
+  },
 });
-
 
 refs.gallery.addEventListener('click', async event => {
   const li = event.target.closest('.gallery__item');
@@ -32,26 +31,18 @@ refs.gallery.addEventListener('click', async event => {
 
   const { idx } = li?.dataset;
 
- 
-
   modal.setContent(await contentModal(idx));
   modal.open();
   queue.queueAddEventListener();
+  watched.watchedAddEventListener();
   // =================
   darkTheameForModal(modal);
   // =================
-  addToLocalStorage(idx);
-  // =================
- 
 
   onCloseModal();
 });
 
-
-
-
 // ===================== функции для модалки ===============
-  
 
 function onCloseModal() {
   const btnClose = document.querySelector('.btnClose');
@@ -60,12 +51,11 @@ function onCloseModal() {
   });
 }
 
-
 async function contentModal(idx) {
   try {
     const key = videoapi.checkType();
-    const ourFilm = load(key)?.results[idx]
-    
+    const ourFilm = load(key)?.results[idx];
+
     const {
       id,
       title,
@@ -78,15 +68,15 @@ async function contentModal(idx) {
       vote_count: voteCount,
     } = ourFilm;
 
-  
     const posterUrl = getImageUrl(posterPath);
     const genresJoined = await getGenres(genreIds);
     const poster = createPoster(posterUrl, title);
     const isFilmInQueue = searchFilmInQueue(id);
-    
-   
+    const isFilmInWatched = searchFilmInWatched(id);
+
     const makrup = createMarkup({
       isFilmInQueue,
+      isFilmInWatched,
       id,
       poster,
       title,
