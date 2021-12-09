@@ -22,3 +22,7 @@ libraryBtn.addEventListener("click", ()=>{
 function renderCard() {
    renderGallery(load('filmoteka-queue'));
 }
+
+
+// добавь везде потом
+    // refGallery.gallery.dataset.gallery = "queue";

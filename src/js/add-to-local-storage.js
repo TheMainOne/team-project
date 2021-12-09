@@ -2,7 +2,10 @@ import { save, load } from './storage';
 import { videoapi } from './api-service';
 
 const addToLocalStorage = idx => {
-  const modalAddToWatchBtn = document.querySelector('.add-to-watch');
+ 
+ 
+ try {
+   const modalAddToWatchBtn = document.querySelector('.add-to-watch');
   // const madalAddToQueueBtn = document.querySelector('.add-to-queue');
 
   let key = videoapi.checkType();
@@ -30,6 +33,12 @@ const addToLocalStorage = idx => {
 
   modalAddToWatchBtn.addEventListener('click', onClickModalAddToWatchButton);
   // madalAddToQueueBtn.addEventListener('click', onClickModalAddToQueueButton);
+ } catch (error) {
+ console.log("~ error", error)
+   
+ }
+ 
+  
 };
 
 export default addToLocalStorage;

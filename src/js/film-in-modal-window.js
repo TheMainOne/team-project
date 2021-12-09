@@ -9,7 +9,7 @@ import * as queue from './for-queue-btn'
 import { searchFilmInQueue } from './for-queue-localstorage';
 import {darkTheameForModal} from './change-theme'
 
-// import addToLocalStorage from './add-to-local-storage';
+import addToLocalStorage from './add-to-local-storage';
 
 const refs = getRefs();
 
@@ -37,12 +37,15 @@ refs.gallery.addEventListener('click', async event => {
   if (!li) return;
   const { id } = li?.dataset;
 
+  // =====нужно потом удалить
+  const { idx } = li?.dataset;
+  // =======================
   
   modal.setContent(await contentModal(id));
   modal.open();
 
   // ================= Дима исправь код!
-  // addToLocalStorage(idx);
+  addToLocalStorage(idx);
   // =================
   onBtnCloseModal();
 });
