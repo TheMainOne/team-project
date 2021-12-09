@@ -1,6 +1,7 @@
 import getHeaderRefs from './getHearedRefs';
 import { videoapi } from './api-service';
 import { sprite } from '../index';
+import { renderGallery } from './init-gallery';
 const iconSearch = `${sprite}#icon-search`;
 
 const refs = getHeaderRefs();
@@ -105,6 +106,12 @@ function renderLibraryButtons() {
 }
 
 // Cлушатель событий на кнопке home для возврата на главную страницу
-refs.homeBtn.addEventListener('click', () => {
+refs.homeBtn.addEventListener('click', async () => {
   window.location = './';
+
+  // videoapi.type = videoapi.keys.TRENDING.WEEK;
+  // const videos = await videoapi.getTrendingVideos();
+  // console.log('refs.homeBtn.addEventListener ~ videos', videos);
+  // if (videos.results === 0) return;
+  // renderGallery(videos.results);
 });

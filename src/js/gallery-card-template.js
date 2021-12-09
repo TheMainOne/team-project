@@ -51,13 +51,13 @@ export { getGenres };
 
 const galleryCardTemplate = async (
   {
+    id,
     poster_path: posterPath,
     genre_ids: genreIds,
-    genres = null,
+    genres = [],
     release_date: releaseDate,
     title,
     vote_average: voteAverage = '',
-    id = null,
   },
   idx,
 ) => {
@@ -89,7 +89,7 @@ const galleryCardTemplate = async (
   const releaseYear = releaseDate.slice(0, 4);
 
   return `
-<li class="gallery__item" data-idx=${idx} data-videoid="${id}">
+<li class="gallery__item" data-idx=${idx} data-id=${id}>
   <a href="#" class="card card__list-link-wrapper">
     <div class="card__thumb">
         ${

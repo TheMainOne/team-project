@@ -43,7 +43,7 @@ const initGallery = async () => {
     if (notifyStatus(results.length, page, totalResults)) return;
     await renderGallery(results);
 
-    setPagination('trendingVideosWeek', totalResults);
+    setPagination(videoapi.keys.TRENDING.WEEK, totalResults);
     initThemeSwitcher();
   } catch (err) {
     error(err);

@@ -78,19 +78,19 @@ pagination.on('afterMove', async ({ page }) => {
   videoapi.page = page;
 
   switch (videoapi.type) {
-    case 'trendingVideosWeek': {
+    case videoapi.keys.TRENDING.WEEK: {
       videoapi.period = 'week';
       const { results } = await videoapi.getTrendingVideos();
       renderGallery(results);
       break;
     }
-    case 'trendingVideosDay': {
+    case videoapi.keys.TRENDING.DAY: {
       videoapi.period = 'day';
       const { results } = await videoapi.getTrendingVideos();
       renderGallery(results);
       break;
     }
-    case 'videos': {
+    case videoapi.keys.SEARCH: {
       const { results } = await videoapi.getVideos();
       renderGallery(results);
       break;

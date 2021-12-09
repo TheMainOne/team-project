@@ -4,10 +4,12 @@ export { sprite };
 import { setPagination } from './js/pagination';
 import 'tui-pagination/dist/tui-pagination.min.css';
 
+import './js/queue';
 import './js/library';
 import './sass/main.scss';
 import './js/header';
 import './js/film-in-modal-window';
+import './js/render-queue';
 import debounce from 'lodash/debounce';
 import { Notify } from 'notiflix';
 import { videoapi } from './js/api-service';
@@ -39,6 +41,7 @@ const onSubmit = async e => {
     }
 
     videoapi.query = search;
+    videoapi.type = 'search';
 
     /* page: 1, results: Array(20), total_pages: 1000, total_results: 20000 */
     const {

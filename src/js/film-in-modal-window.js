@@ -13,50 +13,49 @@ import addToLocalStorage from './add-to-local-storage';
 
 const refs = getRefs();
 
+const LOCAL_STORAGE_QUEUE = 'filmoteka-queue';
 
-var modal = new tingle.modal({
+const modal = new tingle.modal({
   footer: false,
   stickyFooter: false,
   closeMethods: ['overlay', 'escape'],
   closeLabel: 'Close',
   cssClass: ['custom-class-1', 'custom-class-2'],
+  onOpen: function () {
+    queue.queueAddEventListener();
+    darkTheameForModal(this);
+    },
   onClose: function () {
-     queue.queueRemoveEventListener();
+    queue.queueRemoveEventListener();
     }
 });
 
 
 refs.gallery.addEventListener('click', async event => {
   const li = event.target.closest('.gallery__item');
+
   if (!li) return;
+  const { id } = li?.dataset;
 
+  // =====нужно потом удалить
   const { idx } = li?.dataset;
-
-
-  modal.setContent(await contentModal(idx));
+  modal.setContent(await contentModal(id));
   modal.open();
-    
-const searchRef = document.querySelector('.search-for-trailer');
-searchRef.addEventListener('click', enableTrailerLink);
-  
-
-
-  queue.queueAddEventListener();
-  // =================
-  darkTheameForModal(modal);
-  // =================
+  const searchRef = document.querySelector('.search-for-trailer');
+  searchRef.addEventListener('click', enableTrailerLink);
+  // ================= Дима исправь код!
   addToLocalStorage(idx);
   // =================
- 
-  onCloseModal();
+  onBtnCloseModal();
+
 });
 
 
 
 // ===================== функции для модалки ===============
-  
 
-function onCloseModal() {
+
+function onBtnCloseModal() {
   const btnClose = document.querySelector('.btnClose');
   btnClose.addEventListener('click', () => {
     modal.close();
@@ -64,11 +63,23 @@ function onCloseModal() {
 }
 
 
-async function contentModal(idx) {
+async function contentModal(idOfFilm) {
   try {
-    const key = videoapi.checkType();
-    const ourFilm = load(key)?.results[idx]
-    
+    let key = videoapi.checkType();
+    let arrayOfFilms = [];
+    let ourFilm = {};
+
+    if (refs.gallery.dataset.gallery === "queue") {
+      key = videoapi.keys.QUEUE;
+      arrayOfFilms = load(key)
+    } else if (refs.gallery.dataset.gallery === 'watch') {
+      key = videoapi.keys.WATCHED;
+      arrayOfFilms = load(key);
+    }
+
+    ourFilm = arrayOfFilms.find(film => film.id === Number(idOfFilm));
+
+
     const {
       id,
       title,
@@ -81,14 +92,14 @@ async function contentModal(idx) {
       vote_count: voteCount,
     } = ourFilm;
 
-  
+
     const posterUrl = getImageUrl(posterPath);
     const genresJoined = await getGenres(genreIds);
     const poster = createPoster(posterUrl, title);
     const isFilmInQueue = searchFilmInQueue(id);
-    
-    
-   
+
+
+
     const makrup = createMarkup({
       isFilmInQueue,
       id,
@@ -108,6 +119,7 @@ async function contentModal(idx) {
     console.log(error);
   }
 }
+
 
 
 //======trailer======//

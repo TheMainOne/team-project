@@ -1,7 +1,7 @@
+import { videoapi } from './api-service';
 import { addToQueue, removeFromQueue } from './for-queue-localstorage';
 import { load } from './storage';
-
-const LOCAL_STORAGE_WEEK = 'filmoteka-trending-week';
+const LOCAL_STORAGE_WEEK = videoapi.keys.TRENDING.WEEK;
 
 export function queueAddEventListener() {
   const queue = document.querySelector("#queue-btn");
@@ -20,10 +20,10 @@ export async function onClickBtnQuequ(e) {
     const movieId = Number(document.querySelector('.movie').dataset.id);
     const filmOfWeek = await load(LOCAL_STORAGE_WEEK).results;
     const ourFilm = filmOfWeek.find(film => film.id === movieId);
-    
+
 
   if (refQueueBtn.dataset.action === 'add-to-queue') {
         return addToQueue(refQueueBtn, ourFilm)
-    };    
+    };
         return removeFromQueue(refQueueBtn, ourFilm);
   };
