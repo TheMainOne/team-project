@@ -90,6 +90,8 @@
 
     width: calc((100% - 240px) / 4);
   }
+
+  
 }
 
 .team__image {
@@ -100,6 +102,10 @@
   height: 90px;
   width: 90px;
 
+  &:hover {
+    box-shadow: 0px -2px 32px 1px $accent-color;
+    transform: scale(1.2);
+  }
   border-radius: 50%;
 }
 
@@ -134,7 +140,7 @@
 
 .team__icon {
   transform: scale(1);
-
+  
   &:hover,
   &:focus {
     transform: scale(1.5);

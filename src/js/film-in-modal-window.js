@@ -13,49 +13,70 @@ import { darkTheameForModal } from './change-theme';
 
 const refs = getRefs();
 
-var modal = new tingle.modal({
+const LOCAL_STORAGE_QUEUE = 'filmoteka-queue';
+
+const modal = new tingle.modal({
   footer: false,
   stickyFooter: false,
   closeMethods: ['overlay', 'escape'],
   closeLabel: 'Close',
   cssClass: ['custom-class-1', 'custom-class-2'],
+  onOpen: function () {
+    queue.queueAddEventListener();
+    darkTheameForModal(this);
+    },
   onClose: function () {
     queue.queueRemoveEventListener();
     watched.watchedRemoveEventListener();
   },
+
 });
 
 refs.gallery.addEventListener('click', async event => {
   const li = event.target.closest('.gallery__item');
+
   if (!li) return;
+  const { id } = li?.dataset;
 
+  // =====нужно потом удалить
   const { idx } = li?.dataset;
-
-  modal.setContent(await contentModal(idx));
+  modal.setContent(await contentModal(id));
   modal.open();
-  queue.queueAddEventListener();
-  watched.watchedAddEventListener();
-  // =================
-  darkTheameForModal(modal);
-  // =================
+  const searchRef = document.querySelector('.search-for-trailer');
+  searchRef.addEventListener('click', enableTrailerLink);
+   watched.watchedAddEventListener();
+  onBtnCloseModal();
 
-  onCloseModal();
 });
 
 // ===================== функции для модалки ===============
 
-function onCloseModal() {
+function onBtnCloseModal() {
   const btnClose = document.querySelector('.btnClose');
   btnClose.addEventListener('click', () => {
     modal.close();
   });
 }
 
-async function contentModal(idx) {
+async function contentModal(idOfFilm) {
   try {
-    const key = videoapi.checkType();
-    const ourFilm = load(key)?.results[idx];
+    let key = videoapi.checkType();
+    let arrayOfFilms = [];
+    let ourFilm = {};
 
+    if (refs.gallery.dataset.gallery === "queue") {
+      key = LOCAL_STORAGE_QUEUE;
+      arrayOfFilms = load(key)
+    } else if (refs.gallery.dataset.gallery === "watch") {
+      key = "watched";
+      arrayOfFilms = load(key)
+    } else {
+      arrayOfFilms = load(key)?.results;
+    }
+ 
+    ourFilm = arrayOfFilms.find(film => film.id === Number(idOfFilm));
+ 
+ 
     const {
       id,
       title,
@@ -94,3 +115,40 @@ async function contentModal(idx) {
     console.log(error);
   }
 }
+
+
+
+//======trailer======//
+
+function enableTrailerLink() {
+  const targetName = document.querySelector('.movie__title').textContent;
+  const trailerLinkRef = document.querySelector('.trailer-link');
+  const trailerTextRef = document.querySelector('.trailer-link__text');
+  const searchRef = document.querySelector('.search-for-trailer');
+  searchRef.classList.add('unable')
+  trailerLinkRef.classList.add('enable');
+
+  const youtubeKeyApi = 'AIzaSyCrnGnV2GS29bGv6ktcqjAdI_UxuU_ESyQ';
+  const baseYoutubeUrl = `https://www.googleapis.com/youtube/v3/search?q=${targetName}+official+trailer&key=${youtubeKeyApi}&part=snippet,id&kind='youtube#video'order=date&maxResults=1`;
+  fetch(baseYoutubeUrl)
+    .then(response => {
+      if (!response.ok) {
+          trailerLinkRef.target = '_self';
+          trailerTextRef.textContent = 'Sorry, CURRENTLY UNAVAILABLE';
+          trailerLinkRef.title='The request cannot be completed because the youtube quota is exceeded';
+          return;
+      }
+
+      return response.json();
+    })
+    .then(data => {
+      const movieId = data.items[0].id.videoId;
+      return movieId;
+    })
+    .then(data => {
+      trailerLinkRef.addEventListener('click', function () {
+      trailerLinkRef.href = `https://www.youtube.com/embed/${data}?enablejsapi=1`;
+      });
+    });
+}
+

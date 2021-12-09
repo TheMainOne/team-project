@@ -52,6 +52,7 @@ export { getGenres };
 
 const galleryCardTemplate = async (
   {
+    id,
     poster_path: posterPath,
     genre_ids: genreIds = [],
     genres = null,
@@ -89,7 +90,7 @@ const galleryCardTemplate = async (
   const releaseYear = releaseDate.slice(0, 4);
 
   return `
-<li class="gallery__item" data-idx=${idx}>
+<li class="gallery__item" data-idx=${idx} data-id=${id}>
   <a href="#" class="card card__list-link-wrapper">
     <div class="card__thumb">
         ${
@@ -101,11 +102,7 @@ const galleryCardTemplate = async (
             : `<svg class="card__poster"><use href="${poster}"></use><svg>`
         }
 
-      <p class="card__list-overlay">YOUTUBE TRAILER
-        <svg class="trailer-link__svg" height="21" width="50"><use href="${iconYoutube}"></use></svg>
-      </p>
-
-    </div>
+     </div>
 
     <div class="card__meta">
       <h2 class="card__title">${title}</h2>
