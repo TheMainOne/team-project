@@ -13,7 +13,7 @@ import { darkTheameForModal } from './change-theme'
 import {enableTrailerLink} from './trailer'
 
 const refs = getRefs();
-const gallaryData = refs.gallery.dataset.gallery;
+
 const { QUEUE, WATCHED, TRENDING_WEEK, SEARCH } = videoapi.keys
 // const {QUEUE, WATCHED, TRENDING, SEARCH} = videoapi.keys
 
@@ -39,13 +39,15 @@ const modal = new tingle.modal({
 
 refs.gallery.addEventListener('click', async event => {
   const li = event.target.closest('.gallery__item');
-  const searchRef = document.querySelector('.search-for-trailer');
   
   if (!li) return;
   const { id } = li?.dataset;
 
   modal.setContent(await contentModal(id));
+  
   modal.open();
+  
+  const searchRef = document.querySelector('.search-for-trailer');
   searchRef.addEventListener('click', enableTrailerLink);
   onBtnCloseModal();
 
@@ -62,6 +64,7 @@ function onBtnCloseModal() {
 
 async function contentModal(idOfFilm) {
   try {
+    const gallaryData = refs.gallery.dataset.gallery;
     let arrayOfFilms = [];
     let ourFilm = {};
 
@@ -74,6 +77,7 @@ async function contentModal(idOfFilm) {
     }
 
     ourFilm = arrayOfFilms.find(film => film.id === Number(idOfFilm));
+ 
     
     if (!ourFilm) {
       arrayOfFilms = load(SEARCH)
