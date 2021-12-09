@@ -50,15 +50,9 @@ export  function searchFilmInQueue(id) {
 
   if (load(QUEUE)) {
     filmsOfQueue = load(QUEUE);
-    console.log("~ filmsOfQueue", filmsOfQueue)
   };
 
-  return filmsOfQueue.find(element => {
-    console.log("~ id", id)
-    console.log("~ element.id", element.id)
-    return element.id === id
-    
-  });
+  return filmsOfQueue.find(element => element.id === id);
 }
   
 

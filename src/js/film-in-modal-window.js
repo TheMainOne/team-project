@@ -24,15 +24,18 @@ const modal = new tingle.modal({
   closeLabel: 'Close',
   cssClass: ['custom-class-1', 'custom-class-2'],
   onOpen: function () {
-    darkTheameForModal(this)
-    queue.queueAddEventListener();
-    watched.watchedAddEventListener(); 
-    },
+
+  //   // darkTheameForModal(this);
+  //   console.log("~ modal", modal)
+  //   // queue.queueAddEventListener();
+  //   // watched.watchedAddEventListener(); 
+  },
   onClose: function () {
     queue.queueRemoveEventListener();
     watched.watchedRemoveEventListener();
   },
 });
+
 
 refs.gallery.addEventListener('click', async event => {
   const li = event.target.closest('.gallery__item');
@@ -41,17 +44,14 @@ refs.gallery.addEventListener('click', async event => {
   const id = Number(li.dataset.id);
 
   modal.setContent(await contentModal(id)); 
-  // // =====нужно потом удалить
-  // const { idx } = li?.dataset;
+  console.log("~ modal.setContent(await contentModal(id)); ", modal.setContent(await contentModal(id)) )
 
-  // const loaded = await contentModal(id);
-  // if (!loaded || loaded === '') return;
-
-  // modal.setContent(loaded);
   modal.open();
   
   const searchRef = document.querySelector('.search-for-trailer');
   searchRef.addEventListener('click', enableTrailerLink);
+
+
   onBtnCloseModal();
 });
 
@@ -83,8 +83,6 @@ async function contentModal(idOfFilm) {
       console.log("~ home", arrayOfFilms)
     }
 
-    // arrayOfFilms = load(key).results;
-    // console.log('contentModal ~ arrayOfFilms', arrayOfFilms);
     ourFilm = arrayOfFilms.find(film => film.id === idOfFilm);
     
     if (!ourFilm) {
@@ -93,7 +91,7 @@ async function contentModal(idOfFilm) {
       ourFilm = arrayOfFilms.find(film => film.id === idOfFilm);  
     } 
     
-  console.log("~ ourFilm", ourFilm)
+
  
     const {
       id,
@@ -106,18 +104,18 @@ async function contentModal(idOfFilm) {
       vote_average: voteAverage,
       vote_count: voteCount,
     } = ourFilm;
+    
 
 
     const posterUrl = getImageUrl(posterPath);
     const genresJoined = await getGenres(genreIds);
     const poster = createPoster(posterUrl, title);
-    console.log("~ poster", poster)
-
 
     const isFilmInQueue = searchFilmInQueue(idOfFilm);
-    console.log("~ isFilmInQueue", isFilmInQueue)
     const isFilmInWatched = searchFilmInWatched(id);
-    console.log("~ isFilmInWatched", isFilmInWatched)
+  
+
+    
 
     const makrup = createMarkup({
       isFilmInQueue,
