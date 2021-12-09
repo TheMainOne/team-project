@@ -7,18 +7,21 @@
   text-align: center;
   padding-left: 7px;
   padding-right: 7px;
-  transform: scale(1);
+  cursor: pointer;
 
-  &:hover,
-  &:focus {
-    transform: scale(1.04);
+  &:hover {
+    transform: scale(1.06);
+    box-shadow: 1px 0px 20px 0 #ff6b0859;
     transition: cubic-bezier(0.165, 0.84, 0.44, 1);
+    // color: $main-text-color;
+    // background-color: $accent-color;
+    // border: none;
   }
 
   &--accent {
-    border: none;
     color: $main-text-color;
     background-color: $accent-color;
+    border: none;
   }
 }
 
@@ -66,6 +69,7 @@
   background: none;
   cursor: pointer;
   transform: scale(1);
+  stroke: #000;
 
   &:hover,
   &:focus {

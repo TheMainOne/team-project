@@ -11,10 +11,8 @@
   line-height: 1.33;
   color: $secondary-text-color;
 
-
   &__container {
     padding: 48px 20px 41px 20px;
-    
 
     &--left-side {
       margin-bottom: 30px;
@@ -110,7 +108,6 @@
   border-color: $secondary-text-color;
   color: $secondary-text-color;
   cursor: pointer;
-  
 
   &.btn--accent {
     padding: 0 20px;
@@ -128,12 +125,12 @@
     justify-content: space-between;
   }
 
-}
-
-.movie__btn:hover {
-  background-color: $accent-color;
-  color: #fff;
-  border: none;
+  &[data-action='remove-from-queue'] {
+    box-shadow: inset 0px 0px 26px 0 #ff6b0882;
+    border: 1px solid #642800db;
+    color: $secondary-text-color;
+    background-color: transparent;
+  }
 }
 
 // ========tablet======
@@ -223,8 +220,6 @@
   }
 }
 
-
-
 //==========Styles-Trailer-Btn ============//
 
 .trailer-link {
@@ -260,8 +255,7 @@
   position: absolute;
   top: -5px;
   right: -55px;
-  }
-
+}
 
 .search-for-trailer {
   width: 100%;
@@ -286,5 +280,4 @@
 
 .search-trailer-btn {
   display: flex;
-
 }

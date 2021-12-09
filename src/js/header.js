@@ -10,6 +10,7 @@ refs.navbar.addEventListener('click', onTopNavBtnClick);
 // Для работы с кнопками watched и queue слушатель вешать на этот контейнер refs.headerControlBox и отлавливать через e.target.dataset.action
 
 renderSearchForm();
+refs.headerControlBox.addEventListener('click', onInputFocus);
 
 function onTopNavBtnClick(e) {
   const nextButton = e.target;
@@ -31,12 +32,14 @@ function onTopNavBtnClick(e) {
     setLibraryBackground();
     renderLibraryButtons();
     refs.headerControlBox.addEventListener('click', onLibraryButtonClick);
+    refs.headerControlBox.removeEventListener('click', onInputFocus);
   }
 
   if (hasDataAttr === 'js-home') {
     setHomeBackground();
     renderSearchForm();
     refs.headerControlBox.removeEventListener('click', onLibraryButtonClick);
+    refs.headerControlBox.addEventListener('click', onInputFocus);
   }
 
   if (hasDataAttr === 'logo') {
@@ -64,6 +67,12 @@ function onLibraryButtonClick(e) {
   nextButton.classList.add('is-active');
 }
 
+function onInputFocus(e) {
+  const selector = e.target.parentNode;
+  if (selector.dataset.action !== 'js-form') return;
+  selector.style.borderBottom = '0.5px solid var(--accent-color)';
+}
+
 // Функции подмены background
 function setLibraryBackground() {
   refs.headerBackground.classList.remove('header--home');
@@ -82,7 +91,7 @@ function renderSearchForm() {
 
 function renderLibraryButtons() {
   refs.headerControlBox.innerHTML =
-    '<div class="header__library-controls" data-library-buttons"><button class="button is-active" data-action="watched">watched</button><button class="button"data-action="queue">queue</button></div>';
+    '<div class="header__library-controls" data-library-buttons"><button class="button" data-action="watched">watched</button><button class="button  is-active" data-action="queue">queue</button></div>';
 }
 
 // Cлушатель событий на кнопке home для возврата на главную страницу
