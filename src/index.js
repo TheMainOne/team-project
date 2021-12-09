@@ -66,6 +66,10 @@ const renderGallery = async results => {
       } else {
         cardTitles.forEach(title => (title.style.color = '#000000'));
       }
+
+
+
+      
     });
     // ============
   } catch (err) {
