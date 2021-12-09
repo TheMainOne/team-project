@@ -10,7 +10,7 @@ function onLibraryBtnClick() {
   refs.gallery.innerHTML = '';
   const pagesRef = document.querySelector('#pagination');
   pagesRef.innerHTML = '';
-  if (localStorage.getItem('watched') === null) {
+  if (localStorage.getItem('watched') === null  || !load("filmoteka-queue") ) {
     const canvas = document.querySelector('#sky');
     canvas.style.display = 'block';
     const sectionRef = document.querySelector('section');
