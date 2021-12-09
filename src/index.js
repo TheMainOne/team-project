@@ -41,7 +41,7 @@ const onSubmit = async e => {
     }
 
     videoapi.query = search;
-    videoapi.type = 'search';
+    videoapi.type = videoapi.keys.SEARCH;
 
     /* page: 1, results: Array(20), total_pages: 1000, total_results: 20000 */
     const {

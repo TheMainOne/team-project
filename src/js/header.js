@@ -56,8 +56,14 @@ function onLibraryButtonClick(e) {
   const hasDataAttr = nextButton.dataset.action;
 
   if (!hasDataAttr) return;
+  if (hasDataAttr === 'queue') {
+    videoapi.type = videoapi.keys.QUEUE;
+  }
 
-  videoapi.type = hasDataAttr;
+  if (hasDataAttr === 'watched') {
+    videoapi.type = videoapi.keys.WATCHED;
+  }
+
   console.log('onLibraryButtonClick ~ videoapi.type', videoapi.type);
 
   const prevButton = refs.headerControlBox.querySelector('.is-active');
