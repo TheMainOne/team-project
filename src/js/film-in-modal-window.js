@@ -5,11 +5,11 @@ import { videoapi } from './api-service';
 import { load } from './storage';
 import { getImageUrl, getGenres } from './gallery-card-template';
 import { createMarkup, createPoster } from './markup-of-modal';
-import * as queue from './for-queue-btn'
+import * as queue from './for-queue-btn';
+import * as watched from './for-watched-btn';
 import { searchFilmInQueue } from './for-queue-localstorage';
-import {darkTheameForModal} from './change-theme'
-
-import addToLocalStorage from './add-to-local-storage';
+import { searchFilmInWatched } from './for-watched-localstorage';
+import { darkTheameForModal } from './change-theme';
 
 const refs = getRefs();
 
@@ -27,9 +27,10 @@ const modal = new tingle.modal({
     },
   onClose: function () {
     queue.queueRemoveEventListener();
-    }
-});
+    watched.watchedRemoveEventListener();
+  },
 
+});
 
 refs.gallery.addEventListener('click', async event => {
   const li = event.target.closest('.gallery__item');
@@ -43,17 +44,12 @@ refs.gallery.addEventListener('click', async event => {
   modal.open();
   const searchRef = document.querySelector('.search-for-trailer');
   searchRef.addEventListener('click', enableTrailerLink);
-  // ================= Дима исправь код!
-  addToLocalStorage(idx);
-  // =================
+   watched.watchedAddEventListener();
   onBtnCloseModal();
 
 });
 
-
-
 // ===================== функции для модалки ===============
-  
 
 function onBtnCloseModal() {
   const btnClose = document.querySelector('.btnClose');
@@ -61,7 +57,6 @@ function onBtnCloseModal() {
     modal.close();
   });
 }
-
 
 async function contentModal(idOfFilm) {
   try {
@@ -94,16 +89,15 @@ async function contentModal(idOfFilm) {
       vote_count: voteCount,
     } = ourFilm;
 
-  
     const posterUrl = getImageUrl(posterPath);
     const genresJoined = await getGenres(genreIds);
     const poster = createPoster(posterUrl, title);
     const isFilmInQueue = searchFilmInQueue(id);
-    
-    
-   
+    const isFilmInWatched = searchFilmInWatched(id);
+
     const makrup = createMarkup({
       isFilmInQueue,
+      isFilmInWatched,
       id,
       poster,
       title,
