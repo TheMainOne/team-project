@@ -9,14 +9,24 @@ const refs = getHeaderRefs();
 const refGallery = getRefs();
 const LOCAL_STORAGE_QUEUE = 'filmoteka-queue';
 
+const btnLibrary = document.querySelector(`[data-action="js-library"]`);
 
+btnLibrary.addEventListener("click", () => {
+    if (load(LOCAL_STORAGE_QUEUE)) {
+        renderCard()
+    }
+    
 
-
-refs.headerControlBox.addEventListener("click", () => {
-    const watched = load(LOCAL_STORAGE_QUEUE);
-    renderGallery(watched);
-    refGallery.gallery.dataset.gallery = "queue";
-// console.log("~ refGallery.gallery", refGallery.gallery.dataset)
 })
 
+refs.headerControlBox.addEventListener("click", (e) => {
+    
+    if (load(LOCAL_STORAGE_QUEUE) && e.target.dataset.action === "queue") {
+        renderCard()
+    }
+})
 
+function renderCard() {
+    renderGallery(load(LOCAL_STORAGE_QUEUE));
+    refGallery.gallery.dataset.gallery = "queue";
+}
