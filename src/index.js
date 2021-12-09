@@ -12,11 +12,12 @@ export { sprite };
 // document.body.insertAdjacentHTML('beforebegin', icons);
 
 import initPagination from './js/pagination';
-
+import './js/queue'
 import './js/library';
 import './sass/main.scss';
 import './js/header';
 import './js/film-in-modal-window';
+import './js/render-queue';
 import debounce from 'lodash/debounce';
 import { Notify } from 'notiflix';
 import { videoapi } from './js/api-service';
@@ -67,6 +68,10 @@ const renderGallery = async results => {
       } else {
         cardTitles.forEach(title => (title.style.color = '#000000'));
       }
+
+
+
+      
     });
     // ============
   } catch (err) {
