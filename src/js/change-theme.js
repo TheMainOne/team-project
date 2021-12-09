@@ -75,14 +75,10 @@ function changeTheme() {
   }
 }
 
-export function darkThemeForModal(modal) {
-  console.log("~ modal", modal)
+ function darkThemeForModal(modal) {
   const theme = localStorage.getItem('theme');
-  console.log("~ theme", theme)
   const modalForTheme = modal.modalBoxContent.children[0].children[0];
-  console.log("~ modalForTheme", modalForTheme)
   const btnClose = modal.modal.querySelector('.btnClose-icon');
-  console.log("~ btnClose", btnClose)
 
   if (theme === 'dark-theme') {
     modalForTheme.style.backgroundColor = '#202124';
@@ -117,4 +113,4 @@ const onThemeToggle = async event => {
 
 // ============
 
-export { changeTheme, onThemeToggle, initThemeSwitcher };
+export { changeTheme, onThemeToggle, initThemeSwitcher, darkThemeForModal};

@@ -9,8 +9,9 @@ import * as queue from './for-queue-btn';
 import * as watched from './for-watched-btn';
 import { searchFilmInQueue } from './for-queue-localstorage';
 import { searchFilmInWatched } from './for-watched-localstorage';
-import { darkTheameForModal } from './change-theme'
-import {enableTrailerLink} from './trailer'
+import { darkThemeForModal } from './change-theme';
+
+import { enableTrailerLink } from './trailer';
 
 const refs = getRefs();
 const {QUEUE, WATCHED, TRENDING, SEARCH} = videoapi.keys
@@ -25,10 +26,9 @@ const modal = new tingle.modal({
   cssClass: ['custom-class-1', 'custom-class-2'],
   onOpen: function () {
 
-  //   // darkTheameForModal(this);
-  //   console.log("~ modal", modal)
-  //   // queue.queueAddEventListener();
-  //   // watched.watchedAddEventListener(); 
+    darkThemeForModal(modal);
+    queue.queueAddEventListener();
+    watched.watchedAddEventListener(); 
   },
   onClose: function () {
     queue.queueRemoveEventListener();
@@ -44,9 +44,7 @@ refs.gallery.addEventListener('click', async event => {
   const id = Number(li.dataset.id);
 
   modal.setContent(await contentModal(id)); 
-  console.log("~ modal.setContent(await contentModal(id)); ", modal.setContent(await contentModal(id)) )
-
-  modal.open();
+  modal.open();  
   
   const searchRef = document.querySelector('.search-for-trailer');
   searchRef.addEventListener('click', enableTrailerLink);
