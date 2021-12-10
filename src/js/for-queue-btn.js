@@ -26,6 +26,7 @@ export function queueRemoveEventListener() {
 export async function onClickBtnQueue(e) {
   const inQueuePage = (refsGallery.dataset.gallery  === "queue");
   const refQueueBtn = e.currentTarget;
+  const isClickOnAdd = (refQueueBtn.dataset.action === 'add-to-queue');
   const movieId = Number(refQueueBtn.closest('.movie').dataset.id);
   let ourFilm = {};
   
@@ -45,8 +46,8 @@ export async function onClickBtnQueue(e) {
   }
   
   
-  
-  if (inQueuePage) {
+
+  if (isClickOnAdd) {
         addToQueue(refQueueBtn, ourFilm);
         return
   } else {
