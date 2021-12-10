@@ -2,7 +2,7 @@ import { sprite } from '../index';
 import { videoapi } from './api-service';
 const iconYoutube = `${sprite}#icon-youtube`;
 const iconPlaceholder = `${sprite}#icon-placeholder`;
-
+import getRefs from './refs';
 const { log, error } = console;
 const desktop = () => window.matchMedia('(min-width: 1024px)').matches;
 
@@ -50,6 +50,7 @@ const getGenres = async genreIds => {
 export { getGenres };
 
 const galleryCardTemplate = async (
+ 
   {
     id,
     poster_path: posterPath,
@@ -57,22 +58,22 @@ const galleryCardTemplate = async (
     genres = [],
     release_date: releaseDate,
     title,
-    vote_average: voteAverage = '',
+    vote_average: voteAverage,
   },
   idx,
 ) => {
   /* example image: https://image.tmdb.org/t/p/w342/pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg */
   // poster_path: "/rjkmN1dniUHVYAtwuV3Tji7FsDO.jpg"
-
+ const dataGallery = getRefs().gallery.dataset.gallery;
   const posterUrl = getImageUrl(posterPath);
   const poster = posterPath !== '' && posterUrl ? posterUrl : iconPlaceholder;
 
   const genresJoined = await getGenres(genreIds);
 
   const { type, keys } = videoapi;
-  if (type !== keys.WATCHED && type !== keys.QUEUE) {
-    voteAverage = '';
-  }
+  // if (type !== keys.WATCHED && type !== keys.QUEUE) {
+  //   voteAverage = '';
+  // }
 
   // const genresObjLength = genres && Object.keys(genres)?.length;
   // if (genresObjLength > 0 && genresObjLength < 3)
@@ -87,6 +88,15 @@ const galleryCardTemplate = async (
   //     .join(', ')}, Other`;
 
   const releaseYear = releaseDate.slice(0, 4);
+
+
+  console.log("~ dataGallery", dataGallery)
+  if (!(dataGallery === "watch" || dataGallery === "queue")) {
+    voteAverage = '' 
+  }
+
+
+  
 
   return `
 <li class="gallery__item" data-idx=${idx} data-id=${id}>
@@ -108,8 +118,9 @@ const galleryCardTemplate = async (
 
       <p class="card__description">
 ${genresJoined ? `<span class="card__genres">${genresJoined}</span>` : ''}
+${(genresJoined && releaseYear) || (genresJoined && voteAverage) ? `<span class=".card__slash">|</span>` : '' }
  ${releaseYear ? `<span class="card__release-date">${releaseYear}</span>` : ''}
- ${voteAverage ? `<span class="card__vote">${voteAverage}</span>` : ''}
+ ${voteAverage ? `<span class="card__vote ">${voteAverage}</span>` : ''}
       </p>
     </div>
 
