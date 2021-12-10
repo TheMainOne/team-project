@@ -9,7 +9,6 @@ import './js/library';
 import './sass/main.scss';
 import './js/header';
 import './js/film-in-modal-window';
-import './js/render-queue';
 import debounce from 'lodash/debounce';
 import { Notify } from 'notiflix';
 import { videoapi } from './js/api-service';
