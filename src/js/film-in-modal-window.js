@@ -12,6 +12,8 @@ import { searchFilmInWatched } from './for-watched-localstorage';
 import { darkThemeForModal } from './change-theme';
 
 import { enableTrailerLink } from './trailer';
+import { renderGallery } from './init-gallery';
+import { setPagination } from './pagination';
 
 const refs = getRefs();
 const { QUEUE, WATCHED, TRENDING, SEARCH } = videoapi.keys;
@@ -30,6 +32,21 @@ const modal = new tingle.modal({
   onClose: function () {
     queue.queueRemoveEventListener();
     watched.watchedRemoveEventListener();
+
+    let galleryItems = [];
+
+    if (videoapi.type === WATCHED) {
+      galleryItems = load(WATCHED);
+    }
+    if (videoapi.type === QUEUE) {
+      galleryItems = load(QUEUE);
+    }
+
+    if (galleryItems.length > 0) {
+      console.log('galleryItems', galleryItems);
+      renderGallery(galleryItems);
+      setPagination(videoapi.type, galleryItems.length);
+    }
   },
 });
 
@@ -56,32 +73,33 @@ refs.gallery.addEventListener('click', async event => {
 
 function onBtnCloseModal() {
   const btnClose = document.querySelector('.btnClose');
-  btnClose.addEventListener('click', () => {
-    modal.close();
-  });
+  btnClose.addEventListener(
+    'click',
+    () => {
+      modal.close();
+    },
+    { once: true, passive: true },
+  );
 }
 
 async function contentModal(idOfFilm) {
   try {
-    const gallaryData = refs.gallery.dataset.gallery;
+    const galleryData = refs.gallery.dataset.gallery;
 
     let arrayOfFilms = [];
     let ourFilm = {};
 
-    if (gallaryData === 'queue') {
+    if (galleryData === 'queue') {
       arrayOfFilms = load(QUEUE);
-    } else if (gallaryData === 'watch') {
+    } else if (galleryData === 'watch') {
       arrayOfFilms = load(WATCHED);
-    } else if (gallaryData === 'home') {
+    } else if (galleryData === 'home') {
       arrayOfFilms = load(TRENDING.WEEK).results;
+    } else if (galleryData === 'search') {
+      arrayOfFilms = load(SEARCH).results;
     }
 
     ourFilm = arrayOfFilms.find(film => film.id === idOfFilm);
-
-    if (!ourFilm) {
-      arrayOfFilms = load(SEARCH).results;
-      ourFilm = arrayOfFilms.find(film => film.id === idOfFilm);
-    }
 
     const {
       id,
