@@ -6,7 +6,7 @@ export function enableTrailerLink() {
   searchRef.classList.add('unable')
   trailerLinkRef.classList.add('enable');
 
-  const youtubeKeyApi = 'AIzaSyCrnGnV2GS29bGv6ktcqjAdI_UxuU_ESyQ';
+  const youtubeKeyApi = 'AIzaSyDJJjQz7c6w4qaiZdybkdQTYOdfJPDLMsE';
   const baseYoutubeUrl = `https://www.googleapis.com/youtube/v3/search?q=${targetName}+official+trailer&key=${youtubeKeyApi}&part=snippet,id&kind='youtube#video'order=date&maxResults=1`;
   fetch(baseYoutubeUrl)
     .then(response => {
