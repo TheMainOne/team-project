@@ -2,9 +2,13 @@ import getHeaderRefs from './getHearedRefs';
 import { videoapi } from './api-service';
 import { sprite } from '../index';
 import { renderGallery } from './init-gallery';
-import { isWatched } from './render-watched';
-
+import { renderWatchedVideos } from './render-watched';
+import { setPagination } from './pagination';
+import getRefs from './refs';
+import { load } from './storage';
+const mainRefs = getRefs();
 const iconSearch = `${sprite}#icon-search`;
+const { QUEUE, WATCHED } = videoapi.keys;
 
 const refs = getHeaderRefs();
 
@@ -22,6 +26,10 @@ function onTopNavBtnClick(e) {
 
   videoapi.currentPage = hasDataAttr;
   console.log('onTopNavBtnClick ~ videoapi.currentPage', videoapi.currentPage);
+
+  const queueMovies = load(QUEUE);
+  renderGallery(queueMovies);
+  setPagination(QUEUE, queueMovies?.length);
 
   const prevButton = refs.navbar.querySelector('.is-active');
 
@@ -59,12 +67,12 @@ function onLibraryButtonClick(e) {
 
   if (!hasDataAttr) return;
   if (hasDataAttr === 'queue') {
-    videoapi.type = videoapi.keys.QUEUE;
+    videoapi.type = QUEUE;
   }
 
   if (hasDataAttr === 'watched') {
-    videoapi.type = videoapi.keys.WATCHED;
-    isWatched();
+    videoapi.type = WATCHED;
+    renderWatchedVideos();
   }
 
   console.log('onLibraryButtonClick ~ videoapi.type', videoapi.type);
@@ -110,17 +118,20 @@ function renderLibraryButtons() {
   <div class="header__library-controls" data-library-buttons">
     <button class="button" data-action="watched">Watched</>
     <button class="button is-active" data-action="queue">Queue</button>
-  </div>;
+  </div>
   `;
 }
 
 // Cлушатель событий на кнопке home для возврата на главную страницу
 refs.homeBtn.addEventListener('click', async () => {
-  window.location = './';
+  // window.location = './';
 
-  // videoapi.type = videoapi.keys.TRENDING.WEEK;
-  // const videos = await videoapi.getTrendingVideos();
-  // console.log('refs.homeBtn.addEventListener ~ videos', videos);
-  // if (videos.results === 0) return;
-  // renderGallery(videos.results);
+  const { TRENDING } = videoapi.keys;
+  videoapi.type = TRENDING.WEEK;
+  const videos = await videoapi.getTrendingVideos();
+  mainRefs.gallery.dataset.gallery = 'home';
+  console.log('refs.homeBtn.addEventListener ~ videos', videos);
+  if (videos.results.length === 0) return;
+  renderGallery(videos.results);
+  setPagination(TRENDING.WEEK, videos.total_results);
 });

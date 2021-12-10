@@ -5,8 +5,9 @@ const { WATCHED } = videoapi.keys;
 export function addToWatch(refWatchedBtn, currentMovie) {
   let movieForWatched = [];
 
-  if (load(WATCHED)) {
-    movieForWatched = load(WATCHED);
+  const loadedWatched = load(WATCHED);
+  if (loadedWatched) {
+    movieForWatched = loadedWatched;
   }
 
   movieForWatched = [currentMovie, ...movieForWatched];
@@ -19,16 +20,10 @@ export function addToWatch(refWatchedBtn, currentMovie) {
 
 export function removeFromWatched(refWatchedBtn, currentMovie) {
   const movieOfWatched = load(WATCHED);
-  let indexOfMovie = null;
-
-  movieOfWatched.forEach((element, index) => {
-    if (element.id === currentMovie.id) {
-      return (indexOfMovie = index);
-    }
-  });
-
-  movieOfWatched.splice(indexOfMovie, 1);
-  save(WATCHED, movieOfWatched);
+  const newWatched = movieOfWatched.filter(
+    movie => movie.id !== currentMovie.id,
+  );
+  save(WATCHED, newWatched);
 
   refWatchedBtn.dataset.action = 'add-to-watched';
   refWatchedBtn.innerHTML = 'add to watched';
@@ -37,8 +32,9 @@ export function removeFromWatched(refWatchedBtn, currentMovie) {
 export function searchFilmInWatched(id) {
   let movieOfWatched = [];
 
-  if (load(WATCHED)) {
-    movieOfWatched = load(WATCHED);
+  const loadedWatched = load(WATCHED);
+  if (loadedWatched) {
+    movieOfWatched = loadedWatched;
   }
 
   return movieOfWatched.find(movie => movie.id === id);

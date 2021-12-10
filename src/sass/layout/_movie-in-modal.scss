@@ -268,13 +268,14 @@
   border: 2px solid $accent-color;
   border-radius: 5px;
   padding: 10px 20px;
+  text-align: center;
 
   @media screen and (min-width: 768px) {
-    padding: 10px 35px;
+    padding: 10px 30px;
   }
 
   @media screen and (min-width: 1024px) {
-    padding: 10px 105px;
+    padding: 10px 90px;
   }
 }
 
@@ -293,7 +294,6 @@
   top: -5px;
   right: -55px;
 }
-
 
 .search-for-trailer {
   width: 100%;

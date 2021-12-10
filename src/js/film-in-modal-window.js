@@ -12,6 +12,8 @@ import { searchFilmInWatched } from './for-watched-localstorage';
 import { darkThemeForModal } from './change-theme';
 
 import { enableTrailerLink } from './trailer';
+import { renderGallery } from './init-gallery';
+import { pagination, setPagination, onPaginationPageLibrary } from './pagination';
 
 const refs = getRefs();
 const { QUEUE, WATCHED, TRENDING, SEARCH } = videoapi.keys;
@@ -30,6 +32,9 @@ const modal = new tingle.modal({
   onClose: function () {
     queue.queueRemoveEventListener();
     watched.watchedRemoveEventListener();
+
+    // onPaginationPageLibrary();
+
   },
 });
 
@@ -39,15 +44,13 @@ refs.gallery.addEventListener('click', async event => {
 
   const id = Number(li.dataset.id);
 
-  const loaded = await contentModal(id);
-
-  console.log(id);
-  if (!loaded || loaded === '') return;
-
-  modal.setContent(loaded);
+  modal.setContent(await contentModal(id));
   modal.open();
+
+  // ===trailer 
   const searchRef = document.querySelector('.search-for-trailer');
   searchRef.addEventListener('click', enableTrailerLink);
+  // ========
 
   onBtnCloseModal();
 });
@@ -58,30 +61,28 @@ function onBtnCloseModal() {
   const btnClose = document.querySelector('.btnClose');
   btnClose.addEventListener('click', () => {
     modal.close();
-  });
+    }, { once: true, passive: true },
+  );
 }
 
 async function contentModal(idOfFilm) {
   try {
-    const gallaryData = refs.gallery.dataset.gallery;
+    const galleryData = refs.gallery.dataset.gallery;
 
     let arrayOfFilms = [];
     let ourFilm = {};
 
-    if (gallaryData === 'queue') {
+    if (galleryData === 'queue') {
       arrayOfFilms = load(QUEUE);
-    } else if (gallaryData === 'watch') {
+    } else if (galleryData === 'watch') {
       arrayOfFilms = load(WATCHED);
-    } else if (gallaryData === 'home') {
+    } else if (galleryData === 'home') {
       arrayOfFilms = load(TRENDING.WEEK).results;
+    } else if (galleryData === 'search') {
+      arrayOfFilms = load(SEARCH).results;
     }
 
     ourFilm = arrayOfFilms.find(film => film.id === idOfFilm);
-
-    if (!ourFilm) {
-      arrayOfFilms = load(SEARCH).results;
-      ourFilm = arrayOfFilms.find(film => film.id === idOfFilm);
-    }
 
     const {
       id,
@@ -94,7 +95,6 @@ async function contentModal(idOfFilm) {
       vote_average: voteAverage,
       vote_count: voteCount,
     } = ourFilm;
-    console.log(ourFilm);
 
     const posterUrl = getImageUrl(posterPath);
     const genresJoined = await getGenres(genreIds);
