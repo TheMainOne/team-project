@@ -1,11 +1,8 @@
-import { load, save } from './storage';
+import { load } from './storage';
 import * as watched from './for-watched-localstorage';
 import { videoapi } from './api-service';
-
 import getRefs from './refs';
-import { renderGallery } from './init-gallery';
 import { renderWatchedVideos } from './render-watched';
-import { setPagination } from './pagination';
 
 const refs = getRefs();
 refs.gallery.dataset.gallery;
