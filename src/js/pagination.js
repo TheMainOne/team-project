@@ -7,13 +7,6 @@ import { load } from './storage';
 const iconDots = `${sprite}#icon-dots`;
 const iconArrow = `${sprite}#icon-arrow`;
 
-/*
-.tui-pagination .tui-ico-ellip,
-.tui-pagination .tui-ico-first,
-.tui-pagination .tui-ico-last,
-.tui-pagination .tui-ico-next,
-.tui-pagination .tui-ico-prev */
-
 const options = {
   page: 1,
 
@@ -70,11 +63,6 @@ const removeTuiButtons = async resultsLength => {
   removeDOM([first, last, disabledFirst, disabledLast]);
 };
 
-// delete pagination._view._buttons.first;
-// delete pagination._view._buttons.last;
-// delete pagination._view._buttons.disabledFirst;
-// delete pagination._view._buttons.disabledLast;
-
 const onPaginationClick = async ({ page }) => {
   videoapi.page = page;
 
@@ -113,7 +101,6 @@ const onPaginationClick = async ({ page }) => {
     }
     case QUEUE: {
       const loadQueue = load(QUEUE);
-      // if (!loadQueue || loadQueue === '' || Object.keys(loadQueue) === 0)
 
       const { page } = videoapi;
       const perPage = 20;
