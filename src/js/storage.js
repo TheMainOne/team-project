@@ -21,6 +21,11 @@ const load = key => {
 const removeEmptyStorageKeys = async () => {
   try {
     Object.keys(localStorage).forEach(key => {
+
+      if (key === 'theme') {
+        return;
+      }
+
       const loadedData = load(key);
 
       if (

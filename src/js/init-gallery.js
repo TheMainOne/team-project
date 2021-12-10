@@ -26,6 +26,7 @@ const renderGallery = async results => {
 
     refs.gallery.innerHTML = '';
     refs.gallery.insertAdjacentHTML('beforeend', galleryMarkup);
+    initThemeSwitcher();
     removeTuiButtons(results.length);
   } catch (err) {
     error(err);
@@ -48,7 +49,6 @@ const initGallery = async () => {
     await renderGallery(results);
 
     setPagination(videoapi.keys.TRENDING.WEEK, totalResults);
-    initThemeSwitcher();
   } catch (err) {
     error(err);
   }

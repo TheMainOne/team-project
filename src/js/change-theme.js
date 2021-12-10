@@ -99,8 +99,10 @@ const getCardTitles = async () => document.querySelectorAll('.card__title');
 const initThemeSwitcher = async () => {
   const cardTitles = await getCardTitles();
 
-  if (localStorage.getItem('theme') === 'dark-theme') {
-    cardTitles.forEach(title => (title.style.color = '#ffffff'));
+   if (localStorage.getItem('theme') === 'dark-theme') {
+    cardTitles.forEach(cardTitle => {
+      cardTitle.style.color = '#ffffff';
+    });
     refs.footer.style.backgroundColor = '#202124';
     refs.footer.style.color = '#ffffff';
   }
