@@ -72,6 +72,7 @@ function onLibraryButtonClick(e) {
 
   if (hasDataAttr === 'watched') {
     videoapi.type = WATCHED;
+    mainRefs.gallery.dataset.gallery = 'watch';
     renderWatchedVideos();
   }
 
