@@ -17,6 +17,10 @@ const notifyStatus = (videosCount, page, totalResults) => {
 };
 const renderGallery = async results => {
   try {
+    if (!results || results === '') {
+      refs.gallery.innerHTML = '';
+      return;
+    }
     const string = await Promise.all(results.map(galleryCardTemplate));
     const galleryMarkup = string.join('');
 

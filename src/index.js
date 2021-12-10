@@ -13,7 +13,7 @@ import debounce from 'lodash/debounce';
 import { Notify } from 'notiflix';
 import { videoapi } from './js/api-service';
 import { notifyStatus, renderGallery, initGallery } from './js/init-gallery';
-import { save, load } from './js/storage';
+import { save, load, removeEmptyStorageKeys } from './js/storage';
 
 import './js/modalTeam';
 import getRefs from './js/refs';
@@ -55,6 +55,7 @@ const onSubmit = async e => {
 
     if (notifyStatus(results.length, page, totalResults)) return;
 
+    refs.gallery.dataset.gallery = 'search';
     await renderGallery(results);
   } catch (err) {
     error(err);
@@ -72,7 +73,7 @@ const initListeners = () => {
     { passive: true, once: true },
   );
 
-  refs.form.addEventListener('submit', debounce(onSubmit, DELAY, OPTIONS));
+  refs.form.addEventListener('submit', onSubmit);
 
   refs.themeSwitcher.addEventListener('change', onThemeToggle, passive);
 
@@ -82,7 +83,7 @@ const initListeners = () => {
 };
 
 initListeners();
-
+removeEmptyStorageKeys();
 // ====== функционал отвечающий за кнопку и прокрутку в вверх страницы ======
 window.onscroll = function (backToTopBtn) {
   scrollFunction(backToTopBtn);

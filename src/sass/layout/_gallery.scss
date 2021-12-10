@@ -99,10 +99,14 @@
   text-transform: uppercase;
 }
 
-.card__genres {
-  border-right: 1px solid var(--accent-color);
-  margin-right: 5px;
-  padding-right: 8px;
+// .card__genres {
+//   // border-right: 1px solid var(--accent-color);
+//   // margin-right: 4px;
+//   // padding-right: 4px;
+// }
+
+.card__slash {
+  color: var(--accent-color);
 }
 
 .card__description {
@@ -113,10 +117,18 @@
 // .card__release-date { }
 
 .card__vote {
-  padding: 1px 10px;
-  color: var(--main-text-color);
-  background-color: var(--accent-color);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 36px;
+  height: 16px;
+  margin-right: 10px;
   border-radius: 5px;
+  font-size: 12px;
+
+  background-color: $accent-color;
+  color: $main-text-color;
 }
 
 .loader-wrapper {
