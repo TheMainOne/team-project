@@ -4,6 +4,7 @@ import { videoapi } from './api-service';
 
 import getRefs from './refs';
 import { renderGallery } from './init-gallery';
+import { renderWatchedVideos } from './render-watched';
 import { setPagination } from './pagination';
 let dataGallery = getRefs().gallery.dataset.gallery;
 
@@ -53,6 +54,7 @@ export async function onClickBtnWatched(e) {
     return watched.addToWatch(refWatchedBtn, currentMovie);
   } else {
     console.log('remove', { currentMovie });
-    return watched.removeFromWatched(refWatchedBtn, currentMovie);
+    watched.removeFromWatched(refWatchedBtn, currentMovie);
+    renderWatchedVideos();
   }
 }
