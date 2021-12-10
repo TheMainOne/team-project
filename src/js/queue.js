@@ -25,7 +25,7 @@ refs.headerControlBox.addEventListener("click", (e) => {
 })
 
 
-function renderCard() {
+export default function renderCard() {
     renderGallery(load(QUEUE));
     refGallery.gallery.dataset.gallery = "queue";
 }

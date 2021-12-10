@@ -110,6 +110,12 @@ section.section__js {
     background-position: 0 0;
   }
 }
+
+@media (max-width: $tablet) {
+  section.section__js{
+    height: 530px;
+  }
+}
 // section.section__js{
 //     // background-image:
 //     //   url('.././images/library.jpg');
@@ -152,3 +158,4 @@ section.section__js {
 //       }
 //     }
 //   }
+
