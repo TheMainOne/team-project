@@ -25,16 +25,28 @@ export function queueRemoveEventListener() {
 
 export async function onClickBtnQueue(e) {
 
-  const gallaryData = refs.gallery.dataset.gallery;
+  const gallaryData = refsGallery.dataset.gallery;
   const refQueueBtn = e.currentTarget;
   const movieId = Number(document.querySelector('.movie').dataset.id);
-  const filmOfWeek = await load(TRENDING.WEEK).results;
-  let ourFilm = filmOfWeek.find(film => film.id === movieId);
+  let ourFilm = {};
+  let arrayOfFilms = {}
 
-   if (!ourFilm) {
-     const arrayOfFilms = load(SEARCH).results
-     ourFilm = arrayOfFilms.find(film => film.id === movieId);  
-    } 
+
+  if (gallaryData === 'queue') {
+        arrayOfFilms = load(QUEUE).find(film => film.id === movieId);
+      } else if (gallaryData === 'watch') {
+        arrayOfFilms = load(WATCHED).find(film => film.id === movieId);
+      } else if (gallaryData === 'home') {
+        arrayOfFilms = load(TRENDING.WEEK).results.find(film => film.id === movieId);
+      } else if (gallaryData === 'search') {
+        arrayOfFilms = load(SEARCH).results.find(film => film.id === movieId);
+      }
+
+//  const ourFilm = arrayOfFilms.find(film => film.id === movieId);
+  console.log("~ arrayOfFilms", arrayOfFilms)
+
+  console.log("~ ourFilm", ourFilm)
+  
   
   
   
