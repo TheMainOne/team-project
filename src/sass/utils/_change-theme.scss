@@ -27,17 +27,23 @@ body.dark-theme {
 
 /* THEME SWITCH */
 .theme-switch {
+  position: relative;
   display: flex;
   align-items: center;
 }
 
 .theme-switch__icon {
   color: currentColor;
-  height: 14px;
-  width: 14px;
+  height: 12px;
+  width: 12px;
 
   &.is-active {
     color: var(--accent-color);
+  }
+
+  @media (min-width: $tablet) {
+    height: 14px;
+    width: 14px;
   }
 }
 
@@ -50,12 +56,14 @@ body.dark-theme {
   height: 14px;
   border-radius: 50em;
   padding: 3px 0;
-  margin-left: 8px;
-  margin-right: 8px;
+  margin-left: 6px;
+  margin-right: 6px;
 
   @media (min-width: $tablet) {
     width: 40px;
     height: 20px;
+    margin-left: 8px;
+    margin-right: 8px;
   }
 }
 
@@ -97,8 +105,8 @@ body.dark-theme {
   transition: transform 250ms var(--cubic);
 
   @media (min-width: $tablet) {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
   }
 }
 

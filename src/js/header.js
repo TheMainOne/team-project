@@ -107,7 +107,7 @@ function renderLibraryButtons() {
   <div class="header__library-controls" data-library-buttons">
     <button class="button" data-action="watched">Watched</>
     <button class="button is-active" data-action="queue">Queue</button>
-  </div>;
+  </div>
   `;
 }
 
