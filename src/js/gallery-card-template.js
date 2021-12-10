@@ -90,7 +90,7 @@ const galleryCardTemplate = async (
   const releaseYear = releaseDate.slice(0, 4);
 
 
-  console.log("~ dataGallery", dataGallery)
+
   if (!(dataGallery === "watch" || dataGallery === "queue")) {
     voteAverage = '' 
   }
