@@ -13,7 +13,7 @@ import { darkThemeForModal } from './change-theme';
 
 import { enableTrailerLink } from './trailer';
 import { renderGallery } from './init-gallery';
-import { pagination, setPagination, lalala } from './pagination';
+import { pagination, setPagination, onPaginationPageLibrary } from './pagination';
 
 const refs = getRefs();
 const { QUEUE, WATCHED, TRENDING, SEARCH } = videoapi.keys;
@@ -33,7 +33,7 @@ const modal = new tingle.modal({
     queue.queueRemoveEventListener();
     watched.watchedRemoveEventListener();
 
-    lalala();
+    onPaginationPageLibrary();
 
   },
 });

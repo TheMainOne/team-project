@@ -139,7 +139,7 @@ const setPagination = async (type, totalPages = 0) => {
 
 
 
-function lalala() {
+function onPaginationPageLibrary() {
   const { QUEUE, WATCHED, TRENDING, SEARCH } = videoapi.keys;
 
 
@@ -161,4 +161,4 @@ function lalala() {
   
 }
 
-export { setPagination, removeTuiButtons, listenPaginationClick, pagination, lalala };
+export { setPagination, removeTuiButtons, listenPaginationClick, pagination, onPaginationPageLibrary };
