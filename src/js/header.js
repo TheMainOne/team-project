@@ -29,7 +29,7 @@ function onTopNavBtnClick(e) {
 
   const queueMovies = load(QUEUE);
   renderGallery(queueMovies);
-  setPagination(QUEUE, queueMovies.length);
+  setPagination(QUEUE, queueMovies?.length);
 
   const prevButton = refs.navbar.querySelector('.is-active');
 

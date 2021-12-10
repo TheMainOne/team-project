@@ -113,10 +113,14 @@ const onPaginationClick = async ({ page }) => {
     }
     case QUEUE: {
       const loadQueue = load(QUEUE);
+      // if (!loadQueue || loadQueue === '' || Object.keys(loadQueue) === 0)
+
       const { page } = videoapi;
       const perPage = 20;
 
-      const filteredLoadQueue = loadQueue.filter(
+      let filteredLoadQueue = '';
+
+      filteredLoadQueue = loadQueue?.filter(
         (item, index) =>
           index >= perPage * (page - 1) && index < perPage * page,
       );
@@ -133,10 +137,14 @@ const listenPaginationClick = () => {
   pagination.on('afterMove', onPaginationClick);
 };
 
-const setPagination = async (type, totalPages) => {
+const setPagination = async (type, totalPages = 0) => {
   videoapi.type = type;
+  if (!totalPages || totalPages === 0) {
+    pagination.reset(1);
+    pagination.movePageTo(1);
+  }
   pagination.reset(totalPages);
   pagination.movePageTo(1);
 };
 
-export { setPagination, removeTuiButtons, listenPaginationClick };
+export { setPagination, removeTuiButtons, listenPaginationClick, pagination };

@@ -51,6 +51,13 @@ export async function onClickBtnQueue(e) {
   } else {
     console.log('remove', { ourFilm });
     removeFromQueue(refQueueBtn, ourFilm);
+
+    //
+    // const newQueue = load(QUEUE);
+    // if (newQueue) {
+    //   renderGallery(newQueue);
+    //   setPagination(QUEUE, newQueue.length);
+    // }
   }
 
   if (galleryData === 'queue') {

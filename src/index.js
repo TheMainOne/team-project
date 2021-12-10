@@ -13,7 +13,7 @@ import debounce from 'lodash/debounce';
 import { Notify } from 'notiflix';
 import { videoapi } from './js/api-service';
 import { notifyStatus, renderGallery, initGallery } from './js/init-gallery';
-import { save, load } from './js/storage';
+import { save, load, removeEmptyStorageKeys } from './js/storage';
 
 import './js/modalTeam';
 import getRefs from './js/refs';
@@ -83,7 +83,7 @@ const initListeners = () => {
 };
 
 initListeners();
-
+removeEmptyStorageKeys();
 // ====== функционал отвечающий за кнопку и прокрутку в вверх страницы ======
 window.onscroll = function (backToTopBtn) {
   scrollFunction(backToTopBtn);

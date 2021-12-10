@@ -13,7 +13,7 @@ import { darkThemeForModal } from './change-theme';
 
 import { enableTrailerLink } from './trailer';
 import { renderGallery } from './init-gallery';
-import { setPagination } from './pagination';
+import { pagination, setPagination } from './pagination';
 
 const refs = getRefs();
 const { QUEUE, WATCHED, TRENDING, SEARCH } = videoapi.keys;
@@ -37,15 +37,24 @@ const modal = new tingle.modal({
 
     if (videoapi.type === WATCHED) {
       galleryItems = load(WATCHED);
+      console.log('galleryItems for watched ', galleryItems);
     }
     if (videoapi.type === QUEUE) {
       galleryItems = load(QUEUE);
+      console.log('galleryItems for queue ', galleryItems);
     }
 
     if (galleryItems.length > 0) {
-      console.log('galleryItems', galleryItems);
+      console.log(
+        'after onClose modal -> before renderGallery -> galleryItems: ',
+        galleryItems,
+      );
       renderGallery(galleryItems);
+      const previousPage = pagination.getCurrentPage();
+      console.log('previousPage', previousPage);
       setPagination(videoapi.type, galleryItems.length);
+      pagination.movePageTo(previousPage);
+      console.log('after deletion', pagination.getCurrentPage());
     }
   },
 });
