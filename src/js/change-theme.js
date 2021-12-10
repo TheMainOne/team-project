@@ -17,14 +17,17 @@ function changeTheme() {
   const darkThemeIcon = themeSwitcher.nextElementSibling;
 
   teamRef.addEventListener('click', () => {
-    const teamModalRef = document.querySelector('.team__wrapper');
+    const teamModalWindow = document.querySelector('.team__wrapper');
+    const teamModalWindowTwo = document.querySelector('.dialog');
     const gitRef = document.querySelectorAll('.logo__icon-git');
     if (localStorage.getItem('theme') === 'dark-theme') {
       gitRef.forEach(git => (git.style.fill = '#ffffff'));
-      teamModalRef.style.backgroundColor = '#111111';
+      teamModalWindow.style.backgroundColor = '#202124';
+      teamModalWindowTwo.style.backgroundColor = '#202124';
     } else {
       gitRef.forEach(git => (git.style.fill = '#000000'));
-      teamModalRef.style.backgroundColor = '#ffffff';
+      teamModalWindow.style.backgroundColor = '#ffffff';
+      teamModalWindowTwo.style.backgroundColor = '#ffffff';
     }
   });
 
