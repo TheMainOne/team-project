@@ -51,6 +51,7 @@ export async function onClickBtnWatched(e) {
 
   if (refWatchedBtn.dataset.action === 'add-to-watched') {
     console.log('add', currentMovie);
+
     return watched.addToWatch(refWatchedBtn, currentMovie);
   } else {
     console.log('remove', { currentMovie });
