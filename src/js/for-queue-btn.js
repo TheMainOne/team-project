@@ -42,7 +42,6 @@ export async function onClickBtnQueue(e) {
     ourFilm =  isFilmInSearch
   }
   
-  
 
   if (isClickOnAdd) {
         addToQueue(refQueueBtn, ourFilm);

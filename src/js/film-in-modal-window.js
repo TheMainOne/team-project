@@ -13,7 +13,7 @@ import { darkThemeForModal } from './change-theme';
 
 import { enableTrailerLink } from './trailer';
 import { renderGallery } from './init-gallery';
-import { pagination, setPagination } from './pagination';
+import { pagination, setPagination, lalala } from './pagination';
 
 const refs = getRefs();
 const { QUEUE, WATCHED, TRENDING, SEARCH } = videoapi.keys;
@@ -33,21 +33,8 @@ const modal = new tingle.modal({
     queue.queueRemoveEventListener();
     watched.watchedRemoveEventListener();
 
-    let galleryItems = [];
+    lalala();
 
-    if (videoapi.type === WATCHED) {
-      galleryItems = load(WATCHED);
-    }
-    if (videoapi.type === QUEUE) {
-      galleryItems = load(QUEUE);
-    }
-
-    if (galleryItems.length > 0) {
-      renderGallery(galleryItems);
-      const previousPage = pagination.getCurrentPage();
-      setPagination(videoapi.type, galleryItems.length);
-      pagination.movePageTo(previousPage);
-    }
   },
 });
 
