@@ -118,22 +118,14 @@
   &__logo {
     display: flex;
     align-items: center;
-    // animation: iconLight var(--time) var(--cubic);
-
-    // &:hover {
-    //   @include keyframes(iconLight) {
-    //     from {
-    //       transform: rotate(0deg);
-    //     }
-
-    //     to {
-    //       transform: rotate(360deg);
-    //     }
-    //   }
-    // }
 
     &-text {
       display: none;
+      transition: box-shadow, var(--cubic) var(--time);
+
+      &:active {
+        text-shadow: 5px 12px 43px rgba(255, 107, 1, 0.6);
+      }
 
       @media (min-width: $tablet) {
         display: inline-block;
@@ -147,14 +139,21 @@
       width: 24px;
       height: 24px;
       margin-right: 10px;
+      stroke: #818181;
 
-      transition-property: transform;
+      transition-property: transform, fill;
       transition-duration: 200ms;
       transition-timing-function: linear;
 
       &:hover {
         transform: rotate(180deg);
+        stroke: var(--accent-color);
       }
+    }
+
+    &:hover &-image {
+      transform: rotate(180deg);
+      stroke: var(--accent-color);
     }
   }
 
@@ -257,6 +256,7 @@
   background-color: transparent;
   border: 2px solid transparent;
   border-radius: 2px;
+  color: currentColor;
 
   transition: var(--cubic) var(--time);
   transition-property: color, box-shadow;
@@ -321,9 +321,3 @@
     box-shadow: 0px 8px 43px rgba(255, 107, 1, 0.6);
   }
 }
-
-// @mixin keyframes($animationName) {
-//   @keyframes animationName {
-//     @content;
-//   }
-// }
