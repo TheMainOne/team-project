@@ -5,57 +5,36 @@ const {QUEUE} = videoapi.keys
 
 
 export function addToQueue(refQueueBtn, ourFilm) {
+  const filmsForQueue = load(QUEUE) ? [ourFilm, ...load(QUEUE)] : [ourFilm];
+  save(QUEUE, filmsForQueue);
 
-      let filmsForQueue = [];
-
-      if (load(QUEUE)) {
-        filmsForQueue = load(QUEUE);
-      };
-
-      filmsForQueue = [
-        ourFilm,
-        ...filmsForQueue,
-      ];
-
-      save(QUEUE, filmsForQueue);
-
-      refQueueBtn.dataset.action = 'remove-from-queue';
-      refQueueBtn.innerHTML = "Remove from queue"
-    }
+  refQueueBtn.dataset.action = 'remove-from-queue';
+  refQueueBtn.innerHTML = "Remove from queue";
+};
 
 
-export  function removeFromQueue(refQueueBtn, ourFilm) {
-
-
-     
-  const filmsOfQueue =  load(QUEUE);
-  let indexOfFilm = null;
-
-   filmsOfQueue.forEach((element, index) => {
-      if (element.id === ourFilm.id) {
-          return indexOfFilm = index;     
-      }
-  })
-
-  filmsOfQueue.splice(indexOfFilm, 1);
-  save(QUEUE, filmsOfQueue);
+export  function removeFromQueue(refQueueBtn, ourFilm) {  
+  const filmsForQueue = load(QUEUE).filter(film => film.id !== ourFilm.id)
+  save(QUEUE, filmsForQueue);
   
   refQueueBtn.dataset.action = 'add-to-queue';
   refQueueBtn.innerHTML = "add to queue";
-
-
-//  const filmsOfQueue = load(QUEUE).filter(movie => movie.id !== ourFilm.id);
-
   }
 
 
 export  function searchFilmInQueue(id) {
-
-  let filmsOfQueue = [];
-
-  if (load(QUEUE)) {
-    filmsOfQueue = load(QUEUE);
-  };
-
-  return filmsOfQueue.find(element => element.id === id);
+  return load(QUEUE) ? load(QUEUE).find(element => element.id === id) : undefined
 }
+
+
+
+
+
+//  const filmsOfQueue = load(QUEUE);
+//   const indexOfFilm =  filmsOfQueue.forEach((element, index) => {
+//       if (element.id === ourFilm.id) {
+//           return index;     
+//       }
+//   })
+
+//   filmsOfQueue.splice(indexOfFilm, 1);

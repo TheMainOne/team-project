@@ -20,9 +20,6 @@ export function queueRemoveEventListener() {
 }
 
 
-
-
-
 export async function onClickBtnQueue(e) {
   const inQueuePage = (refsGallery.dataset.gallery  === "queue");
   const refQueueBtn = e.currentTarget;
@@ -30,10 +27,10 @@ export async function onClickBtnQueue(e) {
   const movieId = Number(refQueueBtn.closest('.movie').dataset.id);
   let ourFilm = {};
   
-  const isFilmInQueue = load(QUEUE).find(film => film.id === movieId)
-  const isFilmInWatched = load(WATCHED).find(film => film.id === movieId)
-  const isFilmInTrendingWeek = load(TRENDING.WEEK).results.find(film => film.id === movieId)
-  const isFilmInSearch = load(SEARCH).results.find(film => film.id === movieId)
+  const isFilmInQueue = load(QUEUE)?.find(film => film.id === movieId)
+  const isFilmInWatched = load(WATCHED)?.find(film => film.id === movieId)
+  const isFilmInTrendingWeek = load(TRENDING.WEEK)?.results.find(film => film.id === movieId)
+  const isFilmInSearch = load(SEARCH)?.results.find(film => film.id === movieId)
 
   if (isFilmInQueue) {
     ourFilm =  isFilmInQueue
@@ -62,13 +59,3 @@ export async function onClickBtnQueue(e) {
   };
 
   }
-
-//   if (galleryData === 'queue') {
-//     refsGallery.innerHTML = '';
-//     const loadedQueue = load(QUEUE);
-//     if (loadedQueue) {
-//       renderGallery(loadedQueue);
-//       setPagination(QUEUE, loadedQueue.length);
-//     }
-//   }
-// }

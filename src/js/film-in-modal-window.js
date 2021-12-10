@@ -37,24 +37,16 @@ const modal = new tingle.modal({
 
     if (videoapi.type === WATCHED) {
       galleryItems = load(WATCHED);
-      console.log('galleryItems for watched ', galleryItems);
     }
     if (videoapi.type === QUEUE) {
       galleryItems = load(QUEUE);
-      console.log('galleryItems for queue ', galleryItems);
     }
 
     if (galleryItems.length > 0) {
-      console.log(
-        'after onClose modal -> before renderGallery -> galleryItems: ',
-        galleryItems,
-      );
       renderGallery(galleryItems);
       const previousPage = pagination.getCurrentPage();
-      console.log('previousPage', previousPage);
       setPagination(videoapi.type, galleryItems.length);
       pagination.movePageTo(previousPage);
-      console.log('after deletion', pagination.getCurrentPage());
     }
   },
 });
@@ -65,15 +57,13 @@ refs.gallery.addEventListener('click', async event => {
 
   const id = Number(li.dataset.id);
 
-  const loaded = await contentModal(id);
-
-  console.log(id);
-  if (!loaded || loaded === '') return;
-
-  modal.setContent(loaded);
+  modal.setContent(await contentModal(id));
   modal.open();
+
+  // ===trailer 
   const searchRef = document.querySelector('.search-for-trailer');
   searchRef.addEventListener('click', enableTrailerLink);
+  // ========
 
   onBtnCloseModal();
 });
@@ -82,12 +72,9 @@ refs.gallery.addEventListener('click', async event => {
 
 function onBtnCloseModal() {
   const btnClose = document.querySelector('.btnClose');
-  btnClose.addEventListener(
-    'click',
-    () => {
-      modal.close();
-    },
-    { once: true, passive: true },
+  btnClose.addEventListener('click', () => {
+    modal.close();
+    }, { once: true, passive: true },
   );
 }
 
@@ -121,7 +108,6 @@ async function contentModal(idOfFilm) {
       vote_average: voteAverage,
       vote_count: voteCount,
     } = ourFilm;
-    console.log(ourFilm);
 
     const posterUrl = getImageUrl(posterPath);
     const genresJoined = await getGenres(genreIds);
