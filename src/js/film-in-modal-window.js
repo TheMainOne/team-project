@@ -33,7 +33,7 @@ const modal = new tingle.modal({
     queue.queueRemoveEventListener();
     watched.watchedRemoveEventListener();
 
-    onPaginationPageLibrary();
+    // onPaginationPageLibrary();
 
   },
 });
