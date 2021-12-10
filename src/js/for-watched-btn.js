@@ -8,7 +8,7 @@ import { renderWatchedVideos } from './render-watched';
 import { setPagination } from './pagination';
 
 const refs = getRefs();
-let isWatched = refs.gallery.dataset.gallery;
+refs.gallery.dataset.gallery;
 
 const { TRENDING, QUEUE, SEARCH, WATCHED } = videoapi.keys;
 
@@ -23,36 +23,35 @@ export function watchedRemoveEventListener() {
 }
 
 export async function onClickBtnWatched(e) {
+  const isWachedGallery = refs.gallery.dataset.gallery === 'watch';
   const refWatchedBtn = e.currentTarget;
   const movieId = Number(document.querySelector('.movie').dataset.id);
-
   let filmOfWeek = await load(TRENDING.WEEK).results;
   let currentMovie = filmOfWeek.find(movie => movie.id === movieId);
 
   if (!currentMovie) {
-    filmOfWeek = await load(WATCHED);
+    filmOfWatched = await load(WATCHED);
     if (filmOfWeek) {
-      currentMovie = filmOfWeek.find(movie => movie.id === movieId);
+      currentMovie = filmOfWatched.find(movie => movie.id === movieId);
     }
   }
 
   if (!currentMovie) {
-    filmOfWeek = await load(SEARCH);
-
+    filmOfSearch = await load(SEARCH);
     if (filmOfWeek) {
-      currentMovie = filmOfWeek.results.find(movie => movie.id === movieId);
+      currentMovie = filmOfSearch.results.find(movie => movie.id === movieId);
     }
   }
 
-  const rerenderWatchGallery = () => {
-    isWatched === 'watch' ? renderWatchedVideos() : null;
-  };
-
   if (refWatchedBtn.dataset.action === 'add-to-watched') {
     watched.addToWatch(refWatchedBtn, currentMovie);
-    rerenderWatchGallery();
+    if (isWachedGallery) {
+      renderWatchedVideos();
+    }
   } else {
     watched.removeFromWatched(refWatchedBtn, currentMovie);
-    rerenderWatchGallery();
+    if (isWachedGallery) {
+      renderWatchedVideos();
+    }
   }
 }
