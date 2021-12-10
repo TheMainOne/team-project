@@ -4,7 +4,7 @@ import { save, load } from './storage';
 import { renderGallery } from './init-gallery';
 import { videoapi } from './api-service';
 import renderCard from './queue';
-
+console.log(localStorage.getItem('theme'));
 // let dataGallery = getRefs().gallery.dataset.gallery;
 // import {QUEUE} from './for-queue-localstorage';
 const {QUEUE} = videoapi.keys
@@ -175,5 +175,8 @@ function onLibraryBtnClick() {
 //         localStorage.removeItem('filmoteka-queue');
 //     }
 //   };
-  
+// //   deleteQueueKey();
 //   export { deleteQueueKey };
+
+
+// tui-page-btn tui-is-selected tui-first-child tui-last-child display none
