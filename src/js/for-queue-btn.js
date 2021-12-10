@@ -24,33 +24,29 @@ export function queueRemoveEventListener() {
 
 
 export async function onClickBtnQueue(e) {
-
-  const gallaryData = refsGallery.dataset.gallery;
+  const inQueuePage = (refsGallery.dataset.gallery  === "queue");
   const refQueueBtn = e.currentTarget;
-  const movieId = Number(document.querySelector('.movie').dataset.id);
+  const movieId = Number(refQueueBtn.closest('.movie').dataset.id);
   let ourFilm = {};
-  let arrayOfFilms = {}
+  
+  const isFilmInQueue = load(QUEUE).find(film => film.id === movieId)
+  const isFilmInWatched = load(WATCHED).find(film => film.id === movieId)
+  const isFilmInTrendingWeek = load(TRENDING.WEEK).results.find(film => film.id === movieId)
+  const isFilmInSearch = load(SEARCH).results.find(film => film.id === movieId)
 
-
-  if (gallaryData === 'queue') {
-        arrayOfFilms = load(QUEUE).find(film => film.id === movieId);
-      } else if (gallaryData === 'watch') {
-        arrayOfFilms = load(WATCHED).find(film => film.id === movieId);
-      } else if (gallaryData === 'home') {
-        arrayOfFilms = load(TRENDING.WEEK).results.find(film => film.id === movieId);
-      } else if (gallaryData === 'search') {
-        arrayOfFilms = load(SEARCH).results.find(film => film.id === movieId);
-      }
-
-//  const ourFilm = arrayOfFilms.find(film => film.id === movieId);
-  console.log("~ arrayOfFilms", arrayOfFilms)
-
-  console.log("~ ourFilm", ourFilm)
+  if (isFilmInQueue) {
+    ourFilm =  isFilmInQueue
+  } else if (isFilmInWatched) {
+    ourFilm =  isFilmInWatched
+  }else if (isFilmInTrendingWeek) {
+    ourFilm =  isFilmInTrendingWeek
+  }else if (isFilmInSearch) {
+    ourFilm =  isFilmInSearch
+  }
   
   
   
-  
-  if (refQueueBtn.dataset.action === 'add-to-queue') {
+  if (inQueuePage) {
         addToQueue(refQueueBtn, ourFilm);
         return
   } else {
@@ -58,7 +54,7 @@ export async function onClickBtnQueue(e) {
     }    
   
   
-  if (gallaryData === "queue") {
+  if (inQueuePage) {
     refsGallery.innerHTML = ''
     renderGallery(load(QUEUE));
     setPagination(QUEUE, load(QUEUE).length)
