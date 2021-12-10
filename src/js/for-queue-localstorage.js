@@ -26,18 +26,18 @@ export function addToQueue(refQueueBtn, ourFilm) {
 
 export  function removeFromQueue(refQueueBtn, ourFilm) {
 
-  // const filmsOfQueue =  load(QUEUE);
-  // let indexOfFilm = null;
+  const filmsOfQueue =  load(QUEUE);
+  let indexOfFilm = null;
 
-  //  filmsOfQueue.forEach((element, index) => {
-  //     if (element.id === ourFilm.id) {
-  //         return indexOfFilm = index;
-  //     }
-  // })
+   filmsOfQueue.forEach((element, index) => {
+      if (element.id === ourFilm.id) {
+          return indexOfFilm = index;
+      }
+  })
 
- const filmsOfQueue = load(QUEUE).filter(movie => movie.id !== ourFilm.id);
+//  const filmsOfQueue = load(QUEUE).filter(movie => movie.id !== ourFilm.id);
 
-  // filmsOfQueue.splice(indexOfFilm, 1);
+  filmsOfQueue.splice(indexOfFilm, 1);
   save(QUEUE, filmsOfQueue);
 
   refQueueBtn.dataset.action = 'add-to-queue';

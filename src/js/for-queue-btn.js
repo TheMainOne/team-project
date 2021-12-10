@@ -19,6 +19,10 @@ export function queueRemoveEventListener() {
   queue.removeEventListener('click', onClickBtnQueue);
 }
 
+
+
+
+
 export async function onClickBtnQueue(e) {
   const galleryData = refs.gallery.dataset.gallery;
   const refQueueBtn = e.currentTarget;
