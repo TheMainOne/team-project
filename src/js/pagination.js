@@ -134,4 +134,31 @@ const setPagination = async (type, totalPages = 0) => {
   pagination.movePageTo(1);
 };
 
-export { setPagination, removeTuiButtons, listenPaginationClick, pagination };
+
+
+
+
+
+function onPaginationPageLibrary() {
+  const { QUEUE, WATCHED, TRENDING, SEARCH } = videoapi.keys;
+
+
+      let galleryItems = [];
+
+    if (videoapi.type === WATCHED) {
+      galleryItems = load(WATCHED);
+    }
+    if (videoapi.type === QUEUE) {
+      galleryItems = load(QUEUE);
+    }
+
+    if (galleryItems.length > 0) {
+      renderGallery(galleryItems);
+      const previousPage = pagination.getCurrentPage();
+      setPagination(videoapi.type, galleryItems.length);
+      pagination.movePageTo(previousPage);
+    }
+  
+}
+
+export { setPagination, removeTuiButtons, listenPaginationClick, pagination, onPaginationPageLibrary };

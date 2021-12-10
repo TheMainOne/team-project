@@ -19,53 +19,42 @@ export function queueRemoveEventListener() {
   queue.removeEventListener('click', onClickBtnQueue);
 }
 
+
 export async function onClickBtnQueue(e) {
-  const galleryData = refs.gallery.dataset.gallery;
+  const inQueuePage = (refsGallery.dataset.gallery  === "queue");
   const refQueueBtn = e.currentTarget;
-  const movieId = Number(document.querySelector('.movie').dataset.id);
-  let ourFilm = null;
+  const isClickOnAdd = (refQueueBtn.dataset.action === 'add-to-queue');
+  const movieId = Number(refQueueBtn.closest('.movie').dataset.id);
+  let ourFilm = {};
+  
+  const isFilmInQueue = load(QUEUE)?.find(film => film.id === movieId)
+  const isFilmInWatched = load(WATCHED)?.find(film => film.id === movieId)
+  const isFilmInTrendingWeek = load(TRENDING.WEEK)?.results.find(film => film.id === movieId)
+  const isFilmInSearch = load(SEARCH)?.results.find(film => film.id === movieId)
 
-  const filmOfWeek = await load(TRENDING.WEEK);
-  if (filmOfWeek) {
-    ourFilm = filmOfWeek.results.find(film => film.id === movieId);
+  if (isFilmInQueue) {
+    ourFilm =  isFilmInQueue
+  } else if (isFilmInWatched) {
+    ourFilm =  isFilmInWatched
+  }else if (isFilmInTrendingWeek) {
+    ourFilm =  isFilmInTrendingWeek
+  }else if (isFilmInSearch) {
+    ourFilm =  isFilmInSearch
   }
+  
 
-  const loadedSearch = load(SEARCH);
-  if (!ourFilm && loadedSearch) {
-    ourFilm = loadedSearch.results.find(film => film.id === movieId);
-  }
-
-  const loadedWatched = load(WATCHED);
-  if (!ourFilm && loadedWatched) {
-    ourFilm = loadedWatched.find(film => film.id === movieId);
-  }
-
-  const loadedQueue = load(QUEUE);
-  if (!ourFilm && loadedQueue) {
-    ourFilm = loadedQueue.find(film => film.id === movieId);
-  }
-
-  if (refQueueBtn.dataset.action === 'add-to-queue') {
-    addToQueue(refQueueBtn, ourFilm);
-    return;
+  if (isClickOnAdd) {
+        addToQueue(refQueueBtn, ourFilm);
+        return
   } else {
-    console.log('remove', { ourFilm });
-    removeFromQueue(refQueueBtn, ourFilm);
+        removeFromQueue(refQueueBtn, ourFilm);
+    }    
+  
+  
+  if (inQueuePage) {
+    refsGallery.innerHTML = ''
+    renderGallery(load(QUEUE));
+    setPagination(QUEUE, load(QUEUE).length)
+  };
 
-    //
-    // const newQueue = load(QUEUE);
-    // if (newQueue) {
-    //   renderGallery(newQueue);
-    //   setPagination(QUEUE, newQueue.length);
-    // }
   }
-
-  if (galleryData === 'queue') {
-    refsGallery.innerHTML = '';
-    const loadedQueue = load(QUEUE);
-    if (loadedQueue) {
-      renderGallery(loadedQueue);
-      setPagination(QUEUE, loadedQueue.length);
-    }
-  }
-}
