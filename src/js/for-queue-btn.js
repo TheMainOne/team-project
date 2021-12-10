@@ -3,8 +3,8 @@ import { addToQueue, removeFromQueue } from './for-queue-localstorage';
 import { load } from './storage';
 import getRefs from './refs';
 import { renderGallery } from './init-gallery';
-import { setPagination } from './pagination';
-
+import { setPagination , onPaginationClick} from './pagination';
+import { renderCard } from './init-gallery';
 const { TRENDING, QUEUE, SEARCH, WATCHED } = videoapi.keys;
 const refs = getRefs();
 const refsGallery = refs.gallery;
@@ -25,6 +25,7 @@ export async function onClickBtnQueue(e) {
   const refQueueBtn = e.currentTarget;
   const isClickOnAdd = (refQueueBtn.dataset.action === 'add-to-queue');
   const movieId = Number(refQueueBtn.closest('.movie').dataset.id);
+  const perPage = 9;
   let ourFilm = {};
   
   const isFilmInQueue = load(QUEUE)?.find(film => film.id === movieId)
@@ -53,8 +54,7 @@ export async function onClickBtnQueue(e) {
   
   if (inQueuePage) {
     refsGallery.innerHTML = ''
-    renderGallery(load(QUEUE));
-    setPagination(QUEUE, load(QUEUE).length)
+    renderCard({ key: QUEUE, perPage});
   };
 
   }

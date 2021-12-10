@@ -130,3 +130,6 @@ ${(genresJoined && releaseYear) || (genresJoined && voteAverage) ? `<span class=
 };
 
 export default galleryCardTemplate;
+
+
+
