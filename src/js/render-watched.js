@@ -20,7 +20,7 @@ const renderWatchedVideos = () => {
   const filtered = loadWatched.filter(
     (item, index) => index >= perPage * (page - 1) && index < perPage * page,
   );
-  console.log('renderWatchedVideos ~ filtered', filtered);
+  // console.log('renderWatchedVideos ~ filtered', filtered);
   renderGallery(filtered);
   setPagination(WATCHED, loadWatched.length);
 };

@@ -2,12 +2,11 @@ import { videoapi } from './api-service';
 import { addToQueue, removeFromQueue } from './for-queue-localstorage';
 import { load } from './storage';
 import getRefs from './refs';
-import { renderGallery } from './init-gallery';
-import { setPagination } from './pagination';
-
+import { renderCard } from './init-gallery';
 const { TRENDING, QUEUE, SEARCH, WATCHED } = videoapi.keys;
 const refs = getRefs();
 const refsGallery = refs.gallery;
+  const perPage = 9;
 
 export function queueAddEventListener() {
   const queue = document.querySelector('#queue-btn');
@@ -53,8 +52,7 @@ export async function onClickBtnQueue(e) {
   
   if (inQueuePage) {
     refsGallery.innerHTML = ''
-    renderGallery(load(QUEUE));
-    setPagination(QUEUE, load(QUEUE).length)
+    renderCard({ key: QUEUE, perPage});
   };
 
   }
