@@ -31,7 +31,7 @@ export async function onClickBtnWatched(e) {
 
   if (!currentMovie) {
     filmOfWeek = await load(SEARCH);
-    console.log(`search-result`, filmOfWeek);
+    console.log(`search-result`, filmOfWeek.results);
     if (filmOfWeek != undefined) {
       currentMovie = filmOfWeek.results.find(movie => movie.id === movieId);
       console.log(`search`, currentMovie);
@@ -42,6 +42,6 @@ export async function onClickBtnWatched(e) {
     return watched.addToWatch(refWatchedBtn, currentMovie);
   } else {
     console.log(`remove`, currentMovie);
-    return await watched.removeFromWatched(refWatchedBtn, currentMovie);
+    return watched.removeFromWatched(refWatchedBtn, currentMovie);
   }
 }
