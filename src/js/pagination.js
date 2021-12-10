@@ -148,9 +148,9 @@ function onPaginationPageLibrary() {
     if (videoapi.type === WATCHED) {
       galleryItems = load(WATCHED);
     }
-    if (videoapi.type === QUEUE) {
-      galleryItems = load(QUEUE);
-    }
+    // if (videoapi.type === QUEUE) {
+    //   galleryItems = load(QUEUE);
+    // }
 
     if (galleryItems.length > 0) {
       renderGallery(galleryItems);
