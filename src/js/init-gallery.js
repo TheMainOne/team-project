@@ -67,7 +67,7 @@ const renderCard = ({ key, perPage }) => {
     pagination.setItemsPerPage(perPage);
     setPagination(key, loadStorage.length);
     pagination.movePageTo(currentPage);
-   
+
 }
 
 export { notifyStatus, renderGallery, initGallery, renderCard };

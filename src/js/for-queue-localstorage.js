@@ -26,15 +26,3 @@ export  function searchFilmInQueue(id) {
   return load(QUEUE) ? load(QUEUE).find(element => element.id === id) : undefined
 }
 
-
-
-
-
-//  const filmsOfQueue = load(QUEUE);
-//   const indexOfFilm =  filmsOfQueue.forEach((element, index) => {
-//       if (element.id === ourFilm.id) {
-//           return index;     
-//       }
-//   })
-
-//   filmsOfQueue.splice(indexOfFilm, 1);

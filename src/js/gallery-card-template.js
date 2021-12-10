@@ -70,7 +70,7 @@ const galleryCardTemplate = async (
 
   const genresJoined = await getGenres(genreIds);
 
-  const { type, keys } = videoapi;
+  // const { type, keys } = videoapi;
   // if (type !== keys.WATCHED && type !== keys.QUEUE) {
   //   voteAverage = '';
   // }
