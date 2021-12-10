@@ -3,15 +3,9 @@ import { videoapi } from './api-service';
 import { renderGallery } from './init-gallery';
 
 import { sprite } from '../index';
+import { load } from './storage';
 const iconDots = `${sprite}#icon-dots`;
 const iconArrow = `${sprite}#icon-arrow`;
-
-/*
-.tui-pagination .tui-ico-ellip,
-.tui-pagination .tui-ico-first,
-.tui-pagination .tui-ico-last,
-.tui-pagination .tui-ico-next,
-.tui-pagination .tui-ico-prev */
 
 const options = {
   page: 1,
@@ -69,30 +63,56 @@ const removeTuiButtons = async resultsLength => {
   removeDOM([first, last, disabledFirst, disabledLast]);
 };
 
-// delete pagination._view._buttons.first;
-// delete pagination._view._buttons.last;
-// delete pagination._view._buttons.disabledFirst;
-// delete pagination._view._buttons.disabledLast;
-
 const onPaginationClick = async ({ page }) => {
   videoapi.page = page;
 
+  const { TRENDING, SEARCH, WATCHED, QUEUE } = videoapi.keys;
+
   switch (videoapi.type) {
-    case videoapi.keys.TRENDING.WEEK: {
+    case TRENDING.WEEK: {
       videoapi.period = 'week';
       const { results } = await videoapi.getTrendingVideos();
       renderGallery(results);
       break;
     }
-    case videoapi.keys.TRENDING.DAY: {
+    case TRENDING.DAY: {
       videoapi.period = 'day';
       const { results } = await videoapi.getTrendingVideos();
       renderGallery(results);
       break;
     }
-    case videoapi.keys.SEARCH: {
+    case SEARCH: {
       const { results } = await videoapi.getVideos();
       renderGallery(results);
+      break;
+    }
+    case WATCHED: {
+      const loadWatched = load(WATCHED);
+      const { page } = videoapi;
+      const perPage = 20;
+
+      const filteredLoadWatch = loadWatched.filter(
+        (item, index) =>
+          index >= perPage * (page - 1) && index < perPage * page,
+      );
+
+      renderGallery(filteredLoadWatch);
+      break;
+    }
+    case QUEUE: {
+      const loadQueue = load(QUEUE);
+
+      const { page } = videoapi;
+      const perPage = 20;
+
+      let filteredLoadQueue = '';
+
+      filteredLoadQueue = loadQueue?.filter(
+        (item, index) =>
+          index >= perPage * (page - 1) && index < perPage * page,
+      );
+
+      renderGallery(filteredLoadQueue);
       break;
     }
     default:
@@ -104,10 +124,14 @@ const listenPaginationClick = () => {
   pagination.on('afterMove', onPaginationClick);
 };
 
-const setPagination = async (type, totalPages) => {
+const setPagination = async (type, totalPages = 0) => {
   videoapi.type = type;
+  if (!totalPages || totalPages === 0) {
+    pagination.reset(1);
+    pagination.movePageTo(1);
+  }
   pagination.reset(totalPages);
   pagination.movePageTo(1);
 };
 
-export { setPagination, removeTuiButtons, listenPaginationClick };
+export { setPagination, removeTuiButtons, listenPaginationClick, pagination };
