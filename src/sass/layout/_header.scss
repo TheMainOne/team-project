@@ -146,7 +146,7 @@
       transition-timing-function: linear;
 
       &:hover {
-        transform: rotate(180deg);
+        transform: rotate(360deg);
         stroke: var(--accent-color);
       }
     }
