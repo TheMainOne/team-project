@@ -1,8 +1,14 @@
 import galleryCardTemplate from './gallery-card-template';
 import { videoapi } from './api-service';
 import { initThemeSwitcher } from './change-theme';
-import { removeTuiButtons, setPagination } from './pagination';
+import {
+  removeTuiButtons,
+  setPagination,
+  forPaginationFilter,
+  pagination,
+} from './pagination';
 import getRefs from './refs';
+import { load } from './storage';
 const { log, error } = console;
 const refs = getRefs();
 
@@ -26,6 +32,7 @@ const renderGallery = async results => {
 
     refs.gallery.innerHTML = '';
     refs.gallery.insertAdjacentHTML('beforeend', galleryMarkup);
+    initThemeSwitcher();
     removeTuiButtons(results.length);
   } catch (err) {
     error(err);
@@ -48,10 +55,26 @@ const initGallery = async () => {
     await renderGallery(results);
 
     setPagination(videoapi.keys.TRENDING.WEEK, totalResults);
-    initThemeSwitcher();
   } catch (err) {
     error(err);
   }
 };
 
-export { notifyStatus, renderGallery, initGallery };
+const renderCard = ({ key, perPage }) => {
+  const loadStorage = load(key);
+  const filteredArray = forPaginationFilter(loadStorage, perPage);
+  const currentPage = pagination.getCurrentPage();
+  document.querySelector('.tui-pagination').classList.add('is-hidden');
+
+  if (!loadStorage) {
+    return;
+  }
+
+  renderGallery(filteredArray);
+  pagination.setItemsPerPage(perPage);
+  setPagination(key, loadStorage.length);
+  pagination.movePageTo(currentPage);
+  document.querySelector('.tui-pagination').classList.remove('is-hidden');
+};
+
+export { notifyStatus, renderGallery, initGallery, renderCard };

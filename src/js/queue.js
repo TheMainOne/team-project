@@ -1,31 +1,34 @@
-import {  renderGallery } from './init-gallery';
+import { renderCard } from './init-gallery';
 import getHeaderRefs from './getHearedRefs';
 import { load } from './storage';
-import './film-in-modal-window'
+import './film-in-modal-window';
 import getRefs from './refs';
 import { videoapi } from './api-service';
 
-const {QUEUE} = videoapi.keys
+const { QUEUE } = videoapi.keys;
 const refs = getHeaderRefs();
 const refGallery = getRefs();
 const btnLibrary = document.querySelector(`[data-action="js-library"]`);
 
+const loadQueue = load(QUEUE);
+const perPage = 9;
 
+btnLibrary.addEventListener('click', () => {
+  refGallery.gallery.dataset.gallery = 'queue';
 
-btnLibrary.addEventListener("click", () => {
-    if (load(QUEUE)) {
-        renderCard()
+  renderCard({ key: QUEUE, perPage });
+  // if (loadQueue) {
+  // }
+});
+
+refs.headerControlBox.addEventListener('click', e => {
+  if (e.target.dataset.action === 'queue') {
+    refGallery.gallery.innerHTML = '';
+    refGallery.gallery.dataset.gallery = 'queue';
+    renderCard({ key: QUEUE, perPage });
+
+    if (!loadQueue || loadQueue.length === 0) {
+      document.querySelectorAll('.tui-page-btn').forEach(button => button.remove());
     }
-})
-
-refs.headerControlBox.addEventListener("click", (e) => {
-    if (load(QUEUE) && e.target.dataset.action === "queue") {
-        renderCard()
-    }
-})
-
-
-export default function renderCard() {
-    renderGallery(load(QUEUE));
-    refGallery.gallery.dataset.gallery = "queue";
-}
+  }
+});

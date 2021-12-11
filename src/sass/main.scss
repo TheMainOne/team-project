@@ -9,3 +9,6 @@
 @import './layout/footer';
 @import './layout/modal-team';
 
+// !НЕ УБИРАТЬ IS HIDDEN! Это приоритетный стиль!
+@import './utils/is-hidden';
+@import './utils/visually-hidden';

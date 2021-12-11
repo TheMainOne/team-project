@@ -1,11 +1,11 @@
-import { load, save } from './storage';
+import { load } from './storage';
 import * as watched from './for-watched-localstorage';
 import { videoapi } from './api-service';
-
 import getRefs from './refs';
-import { renderGallery } from './init-gallery';
-import { setPagination } from './pagination';
-let dataGallery = getRefs().gallery.dataset.gallery;
+import { renderWatchedVideos } from './render-watched';
+
+const refs = getRefs();
+refs.gallery.dataset.gallery;
 
 const { TRENDING, QUEUE, SEARCH, WATCHED } = videoapi.keys;
 
@@ -20,39 +20,35 @@ export function watchedRemoveEventListener() {
 }
 
 export async function onClickBtnWatched(e) {
+  const isWachedGallery = refs.gallery.dataset.gallery === 'watch';
   const refWatchedBtn = e.currentTarget;
-  console.log('onClickBtnWatched ~ refWatchedBtn', refWatchedBtn);
   const movieId = Number(document.querySelector('.movie').dataset.id);
-  console.log('onClickBtnWatched ~ movieId', movieId);
-
   let filmOfWeek = await load(TRENDING.WEEK).results;
-  console.log(`trending`, filmOfWeek);
   let currentMovie = filmOfWeek.find(movie => movie.id === movieId);
-  console.log('onClickBtnWatched ~ currentMovie', currentMovie);
 
   if (!currentMovie) {
-    filmOfWeek = await load(WATCHED);
+    filmOfWatched = await load(WATCHED);
     if (filmOfWeek) {
-      currentMovie = filmOfWeek.find(movie => movie.id === movieId);
-      console.log('onClickBtnWatched ~ currentMovie', currentMovie);
+      currentMovie = filmOfWatched.find(movie => movie.id === movieId);
     }
   }
 
   if (!currentMovie) {
-    filmOfWeek = await load(SEARCH);
-    console.log('onClickBtnWatched ~ filmOfWeek', filmOfWeek);
-
+    filmOfSearch = await load(SEARCH);
     if (filmOfWeek) {
-      currentMovie = filmOfWeek.results.find(movie => movie.id === movieId);
-      console.log(`search`, currentMovie);
+      currentMovie = filmOfSearch.results.find(movie => movie.id === movieId);
     }
   }
 
   if (refWatchedBtn.dataset.action === 'add-to-watched') {
-    console.log('add', currentMovie);
-    return watched.addToWatch(refWatchedBtn, currentMovie);
+    watched.addToWatch(refWatchedBtn, currentMovie);
+    if (isWachedGallery) {
+      renderWatchedVideos();
+    }
   } else {
-    console.log('remove', { currentMovie });
-    return watched.removeFromWatched(refWatchedBtn, currentMovie);
+    watched.removeFromWatched(refWatchedBtn, currentMovie);
+    if (isWachedGallery) {
+      renderWatchedVideos();
+    }
   }
 }

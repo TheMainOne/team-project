@@ -51,8 +51,8 @@
   }
 
   @media screen and (min-width: $desktop) {
-    width: 700px;
-    height: 500px;
+    width: 900px;
+    height: 670px;
     padding: 25px;
   }
 }
@@ -135,6 +135,7 @@
 }
 .team__modal {
   text-decoration: underline;
+  cursor: pointer;
 }
 .team__social {
   display: flex;

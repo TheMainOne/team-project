@@ -63,6 +63,10 @@ const removeTuiButtons = async resultsLength => {
   removeDOM([first, last, disabledFirst, disabledLast]);
 };
 
+const removeAllTuiButtons = () => {
+  removeDOM([...document.querySelectorAll('.tui-page-btn')]);
+};
+
 const onPaginationClick = async ({ page }) => {
   videoapi.page = page;
 
@@ -89,7 +93,7 @@ const onPaginationClick = async ({ page }) => {
     case WATCHED: {
       const loadWatched = load(WATCHED);
       const { page } = videoapi;
-      const perPage = 20;
+      const perPage = 9;
 
       const filteredLoadWatch = loadWatched.filter(
         (item, index) =>
@@ -103,7 +107,7 @@ const onPaginationClick = async ({ page }) => {
       const loadQueue = load(QUEUE);
 
       const { page } = videoapi;
-      const perPage = 20;
+      const perPage = 9;
 
       let filteredLoadQueue = '';
 
@@ -134,10 +138,10 @@ const setPagination = async (type, totalPages = 0) => {
   pagination.movePageTo(1);
 };
 
-
-
-
-
+const forPaginationFilter = (array, perPage) => {
+    const { page } = videoapi;
+    return array?.filter((item, index) => index >= perPage * (page - 1) && index < perPage * page);
+}
 
 function onPaginationPageLibrary() {
   const { QUEUE, WATCHED, TRENDING, SEARCH } = videoapi.keys;
@@ -158,7 +162,7 @@ function onPaginationPageLibrary() {
       setPagination(videoapi.type, galleryItems.length);
       pagination.movePageTo(previousPage);
     }
-  
-}
 
-export { setPagination, removeTuiButtons, listenPaginationClick, pagination, onPaginationPageLibrary };
+}   // код Кости по отрисовке библиотек
+
+export { setPagination, removeTuiButtons, listenPaginationClick, pagination, onPaginationPageLibrary, forPaginationFilter };

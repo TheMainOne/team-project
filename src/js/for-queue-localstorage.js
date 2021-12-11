@@ -1,40 +1,28 @@
 import { save, load } from './storage';
 import { videoapi } from './api-service';
-const {QUEUE} = videoapi.keys
-
-
+const { QUEUE } = videoapi.keys;
 
 export function addToQueue(refQueueBtn, ourFilm) {
+  const filmIdOfModalWindow = Number(refQueueBtn.closest('.movie').dataset.id);
+  const lastDeletedFilm = videoapi.deletedFilm;
+
+  ourFilm = lastDeletedFilm?.id === filmIdOfModalWindow ? lastDeletedFilm : ourFilm;
   const filmsForQueue = load(QUEUE) ? [ourFilm, ...load(QUEUE)] : [ourFilm];
   save(QUEUE, filmsForQueue);
 
   refQueueBtn.dataset.action = 'remove-from-queue';
-  refQueueBtn.innerHTML = "Remove from queue";
-};
-
-
-export  function removeFromQueue(refQueueBtn, ourFilm) {  
-  const filmsForQueue = load(QUEUE).filter(film => film.id !== ourFilm.id)
-  save(QUEUE, filmsForQueue);
-  
-  refQueueBtn.dataset.action = 'add-to-queue';
-  refQueueBtn.innerHTML = "add to queue";
-  }
-
-
-export  function searchFilmInQueue(id) {
-  return load(QUEUE) ? load(QUEUE).find(element => element.id === id) : undefined
+  refQueueBtn.innerHTML = 'Remove from queue';
 }
 
+export function removeFromQueue(refQueueBtn, ourFilm) {
+  videoapi.deletedFilm = ourFilm;
+  const filmsForQueue = load(QUEUE).filter(film => film.id !== ourFilm.id);
+  save(QUEUE, filmsForQueue);
 
+  refQueueBtn.dataset.action = 'add-to-queue';
+  refQueueBtn.innerHTML = 'add to queue';
+}
 
-
-
-//  const filmsOfQueue = load(QUEUE);
-//   const indexOfFilm =  filmsOfQueue.forEach((element, index) => {
-//       if (element.id === ourFilm.id) {
-//           return index;     
-//       }
-//   })
-
-//   filmsOfQueue.splice(indexOfFilm, 1);
+export function searchFilmInQueue(id) {
+  return load(QUEUE) ? load(QUEUE).find(element => element.id === id) : undefined;
+}

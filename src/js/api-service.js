@@ -15,6 +15,7 @@ const url = `${movieBaseURL}${movieID}${api_key}`;
 // const configuration = `${baseURL}configuration${api_key}`;
 
 class videoAPI {
+  #deletedFilm = {};
   #baseURL = 'https://api.themoviedb.org/3/';
   #page = '1';
   #media = 'movie';
@@ -80,6 +81,14 @@ class videoAPI {
     save(key, searchedVideos);
 
     return searchedVideos;
+  }
+
+  get deletedFilm() {
+    return this.#deletedFilm;
+  }
+
+  set deletedFilm(newDeletedFilm) {
+    this.#deletedFilm = newDeletedFilm;
   }
 
   get baseURL() {
