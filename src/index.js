@@ -25,7 +25,7 @@ import './js/modalTeam';
 import getRefs from './js/refs';
 import { scrollFunction, backToTop } from './js/back-to-top-btn';
 import { changeTheme } from './js/change-theme';
-const { info } = Notify;
+const { info, warning } = Notify;
 const { log, error } = console;
 
 const DEBOUNCE_DELAY = 300;
@@ -139,6 +139,9 @@ const onSubmit = async e => {
     } = await videoapi.getVideos();
 
     setPagination('videos', totalPages);
+    if (totalResults === 0) {
+      return warning('Sorry, there no results found. Try searching for something else!');
+    }
 
     // console.log('res', page, results, totalPages, totalResults);
 
