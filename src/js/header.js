@@ -6,6 +6,7 @@ import { renderWatchedVideos } from './render-watched';
 import { setPagination } from './pagination';
 import getRefs from './refs';
 import { load } from './storage';
+import { deleteCanvas, addListenerOnLibrary } from './library';
 const mainRefs = getRefs();
 const iconSearch = `${sprite}#icon-search`;
 const { QUEUE, WATCHED } = videoapi.keys;
@@ -125,7 +126,8 @@ function renderLibraryButtons() {
 // Cлушатель событий на кнопке home для возврата на главную страницу
 refs.homeBtn.addEventListener('click', async () => {
   // window.location = './';
-
+  deleteCanvas();
+  addListenerOnLibrary();
   const { TRENDING } = videoapi.keys;
   videoapi.type = TRENDING.WEEK;
   const videos = await videoapi.getTrendingVideos();
