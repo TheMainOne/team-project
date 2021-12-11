@@ -15,7 +15,7 @@ const perPage = 9;
 
 btnLibrary.addEventListener('click', () => {
   refGallery.gallery.dataset.gallery = 'queue';
-
+  
   renderCard({ key: QUEUE, perPage });
   // if (loadQueue) {
   // }
@@ -23,7 +23,12 @@ btnLibrary.addEventListener('click', () => {
 
 refs.headerControlBox.addEventListener('click', e => {
   if (e.target.dataset.action === 'queue') {
+    refGallery.gallery.innerHTML = '';
     refGallery.gallery.dataset.gallery = 'queue';
     renderCard({ key: QUEUE, perPage });
+
+    if (!loadQueue || loadQueue.length === 0) {
+      document.querySelectorAll('.tui-page-btn').forEach(button => button.remove());
+    }
   }
 });
