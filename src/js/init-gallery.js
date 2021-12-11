@@ -7,6 +7,7 @@ import { load } from './storage';
 import { fonLibrary } from './fon-library';
 const { log, error } = console;
 const refs = getRefs();
+const { WATCHED, QUEUE } = videoapi.keys;
 
 const notifyStatus = (videosCount, page, totalResults) => {
   if (videosCount < 1) {
@@ -19,8 +20,8 @@ const notifyStatus = (videosCount, page, totalResults) => {
 };
 const renderGallery = async results => {
   try {
-    if (!results || results === '' || results === []) {
-      refs.gallery.innerHTML = fonLibrary();
+    if (!results || results === '' || results.length === 0) {
+      refs.gallery.innerHTML = '';
       return;
     }
     const string = await Promise.all(results.map(galleryCardTemplate));
@@ -64,6 +65,7 @@ const renderCard = ({ key, perPage }) => {
 
   if (!loadStorage || loadStorage.length === 0) {
     refs.gallery.innerHTML = fonLibrary();
+    document.querySelector('.tui-pagination').classList.remove('is-hidden');
     return;
   }
 

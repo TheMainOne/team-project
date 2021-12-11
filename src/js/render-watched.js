@@ -16,7 +16,7 @@ const renderWatchedVideos = () => {
   const loadWatched = load(WATCHED);
   if (!loadWatched || loadWatched.legth === 0) {
     document.querySelector('.tui-pagination').classList.add('is-hidden');
-    refs.gallery.innerHTML = fonLibrary();
+    refs.gallery.innerHTML = '';
     return;
   }
 
@@ -25,7 +25,7 @@ const renderWatchedVideos = () => {
   const perPage = 9;
 
   renderCard({ key: WATCHED, perPage });
-  document.querySelector('.tui-pagination').classList.remove('is-hidden');
+  document.querySelector('.tui-pagination').classList.add('is-hidden');
 };
 
 export { renderWatchedVideos };
