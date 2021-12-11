@@ -35,12 +35,15 @@ const getGenreName = async id =>
 
 const getGenres = async genreIds => {
   let genresJoined = genreIds.length === 0 ? '' : genreIds;
-  if (genreIds?.length > 0 && genreIds.length < 3) {
+
+  // Если жанров 3 и менее рендерим все 
+  if (genreIds?.length > 0 && genreIds.length <= 3) {
     genresJoined = await Promise.all(genreIds.map(getGenreName));
     genresJoined = genresJoined.join(', ');
   }
 
-  if (genreIds?.length >= 3) {
+  // Если жанров 4 или более рендерим 2 и слово "Other"
+  if (genreIds?.length >= 4) {
     const genresIDS = await Promise.all(genreIds.slice(0, 2).map(getGenreName));
 
     genresJoined = `${genresIDS.join(', ')}, Other`;

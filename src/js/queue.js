@@ -15,10 +15,10 @@ const perPage = 9;
 
 btnLibrary.addEventListener('click', () => {
   refGallery.gallery.dataset.gallery = 'queue';
-
-  if (loadQueue) {
-    renderCard({ key: QUEUE, perPage });
-  }
+  
+  renderCard({ key: QUEUE, perPage });
+  // if (loadQueue) {
+  // }
 });
 
 refs.headerControlBox.addEventListener('click', e => {
