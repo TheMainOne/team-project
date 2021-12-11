@@ -23,6 +23,7 @@ import { changeTheme, onThemeToggle } from './js/change-theme';
 import getHeaderRefs from './js/getHearedRefs';
 const { info } = Notify;
 const { log, error } = console;
+const image = document.querySelector('.notify-gif');
 
 const refs = getRefs();
 const headerRefs = getHeaderRefs();
@@ -74,6 +75,12 @@ const onContainerClick = async e => {
       total_pages: totalPages,
       total_results: totalResults,
     } = await videoapi.getVideos();
+
+    if (totalResults === 0) {
+      refs.gallery.innerHTML = '';
+      image.style.display = 'block';
+      return warning('Sorry, there no results found. Try searching for something else!');
+    }
 
     setPagination(videoapi.keys.SEARCH, totalPages);
 
