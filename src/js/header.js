@@ -107,7 +107,7 @@ function setHomeBackground() {
 function renderSearchForm() {
   refs.headerControlBox.innerHTML = `
   <form class="header__search" id="search-form" data-action="js-form">
-    <input class="input" type="text" name="searchQuery" autocomplete="off" placeholder="Поиск фильмов" />
+    <input class="input" type="text" name="searchQuery" autocomplete="off" placeholder="Еnter the title of the movie" />
     <button class="search-button" type="submit" name="submitSearch" data-action="search">
       <svg class="search-icon" data-action="search"> <use href="${iconSearch}" data-action="search"></use> </svg>
     </button>

@@ -32,30 +32,23 @@ function changeTheme() {
   });
 
   themeSwitcher.addEventListener('change', onControlThemeSwitch);
+
   populateChooseTheme();
 
+  // change theme when clicking on the radio button
   function onControlThemeSwitch(event) {
     if (event.target.checked) {
-      bgColor.classList.remove(LIGHT);
-      bgColor.classList.add(DARK);
-      footer.style.backgroundColor = '#202124';
-      footer.style.color = '#ffffff';
-      setDarkThemeIcon();
-
-      localStorage.setItem('theme', DARK);
+      darkThemeStyles();
     } else {
-      bgColor.classList.remove(DARK);
-      bgColor.classList.add(LIGHT);
-      footer.style.backgroundColor = '#f7f7f7';
-      footer.style.color = '#545454';
-      setLightThemeIcon();
-
-      localStorage.setItem('theme', LIGHT);
+      lightThemStyles();
     }
   }
 
-  function populateChooseTheme(event) {
+  // set theme on site load
+  function populateChooseTheme() {
     const currentTheme = localStorage.getItem('theme');
+    lightThemeIcon.addEventListener('click', onIconClick);
+    darkThemeIcon.addEventListener('click', onIconClick);
 
     if (currentTheme) {
       bgColor.classList.toggle(currentTheme);
@@ -67,6 +60,25 @@ function changeTheme() {
     }
   }
 
+  function lightThemStyles() {
+    bgColor.classList.remove(DARK);
+    bgColor.classList.add(LIGHT);
+    footer.style.backgroundColor = '#f7f7f7';
+    footer.style.color = '#545454';
+    setLightThemeIcon();
+    localStorage.setItem('theme', LIGHT);
+  }
+
+  function darkThemeStyles() {
+    bgColor.classList.remove(LIGHT);
+    bgColor.classList.add(DARK);
+    footer.style.backgroundColor = '#202124';
+    footer.style.color = '#ffffff';
+    setDarkThemeIcon();
+    localStorage.setItem('theme', DARK);
+  }
+
+  // change icon color of the toggler
   function setLightThemeIcon() {
     darkThemeIcon.classList.remove('is-active');
     lightThemeIcon.classList.add('is-active');
@@ -76,20 +88,47 @@ function changeTheme() {
     lightThemeIcon.classList.remove('is-active');
     darkThemeIcon.classList.add('is-active');
   }
+
+  async function onIconClick(e) {
+    const currentIcon = e.currentTarget;
+    await changeCardsTitle();
+
+    if (currentIcon.classList.contains('sun')) {
+      themeToggle.checked = false;
+      lightThemStyles();
+      return;
+    }
+
+    themeToggle.checked = true;
+    darkThemeStyles();
+  }
+
+  async function changeCardsTitle() {
+    const cardsTitles = await getCardTitles();
+
+    if (localStorage.getItem('theme') === 'dark-theme') {
+      cardsTitles.forEach(cardTitle => {
+        cardTitle.style.color = 'var(--secondary-text-color)';
+      });
+    } else {
+      cardsTitles.forEach(cardTitle => {
+        cardTitle.style.color = 'var(--main-text-color)';
+      });
+    }
+  }
 }
 
- function darkThemeForModal(modal) {
+function darkThemeForModal(modal) {
   const theme = localStorage.getItem('theme');
   const modalForTheme = modal.modalBoxContent.children[0].children[0];
   const btnClose = modal.modal.querySelector('.btnClose-icon');
-const butInModal = modal.modalBoxContent.children[0].children[0].children[2].children[4].children[1];
+  const butInModal =
+    modal.modalBoxContent.children[0].children[0].children[2].children[4].children[1];
 
-
-   
   if (theme === 'dark-theme') {
     modalForTheme.style.backgroundColor = '#202124';
     modalForTheme.style.color = '#ffffff';
-      butInModal.style.color = '#ffffff';
+    butInModal.style.color = '#ffffff';
     butInModal.style.borderColor = '#ffffff';
     btnClose.style.stroke = '#ffffff';
   }
@@ -102,12 +141,18 @@ const getCardTitles = async () => document.querySelectorAll('.card__title');
 const initThemeSwitcher = async () => {
   const cardTitles = await getCardTitles();
 
-   if (localStorage.getItem('theme') === 'dark-theme') {
+  if (localStorage.getItem('theme') === 'dark-theme') {
     cardTitles.forEach(cardTitle => {
       cardTitle.style.color = '#ffffff';
     });
     refs.footer.style.backgroundColor = '#202124';
     refs.footer.style.color = '#ffffff';
+  } else {
+    cardTitles.forEach(cardTitle => {
+      cardTitle.style.color = '#202124';
+    });
+    refs.footer.style.backgroundColor = 'var(--main-bg-color)';
+    refs.footer.style.color = '#202124';
   }
 };
 
@@ -123,4 +168,4 @@ const onThemeToggle = async event => {
 
 // ============
 
-export { changeTheme, onThemeToggle, initThemeSwitcher, darkThemeForModal};
+export { changeTheme, onThemeToggle, initThemeSwitcher, darkThemeForModal };
