@@ -11,7 +11,7 @@ const { WATCHED } = videoapi.keys;
 const renderWatchedVideos = () => {
   const loadWatched = load(WATCHED);
   if (!loadWatched || loadWatched.legth === 0) {
-    document.querySelectorAll('.tui-page-btn').forEach(button => button.remove());
+    document.querySelector('.tui-pagination').classList.add('is-hidden');
   }
   refs.gallery.dataset.gallery = 'watch';
   refs.gallery.innerHTML = '';

@@ -15,7 +15,7 @@ const perPage = 9;
 
 btnLibrary.addEventListener('click', () => {
   refGallery.gallery.dataset.gallery = 'queue';
-
+  document.querySelector('.tui-pagination').classList.add('is-hidden');
   if (loadQueue) {
     renderCard({ key: QUEUE, perPage });
   }
@@ -28,7 +28,7 @@ refs.headerControlBox.addEventListener('click', e => {
     renderCard({ key: QUEUE, perPage });
 
     if (!loadQueue || loadQueue.length === 0) {
-      document.querySelectorAll('.tui-page-btn').forEach(button => button.remove());
+      document.querySelector('.tui-pagination').classList.add('is-hidden');
     }
   }
 });
