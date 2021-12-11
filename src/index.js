@@ -19,10 +19,11 @@ import './js/modalTeam';
 import getRefs from './js/refs';
 import { scrollFunction, backToTop } from './js/back-to-top-btn';
 import { changeTheme, onThemeToggle } from './js/change-theme';
-const { info } = Notify;
+const { info, warning } = Notify;
 const { log, error } = console;
 
 const refs = getRefs();
+const image = document.querySelector('.notify-gif');
 
 initGallery();
 
@@ -48,6 +49,12 @@ const onSubmit = async e => {
       total_pages: totalPages,
       total_results: totalResults,
     } = await videoapi.getVideos();
+
+    if (totalResults === 0) {
+      refs.gallery.innerHTML = '';
+      image.style.display = 'block';
+      return warning('Sorry, there no results found. Try searching for something else!');
+    }
 
     setPagination(videoapi.keys.SEARCH, totalPages);
 
