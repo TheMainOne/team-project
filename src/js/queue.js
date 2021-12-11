@@ -15,6 +15,7 @@ const perPage = 9;
 
 btnLibrary.addEventListener('click', () => {
   refGallery.gallery.dataset.gallery = 'queue';
+
   if (loadQueue) {
     renderCard({ key: QUEUE, perPage });
   }
@@ -25,9 +26,8 @@ refs.headerControlBox.addEventListener('click', e => {
     refGallery.gallery.innerHTML = '';
     refGallery.gallery.dataset.gallery = 'queue';
     renderCard({ key: QUEUE, perPage });
-    const local = JSON.parse(localStorage.getItem('filmoteka-queue'));
 
-    if (!local || local.length === 0) {
+    if (!loadQueue || loadQueue.length === 0) {
       document.querySelectorAll('.tui-page-btn').forEach(button => button.remove());
     }
   }
