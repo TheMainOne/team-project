@@ -110,45 +110,9 @@ section.section__js {
     background-position: 0 0;
   }
 }
-// section.section__js{
-//     // background-image:
-//     //   url('.././images/library.jpg');
-//     background-repeat: no-repeat;
-//     background-position: center;
-//     // background-size: cover;
 
-//     @media (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
-//       background-image:
-//         url('.././images/library.jpg');
-//     }
-
-//     @media (min-width: $tablet) {
-//       background-image:
-//         url('.././images/library.jpg');
-
-//       @media (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
-//         background-image:
-//           url('.././images/library.jpg');
-//       }
-//     }
-
-//     @media (min-width: $desktop) {
-//       background-image:
-//         url('.././images/library.jpg');
-
-//       @media (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
-//         background-image:
-//           url('.././images/library.jpg');
-//       }
-//     }
-
-//     @media (min-width: 1300px) {
-//       background-image:
-//         url('.././images/library.jpg');
-
-//       @media (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
-//         background-image:
-//           url('.././images/library.jpg');
-//       }
-//     }
-//   }
+@media (max-width: $tablet) {
+  section.section__js {
+    height: 530px;
+  }
+}
