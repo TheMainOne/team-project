@@ -22,7 +22,13 @@ btnLibrary.addEventListener('click', () => {
 
 refs.headerControlBox.addEventListener('click', e => {
   if (e.target.dataset.action === 'queue') {
+    refGallery.gallery.innerHTML = '';
     refGallery.gallery.dataset.gallery = 'queue';
     renderCard({ key: QUEUE, perPage });
+    const local = JSON.parse(localStorage.getItem('filmoteka-queue'));
+
+    if (!local || local.length === 0) {
+      document.querySelectorAll('.tui-page-btn').forEach(button => button.remove());
+    }
   }
 });

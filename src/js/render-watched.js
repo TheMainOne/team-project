@@ -10,6 +10,12 @@ const { WATCHED } = videoapi.keys;
 
 const renderWatchedVideos = () => {
   const loadWatched = load(WATCHED);
+  if (!loadWatched || loadWatched.legth === 0) {
+    console.log('🚀 ~ file: queue.js ~ line 30 ~ loadWatched', loadWatched);
+    document.querySelectorAll('.tui-page-btn').forEach(button => button.remove());
+  }
+  refs.gallery.dataset.gallery = 'watch';
+  refs.gallery.innerHTML = '';
   if (!loadWatched) return;
 
   videoapi.type = WATCHED;
@@ -20,7 +26,6 @@ const renderWatchedVideos = () => {
     (item, index) => index >= perPage * (page - 1) && index < perPage * page,
   );
 
-  // console.log('renderWatchedVideos ~ filtered', filtered);
   renderGallery(filtered);
   setPagination(WATCHED, loadWatched.length);
 };
