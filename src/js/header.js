@@ -6,6 +6,7 @@ import { renderWatchedVideos } from './render-watched';
 import { setPagination } from './pagination';
 import getRefs from './refs';
 import { load } from './storage';
+import { deleteCanvas, addListenerOnLibrary } from './library';
 const mainRefs = getRefs();
 const iconSearch = `${sprite}#icon-search`;
 const { QUEUE, WATCHED } = videoapi.keys;
@@ -107,9 +108,9 @@ function setHomeBackground() {
 function renderSearchForm() {
   refs.headerControlBox.innerHTML = `
   <form class="header__search" id="search-form" data-action="js-form">
-    <input class="input" type="text" name="searchQuery" autocomplete="off" placeholder="Еnter the title of the movie" />
-    <button class="search-button" type="submit" name="submitSearch" data-action="search">
-      <svg class="search-icon" data-action="search"> <use href="${iconSearch}" data-action="search"></use> </svg>
+    <input class="input" type="text" name="searchQuery" autocomplete="off" placeholder="Поиск фильмов" />
+    <button class="search-button" type="submit" name="submitSearch">
+      <svg class="search-icon"> <use href="${iconSearch}"></use> </svg>
     </button>
   </form>`;
 }
@@ -126,7 +127,8 @@ function renderLibraryButtons() {
 // Cлушатель событий на кнопке home для возврата на главную страницу
 refs.homeBtn.addEventListener('click', async () => {
   // window.location = './';
-
+  deleteCanvas();
+  addListenerOnLibrary();
   const { TRENDING } = videoapi.keys;
   videoapi.type = TRENDING.WEEK;
   const videos = await videoapi.getTrendingVideos();
