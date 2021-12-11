@@ -74,7 +74,6 @@ function setBgSnow() {
       setInterval(drawFlakes, 25);
     }
     flakes();
-    console.log(setPagination(QUEUE, '0'));
   }
 }
 
