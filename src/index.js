@@ -32,6 +32,7 @@ const DEBOUNCE_DELAY = 300;
 const DEBOUNCE_OPTIONS = { leading: true, trailing: false };
 const themeSwitcher = document.querySelector('.theme-switch__control');
 const mybutton = document.querySelector('.btn-back-to-top');
+const image = document.querySelector('.notify-gif');
 
 const refs = getRefs();
 let pagination = null;
@@ -140,6 +141,7 @@ const onSubmit = async e => {
 
     setPagination('videos', totalPages);
     if (totalResults === 0) {
+      image.style.display = 'block';
       return warning('Sorry, there no results found. Try searching for something else!');
     }
 
