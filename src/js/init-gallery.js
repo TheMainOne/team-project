@@ -1,7 +1,12 @@
 import galleryCardTemplate from './gallery-card-template';
 import { videoapi } from './api-service';
 import { initThemeSwitcher } from './change-theme';
-import { removeTuiButtons, setPagination, forPaginationFilter, pagination } from './pagination';
+import {
+  removeTuiButtons,
+  setPagination,
+  forPaginationFilter,
+  pagination,
+} from './pagination';
 import getRefs from './refs';
 import { load } from './storage';
 const { log, error } = console;
@@ -59,6 +64,8 @@ const renderCard = ({ key, perPage }) => {
   const loadStorage = load(key);
   const filteredArray = forPaginationFilter(loadStorage, perPage);
   const currentPage = pagination.getCurrentPage();
+  document.querySelector('.tui-pagination').classList.add('is-hidden');
+
   if (!loadStorage) {
     return;
   }
@@ -67,6 +74,7 @@ const renderCard = ({ key, perPage }) => {
   pagination.setItemsPerPage(perPage);
   setPagination(key, loadStorage.length);
   pagination.movePageTo(currentPage);
+  document.querySelector('.tui-pagination').classList.remove('is-hidden');
 };
 
 export { notifyStatus, renderGallery, initGallery, renderCard };
