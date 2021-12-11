@@ -63,6 +63,10 @@ const removeTuiButtons = async resultsLength => {
   removeDOM([first, last, disabledFirst, disabledLast]);
 };
 
+const removeAllTuiButtons = () => {
+  removeDOM([...document.querySelectorAll('.tui-page-btn')]);
+};
+
 const onPaginationClick = async ({ page }) => {
   videoapi.page = page;
 
@@ -158,7 +162,7 @@ function onPaginationPageLibrary() {
       setPagination(videoapi.type, galleryItems.length);
       pagination.movePageTo(previousPage);
     }
-  
+
 }   // код Кости по отрисовке библиотек
 
 export { setPagination, removeTuiButtons, listenPaginationClick, pagination, onPaginationPageLibrary, forPaginationFilter };
