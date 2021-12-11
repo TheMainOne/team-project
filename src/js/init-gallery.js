@@ -8,6 +8,13 @@ import { fonLibrary } from './fon-library';
 const { log, error } = console;
 const refs = getRefs();
 const { WATCHED, QUEUE } = videoapi.keys;
+import { Notify } from 'notiflix';
+
+const notifyOptions = {
+  timeout: 2000,
+  clickToClose: true,
+};
+export { notifyOptions };
 
 const notifyStatus = (videosCount, page, totalResults) => {
   if (videosCount < 1) {
@@ -18,6 +25,7 @@ const notifyStatus = (videosCount, page, totalResults) => {
     return 0;
   }
 };
+
 const renderGallery = async results => {
   try {
     if (!results || results === '' || results.length === 0) {
@@ -49,6 +57,7 @@ const initGallery = async () => {
     // console.log('res', page, results, totalPages, totalResults);
 
     if (notifyStatus(results.length, page, totalResults)) return;
+
     await renderGallery(results);
 
     setPagination(videoapi.keys.TRENDING.WEEK, totalResults);
