@@ -4,29 +4,28 @@ import { setPagination } from './pagination';
 import { fonLibrary } from './fon-library';
 import getRefs from './refs';
 import { load } from './storage';
+import { renderCard } from './init-gallery';
 
 const refs = getRefs();
 
 const { WATCHED } = videoapi.keys;
 
 const renderWatchedVideos = () => {
+  refs.gallery.dataset.gallery = 'watch';
+
   const loadWatched = load(WATCHED);
-  if (!loadWatched || loadWatched.length === 0) {
+  if (!loadWatched || loadWatched.legth === 0) {
+    document.querySelector('.tui-pagination').classList.add('is-hidden');
     refs.gallery.innerHTML = fonLibrary();
     return;
   }
 
-  videoapi.type = WATCHED;
-  const { page } = videoapi;
-  const perPage = 20;
+  if (!loadWatched) return;
 
-  const filtered = loadWatched.filter(
-    (item, index) => index >= perPage * (page - 1) && index < perPage * page,
-  );
+  const perPage = 9;
 
-  console.log('renderWatchedVideos ~ filtered', filtered);
-  renderGallery(filtered);
-  setPagination(WATCHED, loadWatched.length);
+  renderCard({ key: WATCHED, perPage });
+  document.querySelector('.tui-pagination').classList.remove('is-hidden');
 };
 
 export { renderWatchedVideos };

@@ -25,7 +25,7 @@ function onTopNavBtnClick(e) {
   if (!hasDataAttr) return;
 
   videoapi.currentPage = hasDataAttr;
-  console.log('onTopNavBtnClick ~ videoapi.currentPage', videoapi.currentPage);
+  // console.log('onTopNavBtnClick ~ videoapi.currentPage', videoapi.currentPage);
 
   const queueMovies = load(QUEUE);
   renderGallery(queueMovies);
@@ -72,11 +72,11 @@ function onLibraryButtonClick(e) {
 
   if (hasDataAttr === 'watched') {
     videoapi.type = WATCHED;
-    mainRefs.gallery.dataset.gallery = 'watch';
+
     renderWatchedVideos();
   }
 
-  console.log('onLibraryButtonClick ~ videoapi.type', videoapi.type);
+  // console.log('onLibraryButtonClick ~ videoapi.type', videoapi.type);
 
   const prevButton = refs.headerControlBox.querySelector('.is-active');
   if (prevButton) {
@@ -131,7 +131,7 @@ refs.homeBtn.addEventListener('click', async () => {
   videoapi.type = TRENDING.WEEK;
   const videos = await videoapi.getTrendingVideos();
   mainRefs.gallery.dataset.gallery = 'home';
-  console.log('refs.homeBtn.addEventListener ~ videos', videos);
+  // console.log('refs.homeBtn.addEventListener ~ videos', videos);
   if (videos.results.length === 0) return;
   renderGallery(videos.results);
   setPagination(TRENDING.WEEK, videos.total_results);

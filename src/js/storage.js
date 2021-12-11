@@ -21,7 +21,6 @@ const load = key => {
 const removeEmptyStorageKeys = async () => {
   try {
     Object.keys(localStorage).forEach(key => {
-
       if (key === 'theme') {
         return;
       }
@@ -31,8 +30,9 @@ const removeEmptyStorageKeys = async () => {
       if (
         !loadedData ||
         loadedData === '' ||
-        Object.keys(loadedData).length === 0 ||
-        loadedData.length === 0
+        (typeof loadedData === 'object' &&
+          Object.keys(loadedData).length === 0) ||
+        (Array.isArray(loadedData) && loadedData.length === 0)
       ) {
         localStorage.removeItem(key);
         console.log('removeEmptyStorageKeys ~ key', key);

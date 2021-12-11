@@ -60,7 +60,10 @@ const renderCard = ({ key, perPage }) => {
   const loadStorage = load(key);
   const filteredArray = forPaginationFilter(loadStorage, perPage);
   const currentPage = pagination.getCurrentPage();
-  if (!loadStorage) {
+  document.querySelector('.tui-pagination').classList.add('is-hidden');
+
+  if (!loadStorage || loadStorage.length === 0) {
+    refs.gallery.innerHTML = fonLibrary();
     return;
   }
 
@@ -68,6 +71,7 @@ const renderCard = ({ key, perPage }) => {
   pagination.setItemsPerPage(perPage);
   setPagination(key, loadStorage.length);
   pagination.movePageTo(currentPage);
+  document.querySelector('.tui-pagination').classList.remove('is-hidden');
 };
 
 export { notifyStatus, renderGallery, initGallery, renderCard };

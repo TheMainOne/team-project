@@ -84,6 +84,7 @@ const initListeners = () => {
 
 initListeners();
 removeEmptyStorageKeys();
+
 // ====== функционал отвечающий за кнопку и прокрутку в вверх страницы ======
 window.onscroll = function (backToTopBtn) {
   scrollFunction(backToTopBtn);
