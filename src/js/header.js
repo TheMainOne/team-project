@@ -1,7 +1,11 @@
 import getHeaderRefs from './getHearedRefs';
 import { videoapi } from './api-service';
 import { sprite } from '../index';
-import { renderGallery } from './init-gallery';
+import {
+  onBtnClickInLibraryRender,
+  onLibraryClickRenderQueue,
+  renderGallery,
+} from './init-gallery';
 import { renderWatchedVideos } from './render-watched';
 import { setPagination } from './pagination';
 import getRefs from './refs';
@@ -9,14 +13,12 @@ import { load } from './storage';
 import { deleteCanvas, addListenerOnLibrary } from './library';
 const mainRefs = getRefs();
 const iconSearch = `${sprite}#icon-search`;
-const { QUEUE, WATCHED } = videoapi.keys;
-
+const { TRENDING, QUEUE, WATCHED } = videoapi.keys;
 const refs = getHeaderRefs();
 
 renderSearchForm();
 refs.headerControlBox.addEventListener('click', onInputFocus);
 refs.navbar.addEventListener('click', onTopNavBtnClick);
-
 // Для работы с кнопками watched и queue слушатель вешать на этот контейнер refs.headerControlBox и отлавливать через e.target.dataset.action
 
 function onTopNavBtnClick(e) {
@@ -25,10 +27,6 @@ function onTopNavBtnClick(e) {
   if (!hasDataAttr) return;
 
   videoapi.currentPage = hasDataAttr;
-
-  const queueMovies = load(QUEUE);
-  renderGallery(queueMovies);
-  setPagination(QUEUE, queueMovies?.length);
 
   const prevButton = refs.navbar.querySelector('.is-active');
 
@@ -43,6 +41,7 @@ function onTopNavBtnClick(e) {
     renderLibraryButtons();
     refs.headerControlBox.addEventListener('click', onLibraryButtonClick);
     refs.headerControlBox.removeEventListener('click', onInputFocus);
+    onLibraryClickRenderQueue(hasDataAttr);
   }
 
   if (hasDataAttr === 'js-home') {
@@ -65,6 +64,8 @@ function onLibraryButtonClick(e) {
   const hasDataAttr = nextButton.dataset.action;
 
   if (!hasDataAttr) return;
+  onBtnClickInLibraryRender(hasDataAttr);
+
   if (hasDataAttr === 'queue') {
     videoapi.type = QUEUE;
   }
@@ -129,7 +130,8 @@ function renderSearchForm() {
     <button class="search-button" type="submit" name="submitSearch">
       <svg class="search-icon"> <use href="${iconSearch}"></use> </svg>
     </button>
-  </form>`;
+  </form>
+  `;
 }
 
 function renderLibraryButtons() {
@@ -146,11 +148,9 @@ refs.homeBtn.addEventListener('click', async () => {
   // window.location = './';
   deleteCanvas();
   addListenerOnLibrary();
-  const { TRENDING } = videoapi.keys;
   videoapi.type = TRENDING.WEEK;
   const videos = await videoapi.getTrendingVideos();
   mainRefs.gallery.dataset.gallery = 'home';
-  // console.log('refs.homeBtn.addEventListener ~ videos', videos);
   if (videos.results.length === 0) return;
   renderGallery(videos.results);
   setPagination(TRENDING.WEEK, videos.total_results);

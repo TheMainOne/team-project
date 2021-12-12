@@ -34,7 +34,6 @@ const modal = new tingle.modal({
     watched.watchedRemoveEventListener();
 
     // onPaginationPageLibrary();
-
   },
 });
 
@@ -47,7 +46,7 @@ refs.gallery.addEventListener('click', async event => {
   modal.setContent(await contentModal(id));
   modal.open();
 
-  // ===trailer 
+  // ===trailer
   const searchRef = document.querySelector('.search-for-trailer');
   searchRef.addEventListener('click', enableTrailerLink);
   // ========
@@ -59,15 +58,19 @@ refs.gallery.addEventListener('click', async event => {
 
 function onBtnCloseModal() {
   const btnClose = document.querySelector('.btnClose');
-  btnClose.addEventListener('click', () => {
-    modal.close();
-    }, { once: true, passive: true },
+  btnClose.addEventListener(
+    'click',
+    () => {
+      modal.close();
+    },
+    { once: true, passive: true },
   );
 }
 
 async function contentModal(idOfFilm) {
   try {
     const galleryData = refs.gallery.dataset.gallery;
+    console.log('contentModal -> galleryData', galleryData);
 
     let arrayOfFilms = [];
     let ourFilm = {};
@@ -83,6 +86,7 @@ async function contentModal(idOfFilm) {
     }
 
     ourFilm = arrayOfFilms.find(film => film.id === idOfFilm);
+    console.log('contentModal -> ourFilm', ourFilm);
 
     const {
       id,

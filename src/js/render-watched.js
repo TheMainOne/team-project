@@ -1,33 +1,40 @@
 import { videoapi } from './api-service';
-import { renderGallery } from './init-gallery';
-import { setPagination } from './pagination';
-import getRefs from './refs';
+import { fonLibrary } from './fon-library';
 import { load } from './storage';
+import { renderCard } from './init-gallery';
+import { setBgSnow, deleteCanvas } from './library';
+import getRefs from './refs';
+import { hidePagination, showPagination } from './pagination';
 
 const refs = getRefs();
 
-const { WATCHED } = videoapi.keys;
+const { WATCHED, QUEUE } = videoapi.keys;
 
 const renderWatchedVideos = () => {
-  const loadWatched = load(WATCHED);
-  if (!loadWatched || loadWatched.legth === 0) {
-    document.querySelector('.tui-pagination').classList.add('is-hidden');
-  }
   refs.gallery.dataset.gallery = 'watch';
-  refs.gallery.innerHTML = '';
+
+  const loadWatched = load(WATCHED);
+  if (!loadWatched || loadWatched.length === 0) {
+    hidePagination();
+    refs.gallery.innerHTML = '';
+    return;
+  }
+
   if (!loadWatched) return;
 
-  videoapi.type = WATCHED;
-  const { page } = videoapi;
-  const perPage = 20;
+  const perPage = 9;
+  showPagination();
 
-  const filtered = loadWatched.filter(
-    (item, index) => index >= perPage * (page - 1) && index < perPage * page,
-  );
+  renderCard({ key: WATCHED, perPage });
 
-  renderGallery(filtered);
-  setPagination(WATCHED, loadWatched.length);
-  document.querySelector('.tui-pagination').classList.remove('is-hidden');
+  const loadQueue = load(QUEUE);
+  if (loadQueue && loadQueue.length > 0) {
+    refs.gallery.innerHTML = fonLibrary();
+  } else {
+    deleteCanvas();
+    hidePagination();
+    refs.gallery.innerHTML = setBgSnow();
+  }
 };
 
 export { renderWatchedVideos };
