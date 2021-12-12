@@ -142,8 +142,6 @@ function darkThemeForModal(modal) {
 
 // ============
 
-// const getCardTitles = async () => document.querySelectorAll('.card__title');
-
 // const initThemeSwitcher = async () => {
 //   const cardTitles = await getCardTitles();
 
