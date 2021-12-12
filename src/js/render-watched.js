@@ -4,6 +4,7 @@ import { load } from './storage';
 import { renderCard } from './init-gallery';
 import { setBgSnow, deleteCanvas } from './library';
 import getRefs from './refs';
+import { hidePagination, showPagination } from './pagination';
 
 const refs = getRefs();
 
@@ -13,8 +14,8 @@ const renderWatchedVideos = () => {
   refs.gallery.dataset.gallery = 'watch';
 
   const loadWatched = load(WATCHED);
-  if (!loadWatched || loadWatched.legth === 0) {
-    document.querySelector('.tui-pagination').classList.add('is-hidden');
+  if (!loadWatched || loadWatched.length === 0) {
+    hidePagination();
     refs.gallery.innerHTML = '';
     return;
   }
@@ -22,15 +23,16 @@ const renderWatchedVideos = () => {
   if (!loadWatched) return;
 
   const perPage = 9;
-  document.querySelector('.tui-pagination').classList.remove('is-hidden');
+  showPagination();
 
   renderCard({ key: WATCHED, perPage });
 
-  if (load(QUEUE) && load(QUEUE).length > 0) {
+  const loadQueue = load(QUEUE);
+  if (loadQueue && loadQueue.length > 0) {
     refs.gallery.innerHTML = fonLibrary();
   } else {
     deleteCanvas();
-    document.querySelector('.tui-pagination').classList.add('is-hidden');
+    hidePagination();
     refs.gallery.innerHTML = setBgSnow();
   }
 };

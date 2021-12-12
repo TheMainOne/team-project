@@ -1,4 +1,3 @@
-import { videoapi } from './api-service';
 const { error } = console;
 
 const save = (key, obj) => {
@@ -35,7 +34,6 @@ const removeEmptyStorageKeys = async () => {
         (Array.isArray(loadedData) && loadedData.length === 0)
       ) {
         localStorage.removeItem(key);
-        console.log('removeEmptyStorageKeys ~ key', key);
       }
     });
   } catch (err) {
