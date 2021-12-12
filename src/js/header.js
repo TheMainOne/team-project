@@ -97,13 +97,19 @@ function onInputFocus(e) {
 }
 
 function onInputChange(e) {
-  console.log('ушёл фокус');
-  console.log(e.target);
+  console.log(e)
+
   const selector = e.target.closest('[data-action="js-form"]');
   selector.removeAttribute('style');
+
+    if (e.target.value !== '') {
+     setTimeout(() => {
+    e.target.value = '';
+  }, 200);
+  }
   // selector.style.borderBottom = '0.5px solid var(--main-text-color)';
-  console.log(selector);
-  console.log('снять слушателя');
+  // console.log(selector);
+  // console.log('снять слушателя');
   // e.target.removeEventListener('blur', onInputChange);
 }
 
