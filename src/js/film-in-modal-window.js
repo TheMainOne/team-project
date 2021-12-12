@@ -3,7 +3,7 @@ import tingle from 'tingle.js';
 import 'tingle.js/src/tingle.css';
 import { videoapi } from './api-service';
 import { load } from './storage';
-import { getImageUrl, getGenres } from './gallery-card-template';
+import { getImageUrl, getGenreName } from './gallery-card-template';
 import { createMarkup, createPoster } from './markup-of-modal';
 import * as queue from './for-queue-btn';
 import * as watched from './for-watched-btn';
@@ -34,7 +34,6 @@ const modal = new tingle.modal({
     watched.watchedRemoveEventListener();
 
     // onPaginationPageLibrary();
-
   },
 });
 
@@ -47,7 +46,7 @@ refs.gallery.addEventListener('click', async event => {
   modal.setContent(await contentModal(id));
   modal.open();
 
-  // ===trailer 
+  // ===trailer
   const searchRef = document.querySelector('.search-for-trailer');
   searchRef.addEventListener('click', enableTrailerLink);
   // ========
@@ -59,15 +58,19 @@ refs.gallery.addEventListener('click', async event => {
 
 function onBtnCloseModal() {
   const btnClose = document.querySelector('.btnClose');
-  btnClose.addEventListener('click', () => {
-    modal.close();
-    }, { once: true, passive: true },
+  btnClose.addEventListener(
+    'click',
+    () => {
+      modal.close();
+    },
+    { once: true, passive: true },
   );
 }
 
 async function contentModal(idOfFilm) {
   try {
     const galleryData = refs.gallery.dataset.gallery;
+    console.log('contentModal -> galleryData', galleryData);
 
     let arrayOfFilms = [];
     let ourFilm = {};
@@ -83,6 +86,7 @@ async function contentModal(idOfFilm) {
     }
 
     ourFilm = arrayOfFilms.find(film => film.id === idOfFilm);
+    console.log('contentModal -> ourFilm', ourFilm);
 
     const {
       id,
@@ -97,12 +101,12 @@ async function contentModal(idOfFilm) {
     } = ourFilm;
 
     const posterUrl = getImageUrl(posterPath);
-    const genresJoined = await getGenres(genreIds);
+    const getGenreNames = (await Promise.all(genreIds.map(getGenreName))).join(', ');
     const poster = createPoster(posterUrl, title);
     const isFilmInQueue = searchFilmInQueue(idOfFilm);
     const isFilmInWatched = searchFilmInWatched(id);
 
-    const makrup = createMarkup({
+    const markup = createMarkup({
       isFilmInQueue,
       isFilmInWatched,
       id,
@@ -114,10 +118,10 @@ async function contentModal(idOfFilm) {
       originalTitle,
       voteAverage,
       voteCount,
-      genresJoined,
+      getGenreNames,
     });
 
-    return makrup;
+    return markup;
   } catch (error) {
     console.log(error);
   }

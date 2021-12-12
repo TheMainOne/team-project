@@ -1,18 +1,14 @@
 import galleryCardTemplate from './gallery-card-template';
 import { videoapi } from './api-service';
-import { initThemeSwitcher } from './change-theme';
-import {
-  removeTuiButtons,
-  setPagination,
-  forPaginationFilter,
-  pagination,
-} from './pagination';
+import { removeTuiButtons, setPagination, forPaginationFilter, pagination } from './pagination';
 import getRefs from './refs';
 import { load } from './storage';
-import { Notify } from 'notiflix';
-
+import { fonLibrary, setFon } from './fon-library';
 const { log, error } = console;
 const refs = getRefs();
+const { WATCHED, QUEUE } = videoapi.keys;
+import { changeCardsTitle } from './change-theme';
+import { Notify } from 'notiflix';
 const notifyOptions = {
   timeout: 2000,
   clickToClose: true,
@@ -30,9 +26,13 @@ const notifyStatus = (videosCount, page, totalResults) => {
 };
 
 const renderGallery = async results => {
+  console.log('results', results);
   try {
-    if (!results || results === '') {
+    console.log('results', results);
+
+    if (!results || results === '' || results.length === 0) {
       refs.gallery.innerHTML = '';
+      setFon();
       return;
     }
     const string = await Promise.all(results.map(galleryCardTemplate));
@@ -40,7 +40,8 @@ const renderGallery = async results => {
 
     refs.gallery.innerHTML = '';
     refs.gallery.insertAdjacentHTML('beforeend', galleryMarkup);
-    initThemeSwitcher();
+    // initThemeSwitcher();
+    await changeCardsTitle();
     removeTuiButtons(results.length);
   } catch (err) {
     error(err);
@@ -75,7 +76,10 @@ const renderCard = ({ key, perPage }) => {
   const currentPage = pagination.getCurrentPage();
   document.querySelector('.tui-pagination').classList.add('is-hidden');
 
-  if (!loadStorage) {
+  if (!loadStorage || loadStorage.length === 0) {
+    refs.gallery.innerHTML = fonLibrary();
+    document.querySelector('.tui-pagination').classList.add('is-hidden');
+
     return;
   }
 

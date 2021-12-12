@@ -14,19 +14,22 @@ function onLibraryClick() {
   refs.libraryBtn.addEventListener('click', setBgSnow, { once: true });
 }
 onLibraryClick();
+let setIntervalID = null;
 function setBgSnow() {
-  if (!load(QUEUE) && !load(WATCHED)) {
+  if (
+    (!load(QUEUE) || load(QUEUE).length === 0) &&
+    (!load(WATCHED) || load(WATCHED).length === 0)
+  ) {
     canvas.style.display = 'block';
     sectionRef.classList.add('section__js');
     const markup = `<h1 class="title__library">Add a movie</h1>
     <a href="./index.html"><button class="glow-on-hover" type="button">GO BACK</button></a>`;
     sectionRef.insertAdjacentHTML('afterbegin', markup);
 
-    function flakes() {
-      //get and store canvas & context
-      let ctx = canvas.getContext('2d');
-      let h = window.innerHeight;
-      let w = window.innerWidth;
+    const flakes = () => {
+      var ctx = canvas.getContext('2d');
+      var h = window.innerHeight;
+      var w = window.innerWidth;
       //set dims to window
       canvas.height = h;
       canvas.width = w;
@@ -71,15 +74,17 @@ function setBgSnow() {
           }
         }
       }
-      setInterval(drawFlakes, 25);
-    }
+      setIntervalID = setInterval(drawFlakes, 25);
+    };
     flakes();
   }
+  return '';
 }
 
 const deleteCanvas = () => {
   const titleRef = document.querySelector('.title__library');
   const btnRef = document.querySelector('.glow-on-hover');
+  clearInterval(setIntervalID);
   if (canvas && sectionRef && titleRef && btnRef) {
     canvas.style.display = 'none';
     sectionRef.classList.remove('section__js');
