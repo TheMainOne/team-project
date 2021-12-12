@@ -61,6 +61,7 @@ const onSubmitSearch = async e => {
 
     refs.gallery.dataset.gallery = 'search';
     await renderGallery(results);
+    image.style.display = 'none';
     showPagination();
     input.value = '';
   } catch (err) {
