@@ -105,13 +105,15 @@ function setHomeBackground() {
 function renderSearchForm() {
   refs.headerControlBox.innerHTML = `
   <form class="header__search" id="search-form" data-action="js-form">
-    <label class="form__label">
-      <input class="input" type="text" name="searchQuery" autocomplete="off" placeholder="Поиск фильмов" />
-    </label>
+    <div class="form-field">
+      <input class="input" id="searchQuery" type="text" name="searchQuery" autocomplete="off"/>
+      <label class="header__search-label" for="searchQuery">Enter the title of the movie</label>
+    </div>
     <button class="search-button" type="submit" name="submitSearch">
       <svg class="search-icon"> <use href="${iconSearch}"></use> </svg>
     </button>
-  </form>`;
+  </form>
+  `;
 }
 
 function renderLibraryButtons() {
