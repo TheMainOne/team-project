@@ -14,7 +14,7 @@ const renderWatchedVideos = () => {
   refs.gallery.dataset.gallery = 'watch';
 
   const loadWatched = load(WATCHED);
-  if (!loadWatched || loadWatched.length === 0) {
+  if (!loadWatched) {
     hidePagination();
     refs.gallery.innerHTML = '';
     return;

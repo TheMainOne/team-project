@@ -59,7 +59,9 @@ const onSubmitSearch = async e => {
     if (notifyStatus(results.length, page, totalResults)) return;
 
     refs.gallery.dataset.gallery = 'search';
-    renderGallery(results);
+    await renderGallery(results);
+    image.style.display = 'none';
+
     input.value = '';
   } catch (err) {
     error(err);

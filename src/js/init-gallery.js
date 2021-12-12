@@ -33,6 +33,8 @@ const notifyStatus = (videosCount, page, totalResults) => {
   }
 };
 
+const isWatched = load(WATCHED);
+
 const renderGallery = async results => {
   try {
     if (!results || results === '' || results.length === 0) {
@@ -78,8 +80,12 @@ const renderCard = ({ key, perPage = 9 }) => {
   const currentPage = pagination.getCurrentPage();
 
   if (!loadStorage || loadStorage.length === 0) {
-    refs.gallery.innerHTML = fonLibrary();
+    refs.gallery.innerHTML = '';
     hidePagination();
+
+    if (isWatched?.length > 0) {
+      refs.gallery.innerHTML = fonLibrary();
+    }
     return;
   }
 
