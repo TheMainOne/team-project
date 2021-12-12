@@ -211,70 +211,87 @@
     display: flex;
     justify-content: center;
   }
-
-  &__search {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: nowrap;
-    width: 100%;
-    text-align: center;
-    border-bottom: 0.5px solid var(--main-text-color);
-
-    @media (min-width: $tablet) {
-      width: 336px;
-    }
-  }
 }
 
-.input {
+.header__search {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: nowrap;
   width: 100%;
-  margin-top: 4px;
-  margin-bottom: 4px;
-  border: none;
-  outline: none;
-  background: transparent;
-  color: var(--main-text-color);
+  text-align: center;
+  border-bottom: 0.5px solid var(--main-text-color);
 
-  &::placeholder {
-    color: inherit;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 1.17;
+  &:hover {
+    border-bottom: 0.5px solid var(--accent-color);
   }
 
   @media (min-width: $tablet) {
-    width: 314px;
+    width: 336px;
   }
-}
 
-.search-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2px;
-  background-color: transparent;
-  border: 2px solid transparent;
-  border-radius: 2px;
-  color: currentColor;
+  .form-field {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    margin-top: 4px;
+    margin-bottom: 4px;
 
-  transition: var(--cubic) var(--time);
-  transition-property: color, box-shadow;
+    @media (min-width: $tablet) {
+      width: 314px;
+    }
 
-  &:hover {
+    & .input {
+      width: 100%;
+      outline: none;
+      border: none;
+      background: transparent;
+      color: var(--main-text-color);
+    }
+  }
+
+  & .input:focus + &-label,
+  & .input:hover + &-label {
     color: var(--accent-color);
+    transform: translateY(-30px);
+    font-size: 12px;
   }
 
-  &:active {
-    box-shadow: 0px 8px 43px rgba(255, 107, 1, 0.6);
+  &-label {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
   }
 
-  .search-icon {
-    width: 12px;
-    height: 12px;
+  .search-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px;
+    background-color: transparent;
+    border: 2px solid transparent;
+    border-radius: 2px;
     color: currentColor;
-    fill: transparent;
-    cursor: pointer;
+
+    transition: var(--cubic) var(--time);
+    transition-property: color, box-shadow;
+
+    &:hover {
+      color: var(--accent-color);
+    }
+
+    &:active {
+      box-shadow: 0px 8px 43px rgba(255, 107, 1, 0.6);
+    }
+
+    .search-icon {
+      width: 12px;
+      height: 12px;
+      color: currentColor;
+      fill: transparent;
+      cursor: pointer;
+    }
   }
 }
 

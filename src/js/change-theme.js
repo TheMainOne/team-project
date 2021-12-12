@@ -1,11 +1,8 @@
-import getRefs from './refs';
-const refs = getRefs();
-
-// function changeTheme() {
 const Theme = {
   LIGHT: 'light-theme',
   DARK: 'dark-theme',
 };
+
 const { LIGHT, DARK } = Theme;
 
 const footer = document.querySelector('.footer');
@@ -140,22 +137,6 @@ function darkThemeForModal(modal) {
   }
 }
 
-// ============
-
-// const initThemeSwitcher = async () => {
-//   const cardTitles = await getCardTitles();
-
-//   if (localStorage.getItem('theme') === 'dark-theme') {
-//     cardTitles.forEach(cardTitle => {
-//       cardTitle.style.color = 'var(--main-text-color)';
-//     });
-//   } else {
-//     cardTitles.forEach(cardTitle => {
-//       cardTitle.style.color = 'var(--secondary-text-color)';
-//     });
-//   }
-// };
-
 // Обработчик смены цвета текста заголовков карточек галереи по клику на переключатель
 const onThemeToggle = async event => {
   const cardTitles = await getCardTitles();
@@ -167,14 +148,11 @@ const onThemeToggle = async event => {
   }
 };
 
-// ============
-
 // export { changeTheme, onThemeToggle, initThemeSwitcher, darkThemeForModal };
 export {
   populateChooseTheme,
   onThemeToggle,
   onTeamThemeToggle,
-  // initThemeSwitcher,
   darkThemeForModal,
   changeCardsTitle,
 };

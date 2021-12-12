@@ -16,11 +16,10 @@ const iconSearch = `${sprite}#icon-search`;
 const { TRENDING, QUEUE, WATCHED } = videoapi.keys;
 const refs = getHeaderRefs();
 
-refs.navbar.addEventListener('click', onTopNavBtnClick);
-// Для работы с кнопками watched и queue слушатель вешать на этот контейнер refs.headerControlBox и отлавливать через e.target.dataset.action
-
 renderSearchForm();
 refs.headerControlBox.addEventListener('click', onInputFocus);
+refs.navbar.addEventListener('click', onTopNavBtnClick);
+// Для работы с кнопками watched и queue слушатель вешать на этот контейнер refs.headerControlBox и отлавливать через e.target.dataset.action
 
 function onTopNavBtnClick(e) {
   const nextButton = e.target;
@@ -77,8 +76,6 @@ function onLibraryButtonClick(e) {
     renderWatchedVideos();
   }
 
-  // console.log('onLibraryButtonClick ~ videoapi.type', videoapi.type);
-
   const prevButton = refs.headerControlBox.querySelector('.is-active');
   if (prevButton) {
     prevButton.classList.remove('is-active');
@@ -88,9 +85,33 @@ function onLibraryButtonClick(e) {
 }
 
 function onInputFocus(e) {
-  const selector = e.target.parentNode;
+  const input = e.target;
+  if (input.classList.contains('input')) {
+    input.addEventListener('blur', onInputChange, { once: true });
+    console.log('повесили слушателя');
+  }
+  const selector = input.closest('[data-action="js-form"]');
+
   if (selector.dataset.action !== 'js-form') return;
-  selector.style.borderBottom = '0.5px solid var(--accent-color)';
+  selector.setAttribute('style', 'border-bottom: 0.5px solid var(--accent-color)');
+  // selector.style.borderBottom = '';
+}
+
+function onInputChange(e) {
+  console.log(e)
+
+  const selector = e.target.closest('[data-action="js-form"]');
+  selector.removeAttribute('style');
+
+    if (e.target.value !== '') {
+     setTimeout(() => {
+    e.target.value = '';
+  }, 200);
+  }
+  // selector.style.borderBottom = '0.5px solid var(--main-text-color)';
+  // console.log(selector);
+  // console.log('снять слушателя');
+  // e.target.removeEventListener('blur', onInputChange);
 }
 
 // Функции подмены background
