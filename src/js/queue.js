@@ -6,6 +6,7 @@ import getRefs from './refs';
 import { videoapi } from './api-service';
 import { fonLibrary } from './fon-library';
 import { setBgSnow, deleteCanvas } from './library';
+import { hidePagination, showPagination } from './pagination';
 
 const { QUEUE, WATCHED } = videoapi.keys;
 const refs = getHeaderRefs();
@@ -22,10 +23,13 @@ btnLibrary.addEventListener('click', () => {
   //   renderCard({ key: QUEUE, perPage });
   //   document.querySelector('.tui-pagination').classList.remove('is-hidden');
   // }
+
+  const loadWatched = load(WATCHED);
+
   if (!loadQueue || loadQueue.length === 0) {
-    if (load(WATCHED) && load(WATCHED).length > 0) {
+    if (loadWatched && loadWatched.length > 0) {
       renderCard({ key: QUEUE, perPage });
-      document.querySelector('.tui-pagination').classList.add('is-hidden');
+      hidePagination();
       refGallery.gallery.innerHTML = fonLibrary();
     }
   }
@@ -39,12 +43,11 @@ refs.headerControlBox.addEventListener('click', e => {
 
     if (loadQueue) {
       renderCard({ key: QUEUE, perPage });
-
-      document.querySelector('.tui-pagination').classList.remove('is-hidden');
+      showPagination();
     }
 
     if (!loadQueue || loadQueue.length === 0) {
-      document.querySelector('.tui-pagination').classList.add('is-hidden');
+      hidePagination();
       if (load(WATCHED) && load(WATCHED).length > 0) {
         refGallery.gallery.innerHTML = fonLibrary();
       } else {
