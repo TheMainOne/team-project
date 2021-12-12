@@ -1,7 +1,11 @@
 import getHeaderRefs from './getHearedRefs';
 import { videoapi } from './api-service';
 import { sprite } from '../index';
-import { onBtnClickInLibraryRender, onLibraryClickRenderQueue, renderGallery } from './init-gallery';
+import {
+  onBtnClickInLibraryRender,
+  onLibraryClickRenderQueue,
+  renderGallery,
+} from './init-gallery';
 import { renderWatchedVideos } from './render-watched';
 import { setPagination } from './pagination';
 import getRefs from './refs';
@@ -62,7 +66,6 @@ function onLibraryButtonClick(e) {
 
   if (!hasDataAttr) return;
   onBtnClickInLibraryRender(hasDataAttr);
-
 
   if (hasDataAttr === 'queue') {
     videoapi.type = QUEUE;
@@ -127,7 +130,6 @@ function renderLibraryButtons() {
 
 // Cлушатель событий на кнопке home для возврата на главную страницу
 refs.homeBtn.addEventListener('click', async () => {
-  console.log('click on home');
   // window.location = './';
   deleteCanvas();
   addListenerOnLibrary();

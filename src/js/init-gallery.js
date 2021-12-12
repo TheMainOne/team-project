@@ -34,10 +34,7 @@ const notifyStatus = (videosCount, page, totalResults) => {
 };
 
 const renderGallery = async results => {
-  console.log('results', results);
   try {
-    console.log('results', results);
-
     if (!results || results === '' || results.length === 0) {
       refs.gallery.innerHTML = '';
       setFon();
