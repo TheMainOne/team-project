@@ -1,7 +1,7 @@
 import sprite from './images/svg/sprite.svg';
 export { sprite };
 
-import { listenPaginationClick, setPagination } from './js/pagination';
+import { listenPaginationClick, setPagination, removeTuiButtons } from './js/pagination';
 import 'tui-pagination/dist/tui-pagination.min.css';
 
 import './js/queue';
@@ -53,6 +53,7 @@ const onContainerClick = async e => {
     }
 
     if (!searchQuery || searchQuery.length === 0) {
+      image.style.display = 'none';
       return info('Please, enter search query.', {
         timeout: 1000,
         clickToClose: true,
@@ -73,6 +74,7 @@ const onContainerClick = async e => {
     if (totalResults === 0) {
       refs.gallery.innerHTML = '';
       image.style.display = 'block';
+      document.querySelector('.tui-pagination').classList.add('is-hidden');
       return warning('Sorry, there no results found. Try searching for something else!');
     }
 
