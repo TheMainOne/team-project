@@ -12,8 +12,15 @@ function addListenerOnLibrary() {
   libraryBtnRef.addEventListener('click', setBgSnow, { once: true });
 }
 addListenerOnLibrary();
+
+let setIntervalID = null;
+
 function setBgSnow() {
-  if (!load(QUEUE) && !load(WATCHED)) {
+  if (
+    (!load(QUEUE) || load(QUEUE).length === 0) &&
+    (!load(WATCHED) || load(WATCHED).length === 0)
+  ) {
+    console.log('snow');
     const canvas = document.querySelector('#sky');
     canvas.style.display = 'block';
     const sectionRef = document.querySelector('section');
@@ -22,8 +29,7 @@ function setBgSnow() {
     <a href="./index.html"><button class="glow-on-hover" type="button">GO BACK</button></a>`;
     sectionRef.insertAdjacentHTML('afterbegin', markup);
 
-    function flakes() {
-      //get and store canvas & context
+    const flakes = () => {
       var ctx = canvas.getContext('2d');
       var h = window.innerHeight;
       var w = window.innerWidth;
@@ -71,10 +77,11 @@ function setBgSnow() {
           }
         }
       }
-      setInterval(drawFlakes, 25);
-    }
+      setIntervalID = setInterval(drawFlakes, 25);
+    };
     flakes();
   }
+  return '';
 }
 
 const deleteCanvas = () => {
@@ -82,6 +89,7 @@ const deleteCanvas = () => {
   const sectionRef = document.querySelector('section');
   const titleRef = document.querySelector('.title__library');
   const btnRef = document.querySelector('.glow-on-hover');
+  clearInterval(setIntervalID);
   if (canvas && sectionRef && titleRef && btnRef) {
     canvas.style.display = 'none';
     sectionRef.classList.remove('section__js');

@@ -63,12 +63,23 @@ const removeTuiButtons = async resultsLength => {
   removeDOM([first, last, disabledFirst, disabledLast]);
 };
 
-const removeAllTuiButtons = () => {
-  removeDOM([...document.querySelectorAll('.tui-page-btn')]);
+const showPagination = () => {
+  document.querySelector('.tui-pagination').classList.remove('is-hidden');
+};
+const hidePagination = () => {
+  document.querySelector('.tui-pagination').classList.add('is-hidden');
+};
+
+const forPaginationFilter = (array, perPage) => {
+  const { page } = videoapi;
+  return array?.filter(
+    (item, index) => index >= perPage * (page - 1) && index < perPage * page,
+  );
 };
 
 const onPaginationClick = async ({ page }) => {
   videoapi.page = page;
+  const perPage = 9;
 
   const { TRENDING, SEARCH, WATCHED, QUEUE } = videoapi.keys;
 
@@ -91,32 +102,13 @@ const onPaginationClick = async ({ page }) => {
       break;
     }
     case WATCHED: {
-      const loadWatched = load(WATCHED);
-      const { page } = videoapi;
-      const perPage = 9;
-
-      const filteredLoadWatch = loadWatched.filter(
-        (item, index) =>
-          index >= perPage * (page - 1) && index < perPage * page,
-      );
-
-      renderGallery(filteredLoadWatch);
+      const filteredWatched = forPaginationFilter(load(WATCHED), perPage);
+      renderGallery(filteredWatched);
       break;
     }
     case QUEUE: {
-      const loadQueue = load(QUEUE);
-
-      const { page } = videoapi;
-      const perPage = 9;
-
-      let filteredLoadQueue = '';
-
-      filteredLoadQueue = loadQueue?.filter(
-        (item, index) =>
-          index >= perPage * (page - 1) && index < perPage * page,
-      );
-
-      renderGallery(filteredLoadQueue);
+      const filteredQueue = forPaginationFilter(load(QUEUE), perPage);
+      renderGallery(filteredQueue);
       break;
     }
     default:
@@ -128,41 +120,51 @@ const listenPaginationClick = () => {
   pagination.on('afterMove', onPaginationClick);
 };
 
-const setPagination = async (type, totalPages = 0) => {
+const setPagination = async (type, items = 0, perPage = 20) => {
   videoapi.type = type;
-  if (!totalPages || totalPages === 0) {
-    pagination.reset(1);
-    pagination.movePageTo(1);
-  }
-  pagination.reset(totalPages);
-  pagination.movePageTo(1);
-};
 
-const forPaginationFilter = (array, perPage) => {
-    const { page } = videoapi;
-    return array?.filter((item, index) => index >= perPage * (page - 1) && index < perPage * page);
-}
+  if (!items || items === 0) {
+    pagination.reset(0);
+    pagination.setItemsPerPage(perPage);
+    pagination.movePageTo(1);
+    hidePagination();
+  }
+
+  if (items >= perPage) {
+    pagination.reset(items);
+    pagination.setItemsPerPage(perPage);
+    pagination.movePageTo(1);
+    showPagination();
+  }
+};
 
 function onPaginationPageLibrary() {
   const { QUEUE, WATCHED, TRENDING, SEARCH } = videoapi.keys;
 
+  let galleryItems = [];
 
-      let galleryItems = [];
+  if (videoapi.type === WATCHED) {
+    galleryItems = load(WATCHED);
+  }
+  // if (videoapi.type === QUEUE) {
+  //   galleryItems = load(QUEUE);
+  // }
 
-    if (videoapi.type === WATCHED) {
-      galleryItems = load(WATCHED);
-    }
-    // if (videoapi.type === QUEUE) {
-    //   galleryItems = load(QUEUE);
-    // }
+  if (galleryItems.length > 0) {
+    renderGallery(galleryItems);
+    const previousPage = pagination.getCurrentPage();
+    setPagination(videoapi.type, galleryItems.length);
+    pagination.movePageTo(previousPage);
+  }
+} // код Кости по отрисовке библиотек
 
-    if (galleryItems.length > 0) {
-      renderGallery(galleryItems);
-      const previousPage = pagination.getCurrentPage();
-      setPagination(videoapi.type, galleryItems.length);
-      pagination.movePageTo(previousPage);
-    }
-
-}   // код Кости по отрисовке библиотек
-
-export { setPagination, removeTuiButtons, listenPaginationClick, pagination, onPaginationPageLibrary, forPaginationFilter };
+export {
+  setPagination,
+  removeTuiButtons,
+  listenPaginationClick,
+  pagination,
+  onPaginationPageLibrary,
+  forPaginationFilter,
+  showPagination,
+  hidePagination,
+};
