@@ -70,6 +70,8 @@ const hidePagination = () => {
   document.querySelector('.tui-pagination').classList.add('is-hidden');
 };
 
+hidePagination();
+
 const forPaginationFilter = (array, perPage) => {
   const { page } = videoapi;
   return array?.filter(
@@ -120,18 +122,18 @@ const listenPaginationClick = () => {
   pagination.on('afterMove', onPaginationClick);
 };
 
-const setPagination = async (type, items = 0, perPage = 20) => {
+const setPagination = async (type, totalItems = 0, perPage = 20) => {
   videoapi.type = type;
 
-  if (!items || items === 0) {
+  if (!totalItems || totalItems === 0) {
     pagination.reset(0);
     pagination.setItemsPerPage(perPage);
     pagination.movePageTo(1);
     hidePagination();
   }
 
-  if (items >= perPage) {
-    pagination.reset(items);
+  if (totalItems >= perPage) {
+    pagination.reset(totalItems);
     pagination.setItemsPerPage(perPage);
     pagination.movePageTo(1);
     showPagination();
