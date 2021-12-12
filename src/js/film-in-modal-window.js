@@ -3,7 +3,7 @@ import tingle from 'tingle.js';
 import 'tingle.js/src/tingle.css';
 import { videoapi } from './api-service';
 import { load } from './storage';
-import { getImageUrl, getGenres } from './gallery-card-template';
+import { getImageUrl, getGenreName } from './gallery-card-template';
 import { createMarkup, createPoster } from './markup-of-modal';
 import * as queue from './for-queue-btn';
 import * as watched from './for-watched-btn';
@@ -101,12 +101,12 @@ async function contentModal(idOfFilm) {
     } = ourFilm;
 
     const posterUrl = getImageUrl(posterPath);
-    const genresJoined = await getGenres(genreIds);
+    const getGenreNames = (await Promise.all(genreIds.map(getGenreName))).join(', ');
     const poster = createPoster(posterUrl, title);
     const isFilmInQueue = searchFilmInQueue(idOfFilm);
     const isFilmInWatched = searchFilmInWatched(id);
 
-    const makrup = createMarkup({
+    const markup = createMarkup({
       isFilmInQueue,
       isFilmInWatched,
       id,
@@ -118,10 +118,10 @@ async function contentModal(idOfFilm) {
       originalTitle,
       voteAverage,
       voteCount,
-      genresJoined,
+      getGenreNames,
     });
 
-    return makrup;
+    return markup;
   } catch (error) {
     console.log(error);
   }

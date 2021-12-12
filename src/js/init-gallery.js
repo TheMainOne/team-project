@@ -1,6 +1,7 @@
 import galleryCardTemplate from './gallery-card-template';
 import { videoapi } from './api-service';
 import { initThemeSwitcher } from './change-theme';
+import { changeCardsTitle } from './change-theme';
 import { removeTuiButtons, setPagination, forPaginationFilter, pagination } from './pagination';
 import getRefs from './refs';
 import { load } from './storage';
@@ -41,7 +42,8 @@ const renderGallery = async results => {
 
     refs.gallery.innerHTML = '';
     refs.gallery.insertAdjacentHTML('beforeend', galleryMarkup);
-    initThemeSwitcher();
+    // initThemeSwitcher();
+    await changeCardsTitle();
     removeTuiButtons(results.length);
   } catch (err) {
     error(err);

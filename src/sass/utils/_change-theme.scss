@@ -1,11 +1,21 @@
 body.light-theme {
   background-color: var(--main-text-color);
-  color: #202124;
+  color: var(--secondary-text-color);
 }
 
 body.dark-theme {
-  background-color: #202124;
+  background-color: var(--secondary-bg-color);
   color: var(--main-text-color);
+}
+
+.footer.light-theme {
+  background-color: var(--main-bg-color);
+  color: var(--secondary-text-color);
+}
+
+.footer.dark-theme {
+  background-color: var(--secondary-bg-color);
+  color: var(--third-text-color);
 }
 
 .toolbar {
