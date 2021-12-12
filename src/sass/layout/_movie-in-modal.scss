@@ -99,6 +99,7 @@
     line-height: 1.67;
     margin-bottom: 21px;
     overflow: auto;
+    max-height: 20%;
   }
 }
 
@@ -154,7 +155,7 @@
     }
 
     &__about-text {
-      max-height: 240px;
+      max-height: 20%;
     }
   }
 
@@ -191,7 +192,7 @@
     }
 
     &__about-text {
-      max-height: 204px;
+      max-height: 20%;
     }
   }
 }
