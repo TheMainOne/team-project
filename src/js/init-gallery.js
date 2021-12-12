@@ -1,14 +1,22 @@
 import galleryCardTemplate from './gallery-card-template';
 import { videoapi } from './api-service';
-import { removeTuiButtons, setPagination, forPaginationFilter, pagination } from './pagination';
+import {
+  removeTuiButtons,
+  setPagination,
+  forPaginationFilter,
+  pagination,
+  hidePagination,
+  showPagination,
+} from './pagination';
 import getRefs from './refs';
 import { load } from './storage';
 import { fonLibrary, setFon } from './fon-library';
+import { renderWatchedVideos } from './render-watched';
 const { log, error } = console;
 const refs = getRefs();
-const { WATCHED, QUEUE } = videoapi.keys;
+const { TRENDING, WATCHED, QUEUE } = videoapi.keys;
 import { changeCardsTitle } from './change-theme';
-import { Notify } from 'notiflix';
+
 const notifyOptions = {
   timeout: 2000,
   clickToClose: true,
@@ -40,9 +48,7 @@ const renderGallery = async results => {
 
     refs.gallery.innerHTML = '';
     refs.gallery.insertAdjacentHTML('beforeend', galleryMarkup);
-    // initThemeSwitcher();
     await changeCardsTitle();
-    removeTuiButtons(results.length);
   } catch (err) {
     error(err);
   }
@@ -50,7 +56,6 @@ const renderGallery = async results => {
 
 const initGallery = async () => {
   try {
-    /* page: 1, results: Array(20), total_pages: 1000, total_results: 20000 */
     const {
       page,
       results,
@@ -58,36 +63,68 @@ const initGallery = async () => {
       total_results: totalResults,
     } = await videoapi.getTrendingVideos();
 
-    // console.log('res', page, results, totalPages, totalResults);
-
     if (notifyStatus(results.length, page, totalResults)) return;
 
     await renderGallery(results);
 
-    setPagination(videoapi.keys.TRENDING.WEEK, totalResults);
+    setPagination(TRENDING.WEEK, totalResults);
   } catch (err) {
     error(err);
   }
 };
 
-const renderCard = ({ key, perPage }) => {
+const renderCard = ({ key, perPage = 9 }) => {
   const loadStorage = load(key);
   const filteredArray = forPaginationFilter(loadStorage, perPage);
   const currentPage = pagination.getCurrentPage();
-  document.querySelector('.tui-pagination').classList.add('is-hidden');
+  hidePagination();
 
   if (!loadStorage || loadStorage.length === 0) {
     refs.gallery.innerHTML = fonLibrary();
-    document.querySelector('.tui-pagination').classList.add('is-hidden');
-
+    hidePagination();
     return;
   }
 
   renderGallery(filteredArray);
   pagination.setItemsPerPage(perPage);
-  setPagination(key, loadStorage.length);
+  setPagination(key, loadStorage?.length, perPage);
   pagination.movePageTo(currentPage);
-  document.querySelector('.tui-pagination').classList.remove('is-hidden');
+  if (loadStorage?.length > perPage) {
+    showPagination();
+  } else {
+    hidePagination();
+  }
 };
 
-export { notifyStatus, renderGallery, initGallery, renderCard };
+const onLibraryClickRenderQueue = () => {
+  const perPage = 9;
+
+  renderCard({ key: QUEUE, perPage });
+};
+
+const onBtnClickInLibraryRender = hasDataAttr => {
+  const perPage = 9;
+  if (hasDataAttr === 'queue') {
+    videoapi.type = QUEUE;
+    if (load(QUEUE)?.length > perPage) {
+      setPagination(QUEUE, load(QUEUE)?.length, perPage);
+      showPagination();
+    } else {
+      hidePagination();
+    }
+  }
+
+  if (hasDataAttr === 'watched') {
+    videoapi.type = WATCHED;
+    renderWatchedVideos();
+  }
+};
+
+export {
+  notifyStatus,
+  renderGallery,
+  initGallery,
+  renderCard,
+  onLibraryClickRenderQueue,
+  onBtnClickInLibraryRender,
+};

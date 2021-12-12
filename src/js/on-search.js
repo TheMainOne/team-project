@@ -3,6 +3,7 @@ import { Notify } from 'notiflix';
 import { videoapi } from './api-service';
 import getRefs from './refs';
 import getHeaderRefs from './getHearedRefs';
+import { setPagination } from './pagination';
 const { info } = Notify;
 const { log, error } = console;
 const refs = getRefs();

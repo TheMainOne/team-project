@@ -54,7 +54,7 @@ class videoAPI {
     const genresURL = `${movieBaseURL}genre/${media}/list${api_key}&language=${language}`;
     const { genres } = await fetchData(genresURL);
     save(keys.GENRES, genres);
-  
+
     return genres;
   }
 
