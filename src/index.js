@@ -12,33 +12,54 @@ import './js/film-in-modal-window';
 import debounce from 'lodash/debounce';
 import { Notify } from 'notiflix';
 import { videoapi } from './js/api-service';
-import { notifyStatus, renderGallery, initGallery } from './js/init-gallery';
+// prettier-ignore
+import { notifyStatus, renderGallery, initGallery, notifyOptions } from './js/init-gallery';
 import { save, load, removeEmptyStorageKeys } from './js/storage';
 
 import './js/modalTeam';
 import getRefs from './js/refs';
 import { scrollFunction, backToTop } from './js/back-to-top-btn';
-import { changeTheme, onThemeToggle } from './js/change-theme';
+import { populateChooseTheme, onThemeToggle } from './js/change-theme';
+import getHeaderRefs from './js/getHearedRefs';
 const { info } = Notify;
 const { log, error } = console;
+const image = document.querySelector('.notify-gif');
 
 const refs = getRefs();
+const headerRefs = getHeaderRefs();
+console.log('headerRefs', headerRefs);
 
 initGallery();
 
-const onSubmit = async e => {
+const onContainerClick = async e => {
   e.preventDefault();
   try {
-    e.target.elements.submitSearch.disabled = true;
-    setTimeout(() => (e.target.elements.submitSearch.disabled = false), 1000);
+    const target = e.target;
 
-    const search = e.target.elements.searchQuery.value.trim();
+    const input = headerRefs.headerControlBox.querySelector('[name="searchQuery"]');
 
-    if (search.length === 0) {
-      return info('Please, enter search query.');
+    const form = headerRefs.headerControlBox.querySelector('[data-action="js-form"]');
+
+    if (target === input || target === form) return;
+
+    const searchButton = headerRefs.headerControlBox.querySelector('[name="submitSearch"]');
+
+    let searchQuery = null;
+    if (searchButton === target || target.closest('[name="submitSearch"]')) {
+      searchQuery = input.value.trim();
+
+      searchButton.disabled = true;
+      setTimeout(() => (searchButton.disabled = false), 1000);
     }
 
-    videoapi.query = search;
+    if (!searchQuery || searchQuery.length === 0) {
+      return info('Please, enter search query.', {
+        timeout: 1000,
+        clickToClose: true,
+      });
+    }
+
+    videoapi.query = searchQuery;
     videoapi.type = videoapi.keys.SEARCH;
 
     /* page: 1, results: Array(20), total_pages: 1000, total_results: 20000 */
@@ -49,9 +70,15 @@ const onSubmit = async e => {
       total_results: totalResults,
     } = await videoapi.getVideos();
 
+    if (totalResults === 0) {
+      refs.gallery.innerHTML = '';
+      image.style.display = 'block';
+      return warning('Sorry, there no results found. Try searching for something else!');
+    }
+
     setPagination(videoapi.keys.SEARCH, totalPages);
 
-    // console.log('res', page, results, totalPages, totalResults);
+    console.log('res', page, results, totalPages, totalResults);
 
     if (notifyStatus(results.length, page, totalResults)) return;
 
@@ -73,7 +100,7 @@ const initListeners = () => {
     { passive: true, once: true },
   );
 
-  refs.form.addEventListener('submit', onSubmit);
+  headerRefs.headerControlBox.addEventListener('click', onContainerClick);
 
   refs.themeSwitcher.addEventListener('change', onThemeToggle, passive);
 
@@ -90,4 +117,5 @@ window.onscroll = function (backToTopBtn) {
   scrollFunction(backToTopBtn);
 };
 // ======смена темы============
-changeTheme();
+// changeTheme();
+populateChooseTheme();
