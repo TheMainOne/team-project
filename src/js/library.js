@@ -13,7 +13,11 @@ function addListenerOnLibrary() {
 }
 addListenerOnLibrary();
 function setBgSnow() {
-  if (!load(QUEUE) && !load(WATCHED)) {
+  if (
+    (!load(QUEUE) || load(QUEUE).length === 0) &&
+    (!load(WATCHED) || load(WATCHED).length === 0)
+  ) {
+    console.log('snow');
     const canvas = document.querySelector('#sky');
     canvas.style.display = 'block';
     const sectionRef = document.querySelector('section');

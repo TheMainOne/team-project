@@ -1,18 +1,15 @@
 import galleryCardTemplate from './gallery-card-template';
 import { videoapi } from './api-service';
 import { initThemeSwitcher } from './change-theme';
-import {
-  removeTuiButtons,
-  setPagination,
-  forPaginationFilter,
-  pagination,
-} from './pagination';
+import { removeTuiButtons, setPagination, forPaginationFilter, pagination } from './pagination';
 import getRefs from './refs';
 import { load } from './storage';
-import { Notify } from 'notiflix';
-
+import { fonLibrary } from './fon-library';
 const { log, error } = console;
 const refs = getRefs();
+const { WATCHED, QUEUE } = videoapi.keys;
+import { Notify } from 'notiflix';
+
 const notifyOptions = {
   timeout: 2000,
   clickToClose: true,
@@ -31,7 +28,7 @@ const notifyStatus = (videosCount, page, totalResults) => {
 
 const renderGallery = async results => {
   try {
-    if (!results || results === '') {
+    if (!results || results === '' || results.length === 0) {
       refs.gallery.innerHTML = '';
       return;
     }
@@ -75,7 +72,9 @@ const renderCard = ({ key, perPage }) => {
   const currentPage = pagination.getCurrentPage();
   document.querySelector('.tui-pagination').classList.add('is-hidden');
 
-  if (!loadStorage) {
+  if (!loadStorage || loadStorage.length === 0) {
+    refs.gallery.innerHTML = fonLibrary();
+    document.querySelector('.tui-pagination').classList.remove('is-hidden');
     return;
   }
 

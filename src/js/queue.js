@@ -4,8 +4,9 @@ import { load } from './storage';
 import './film-in-modal-window';
 import getRefs from './refs';
 import { videoapi } from './api-service';
+import { fonLibrary } from './fon-library';
 
-const { QUEUE } = videoapi.keys;
+const { QUEUE, WATCHED } = videoapi.keys;
 const refs = getHeaderRefs();
 const refGallery = getRefs();
 const btnLibrary = document.querySelector(`[data-action="js-library"]`);
@@ -22,6 +23,10 @@ btnLibrary.addEventListener('click', () => {
   }
   if (!loadQueue) {
     document.querySelector('.tui-pagination').classList.add('is-hidden');
+    if (load(WATCHED)) {
+      console.log(load(WATCHED));
+      refGallery.gallery.innerHTML = fonLibrary();
+    }
   }
 });
 
@@ -39,6 +44,10 @@ refs.headerControlBox.addEventListener('click', e => {
 
     if (!loadQueue || loadQueue.length === 0) {
       document.querySelector('.tui-pagination').classList.add('is-hidden');
+      if (load(WATCHED)) {
+        console.log(load(WATCHED));
+        refGallery.gallery.innerHTML = fonLibrary();
+      }
     }
   }
 });

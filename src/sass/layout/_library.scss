@@ -1,6 +1,7 @@
 main {
   position: relative;
 }
+
 section.section__js {
   background-image: url('../images/library.jpg');
   background-position: center;
@@ -11,6 +12,7 @@ section.section__js {
   height: 1000px;
   width: 100%;
 }
+
 #sky {
   z-index: 0;
   position: absolute;
@@ -25,6 +27,7 @@ section.section__js {
   text-align: center;
   color: var(--main-text-color);
 }
+
 .glow-on-hover {
   position: relative;
   z-index: 1;
@@ -49,18 +52,16 @@ section.section__js {
 
 .glow-on-hover:before {
   content: '';
-  background: linear-gradient(
-    45deg,
-    #ff0000,
-    #ff7300,
-    #fffb00,
-    #48ff00,
-    #00ffd5,
-    #002bff,
-    #7a00ff,
-    #ff00c8,
-    #ff0000
-  );
+  background: linear-gradient(45deg,
+      #ff0000,
+      #ff7300,
+      #fffb00,
+      #48ff00,
+      #00ffd5,
+      #002bff,
+      #7a00ff,
+      #ff00c8,
+      #ff0000);
   position: absolute;
   top: -2px;
   left: -2px;
@@ -103,9 +104,11 @@ section.section__js {
   0% {
     background-position: 0 0;
   }
+
   50% {
     background-position: 400% 0;
   }
+
   100% {
     background-position: 0 0;
   }
@@ -114,5 +117,22 @@ section.section__js {
 @media (max-width: $tablet) {
   section.section__js {
     height: 530px;
+  }
+}
+
+.fon-library {
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  transform: translateX(-50%);
+  left: 50%;
+
+}
+
+@media (min-width: $desktop) {
+  .fon-library {
+    top: 10%
   }
 }
