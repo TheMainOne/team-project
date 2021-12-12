@@ -247,11 +247,14 @@
       border: none;
       background: transparent;
       color: var(--main-text-color);
+      transition: var(--cubic) var(--time);
+      transition-property: color, transform, font-size;
     }
   }
 
   & .input:focus + &-label,
-  & .input:hover + &-label {
+  & .input:hover + &-label,
+  & .input:not(:placeholder-shown) + &-label {
     color: var(--accent-color);
     transform: translateY(-30px);
     font-size: 12px;
