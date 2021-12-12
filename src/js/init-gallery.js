@@ -70,7 +70,8 @@ const renderCard = ({ key, perPage }) => {
 
   if (!loadStorage || loadStorage.length === 0) {
     refs.gallery.innerHTML = fonLibrary();
-    document.querySelector('.tui-pagination').classList.remove('is-hidden');
+    document.querySelector('.tui-pagination').classList.add('is-hidden');
+
     return;
   }
 
