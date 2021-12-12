@@ -1,19 +1,22 @@
 body.light-theme {
   background-color: var(--main-text-color);
-  color: #202124;
+  color: var(--secondary-text-color);
 }
 
 body.dark-theme {
-  background-color: #202124;
+  background-color: var(--secondary-bg-color);
   color: var(--main-text-color);
 }
-// .movie__btn.dark-theme{
-//     background-color: var(--third-text-color);
-//     border-color: #fff;
-//   }
-// .movie.dark-theme{
-// color: var(--third-text-color);
-// }
+
+.footer.light-theme {
+  background-color: var(--main-bg-color);
+  color: var(--secondary-text-color);
+}
+
+.footer.dark-theme {
+  background-color: var(--secondary-bg-color);
+  color: var(--third-text-color);
+}
 
 .toolbar {
   display: flex;

@@ -1,6 +1,5 @@
 import galleryCardTemplate from './gallery-card-template';
 import { videoapi } from './api-service';
-import { initThemeSwitcher } from './change-theme';
 import { removeTuiButtons, setPagination, forPaginationFilter, pagination } from './pagination';
 import getRefs from './refs';
 import { load } from './storage';
@@ -8,6 +7,13 @@ import { fonLibrary, setFon } from './fon-library';
 const { log, error } = console;
 const refs = getRefs();
 const { WATCHED, QUEUE } = videoapi.keys;
+import { changeCardsTitle } from './change-theme';
+import { Notify } from 'notiflix';
+const notifyOptions = {
+  timeout: 2000,
+  clickToClose: true,
+};
+export { notifyOptions };
 
 const notifyStatus = (videosCount, page, totalResults) => {
   if (videosCount < 1) {
@@ -34,7 +40,8 @@ const renderGallery = async results => {
 
     refs.gallery.innerHTML = '';
     refs.gallery.insertAdjacentHTML('beforeend', galleryMarkup);
-    initThemeSwitcher();
+    // initThemeSwitcher();
+    await changeCardsTitle();
     removeTuiButtons(results.length);
   } catch (err) {
     error(err);
@@ -54,6 +61,7 @@ const initGallery = async () => {
     // console.log('res', page, results, totalPages, totalResults);
 
     if (notifyStatus(results.length, page, totalResults)) return;
+
     await renderGallery(results);
 
     setPagination(videoapi.keys.TRENDING.WEEK, totalResults);

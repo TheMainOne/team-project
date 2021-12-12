@@ -21,7 +21,6 @@ export { getImageUrl };
 const initGenres = async () => {
   try {
     const genresParsed = await videoapi.getGenres();
-
     return genresParsed;
   } catch (err) {
     error(err);
@@ -29,7 +28,7 @@ const initGenres = async () => {
 };
 
 const genresParsed = initGenres();
-
+    
 const getGenreName = async id =>
   await (await genresParsed).find(genre => genre.id === id).name;
 
@@ -51,6 +50,8 @@ const getGenres = async genreIds => {
   return genresJoined;
 };
 export { getGenres };
+export { getGenreName };
+
 
 const galleryCardTemplate = async (
  

@@ -20,7 +20,7 @@ export function createMarkup({
       originalTitle,
       voteAverage,
       voteCount,
-      genresJoined,
+      getGenreNames,
 }) {
 
   const queueStatus = isFilmInQueue ? { data: 'remove-from-queue', text: 'remove from queue' } : { data: 'add-to-queue', text: 'add to queue' };
@@ -65,7 +65,7 @@ export function createMarkup({
                 </tr>
                 <tr class="movie__info-rows movie__info-rows--last">
                     <td class="movie__info-name">Genre</td>
-                    <td class="movie__info-value">${genresJoined}</td>
+                    <td class="movie__info-value">${getGenreNames}</td>
                 </tr>
                 </tbody>
             </table>
