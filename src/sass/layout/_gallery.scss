@@ -258,4 +258,8 @@
 .fon-gallery {
   display: inline;
   width: 300px;
+
+  @media screen and(max-width:$tablet) {
+    width: 100%;
+  }
 }
