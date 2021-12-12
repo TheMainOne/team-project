@@ -94,24 +94,22 @@ function onInputFocus(e) {
 
   if (selector.dataset.action !== 'js-form') return;
   selector.setAttribute('style', 'border-bottom: 0.5px solid var(--accent-color)');
-  // selector.style.borderBottom = '';
 }
 
 function onInputChange(e) {
-  console.log(e)
+  console.log(e);
 
   const selector = e.target.closest('[data-action="js-form"]');
   selector.removeAttribute('style');
 
-    if (e.target.value !== '') {
-     setTimeout(() => {
-    e.target.value = '';
-  }, 200);
-  }
+  // if (e.target.value !== '') {
+  //   setTimeout(() => {
+  //     e.target.value = '';
+  //   }, 200);
+  // }
   // selector.style.borderBottom = '0.5px solid var(--main-text-color)';
   // console.log(selector);
   // console.log('снять слушателя');
-  // e.target.removeEventListener('blur', onInputChange);
 }
 
 // Функции подмены background
@@ -130,7 +128,7 @@ function renderSearchForm() {
   refs.headerControlBox.innerHTML = `
   <form class="header__search" id="search-form" data-action="js-form">
     <div class="form-field">
-      <input class="input" id="searchQuery" type="text" name="searchQuery" autocomplete="off"/>
+      <input class="input" id="searchQuery" type="text" name="searchQuery" autocomplete="off" placeholder=" "/>
       <label class="header__search-label" for="searchQuery">Enter the title of the movie</label>
     </div>
     <button class="search-button" type="submit" name="submitSearch">
