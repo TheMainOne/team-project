@@ -1,7 +1,11 @@
 import sprite from './images/svg/sprite.svg';
 export { sprite };
 
-import { listenPaginationClick, setPagination } from './js/pagination';
+import {
+  listenPaginationClick,
+  setPagination,
+  removeTuiButtons,
+} from './js/pagination';
 import 'tui-pagination/dist/tui-pagination.min.css';
 
 import './js/queue';
