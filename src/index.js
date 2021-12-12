@@ -19,7 +19,7 @@ import { save, load, removeEmptyStorageKeys } from './js/storage';
 import './js/modalTeam';
 import getRefs from './js/refs';
 import { scrollFunction, backToTop } from './js/back-to-top-btn';
-import { changeTheme, onThemeToggle } from './js/change-theme';
+import { populateChooseTheme, onThemeToggle } from './js/change-theme';
 import getHeaderRefs from './js/getHearedRefs';
 const { info } = Notify;
 const { log, error } = console;
@@ -36,19 +36,13 @@ const onContainerClick = async e => {
   try {
     const target = e.target;
 
-    const input = headerRefs.headerControlBox.querySelector(
-      '[name="searchQuery"]',
-    );
+    const input = headerRefs.headerControlBox.querySelector('[name="searchQuery"]');
 
-    const form = headerRefs.headerControlBox.querySelector(
-      '[data-action="js-form"]',
-    );
+    const form = headerRefs.headerControlBox.querySelector('[data-action="js-form"]');
 
     if (target === input || target === form) return;
 
-    const searchButton = headerRefs.headerControlBox.querySelector(
-      '[name="submitSearch"]',
-    );
+    const searchButton = headerRefs.headerControlBox.querySelector('[name="submitSearch"]');
 
     let searchQuery = null;
     if (searchButton === target || target.closest('[name="submitSearch"]')) {
@@ -123,4 +117,5 @@ window.onscroll = function (backToTopBtn) {
   scrollFunction(backToTopBtn);
 };
 // ======смена темы============
-changeTheme();
+// changeTheme();
+populateChooseTheme();
