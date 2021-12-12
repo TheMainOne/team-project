@@ -259,7 +259,8 @@
   display: inline;
   width: 300px;
 
-  @media screen and(max-width:$tablet) {
+  // 767 оставить, не менять - иначе выскакивает проблема в точке перелома
+  @media screen and(max-width:767px) {
     width: 100%;
   }
 }

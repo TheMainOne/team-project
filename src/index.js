@@ -86,6 +86,7 @@ const onContainerClick = async e => {
 
     refs.gallery.dataset.gallery = 'search';
     await renderGallery(results);
+    image.style.display = 'none';
   } catch (err) {
     error(err);
   }
