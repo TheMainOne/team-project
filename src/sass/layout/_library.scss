@@ -127,13 +127,20 @@ section.section__js {
   width: 300px;
   height: 300px;
   transform: translateX(-50%);
-  left: 165%;
+  left: 47%;
 
+}
+
+@media (min-width: $tablet) {
+  .fon-library {
+    top: 10%;
+    left: 105%;
+  }
 }
 
 @media (min-width: $desktop) {
   .fon-library {
     top: 10%;
-    left: 105%;
+    left: 165%;
   }
 }

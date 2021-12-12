@@ -22,11 +22,11 @@ const renderWatchedVideos = () => {
   if (!loadWatched) return;
 
   const perPage = 9;
+  document.querySelector('.tui-pagination').classList.remove('is-hidden');
 
   renderCard({ key: WATCHED, perPage });
-  document.querySelector('.tui-pagination').classList.remove('is-hidden');
+
   if (load(QUEUE) && load(QUEUE).length > 0) {
-    document.querySelector('.tui-pagination').classList.add('is-hidden');
     refs.gallery.innerHTML = fonLibrary();
   } else {
     deleteCanvas();
