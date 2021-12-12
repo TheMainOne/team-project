@@ -13,11 +13,8 @@ import './js/library';
 import './sass/main.scss';
 import './js/header';
 import './js/film-in-modal-window';
-
-// prettier-ignore
 import { initGallery } from './js/init-gallery';
 import { removeEmptyStorageKeys } from './js/storage';
-
 import './js/modalTeam';
 import getRefs from './js/refs';
 import { scrollFunction, backToTop } from './js/back-to-top-btn';
@@ -27,7 +24,6 @@ import { onSubmitSearch } from './js/on-search';
 
 const refs = getRefs();
 const headerRefs = getHeaderRefs();
-console.log('headerRefs', headerRefs);
 
 initGallery();
 

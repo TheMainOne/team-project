@@ -51,7 +51,8 @@ const renderGallery = async results => {
   }
 };
 
-const initGallery = async () => {
+const renderTrendingVideos = async () => {
+  const perPage = 20;
   try {
     const {
       page,
@@ -59,22 +60,22 @@ const initGallery = async () => {
       total_pages: totalPages,
       total_results: totalResults,
     } = await videoapi.getTrendingVideos();
-
     if (notifyStatus(results.length, page, totalResults)) return;
-
-    await renderGallery(results);
-
-    setPagination(TRENDING.WEEK, totalResults);
+    renderGallery(results);
+    setPagination(TRENDING.WEEK, totalResults, 20);
   } catch (err) {
     error(err);
   }
+};
+
+const initGallery = async () => {
+  renderTrendingVideos();
 };
 
 const renderCard = ({ key, perPage = 9 }) => {
   const loadStorage = load(key);
   const filteredArray = forPaginationFilter(loadStorage, perPage);
   const currentPage = pagination.getCurrentPage();
-  hidePagination();
 
   if (!loadStorage || loadStorage.length === 0) {
     refs.gallery.innerHTML = fonLibrary();
@@ -103,12 +104,7 @@ const onBtnClickInLibraryRender = hasDataAttr => {
   const perPage = 9;
   if (hasDataAttr === 'queue') {
     videoapi.type = QUEUE;
-    if (load(QUEUE)?.length > perPage) {
-      setPagination(QUEUE, load(QUEUE)?.length, perPage);
-      showPagination();
-    } else {
-      hidePagination();
-    }
+    setPagination(QUEUE, load(QUEUE)?.length, perPage);
   }
 
   if (hasDataAttr === 'watched') {

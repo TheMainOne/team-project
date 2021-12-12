@@ -1,4 +1,5 @@
-import { notifyStatus, renderGallery, notifyOptions } from './init-gallery';
+// prettier-ignore
+import { notifyStatus, renderGallery, notifyOptions, renderCard } from './init-gallery';
 import { Notify } from 'notiflix';
 import { hidePagination, setPagination, showPagination } from './pagination';
 import { videoapi } from './api-service';
@@ -20,7 +21,7 @@ const onSubmitSearch = async e => {
 
   const isClickOnSubmitBtn =
     target === searchBtn ||
-    target?.closest('.search-button')?.classList?.contains('.search-button');
+    (target.nodeName !== 'BUTTON' && target?.closest('[name="submitSearch"]'));
 
   if (!isClickOnSubmitBtn) return;
 
@@ -38,7 +39,7 @@ const onSubmitSearch = async e => {
   const { SEARCH } = videoapi.keys;
 
   videoapi.query = searchQuery;
-  videoapi.type = videoapi.keys.SEARCH;
+  videoapi.type = SEARCH;
 
   try {
     const {
@@ -51,17 +52,14 @@ const onSubmitSearch = async e => {
     if (totalResults === 0) {
       refs.gallery.innerHTML = '';
       image.style.display = 'block';
-      return warning(
-        'Sorry, there are no results found. Try searching for something else!',
-      );
+      warning('Sorry, no results. Please try another query!');
     }
 
-    setPagination(SEARCH, totalResults);
+    setPagination(SEARCH, totalResults, 20);
     if (notifyStatus(results.length, page, totalResults)) return;
 
     refs.gallery.dataset.gallery = 'search';
-    await renderGallery(results);
-    showPagination();
+    renderGallery(results);
     input.value = '';
   } catch (err) {
     error(err);
