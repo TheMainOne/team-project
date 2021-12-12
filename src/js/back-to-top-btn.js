@@ -1,6 +1,6 @@
 export { scrollFunction, backToTop };
 let mybutton = document.querySelector(".btn-back-to-top");
-    
+
 function scrollFunction() {
   if (
     document.body.scrollTop > 100 ||

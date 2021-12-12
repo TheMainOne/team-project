@@ -3,6 +3,7 @@ import { addToQueue, removeFromQueue } from './for-queue-localstorage';
 import { load } from './storage';
 import getRefs from './refs';
 import { renderCard } from './init-gallery';
+import { hidePagination, showPagination } from './pagination';
 const { TRENDING, QUEUE, SEARCH, WATCHED } = videoapi.keys;
 const refs = getRefs();
 const refsGallery = refs.gallery;
@@ -49,5 +50,10 @@ export async function onClickBtnQueue(e) {
   if (inQueuePage) {
     refsGallery.innerHTML = '';
     renderCard({ key: QUEUE, perPage });
+    if (load(QUEUE)?.length > perPage) {
+      showPagination();
+    } else {
+      hidePagination();
+    }
   }
 }

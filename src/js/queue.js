@@ -1,5 +1,5 @@
 import { renderCard } from './init-gallery';
-import getHeaderRefs from './getHearedRefs';
+import getHeaderRefs from './get-header-refs';
 import { load } from './storage';
 import './film-in-modal-window';
 import getRefs from './refs';

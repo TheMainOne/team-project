@@ -1,10 +1,17 @@
 import galleryCardTemplate from './gallery-card-template';
 import { videoapi } from './api-service';
 import { changeCardsTitle } from './change-theme';
-import { removeTuiButtons, setPagination, forPaginationFilter, pagination } from './pagination';
+import {
+  setPagination,
+  forPaginationFilter,
+  pagination,
+  hidePagination,
+  showPagination,
+} from './pagination';
 import getRefs from './refs';
 import { load } from './storage';
 import { fonLibrary, setFon } from './fon-library';
+import { renderWatchedVideos } from './render-watched';
 const { log, error } = console;
 const refs = getRefs();
 
@@ -14,6 +21,7 @@ const notifyOptions = {
 };
 export { notifyOptions };
 
+const { TRENDING, WATCHED, QUEUE } = videoapi.keys;
 
 const notifyStatus = (videosCount, page, totalResults) => {
   if (videosCount < 1) {
@@ -26,9 +34,9 @@ const notifyStatus = (videosCount, page, totalResults) => {
 };
 
 const renderGallery = async results => {
-  console.log('results', results);
+  // console.log('results', results);
   try {
-    console.log('results', results);
+    // console.log('results', results);
 
     if (!results || results === '' || results.length === 0) {
       refs.gallery.innerHTML = '';
@@ -40,7 +48,6 @@ const renderGallery = async results => {
 
     refs.gallery.innerHTML = '';
     refs.gallery.insertAdjacentHTML('beforeend', galleryMarkup);
-    removeTuiButtons(results.length);
     await changeCardsTitle();
   } catch (err) {
     error(err);
@@ -49,7 +56,6 @@ const renderGallery = async results => {
 
 const initGallery = async () => {
   try {
-    /* page: 1, results: Array(20), total_pages: 1000, total_results: 20000 */
     const {
       page,
       results,
@@ -57,35 +63,73 @@ const initGallery = async () => {
       total_results: totalResults,
     } = await videoapi.getTrendingVideos();
 
-    // console.log('res', page, results, totalPages, totalResults);
-
     if (notifyStatus(results.length, page, totalResults)) return;
 
     await renderGallery(results);
 
-    setPagination(videoapi.keys.TRENDING.WEEK, totalResults);
+    setPagination(TRENDING.WEEK, totalResults);
   } catch (err) {
     error(err);
   }
 };
 
-const renderCard = ({ key, perPage }) => {
+const renderCard = ({ key, perPage = 9 }) => {
   const loadStorage = load(key);
   const filteredArray = forPaginationFilter(loadStorage, perPage);
   const currentPage = pagination.getCurrentPage();
-  document.querySelector('.tui-pagination').classList.add('is-hidden');
+  hidePagination();
 
   if (!loadStorage || loadStorage.length === 0) {
     refs.gallery.innerHTML = fonLibrary();
-    document.querySelector('.tui-pagination').classList.remove('is-hidden');
     return;
   }
 
   renderGallery(filteredArray);
   pagination.setItemsPerPage(perPage);
-  setPagination(key, loadStorage.length);
+  setPagination(key, loadStorage?.length, perPage);
   pagination.movePageTo(currentPage);
-  document.querySelector('.tui-pagination').classList.remove('is-hidden');
+  if (loadStorage?.length > perPage) {
+    console.log('renderCard ~ loadStorage?.length', loadStorage?.length);
+    showPagination();
+  } else {
+    hidePagination();
+  }
 };
 
-export { notifyStatus, renderGallery, initGallery, renderCard };
+const getPage = hasDataAttr => {
+  videoapi.currentPage = hasDataAttr;
+};
+
+const onLibraryClickRenderQueue = hasDataAttr => {
+  const perPage = 9;
+  // getPage(hasDataAttr);
+  renderCard({ key: QUEUE, perPage });
+};
+
+const onBtnClickInLibraryRender = hasDataAttr => {
+  if (hasDataAttr === 'queue') {
+    videoapi.type = QUEUE;
+    if (load(QUEUE)?.length > 9) {
+      setPagination(QUEUE, load(QUEUE)?.length, 9);
+      showPagination();
+    } else {
+      hidePagination();
+    }
+  }
+
+  if (hasDataAttr === 'watched') {
+    videoapi.type = WATCHED;
+
+    renderWatchedVideos();
+  }
+};
+
+export {
+  notifyStatus,
+  renderGallery,
+  initGallery,
+  renderCard,
+  onLibraryClickRenderQueue,
+  onBtnClickInLibraryRender,
+  getPage,
+};

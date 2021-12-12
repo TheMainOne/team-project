@@ -13,7 +13,6 @@ import { darkThemeForModal } from './change-theme';
 
 import { enableTrailerLink } from './trailer';
 import { renderGallery } from './init-gallery';
-import { pagination, setPagination, onPaginationPageLibrary } from './pagination';
 
 const refs = getRefs();
 const { QUEUE, WATCHED, TRENDING, SEARCH } = videoapi.keys;
@@ -33,7 +32,6 @@ const modal = new tingle.modal({
     queue.queueRemoveEventListener();
     watched.watchedRemoveEventListener();
 
-    // onPaginationPageLibrary();
   },
 });
 
@@ -86,7 +84,7 @@ async function contentModal(idOfFilm) {
     }
 
     ourFilm = arrayOfFilms.find(film => film.id === idOfFilm);
-    console.log('contentModal -> ourFilm', ourFilm);
+    // console.log('contentModal -> ourFilm', ourFilm);
 
     const {
       id,
@@ -101,7 +99,9 @@ async function contentModal(idOfFilm) {
     } = ourFilm;
 
     const posterUrl = getImageUrl(posterPath);
-    const getGenreNames = (await Promise.all(genreIds.map(getGenreName))).join(', ');
+    const getGenreNames = (await Promise.all(genreIds.map(getGenreName))).join(
+      ', ',
+    );
     const poster = createPoster(posterUrl, title);
     const isFilmInQueue = searchFilmInQueue(idOfFilm);
     const isFilmInWatched = searchFilmInWatched(id);
