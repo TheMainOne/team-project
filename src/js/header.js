@@ -126,6 +126,7 @@ function renderLibraryButtons() {
 
 // Cлушатель событий на кнопке home для возврата на главную страницу
 refs.homeBtn.addEventListener('click', async () => {
+  console.log('click on home');
   // window.location = './';
   deleteCanvas();
   addListenerOnLibrary();

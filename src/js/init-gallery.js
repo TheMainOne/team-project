@@ -4,7 +4,7 @@ import { initThemeSwitcher } from './change-theme';
 import { removeTuiButtons, setPagination, forPaginationFilter, pagination } from './pagination';
 import getRefs from './refs';
 import { load } from './storage';
-import { fonLibrary } from './fon-library';
+import { fonLibrary, setFon } from './fon-library';
 const { log, error } = console;
 const refs = getRefs();
 const { WATCHED, QUEUE } = videoapi.keys;
@@ -15,6 +15,7 @@ const notifyOptions = {
   clickToClose: true,
 };
 export { notifyOptions };
+
 
 const notifyStatus = (videosCount, page, totalResults) => {
   if (videosCount < 1) {
@@ -27,9 +28,13 @@ const notifyStatus = (videosCount, page, totalResults) => {
 };
 
 const renderGallery = async results => {
+  console.log('results', results);
   try {
+    console.log('results', results);
+
     if (!results || results === '' || results.length === 0) {
       refs.gallery.innerHTML = '';
+      setFon();
       return;
     }
     const string = await Promise.all(results.map(galleryCardTemplate));
