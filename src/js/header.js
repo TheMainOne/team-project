@@ -84,10 +84,11 @@ function onLibraryButtonClick(e) {
 }
 
 function onInputFocusIn(e) {
-  if (e.target.classList.contains('input')) {
-    const form = e.target.closest('[data-action="js-form"]');
+  const input = e.target;
+  if (input.classList.contains('input')) {
+    const form = input.closest('[data-action="js-form"]');
     form.style.borderBottom = '0.5px solid var(--accent-color)';
-    e.target.addEventListener('blur', onInputFocusOut, { once: true });
+    input.addEventListener('blur', onInputFocusOut, { once: true });
   }
 }
 
