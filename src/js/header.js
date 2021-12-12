@@ -87,7 +87,7 @@ function onLibraryButtonClick(e) {
 function onInputFocus(e) {
   const input = e.target;
   if (input.classList.contains('input')) {
-    input.addEventListener('blur', onInputChange);
+    input.addEventListener('blur', onInputChange, { once: true });
     console.log('повесили слушателя');
   }
   const selector = input.closest('[data-action="js-form"]');
