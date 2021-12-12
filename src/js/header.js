@@ -13,12 +13,11 @@ const { QUEUE, WATCHED } = videoapi.keys;
 
 const refs = getHeaderRefs();
 
+renderSearchForm();
+refs.headerControlBox.addEventListener('click', onInputFocus);
 refs.navbar.addEventListener('click', onTopNavBtnClick);
 
 // Для работы с кнопками watched и queue слушатель вешать на этот контейнер refs.headerControlBox и отлавливать через e.target.dataset.action
-
-renderSearchForm();
-refs.headerControlBox.addEventListener('click', onInputFocus);
 
 function onTopNavBtnClick(e) {
   const nextButton = e.target;
@@ -26,7 +25,6 @@ function onTopNavBtnClick(e) {
   if (!hasDataAttr) return;
 
   videoapi.currentPage = hasDataAttr;
-  // console.log('onTopNavBtnClick ~ videoapi.currentPage', videoapi.currentPage);
 
   const queueMovies = load(QUEUE);
   renderGallery(queueMovies);
@@ -77,8 +75,6 @@ function onLibraryButtonClick(e) {
     renderWatchedVideos();
   }
 
-  // console.log('onLibraryButtonClick ~ videoapi.type', videoapi.type);
-
   const prevButton = refs.headerControlBox.querySelector('.is-active');
   if (prevButton) {
     prevButton.classList.remove('is-active');
@@ -88,9 +84,27 @@ function onLibraryButtonClick(e) {
 }
 
 function onInputFocus(e) {
-  const selector = e.target.parentNode;
+  const input = e.target;
+  if (input.classList.contains('input')) {
+    input.addEventListener('blur', onInputChange);
+    console.log('повесили слушателя');
+  }
+  const selector = input.closest('[data-action="js-form"]');
+
   if (selector.dataset.action !== 'js-form') return;
-  selector.style.borderBottom = '0.5px solid var(--accent-color)';
+  selector.setAttribute('style', 'border-bottom: 0.5px solid var(--accent-color)');
+  // selector.style.borderBottom = '';
+}
+
+function onInputChange(e) {
+  console.log('ушёл фокус');
+  console.log(e.target);
+  const selector = e.target.closest('[data-action="js-form"]');
+  selector.removeAttribute('style');
+  // selector.style.borderBottom = '0.5px solid var(--main-text-color)';
+  console.log(selector);
+  console.log('снять слушателя');
+  // e.target.removeEventListener('blur', onInputChange);
 }
 
 // Функции подмены background
@@ -108,7 +122,10 @@ function setHomeBackground() {
 function renderSearchForm() {
   refs.headerControlBox.innerHTML = `
   <form class="header__search" id="search-form" data-action="js-form">
-    <input class="input" type="text" name="searchQuery" autocomplete="off" placeholder="Поиск фильмов" />
+    <div class="form-field">
+      <input class="input" id="searchQuery" type="text" name="searchQuery" autocomplete="off"/>
+      <label class="header__search-label" for="searchQuery">Enter the title of the movie</label>
+    </div>
     <button class="search-button" type="submit" name="submitSearch">
       <svg class="search-icon"> <use href="${iconSearch}"></use> </svg>
     </button>

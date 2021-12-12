@@ -252,7 +252,6 @@ function openModal(e) {
   let scrollBarWidth = window.innerWidth - document.body.offsetWidth;
   body.style.margin = '0px ' + scrollBarWidth + 'px 0px 0px';
   body.style.overflow = 'hidden';
-
   window.addEventListener('keydown', closeModalHandler);
 }
 
