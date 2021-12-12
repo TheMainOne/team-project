@@ -11,13 +11,13 @@ import { setPagination } from './pagination';
 import getRefs from './refs';
 import { load } from './storage';
 import { deleteCanvas, addListenerOnLibrary } from './library';
+
 const mainRefs = getRefs();
 const iconSearch = `${sprite}#icon-search`;
 const { TRENDING, QUEUE, WATCHED } = videoapi.keys;
 const refs = getHeaderRefs();
 
 renderSearchForm();
-refs.headerControlBox.addEventListener('click', onInputFocus);
 refs.navbar.addEventListener('click', onTopNavBtnClick);
 // Для работы с кнопками watched и queue слушатель вешать на этот контейнер refs.headerControlBox и отлавливать через e.target.dataset.action
 
@@ -40,7 +40,7 @@ function onTopNavBtnClick(e) {
     setLibraryBackground();
     renderLibraryButtons();
     refs.headerControlBox.addEventListener('click', onLibraryButtonClick);
-    refs.headerControlBox.removeEventListener('click', onInputFocus);
+    refs.headerControlBox.removeEventListener('focusin', onInputFocusIn);
     onLibraryClickRenderQueue(hasDataAttr);
   }
 
@@ -48,7 +48,6 @@ function onTopNavBtnClick(e) {
     setHomeBackground();
     renderSearchForm();
     refs.headerControlBox.removeEventListener('click', onLibraryButtonClick);
-    refs.headerControlBox.addEventListener('click', onInputFocus);
   }
 
   if (hasDataAttr === 'logo') {
@@ -84,32 +83,18 @@ function onLibraryButtonClick(e) {
   nextButton.classList.add('is-active');
 }
 
-function onInputFocus(e) {
-  const input = e.target;
-  if (input.classList.contains('input')) {
-    input.addEventListener('blur', onInputChange, { once: true });
-    console.log('повесили слушателя');
+function onInputFocusIn(e) {
+  if (e.target.classList.contains('input')) {
+    const form = e.target.closest('[data-action="js-form"]');
+    form.style.borderBottom = '0.5px solid var(--accent-color)';
+    e.target.addEventListener('blur', onInputFocusOut, { once: true });
   }
-  const selector = input.closest('[data-action="js-form"]');
-
-  if (selector.dataset.action !== 'js-form') return;
-  selector.setAttribute('style', 'border-bottom: 0.5px solid var(--accent-color)');
 }
 
-function onInputChange(e) {
-  console.log(e);
-
-  const selector = e.target.closest('[data-action="js-form"]');
-  selector.removeAttribute('style');
-
-  // if (e.target.value !== '') {
-  //   setTimeout(() => {
-  //     e.target.value = '';
-  //   }, 200);
-  // }
-  // selector.style.borderBottom = '0.5px solid var(--main-text-color)';
-  // console.log(selector);
-  // console.log('снять слушателя');
+function onInputFocusOut(e) {
+  const input = e.target;
+  const form = input.closest('[data-action="js-form"]');
+  form.removeAttribute('style');
 }
 
 // Функции подмены background
@@ -136,6 +121,7 @@ function renderSearchForm() {
     </button>
   </form>
   `;
+  refs.headerControlBox.addEventListener('focusin', onInputFocusIn);
 }
 
 function renderLibraryButtons() {
