@@ -11,6 +11,7 @@ import Daryna from '../images/team/Daryna.jpg';
 import Kostiantyn from '../images/team/Kostiantyn.jpg';
 import Dmitriy from '../images/team/Dmitriy.jpg';
 import { sprite } from '../index';
+import { onTeamThemeToggle } from './change-theme';
 
 const container = document.querySelector('.team__modal');
 const body = document.querySelector('body');
@@ -238,6 +239,9 @@ const markup = `
 const modal = basicLightbox.create(markup, {
   onClose: modal => {
     body.removeAttribute('style');
+  },
+  onShow: modal => {
+    onTeamThemeToggle();
   },
 });
 container.addEventListener('click', openModal);

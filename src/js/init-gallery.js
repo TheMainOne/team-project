@@ -1,14 +1,12 @@
 import galleryCardTemplate from './gallery-card-template';
 import { videoapi } from './api-service';
-import { initThemeSwitcher } from './change-theme';
+import { changeCardsTitle } from './change-theme';
 import { removeTuiButtons, setPagination, forPaginationFilter, pagination } from './pagination';
 import getRefs from './refs';
 import { load } from './storage';
 import { fonLibrary, setFon } from './fon-library';
 const { log, error } = console;
 const refs = getRefs();
-const { WATCHED, QUEUE } = videoapi.keys;
-import { Notify } from 'notiflix';
 
 const notifyOptions = {
   timeout: 2000,
@@ -42,8 +40,8 @@ const renderGallery = async results => {
 
     refs.gallery.innerHTML = '';
     refs.gallery.insertAdjacentHTML('beforeend', galleryMarkup);
-    initThemeSwitcher();
     removeTuiButtons(results.length);
+    await changeCardsTitle();
   } catch (err) {
     error(err);
   }
