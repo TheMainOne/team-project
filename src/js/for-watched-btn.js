@@ -23,20 +23,20 @@ export async function onClickBtnWatched(e) {
   const isWachedGallery = refs.gallery.dataset.gallery === 'watch';
   const refWatchedBtn = e.currentTarget;
   const movieId = Number(document.querySelector('.movie').dataset.id);
-  let filmOfWeek = await load(TRENDING.WEEK).results;
-  let currentMovie = filmOfWeek.find(movie => movie.id === movieId);
+  let film = await load(TRENDING.WEEK).results;
+  let currentMovie = film.find(movie => movie.id === movieId);
 
   if (!currentMovie) {
-    filmOfWatched = await load(WATCHED);
-    if (filmOfWeek) {
-      currentMovie = filmOfWatched.find(movie => movie.id === movieId);
+    film = await load(WATCHED);
+    if (film) {
+      currentMovie = film.find(movie => movie.id === movieId);
     }
   }
 
   if (!currentMovie) {
-    filmOfSearch = await load(SEARCH);
-    if (filmOfWeek) {
-      currentMovie = filmOfSearch.results.find(movie => movie.id === movieId);
+    film = await load(SEARCH);
+    if (film) {
+      currentMovie = film.results.find(movie => movie.id === movieId);
     }
   }
 

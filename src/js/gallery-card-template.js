@@ -28,22 +28,22 @@ const initGenres = async () => {
 };
 
 const genresParsed = initGenres();
-    
+
 const getGenreName = async id =>
-  await (await genresParsed).find(genre => genre.id === id).name;
+  await (await genresParsed)?.find(genre => genre.id === id).name;
 
 const getGenres = async genreIds => {
   let genresJoined = genreIds.length === 0 ? '' : genreIds;
 
-  // Если жанров 3 и менее рендерим все 
+  // Если жанров 3 и менее рендерим все
   if (genreIds?.length > 0 && genreIds.length <= 3) {
-    genresJoined = await Promise.all(genreIds.map(getGenreName));
+    genresJoined = await Promise.all(genreIds?.map(getGenreName));
     genresJoined = genresJoined.join(', ');
   }
 
   // Если жанров 4 или более рендерим 2 и слово "Other"
   if (genreIds?.length >= 4) {
-    const genresIDS = await Promise.all(genreIds.slice(0, 2).map(getGenreName));
+    const genresIDS = await Promise.all(genreIds?.slice(0, 2).map(getGenreName));
 
     genresJoined = `${genresIDS.join(', ')}, Other`;
   }
@@ -54,7 +54,7 @@ export { getGenreName };
 
 
 const galleryCardTemplate = async (
- 
+
   {
     id,
     poster_path: posterPath,
@@ -91,16 +91,16 @@ const galleryCardTemplate = async (
   //     .map(({ name }) => `${name}`)
   //     .join(', ')}, Other`;
 
-  const releaseYear = releaseDate.slice(0, 4);
+  const releaseYear = releaseDate?.slice(0, 4);
 
 
 
   if (!(dataGallery === "watch" || dataGallery === "queue")) {
-    voteAverage = '' 
+    voteAverage = ''
   }
 
 
-  
+
 
   return `
 <li class="gallery__item" data-idx=${idx} data-id=${id}>
@@ -134,6 +134,3 @@ ${(genresJoined && releaseYear) || (genresJoined && voteAverage) ? `<span class=
 };
 
 export default galleryCardTemplate;
-
-
-
