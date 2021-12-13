@@ -70,7 +70,6 @@ function onBtnCloseModal() {
 async function contentModal(idOfFilm) {
   try {
     const galleryData = refs.gallery.dataset.gallery;
-    console.log('contentModal -> galleryData', galleryData);
 
     let arrayOfFilms = [];
     let ourFilm = {};
@@ -86,7 +85,6 @@ async function contentModal(idOfFilm) {
     }
 
     ourFilm = arrayOfFilms.find(film => film.id === idOfFilm);
-    console.log('contentModal -> ourFilm', ourFilm);
 
     const {
       id,

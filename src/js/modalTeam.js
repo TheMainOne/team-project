@@ -26,7 +26,7 @@ const markup = `
         <ul class="team__wrapper">
             <li class="team__card list">
                 <img src="${Max}" alt="Max" class="team__image">
-                <p class="team__name">Max</p>
+                <p class="team__name">Maksym</p>
                 <p class="team__role">Team Lead </p>
                 <ul class="team__social">
                     <li class="team__icon list">
