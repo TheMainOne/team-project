@@ -230,7 +230,7 @@
     width: 336px;
   }
 
-  .form-field {
+  & .form-field {
     position: relative;
     display: inline-block;
     width: 100%;
@@ -258,6 +258,10 @@
     color: var(--accent-color);
     transform: translateY(-30px);
     font-size: 12px;
+  }
+
+  & .input:not(:placeholder-shown) + &-label {
+    display: none;
   }
 
   &-label {
