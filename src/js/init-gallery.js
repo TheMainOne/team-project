@@ -102,6 +102,13 @@ const renderCard = ({ key, perPage = 9 }) => {
 
 const onLibraryClickRenderQueue = () => {
   const perPage = 9;
+  const loadWatched = load(WATCHED);
+  const loadQueue = load(QUEUE);
+
+  if (loadWatched && !loadQueue) {
+    refs.gallery.innerHTML = fonLibrary();
+    return;
+  }
 
   renderCard({ key: QUEUE, perPage });
 };

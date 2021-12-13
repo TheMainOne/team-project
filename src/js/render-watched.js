@@ -14,9 +14,16 @@ const renderWatchedVideos = () => {
   refs.gallery.dataset.gallery = 'watch';
 
   const loadWatched = load(WATCHED);
-  if (!loadWatched) {
+  const loadQueue = load(QUEUE);
+
+  if (!loadWatched && loadQueue) {
     hidePagination();
-    refs.gallery.innerHTML = '';
+    refs.gallery.innerHTML = fonLibrary();
+
+    if (!loadWatched && loadQueue.length === 0) {
+      refs.gallery.innerHTML = '';
+    }
+
     return;
   }
 
@@ -27,7 +34,7 @@ const renderWatchedVideos = () => {
 
   renderCard({ key: WATCHED, perPage });
 
-  const loadQueue = load(QUEUE);
+
   if (loadQueue && loadQueue.length > 0) {
     refs.gallery.innerHTML = fonLibrary();
   } else {
