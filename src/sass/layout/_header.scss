@@ -260,6 +260,10 @@
     font-size: 12px;
   }
 
+  & .input:not(:placeholder-shown) + &-label {
+    display: none;
+  }
+
   &-label {
     position: absolute;
     top: 50%;
