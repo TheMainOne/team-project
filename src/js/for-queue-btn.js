@@ -3,6 +3,9 @@ import { addToQueue, removeFromQueue } from './for-queue-localstorage';
 import { load } from './storage';
 import getRefs from './refs';
 import { renderCard } from './init-gallery';
+import { fonLibrary } from './fon-library';
+import { setBgSnow, deleteCanvas } from './library';
+import { hidePagination, showPagination } from './pagination';
 const { TRENDING, QUEUE, SEARCH, WATCHED } = videoapi.keys;
 const refs = getRefs();
 const refsGallery = refs.gallery;
@@ -49,5 +52,13 @@ export async function onClickBtnQueue(e) {
   if (inQueuePage) {
     refsGallery.innerHTML = '';
     renderCard({ key: QUEUE, perPage });
+
+    const loadWatched = load(WATCHED);
+    if (loadWatched && loadWatched.length > 0) {
+      refs.gallery.innerHTML = fonLibrary();
+    } else {
+      deleteCanvas();
+      refs.gallery.innerHTML = setBgSnow();
+    }
   }
 }
