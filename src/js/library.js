@@ -11,7 +11,7 @@ const libraryBtnRef = document.querySelector('[data-action="js-library"]');
 function addListenerOnLibrary() {
   libraryBtnRef.addEventListener('click', setBgSnow, { once: true });
 }
-addListenerOnLibrary();
+// addListenerOnLibrary();
 
 let setIntervalID = null;
 
@@ -23,10 +23,12 @@ function setBgSnow() {
     const canvas = document.querySelector('#sky');
     canvas.style.display = 'block';
     const sectionRef = document.querySelector('section');
+    const snowButtonsRef = document.querySelector('.snow__buttons');
     sectionRef.classList.add('section__js');
     const markup = `<h1 class="title__library">Add a movie</h1>
     <a href="./index.html"><button class="glow-on-hover" type="button">GO BACK</button></a>`;
-    sectionRef.insertAdjacentHTML('afterbegin', markup);
+    // sectionRef.insertAdjacentHTML('afterbegin', markup);
+    snowButtonsRef.innerHTML = markup;
 
     const flakes = () => {
       var ctx = canvas.getContext('2d');
