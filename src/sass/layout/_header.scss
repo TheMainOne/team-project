@@ -247,8 +247,6 @@
       border: none;
       background: transparent;
       color: var(--main-text-color);
-      transition: var(--cubic) var(--time);
-      transition-property: color, transform, font-size;
     }
   }
 
@@ -269,6 +267,8 @@
     top: 50%;
     left: 0;
     transform: translateY(-50%);
+    transition: var(--cubic) var(--time);
+    transition-property: color, transform, font-size;
   }
 
   .search-button {
@@ -284,7 +284,8 @@
     transition: var(--cubic) var(--time);
     transition-property: color, box-shadow;
 
-    &:hover {
+    &:hover,
+    &:focus {
       color: var(--accent-color);
     }
 
