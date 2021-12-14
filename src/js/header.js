@@ -143,6 +143,6 @@ refs.homeBtn.addEventListener('click', async () => {
   // hideGif();
   const videos = await videoapi.getTrendingVideos();
   if (videos.results.length === 0) return;
-  renderGallery(videos.results);
-  setPagination(TRENDING.WEEK, videos.total_results, 20);
+  await renderGallery(videos.results);
+  await setPagination(TRENDING.WEEK, videos.total_results, 20);
 });

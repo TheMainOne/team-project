@@ -15,11 +15,11 @@ const url = `${movieBaseURL}${movieID}${api_key}`;
 // const configuration = `${baseURL}configuration${api_key}`;
 
 class videoAPI {
-  #deletedFilm = {};
+  #deletedFilm = { watched: {}, queue: {} };
   #baseURL = 'https://api.themoviedb.org/3/';
   #page = '1';
   #media = 'movie';
-  #period = 'week';
+  #period = 'day';
   #language = 'en-US';
   #type = 'trendingVideosWeek';
   #currentPage = '';

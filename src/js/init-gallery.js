@@ -44,7 +44,7 @@ const renderGallery = async results => {
     if (!results || !results.length) {
       return;
     }
-    const string = await Promise.all(results.map(galleryCardTemplate));
+    const string = await Promise.all(results?.map(galleryCardTemplate));
     const galleryMarkup = string.join('');
 
     refs.gallery.innerHTML = galleryMarkup;
@@ -64,8 +64,8 @@ const renderTrendingVideos = async () => {
       total_results: totalResults,
     } = await videoapi.getTrendingVideos();
     if (notifyStatus(results.length, page, totalResults)) return;
-    renderGallery(results);
-    setPagination(TRENDING.WEEK, totalResults, 20);
+    await renderGallery(results);
+    await setPagination(TRENDING.WEEK, totalResults, 20);
   } catch (err) {
     error(err);
   }
@@ -75,15 +75,15 @@ const initGallery = async () => {
   renderTrendingVideos();
 };
 
-const renderCard = ({ key, perPage = 9 }) => {
+const renderCard = async ({ key, perPage = 9 }) => {
   const loadStorage = load(key)?.results ? load(key).results : load(key);
 
   const filteredArray = forPaginationFilter(loadStorage, perPage);
   let currentPage = 1;
   currentPage = pagination.getCurrentPage();
 
-  setPagination(key, loadStorage?.length, perPage);
-  renderGallery(loadStorage);
+  await setPagination(key, loadStorage?.length, perPage);
+  await renderGallery(loadStorage);
 
   // надо условие
   // pagination.movePageTo(currentPage);
@@ -92,11 +92,11 @@ const renderCard = ({ key, perPage = 9 }) => {
   console.log('renderCard ~ currentPage', currentPage);
 };
 
-const onBtnClickInLibraryRender = hasDataAttr => {
+const onBtnClickInLibraryRender = async hasDataAttr => {
   const perPage = 9;
   if (hasDataAttr === 'queue') {
     videoapi.type = QUEUE;
-    setPagination(QUEUE, load(QUEUE)?.length, perPage);
+    await setPagination(QUEUE, load(QUEUE)?.length, perPage);
   }
 
   if (hasDataAttr === 'watched') {

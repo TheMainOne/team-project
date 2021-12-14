@@ -23,7 +23,7 @@ export function queueRemoveEventListener() {
 
 export async function onClickBtnQueue(e) {
   const inQueuePage = refsGallery.dataset.gallery === 'queue';
-  const refQueueBtn = e.currentTarget;
+  const refQueueBtn = e.target;
   const isClickOnAdd = refQueueBtn.dataset.action === 'add-to-queue';
   const movieId = Number(refQueueBtn.closest('.movie').dataset.id);
   let ourFilm = {};
@@ -36,6 +36,9 @@ export async function onClickBtnQueue(e) {
   const isFilmInSearch = load(SEARCH)?.results.find(
     film => film.id === movieId,
   );
+  const isFilmInTrendingDay = load(TRENDING.DAY)?.results.find(
+    film => film.id === movieId,
+  );
 
   if (isFilmInQueue) {
     ourFilm = isFilmInQueue;
@@ -45,6 +48,8 @@ export async function onClickBtnQueue(e) {
     ourFilm = isFilmInTrendingWeek;
   } else if (isFilmInSearch) {
     ourFilm = isFilmInSearch;
+  } else if (isFilmInTrendingDay) {
+    ourFilm = isFilmInTrendingDay;
   }
 
   if (isClickOnAdd) {
@@ -56,6 +61,6 @@ export async function onClickBtnQueue(e) {
   if (inQueuePage) {
     refsGallery.innerHTML = '';
     setFon();
-    renderCard({ key: QUEUE, perPage });
+    await renderCard({ key: QUEUE, perPage });
   }
 }

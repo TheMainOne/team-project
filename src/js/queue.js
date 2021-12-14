@@ -20,9 +20,9 @@ refs.headerControlBox.addEventListener('click', e => {
   }
 });
 
-function renderQueue() {
+async function renderQueue() {
   refGallery.gallery.dataset.gallery = 'queue';
   // videoapi.type = QUEUE;
   setFon();
-  renderCard({ key: QUEUE, perPage });
+  await renderCard({ key: QUEUE, perPage });
 }

@@ -74,15 +74,18 @@ async function contentModal(idOfFilm) {
     let arrayOfFilms = [];
     let ourFilm = {};
 
+    
     if (galleryData === 'queue') {
       arrayOfFilms = load(QUEUE);
     } else if (galleryData === 'watch') {
       arrayOfFilms = load(WATCHED);
     } else if (galleryData === 'home') {
       arrayOfFilms = load(TRENDING.WEEK).results;
+    } else if (galleryData === 'home' || galleryData === 'search') {
+      arrayOfFilms = load(TRENDING.DAY).results;
     } else if (galleryData === 'search') {
       arrayOfFilms = load(SEARCH).results;
-    }
+    } 
 
     ourFilm = arrayOfFilms.find(film => film.id === idOfFilm);
 
@@ -97,6 +100,7 @@ async function contentModal(idOfFilm) {
       vote_average: voteAverage,
       vote_count: voteCount,
     } = ourFilm;
+    console.log(id);
 
     const posterUrl = getImageUrl(posterPath);
     const getGenreNames = (await Promise.all(genreIds.map(getGenreName))).join(', ');

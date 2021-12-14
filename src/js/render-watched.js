@@ -7,13 +7,13 @@ const refs = getRefs();
 
 const { WATCHED } = videoapi.keys;
 
-const renderWatchedVideos = () => {
+const renderWatchedVideos = async () => {
   refs.gallery.innerHTML = '';
   refs.gallery.dataset.gallery = 'watch';
   const perPage = 9;
 
   setFon();
-  renderCard({ key: WATCHED, perPage });
+  await renderCard({ key: WATCHED, perPage });
 };
 
 export { renderWatchedVideos };

@@ -19,26 +19,40 @@ export function watchedRemoveEventListener() {
   watchedBtn.removeEventListener('click', onClickBtnWatched);
 }
 
-export async function onClickBtnWatched(e) {
+export function onClickBtnWatched(e) {
   const isWachedGallery = refs.gallery.dataset.gallery === 'watch';
-  const refWatchedBtn = e.currentTarget;
+  const refWatchedBtn = e.target;
   const movieId = Number(document.querySelector('.movie').dataset.id);
-  let film = await load(TRENDING.WEEK).results;
-  let currentMovie = film.find(movie => movie.id === movieId);
+  let film = load(TRENDING.DAY).results;
+  let currentMovie = film.find(movie => movie?.id === movieId);
 
   if (!currentMovie) {
-    film = await load(WATCHED);
+    film = load(WATCHED);
     if (film) {
-      currentMovie = film.find(movie => movie.id === movieId);
+      currentMovie = film.find(movie => movie?.id === movieId);
+    }
+  }
+
+    if (!currentMovie) {
+    film = load(QUEUE);
+    if (film) {
+      currentMovie = film.find(movie => movie?.id === movieId);
     }
   }
 
   if (!currentMovie) {
-    film = await load(SEARCH);
+    film = load(SEARCH);
     if (film) {
-      currentMovie = film.results.find(movie => movie.id === movieId);
+      currentMovie = film.results.find(movie => movie?.id === movieId);
     }
   }
+
+  //  if (isClickOnAdd) {
+  //   addToQueue(refQueueBtn, ourFilm);
+  // } else {
+  //   removeFromQueue(refQueueBtn, ourFilm);
+  // }
+
 
   if (refWatchedBtn.dataset.action === 'add-to-watched') {
     watched.addToWatch(refWatchedBtn, currentMovie);

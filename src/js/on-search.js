@@ -37,7 +37,7 @@ const onSubmitSearch = async e => {
   if (!searchQuery || searchQuery.length === 0) {
     return info('Please, enter search query.', notifyOptions);
   }
-  const { SEARCH } = videoapi.keys;
+  const { SEARCH, TRENDING } = videoapi.keys;
 
   videoapi.query = searchQuery;
   videoapi.type = SEARCH;
@@ -50,20 +50,30 @@ const onSubmitSearch = async e => {
       total_results: totalResults,
     } = await videoapi.getVideos();
 
+    input.value = '';
+    refs.gallery.dataset.gallery = 'search';
+
     if (totalResults === 0) {
       refs.gallery.innerHTML = '';
-      showGif();
+    const {
+      page,
+      results,
+      total_pages: totalPages,
+      total_results: totalResults,
+    } = await videoapi.getTrendingVideos();
+
+      // renderCard({ key: TRENDING.DAY, perPage: 20 });
+      await renderGallery(results);
       warning('Sorry, no results. Please try another query!');
+      await setPagination(TRENDING.DAY, totalResults, 20);
+      return;
     }
 
-    setPagination(SEARCH, totalResults, 20);
+    await setPagination(SEARCH, totalResults, 20);
     if (notifyStatus(results.length, page, totalResults)) return;
 
-    refs.gallery.dataset.gallery = 'search';
     await renderGallery(results);
-    hideGif();
 
-    input.value = '';
   } catch (err) {
     error(err);
   }

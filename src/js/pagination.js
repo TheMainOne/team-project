@@ -89,28 +89,28 @@ const onPaginationClick = async ({ page }) => {
     case TRENDING.WEEK: {
       videoapi.period = 'week';
       const { results } = await videoapi.getTrendingVideos();
-      renderGallery(results);
+      await renderGallery(results);
       break;
     }
     case TRENDING.DAY: {
       videoapi.period = 'day';
       const { results } = await videoapi.getTrendingVideos();
-      renderGallery(results);
+      await renderGallery(results);
       break;
     }
     case SEARCH: {
       const { results } = await videoapi.getVideos();
-      renderGallery(results);
+      await renderGallery(results);
       break;
     }
     case WATCHED: {
       const filteredWatched = forPaginationFilter(load(WATCHED), perPage);
-      renderGallery(filteredWatched);
+      await renderGallery(filteredWatched);
       break;
     }
     case QUEUE: {
       const filteredQueue = forPaginationFilter(load(QUEUE), perPage);
-      renderGallery(filteredQueue);
+      await renderGallery(filteredQueue);
       break;
     }
     default:
@@ -138,7 +138,7 @@ const setPagination = async (type, totalItems = 0, perPage = 20) => {
   }
 };
 
-function onPaginationPageLibrary() {
+async function onPaginationPageLibrary() {
   const { QUEUE, WATCHED, TRENDING, SEARCH } = videoapi.keys;
 
   let galleryItems = [];
@@ -151,9 +151,9 @@ function onPaginationPageLibrary() {
   // }
 
   if (galleryItems.length > 0) {
-    renderGallery(galleryItems);
+    await renderGallery(galleryItems);
     const previousPage = pagination.getCurrentPage();
-    setPagination(videoapi.type, galleryItems.length);
+    await setPagination(videoapi.type, galleryItems.length);
     pagination.movePageTo(previousPage);
   }
 } // код Кости по отрисовке библиотек
