@@ -30,15 +30,9 @@ export async function onClickBtnQueue(e) {
 
   const isFilmInQueue = load(QUEUE)?.find(film => film.id === movieId);
   const isFilmInWatched = load(WATCHED)?.find(film => film.id === movieId);
-  const isFilmInTrendingWeek = load(TRENDING.WEEK)?.results.find(
-    film => film.id === movieId,
-  );
-  const isFilmInSearch = load(SEARCH)?.results.find(
-    film => film.id === movieId,
-  );
-  const isFilmInTrendingDay = load(TRENDING.DAY)?.results.find(
-    film => film.id === movieId,
-  );
+  const isFilmInTrendingWeek = load(TRENDING.WEEK)?.results.find(film => film.id === movieId);
+  const isFilmInSearch = load(SEARCH)?.results.find(film => film.id === movieId);
+  const isFilmInTrendingDay = load(TRENDING.DAY)?.results.find(film => film.id === movieId);
 
   if (isFilmInQueue) {
     ourFilm = isFilmInQueue;

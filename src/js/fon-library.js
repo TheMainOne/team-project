@@ -34,11 +34,9 @@ export const setFon = () => {
   const isWatched = load(WATCHED);
   const isQueue = load(QUEUE);
 
-  const onlyInQueue =
-    isQueue?.length > 0 && (!isWatched || isWatched.length === 0);
+  const onlyInQueue = isQueue?.length > 0 && (!isWatched || isWatched.length === 0);
 
-  const onlyInWatched =
-    isWatched?.length > 0 && (!isQueue || isQueue.length === 0);
+  const onlyInWatched = isWatched?.length > 0 && (!isQueue || isQueue.length === 0);
 
   if (inQueuePage) {
     if (onlyInWatched) {

@@ -1,16 +1,12 @@
 import getHeaderRefs from './getHearedRefs';
 import { videoapi } from './api-service';
 import { sprite } from '../index';
-import {
-  onBtnClickInLibraryRender,
-  renderCard,
-  renderGallery,
-} from './init-gallery';
+import { onBtnClickInLibraryRender, renderCard, renderGallery } from './init-gallery';
 import { renderWatchedVideos } from './render-watched';
 import { setPagination } from './pagination';
 import getRefs from './refs';
 import { load } from './storage';
-import { deleteCanvas, addListenerOnLibrary } from './library';
+import { deleteCanvas } from './library';
 import { hideGif, setFon } from './fon-library';
 
 const mainRefs = getRefs();

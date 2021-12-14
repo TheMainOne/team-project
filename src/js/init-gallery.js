@@ -16,6 +16,7 @@ const { log, error } = console;
 const refs = getRefs();
 const { TRENDING, WATCHED, QUEUE } = videoapi.keys;
 import { changeCardsTitle } from './change-theme';
+import { deleteCanvas } from './library';
 
 const notifyOptions = {
   timeout: 2000,
@@ -29,7 +30,7 @@ const notifyStatus = (videosCount, page, totalResults) => {
   }
 
   if (totalResults > 0 && page === 1) {
-    hideGif();
+    deleteCanvas();
     return 0;
   }
 };
@@ -105,10 +106,4 @@ const onBtnClickInLibraryRender = async hasDataAttr => {
   }
 };
 
-export {
-  notifyStatus,
-  renderGallery,
-  initGallery,
-  renderCard,
-  onBtnClickInLibraryRender,
-};
+export { notifyStatus, renderGallery, initGallery, renderCard, onBtnClickInLibraryRender };
