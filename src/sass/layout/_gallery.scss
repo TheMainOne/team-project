@@ -252,15 +252,18 @@
   transition: all 0.3s 1s ease-out;
 }
 .notify-gif {
-  display: none;
-  text-align: center;
-}
-.fon-gallery {
-  display: inline;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 300px;
-
+  margin: 0 auto;
+  text-align: center;
   // 767 оставить, не менять - иначе выскакивает проблема в точке перелома
   @media screen and(max-width:767px) {
     width: 100%;
   }
+}
+
+.fon-gallery {
+  width: 100%;
 }

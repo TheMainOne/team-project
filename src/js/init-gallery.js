@@ -10,7 +10,7 @@ import {
 } from './pagination';
 import getRefs from './refs';
 import { load } from './storage';
-import { fonLibrary, setFon } from './fon-library';
+import { fonLibrary, hideGif, setFon } from './fon-library';
 import { renderWatchedVideos } from './render-watched';
 const { log, error } = console;
 const refs = getRefs();
@@ -29,24 +29,25 @@ const notifyStatus = (videosCount, page, totalResults) => {
   }
 
   if (totalResults > 0 && page === 1) {
+    hideGif();
     return 0;
   }
 };
 
 const isWatched = load(WATCHED);
-
 const renderGallery = async results => {
+  // console.log(![] === false);
+  // Дублируется рендер карточки, надо убрать слушатель гдето
+
   try {
-    if (!results || results === '' || results.length === 0) {
-      refs.gallery.innerHTML = '';
-      setFon();
+    refs.gallery.innerHTML = '';
+    if (!results || !results.length) {
       return;
     }
     const string = await Promise.all(results.map(galleryCardTemplate));
     const galleryMarkup = string.join('');
 
-    refs.gallery.innerHTML = '';
-    refs.gallery.insertAdjacentHTML('beforeend', galleryMarkup);
+    refs.gallery.innerHTML = galleryMarkup;
     await changeCardsTitle();
   } catch (err) {
     error(err);
@@ -75,42 +76,20 @@ const initGallery = async () => {
 };
 
 const renderCard = ({ key, perPage = 9 }) => {
-  const loadStorage = load(key);
+  const loadStorage = load(key)?.results ? load(key).results : load(key);
+
   const filteredArray = forPaginationFilter(loadStorage, perPage);
-  const currentPage = pagination.getCurrentPage();
+  let currentPage = 1;
+  currentPage = pagination.getCurrentPage();
 
-  if (!loadStorage || loadStorage.length === 0) {
-    refs.gallery.innerHTML = '';
-    hidePagination();
-
-    if (isWatched?.length > 0) {
-      refs.gallery.innerHTML = fonLibrary();
-    }
-    return;
-  }
-
-  renderGallery(filteredArray);
-  pagination.setItemsPerPage(perPage);
   setPagination(key, loadStorage?.length, perPage);
-  pagination.movePageTo(currentPage);
-  if (loadStorage?.length > perPage) {
-    showPagination();
-  } else {
-    hidePagination();
-  }
-};
+  renderGallery(loadStorage);
 
-const onLibraryClickRenderQueue = () => {
-  const perPage = 9;
-  const loadWatched = load(WATCHED);
-  const loadQueue = load(QUEUE);
+  // надо условие
+  // pagination.movePageTo(currentPage);
+  // pagination.reset();
 
-  if (loadWatched && !loadQueue) {
-    refs.gallery.innerHTML = fonLibrary();
-    return;
-  }
-
-  renderCard({ key: QUEUE, perPage });
+  console.log('renderCard ~ currentPage', currentPage);
 };
 
 const onBtnClickInLibraryRender = hasDataAttr => {
@@ -131,6 +110,5 @@ export {
   renderGallery,
   initGallery,
   renderCard,
-  onLibraryClickRenderQueue,
   onBtnClickInLibraryRender,
 };

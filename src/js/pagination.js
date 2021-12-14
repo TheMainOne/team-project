@@ -125,14 +125,12 @@ const listenPaginationClick = () => {
 const setPagination = async (type, totalItems = 0, perPage = 20) => {
   videoapi.type = type;
 
-  if (!totalItems || totalItems === 0) {
-    pagination.reset(0);
+  if (!totalItems || totalItems <= perPage) {
+    pagination.reset();
     pagination.setItemsPerPage(perPage);
     pagination.movePageTo(1);
     hidePagination();
-  }
-
-  if (totalItems >= perPage) {
+  } else {
     pagination.reset(totalItems);
     pagination.setItemsPerPage(perPage);
     pagination.movePageTo(1);

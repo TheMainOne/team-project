@@ -3,7 +3,7 @@ import { addToQueue, removeFromQueue } from './for-queue-localstorage';
 import { load } from './storage';
 import getRefs from './refs';
 import { renderCard } from './init-gallery';
-import { fonLibrary } from './fon-library';
+import { fonLibrary, setFon } from './fon-library';
 import { setBgSnow, deleteCanvas } from './library';
 import { hidePagination, showPagination } from './pagination';
 const { TRENDING, QUEUE, SEARCH, WATCHED } = videoapi.keys;
@@ -30,8 +30,12 @@ export async function onClickBtnQueue(e) {
 
   const isFilmInQueue = load(QUEUE)?.find(film => film.id === movieId);
   const isFilmInWatched = load(WATCHED)?.find(film => film.id === movieId);
-  const isFilmInTrendingWeek = load(TRENDING.WEEK)?.results.find(film => film.id === movieId);
-  const isFilmInSearch = load(SEARCH)?.results.find(film => film.id === movieId);
+  const isFilmInTrendingWeek = load(TRENDING.WEEK)?.results.find(
+    film => film.id === movieId,
+  );
+  const isFilmInSearch = load(SEARCH)?.results.find(
+    film => film.id === movieId,
+  );
 
   if (isFilmInQueue) {
     ourFilm = isFilmInQueue;
@@ -51,14 +55,7 @@ export async function onClickBtnQueue(e) {
 
   if (inQueuePage) {
     refsGallery.innerHTML = '';
+    setFon();
     renderCard({ key: QUEUE, perPage });
-
-    const loadWatched = load(WATCHED);
-    if (loadWatched && loadWatched.length > 0) {
-      refs.gallery.innerHTML = fonLibrary();
-    } else {
-      deleteCanvas();
-      refs.gallery.innerHTML = setBgSnow();
-    }
   }
 }

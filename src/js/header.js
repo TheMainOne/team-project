@@ -3,7 +3,7 @@ import { videoapi } from './api-service';
 import { sprite } from '../index';
 import {
   onBtnClickInLibraryRender,
-  onLibraryClickRenderQueue,
+  renderCard,
   renderGallery,
 } from './init-gallery';
 import { renderWatchedVideos } from './render-watched';
@@ -11,6 +11,7 @@ import { setPagination } from './pagination';
 import getRefs from './refs';
 import { load } from './storage';
 import { deleteCanvas, addListenerOnLibrary } from './library';
+import { hideGif, setFon } from './fon-library';
 
 const mainRefs = getRefs();
 const iconSearch = `${sprite}#icon-search`;
@@ -41,7 +42,6 @@ function onTopNavBtnClick(e) {
     renderLibraryButtons();
     refs.headerControlBox.addEventListener('click', onLibraryButtonClick);
     refs.headerControlBox.removeEventListener('focusin', onInputFocusIn);
-    onLibraryClickRenderQueue(hasDataAttr);
   }
 
   if (hasDataAttr === 'js-home') {
@@ -63,7 +63,7 @@ function onLibraryButtonClick(e) {
   const hasDataAttr = nextButton.dataset.action;
 
   if (!hasDataAttr) return;
-  onBtnClickInLibraryRender(hasDataAttr);
+  // onBtnClickInLibraryRender(hasDataAttr);
 
   if (hasDataAttr === 'queue') {
     videoapi.type = QUEUE;
@@ -136,13 +136,13 @@ function renderLibraryButtons() {
 
 // Cлушатель событий на кнопке home для возврата на главную страницу
 refs.homeBtn.addEventListener('click', async () => {
-  // window.location = './';
-  deleteCanvas();
-  addListenerOnLibrary();
-  videoapi.type = TRENDING.WEEK;
-  const videos = await videoapi.getTrendingVideos();
   mainRefs.gallery.dataset.gallery = 'home';
+  videoapi.type = TRENDING.WEEK;
+
+  deleteCanvas();
+  // hideGif();
+  const videos = await videoapi.getTrendingVideos();
   if (videos.results.length === 0) return;
   renderGallery(videos.results);
-  setPagination(TRENDING.WEEK, videos.total_results);
+  setPagination(TRENDING.WEEK, videos.total_results, 20);
 });

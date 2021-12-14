@@ -5,6 +5,7 @@ import { hidePagination, setPagination, showPagination } from './pagination';
 import { videoapi } from './api-service';
 import getRefs from './refs';
 import getHeaderRefs from './getHearedRefs';
+import { hideGif, showGif } from './fon-library';
 const { info, warning } = Notify;
 const { log, error } = console;
 const refs = getRefs();
@@ -51,7 +52,7 @@ const onSubmitSearch = async e => {
 
     if (totalResults === 0) {
       refs.gallery.innerHTML = '';
-      image.style.display = 'block';
+      showGif();
       warning('Sorry, no results. Please try another query!');
     }
 
@@ -60,7 +61,7 @@ const onSubmitSearch = async e => {
 
     refs.gallery.dataset.gallery = 'search';
     await renderGallery(results);
-    image.style.display = 'none';
+    hideGif();
 
     input.value = '';
   } catch (err) {
