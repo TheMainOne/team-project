@@ -1,6 +1,7 @@
 import Pagination from 'tui-pagination';
 import { videoapi } from './api-service';
 import { renderGallery } from './init-gallery';
+import { theme, onPageThemeToggle } from './change-theme';
 
 import { sprite } from '../index';
 import { load } from './storage';
@@ -25,14 +26,17 @@ const options = {
   lastItemClassName: 'tui-last-child',
 
   template: {
-    page: '<a href="#" class="tui-page-btn">{{page}}</a>',
+    page: `<a href="#" class="tui-page-btn page-symbol ${
+      theme ? 'dark-theme' : 'light-theme'
+    }">{{page}}</a>`,
 
-    currentPage:
-      '<strong class="tui-page-btn tui-is-selected">{{page}}</strong>',
+    currentPage: '<strong class="tui-page-btn tui-is-selected">{{page}}</strong>',
 
     moveButton:
-      '<a href="#" class="tui-page-btn tui-{{type}}">' +
-      `<svg class="tui-ico-{{type}}"><use href="${iconArrow}-{{type}}"></use></svg>` +
+      `<a href="#" class="tui-page-btn tui-{{type}}">` +
+      `<svg class="tui-ico-{{type}} page-symbol ${
+        theme ? 'dark-theme' : 'light-theme'
+      }"><use href="${iconArrow}-{{type}}"></use></svg>` +
       '</a>',
 
     disabledMoveButton:
@@ -42,7 +46,9 @@ const options = {
 
     moreButton:
       '<a href="#" class="tui-page-btn tui-{{type}}-is-ellip">' +
-      `<svg class="tui-ico-ellip"><use href="${iconDots}"></use></svg>` +
+      `<svg class="tui-ico-ellip page-symbol ${
+        theme ? 'dark-theme' : 'light-theme'
+      }"><use href="${iconDots}"></use></svg>` +
       '</a>',
   },
 };
@@ -52,8 +58,7 @@ const pagination = new Pagination(containerID, options);
 const removeDOM = async els => els.map(el => el.remove());
 
 const removeTuiButtons = async resultsLength => {
-  const { first, last, disabledFirst, disabledLast } =
-    pagination._view._buttons;
+  const { first, last, disabledFirst, disabledLast } = pagination._view._buttons;
 
   if (resultsLength < 1) {
     removeDOM([...document.querySelectorAll('.tui-page-btn')]);
@@ -74,14 +79,13 @@ hidePagination();
 
 const forPaginationFilter = (array, perPage) => {
   const { page } = videoapi;
-  return array?.filter(
-    (item, index) => index >= perPage * (page - 1) && index < perPage * page,
-  );
+  return array?.filter((item, index) => index >= perPage * (page - 1) && index < perPage * page);
 };
 
 const onPaginationClick = async ({ page }) => {
   videoapi.page = page;
   const perPage = 9;
+  onPageThemeToggle();
 
   const { TRENDING, SEARCH, WATCHED, QUEUE } = videoapi.keys;
 

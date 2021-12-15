@@ -1,11 +1,7 @@
 import sprite from './images/svg/sprite.svg';
 export { sprite };
 
-import {
-  listenPaginationClick,
-  setPagination,
-  removeTuiButtons,
-} from './js/pagination';
+import { listenPaginationClick, setPagination, removeTuiButtons } from './js/pagination';
 import 'tui-pagination/dist/tui-pagination.min.css';
 
 import './js/queue';
@@ -53,5 +49,4 @@ window.onscroll = function (backToTopBtn) {
   scrollFunction(backToTopBtn);
 };
 // ======смена темы============
-// changeTheme();
 populateChooseTheme();
