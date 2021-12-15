@@ -14,8 +14,56 @@ body.dark-theme {
 }
 
 .footer.dark-theme {
-  background-color: var(--secondary-bg-color);
+  background-color: rgb(17, 16, 16);
+
   color: var(--third-text-color);
+}
+
+.tui-pagination {
+  & .tui-ico-prev,
+  & .tui-ico-next {
+    &.dark-theme {
+      stroke: var(--main-text-color);
+      &:hover {
+        stroke: var(--secondary-text-color);
+      }
+    }
+
+    &.light-theme {
+      stroke: var(--secondary-text-color);
+    }
+  }
+  & .tui-page-btn {
+    &.dark-theme {
+      color: var(--main-text-color);
+    }
+
+    &:hover.dark-theme,
+    &:hover.light-theme {
+      color: var(--secondary-text-color);
+    }
+
+    &.tui-prev:hover .tui-ico-prev,
+    &.tui-next:hover .tui-ico-next {
+      stroke: var(--secondary-text-color);
+    }
+  }
+
+  & .tui-ico-ellip {
+    &.dark-theme {
+      fill: var(--main-text-color);
+      background-color: var(--main-text-color);
+    }
+
+    &.light-theme {
+      fill: var(--secondary-text-color);
+      stroke: var(--secondary-text-color);
+    }
+  }
+
+  &:hover .tui-ico-ellip {
+    fill: var(--secondary-text-color);
+  }
 }
 
 .toolbar {

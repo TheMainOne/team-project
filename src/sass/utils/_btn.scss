@@ -25,6 +25,17 @@
   }
 }
 
+.btn:disabled {
+  color: white;
+  background-color: grey;
+
+  &:hover {
+    background-color: grey;
+    transform: scale(1);
+    color: white;
+  }
+}
+
 .btn-back-to-top {
   position: fixed;
   bottom: 70px;

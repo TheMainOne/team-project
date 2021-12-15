@@ -12,6 +12,7 @@ const bgColor = document.querySelector('body');
 const teamRef = document.querySelector('.team__modal');
 const lightThemeIcon = themeSwitcher.previousElementSibling;
 const darkThemeIcon = themeSwitcher.nextElementSibling;
+const theme = localStorage.getItem('theme');
 const getCardTitles = async () => document.querySelectorAll('.card__title');
 
 themeSwitcher.addEventListener('change', onControlThemeSwitch);
@@ -29,6 +30,7 @@ function onControlThemeSwitch(event) {
 // set theme on site load
 function populateChooseTheme() {
   const currentTheme = localStorage.getItem('theme');
+
   lightThemeIcon.addEventListener('click', onIconClick);
   darkThemeIcon.addEventListener('click', onIconClick);
 
@@ -50,6 +52,7 @@ function lightThemStyles() {
   footer.classList.add(LIGHT);
   setLightThemeIcon();
   localStorage.setItem('theme', LIGHT);
+  onPageThemeToggle();
 }
 
 function darkThemeStyles() {
@@ -59,6 +62,7 @@ function darkThemeStyles() {
   footer.classList.add(DARK);
   setDarkThemeIcon();
   localStorage.setItem('theme', DARK);
+  onPageThemeToggle();
 }
 
 // change icon color of the toggler
@@ -148,6 +152,24 @@ const onThemeToggle = async event => {
   }
 };
 
+// Pagination theme toggle
+function onPageThemeToggle() {
+  const currentTeme = localStorage.getItem('theme');
+  const symbols = document.querySelectorAll('.page-symbol');
+
+  if (currentTeme === DARK) {
+    symbols.forEach(symbol => {
+      symbol.classList.remove(LIGHT);
+      symbol.classList.add(DARK);
+    });
+  } else {
+    symbols.forEach(symbol => {
+      symbol.classList.remove(DARK);
+      symbol.classList.add(LIGHT);
+    });
+  }
+}
+
 // export { changeTheme, onThemeToggle, initThemeSwitcher, darkThemeForModal };
 export {
   populateChooseTheme,
@@ -155,4 +177,6 @@ export {
   onTeamThemeToggle,
   darkThemeForModal,
   changeCardsTitle,
+  onPageThemeToggle,
+  theme,
 };

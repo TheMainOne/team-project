@@ -29,8 +29,7 @@ const removeEmptyStorageKeys = async () => {
       if (
         !loadedData ||
         loadedData === '' ||
-        (typeof loadedData === 'object' &&
-          Object.keys(loadedData).length === 0) ||
+        (typeof loadedData === 'object' && Object.keys(loadedData).length === 0) ||
         (Array.isArray(loadedData) && loadedData.length === 0)
       ) {
         localStorage.removeItem(key);
