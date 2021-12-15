@@ -40,22 +40,12 @@ body.dark-theme {
 
     &:hover.dark-theme,
     &:hover.light-theme {
-      color: var(--main-text-color);
-      background-color: var(--accent-color);
-    }
-
-    &.light-theme {
       color: var(--secondary-text-color);
-    }
-
-    &.tui-prev:hover,
-    &.tui-next:hover {
-      background-color: var(--accent-color);
     }
 
     &.tui-prev:hover .tui-ico-prev,
     &.tui-next:hover .tui-ico-next {
-      stroke: var(--main-text-color);
+      stroke: var(--secondary-text-color);
     }
   }
 
