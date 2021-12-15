@@ -81,8 +81,6 @@ async function contentModal(idOfFilm) {
       arrayOfFilms = load(WATCHED);
     } else if (galleryData === 'home') {
       arrayOfFilms = load(TRENDING.WEEK).results;
-    } else if (galleryData === 'home' || galleryData === 'search') {
-      arrayOfFilms = load(TRENDING.DAY).results;
     } else if (galleryData === 'search') {
       arrayOfFilms = load(SEARCH).results;
     } 
