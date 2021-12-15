@@ -24,5 +24,5 @@ export function removeFromQueue(refQueueBtn, ourFilm) {
 }
 
 export function searchFilmInQueue(id) {
-  return load(QUEUE) ? load(QUEUE).find(element => element.id === id) : undefined;
+  return load(QUEUE) ? load(QUEUE).find(element => element?.id === id) : undefined;
 }
