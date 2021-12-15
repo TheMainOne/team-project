@@ -11,25 +11,24 @@ export function createPoster(poster, title) {
 
 export function createMarkup({
   isFilmInQueue,
-      isFilmInWatched,
-      id,
-      poster,
-      title,
-      overview,
-      popularity,
-      originalTitle,
-      voteAverage,
-      voteCount,
-      getGenreNames,
+  isFilmInWatched,
+  id,
+  poster,
+  title,
+  overview,
+  popularity,
+  originalTitle,
+  voteAverage,
+  voteCount,
+  getGenreNames,
 }) {
+  const queueStatus = isFilmInQueue
+    ? { data: 'remove-from-queue', text: 'remove from queue' }
+    : { data: 'add-to-queue', text: 'add to queue' };
+  const watchStatus = isFilmInWatched
+    ? { data: 'remove-from-watched', text: 'remove from watched' }
+    : { data: 'add-to-watched', text: 'add to watched' };
 
-  const queueStatus = isFilmInQueue ? { data: 'remove-from-queue', text: 'remove from queue' } : { data: 'add-to-queue', text: 'add to queue' };
-  const watchStatus = isFilmInWatched ? { data: 'remove-from-watched', text: 'remove from watched' } : { data: 'add-to-watched', text: 'add to watched' };
-
-
-  
-
-  
   return `<div class="modal-window">
     <div class="movie movie__container" data-id="${id}">
         <button class="btnClose">
@@ -77,7 +76,10 @@ export function createMarkup({
                 <button type="submit" id="watched-btn" data-action="${watchStatus.data}" class="movie__btn add-to-watch btn btn--accent"> ${watchStatus.text} </button>
                 <button type="submit" id="queue-btn" data-action="${queueStatus.data}" class="movie__btn btn"> ${queueStatus.text} </button>
             </div>
-            <button class="modal__btn btn search-for-trailer upper-case" type="button">Search for trailer</button>
+
+
+            <button class="modal__btn btn search-for-trailer upper-case" type="button">Search for trailer
+            </button>
             <a class="trailer-link" target="_blank" title="When you click on this a new window will open" href=""> 
               <span class="trailer-link__text">
                 WATCH THE TRAILER ON   
@@ -91,4 +93,10 @@ export function createMarkup({
     </div>
 
     </div>`;
+}
+
+export function isFalse(id) {
+  if (!id) {
+    document.querySelectorAll('.movie .btn').forEach(btn => (btn.disabled = true));
+  }
 }

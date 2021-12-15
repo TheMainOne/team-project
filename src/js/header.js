@@ -133,12 +133,12 @@ function renderLibraryButtons() {
 // Cлушатель событий на кнопке home для возврата на главную страницу
 refs.homeBtn.addEventListener('click', async () => {
   mainRefs.gallery.dataset.gallery = 'home';
-  videoapi.type = TRENDING.WEEK;
+  videoapi.type = TRENDING.DAY;
 
   deleteCanvas();
   // hideGif();
   const videos = await videoapi.getTrendingVideos();
   if (videos.results.length === 0) return;
   await renderGallery(videos.results);
-  await setPagination(TRENDING.WEEK, videos.total_results, 20);
+  await setPagination(TRENDING.DAY, videos.total_results, 20);
 });
