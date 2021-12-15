@@ -2,21 +2,19 @@ import getRefs from './refs';
 import tingle from 'tingle.js';
 import 'tingle.js/src/tingle.css';
 import { videoapi } from './api-service';
-import { load } from './storage';
+import { filmFinder } from './finderOfFilm';
 import { getImageUrl, getGenreName } from './gallery-card-template';
-import { createMarkup, createPoster } from './markup-of-modal';
+import { createMarkup, createPoster, isFalse } from './markup-of-modal';
+
 import * as queue from './for-queue-btn';
 import * as watched from './for-watched-btn';
 import { searchFilmInQueue } from './for-queue-localstorage';
 import { searchFilmInWatched } from './for-watched-localstorage';
-import { darkThemeForModal } from './change-theme';
 
+import { darkThemeForModal } from './change-theme';
 import { enableTrailerLink } from './trailer';
-import { renderGallery } from './init-gallery';
-import { pagination, setPagination, onPaginationPageLibrary } from './pagination';
 
 const refs = getRefs();
-const { QUEUE, WATCHED, TRENDING, SEARCH } = videoapi.keys;
 
 const modal = new tingle.modal({
   footer: false,
@@ -44,6 +42,7 @@ refs.gallery.addEventListener('click', async event => {
   const id = Number(li.dataset.id);
 
   modal.setContent(await contentModal(id));
+
   modal.open();
 
   // ===trailer
@@ -69,36 +68,19 @@ function onBtnCloseModal() {
 
 async function contentModal(idOfFilm) {
   try {
-    const galleryData = refs.gallery.dataset.gallery;
-
-    let arrayOfFilms = [];
-    let ourFilm = {};
-
-    
-    if (galleryData === 'queue') {
-      arrayOfFilms = load(QUEUE);
-    } else if (galleryData === 'watch') {
-      arrayOfFilms = load(WATCHED);
-    } else if (galleryData === 'home') {
-      arrayOfFilms = load(TRENDING.WEEK).results;
-    } else if (galleryData === 'search') {
-      arrayOfFilms = load(SEARCH).results;
-    } 
-
-    ourFilm = arrayOfFilms.find(film => film.id === idOfFilm);
+    const ourFilm = await filmFinder(idOfFilm);
 
     const {
-      id,
-      title,
-      overview,
-      popularity,
-      poster_path: posterPath,
-      genre_ids: genreIds,
-      original_title: originalTitle,
-      vote_average: voteAverage,
-      vote_count: voteCount,
+      id = 0,
+      title = 'no found',
+      overview = '-',
+      popularity = '-',
+      poster_path: posterPath = '',
+      genre_ids: genreIds = ['no found'],
+      original_title: originalTitle = 'no found',
+      vote_average: voteAverage = '-',
+      vote_count: voteCount = '-',
     } = ourFilm;
-    console.log(id);
 
     const posterUrl = getImageUrl(posterPath);
     const getGenreNames = (await Promise.all(genreIds.map(getGenreName))).join(', ');
@@ -120,6 +102,8 @@ async function contentModal(idOfFilm) {
       voteCount,
       getGenreNames,
     });
+
+    isFalse(idOfFilm);
 
     return markup;
   } catch (error) {

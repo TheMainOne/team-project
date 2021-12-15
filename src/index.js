@@ -3,7 +3,7 @@ export { sprite };
 
 import { listenPaginationClick, setPagination, removeTuiButtons } from './js/pagination';
 import 'tui-pagination/dist/tui-pagination.min.css';
-
+import './js/finderOfFilm';
 import './js/queue';
 import './js/library';
 import './sass/main.scss';
