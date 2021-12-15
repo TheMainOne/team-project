@@ -136,9 +136,9 @@ refs.homeBtn.addEventListener('click', async () => {
   videoapi.type = TRENDING.DAY;
 
   deleteCanvas();
-  // hideGif();
-  const videos = await videoapi.getTrendingVideos();
-  if (videos.results.length === 0) return;
-  await renderGallery(videos.results);
-  await setPagination(TRENDING.DAY, videos.total_results, 20);
+  hideGif();
+  const { results, total_results: totalResults } = await videoapi.getTrendingVideos();
+  if (results.length === 0) return;
+  await renderGallery(results);
+  await setPagination(TRENDING.DAY, totalResults, 20);
 });
