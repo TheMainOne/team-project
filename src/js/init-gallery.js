@@ -66,14 +66,15 @@ const initGallery = async () => {
 };
 
 const renderCard = async ({ key, perPage = 9 }) => {
-  const loadStorage = load(key)?.results ? load(key).results : load(key);
+  const loadedLS = load(key);
+  const loadStorage = loadedLS?.results ? loadedLS.results : loadedLS;
 
   const filteredArray = forPaginationFilter(loadStorage, perPage);
   let currentPage = 1;
   currentPage = pagination.getCurrentPage();
 
-  await setPagination(key, loadStorage?.length, perPage);
   await renderGallery(loadStorage);
+  await setPagination(key, loadStorage?.length, perPage);
 
   // надо условие
   // pagination.movePageTo(currentPage);
