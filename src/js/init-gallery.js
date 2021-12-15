@@ -1,16 +1,9 @@
 import galleryCardTemplate from './gallery-card-template';
 import { videoapi } from './api-service';
-import {
-  removeTuiButtons,
-  setPagination,
-  forPaginationFilter,
-  pagination,
-  hidePagination,
-  showPagination,
-} from './pagination';
+import { setPagination, forPaginationFilter, pagination } from './pagination';
 import getRefs from './refs';
 import { load } from './storage';
-import { fonLibrary, hideGif, setFon } from './fon-library';
+import { hideGif } from './fon-library';
 import { renderWatchedVideos } from './render-watched';
 const { log, error } = console;
 const refs = getRefs();
@@ -36,9 +29,6 @@ const notifyStatus = (videosCount, page, totalResults) => {
 
 const isWatched = load(WATCHED);
 const renderGallery = async results => {
-  // console.log(![] === false);
-  // Дублируется рендер карточки, надо убрать слушатель гдето
-
   try {
     refs.gallery.innerHTML = '';
     if (!results || !results.length) {
@@ -65,7 +55,7 @@ const renderTrendingVideos = async () => {
     } = await videoapi.getTrendingVideos();
     if (notifyStatus(results.length, page, totalResults)) return;
     await renderGallery(results);
-    await setPagination(TRENDING.WEEK, totalResults, 20);
+    await setPagination(TRENDING.DAY, totalResults, 20);
   } catch (err) {
     error(err);
   }
@@ -89,7 +79,7 @@ const renderCard = async ({ key, perPage = 9 }) => {
   // pagination.movePageTo(currentPage);
   // pagination.reset();
 
-  console.log('renderCard ~ currentPage', currentPage);
+  // console.log('renderCard ~ currentPage', currentPage);
 };
 
 const onBtnClickInLibraryRender = async hasDataAttr => {
@@ -105,10 +95,4 @@ const onBtnClickInLibraryRender = async hasDataAttr => {
   }
 };
 
-export {
-  notifyStatus,
-  renderGallery,
-  initGallery,
-  renderCard,
-  onBtnClickInLibraryRender,
-};
+export { notifyStatus, renderGallery, initGallery, renderCard, onBtnClickInLibraryRender };

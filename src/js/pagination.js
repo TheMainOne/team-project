@@ -142,32 +142,11 @@ const setPagination = async (type, totalItems = 0, perPage = 20) => {
   }
 };
 
-async function onPaginationPageLibrary() {
-  const { QUEUE, WATCHED, TRENDING, SEARCH } = videoapi.keys;
-
-  let galleryItems = [];
-
-  if (videoapi.type === WATCHED) {
-    galleryItems = load(WATCHED);
-  }
-  // if (videoapi.type === QUEUE) {
-  //   galleryItems = load(QUEUE);
-  // }
-
-  if (galleryItems.length > 0) {
-    await renderGallery(galleryItems);
-    const previousPage = pagination.getCurrentPage();
-    await setPagination(videoapi.type, galleryItems.length);
-    pagination.movePageTo(previousPage);
-  }
-} // код Кости по отрисовке библиотек
-
 export {
   setPagination,
   removeTuiButtons,
   listenPaginationClick,
   pagination,
-  onPaginationPageLibrary,
   forPaginationFilter,
   showPagination,
   hidePagination,

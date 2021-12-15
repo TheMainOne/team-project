@@ -1,6 +1,5 @@
 import axios from 'axios';
-import { save, load, GENRES_KEY } from './storage';
-const { log, error } = console;
+import { save, load } from './storage';
 
 const KEY = '0bd610b1a3557ac4e7f9b5501edcfef4';
 
