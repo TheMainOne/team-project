@@ -1,11 +1,7 @@
 import getHeaderRefs from './getHearedRefs';
 import { videoapi } from './api-service';
 import { sprite } from '../index';
-import {
-  onBtnClickInLibraryRender,
-  renderCard,
-  renderGallery,
-} from './init-gallery';
+import { onBtnClickInLibraryRender, renderCard, renderGallery } from './init-gallery';
 import { renderWatchedVideos } from './render-watched';
 import { setPagination } from './pagination';
 import getRefs from './refs';
