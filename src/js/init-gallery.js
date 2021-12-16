@@ -23,6 +23,7 @@ const notifyStatus = (videosCount, page, totalResults) => {
   }
 
   if (totalResults > 0 && page === 1) {
+    hideGif();
     deleteCanvas();
     return 0;
   }
