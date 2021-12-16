@@ -6,7 +6,7 @@ import { renderWatchedVideos } from './render-watched';
 import { setPagination } from './pagination';
 import getRefs from './refs';
 import { load } from './storage';
-import { deleteCanvas, addListenerOnLibrary } from './library';
+import { deleteCanvas } from './library';
 import { hideGif, setFon } from './fon-library';
 
 const mainRefs = getRefs();
