@@ -2,6 +2,9 @@ import { videoapi } from './api-service';
 import { load } from './storage';
 
 export function filmFinder(movieId) {
+  if (!movieId) {
+    return {};
+  }
   const namesOfLocalStorage = Object.values(videoapi.keys);
 
   for (const nameLS of namesOfLocalStorage) {
@@ -31,5 +34,5 @@ function getObjOfFilm(keysOfLS, id) {
 }
 
 function getFilmById(idOfFilm, loaderStorage) {
-  return loaderStorage?.find(film => film.id === Number(idOfFilm));
+  return loaderStorage?.find(film => film?.id === Number(idOfFilm));
 }
