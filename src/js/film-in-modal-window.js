@@ -42,7 +42,7 @@ refs.gallery.addEventListener('click', async event => {
   const id = Number(li.dataset.id);
 
   modal.setContent(await contentModal(id));
-
+  isFalse(id);
   modal.open();
 
   // ===trailer
@@ -102,8 +102,6 @@ async function contentModal(idOfFilm) {
       voteCount,
       getGenreNames,
     });
-
-    isFalse(idOfFilm);
 
     return markup;
   } catch (error) {
