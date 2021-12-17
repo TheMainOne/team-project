@@ -16,7 +16,7 @@
     z-index: 1;
     display: flex;
     align-items: center;
-    padding: 5px 10px;
+    padding: 3px 10px;
 
     font-size: 1.1rem;
     color: var(--secondary-text-color);
@@ -32,15 +32,15 @@
       height: calc(100% - 2px);
       z-index: -1;
 
-      background-color: darkblue;
+      background-color: var(--accent-color);
       border-radius: 21px;
       transition: var(--time) var(--cubic);
       transition-property: transform, width;
     }
 
-    .filters__radio:checked + & &-slider {
-      // transform: translateX(100%);
-    }
+    // .filters__radio:checked + & &-slider {
+    //   // transform: translateX(100%);
+    // }
 
     &-text {
       transition: var(--time) var(--cubic);
