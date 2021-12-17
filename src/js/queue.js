@@ -24,7 +24,8 @@ refs.headerControlBox.addEventListener('click', e => {
 
 async function renderQueue() {
   refGallery.gallery.dataset.gallery = 'queue';
-  // videoapi.type = QUEUE;
+  videoapi.type = QUEUE;
+  videoapi.page = 1;
   setFon();
   await renderCard({ key: QUEUE, perPage });
 }

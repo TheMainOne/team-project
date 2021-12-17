@@ -1,13 +1,13 @@
 import getHeaderRefs from './getHearedRefs';
 import { videoapi } from './api-service';
 import { sprite } from '../index';
-import { onBtnClickInLibraryRender, renderCard, renderGallery } from './init-gallery';
+import { renderGallery } from './init-gallery';
 import { renderWatchedVideos } from './render-watched';
 import { setPagination } from './pagination';
 import getRefs from './refs';
-import { load } from './storage';
-import { deleteCanvas, addListenerOnLibrary } from './library';
-import { hideGif, setFon } from './fon-library';
+import { deleteCanvas } from './library';
+import { hideGif } from './fon-library';
+import { listenTrendingToggle, unlistenTrendingToggle } from './filters';
 
 const mainRefs = getRefs();
 const iconSearch = `${sprite}#icon-search`;
@@ -38,12 +38,14 @@ function onTopNavBtnClick(e) {
     renderLibraryButtons();
     refs.headerControlBox.addEventListener('click', onLibraryButtonClick);
     refs.headerControlBox.removeEventListener('focusin', onInputFocusIn);
+    unlistenTrendingToggle();
   }
 
   if (hasDataAttr === 'js-home') {
     setHomeBackground();
     renderSearchForm();
     refs.headerControlBox.removeEventListener('click', onLibraryButtonClick);
+    listenTrendingToggle();
   }
 
   if (hasDataAttr === 'logo') {
@@ -51,6 +53,7 @@ function onTopNavBtnClick(e) {
     refs.homeBtn.classList.add('is-active');
     setHomeBackground();
     renderSearchForm();
+    listenTrendingToggle();
   }
 }
 
@@ -59,7 +62,6 @@ function onLibraryButtonClick(e) {
   const hasDataAttr = nextButton.dataset.action;
 
   if (!hasDataAttr) return;
-  // onBtnClickInLibraryRender(hasDataAttr);
 
   if (hasDataAttr === 'queue') {
     videoapi.type = QUEUE;
@@ -134,11 +136,12 @@ function renderLibraryButtons() {
 refs.homeBtn.addEventListener('click', async () => {
   mainRefs.gallery.dataset.gallery = 'home';
   videoapi.type = TRENDING.DAY;
+  videoapi.page = 1;
 
   deleteCanvas();
-  // hideGif();
-  const videos = await videoapi.getTrendingVideos();
-  if (videos.results.length === 0) return;
-  await renderGallery(videos.results);
-  await setPagination(TRENDING.DAY, videos.total_results, 20);
+  hideGif();
+  const { results, total_results: totalResults } = await videoapi.getTrendingVideos();
+  if (results.length === 0) return;
+  await setPagination(TRENDING.DAY, totalResults, 20);
+  await renderGallery(results);
 });
