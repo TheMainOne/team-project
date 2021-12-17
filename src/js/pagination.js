@@ -79,7 +79,7 @@ hidePagination();
 
 const forPaginationFilter = (array, perPage) => {
   const { page } = videoapi;
-  return array?.filter((item, index) => index >= perPage * (page - 1) && index < perPage * page);
+  return array?.filter((item, index) => index < perPage * page && index >= perPage * (page - 1));
 };
 
 const onPaginationClick = async ({ page }) => {
@@ -109,12 +109,21 @@ const onPaginationClick = async ({ page }) => {
     }
     case WATCHED: {
       const filteredWatched = forPaginationFilter(load(WATCHED), perPage);
-      await renderGallery(filteredWatched);
+      const renderedWatchedOnPaginationClick = await renderGallery(filteredWatched);
+      console.log(
+        'onPaginationClick ~ renderedWatchedOnPaginationClick',
+        renderedWatchedOnPaginationClick,
+      );
       break;
     }
     case QUEUE: {
       const filteredQueue = forPaginationFilter(load(QUEUE), perPage);
-      await renderGallery(filteredQueue);
+      const renderedQueueOnPaginationClick = await renderGallery(filteredQueue);
+      console.log(
+        'onPaginationClick ~ renderedQueueOnPaginationClick',
+        renderedQueueOnPaginationClick,
+      );
+
       break;
     }
     default:
@@ -128,15 +137,17 @@ const listenPaginationClick = () => {
 
 const setPagination = async (type, totalItems = 0, perPage = 20) => {
   videoapi.type = type;
+  videoapi.page = 1;
 
   if (!totalItems || totalItems <= perPage) {
-    pagination.reset();
+    pagination.reset(totalItems);
     pagination.setItemsPerPage(perPage);
     pagination.movePageTo(1);
     hidePagination();
   } else {
     pagination.reset(totalItems);
     pagination.setItemsPerPage(perPage);
+
     pagination.movePageTo(1);
     showPagination();
   }

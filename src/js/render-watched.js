@@ -12,6 +12,8 @@ const renderWatchedVideos = async () => {
   refs.gallery.dataset.gallery = 'watch';
   const perPage = 9;
 
+  videoapi.page = 1;
+
   setFon();
   await renderCard({ key: WATCHED, perPage });
 };

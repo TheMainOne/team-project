@@ -4,5 +4,8 @@ export default function getHeaderRefs() {
     navbar: document.querySelector('[data-action-controls]'),
     homeBtn: document.querySelector('[data-action="js-home"]'),
     headerControlBox: document.querySelector('[data-header-controls]'),
+    trendingCheckbox: document.querySelector('[data-trending-checkbox]'),
+    trendingLabel: document.querySelector('[data-trending-label]'),
+    filtersContainer: document.querySelector('[data-filters]'),
   };
 }

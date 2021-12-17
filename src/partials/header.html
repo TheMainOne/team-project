@@ -1,35 +1,24 @@
 <header class="header header--home js-header">
-   <div class="container header__wrapper">
+  <div class="container header__wrapper">
     <div class="header__navbar" data-action-controls>
       <!-- logo -->
       <a class="header__logo" href="./">
         <svg class="header__logo-image" data-action="logo">
-          <use
-            href="./images/svg/sprite.svg#icon-film"
-            data-action="logo"
-          ></use>
+          <use href="./images/svg/sprite.svg#icon-film" data-action="logo"></use>
         </svg>
         <span class="header__logo-text" data-action="logo">Filmoteka</span>
       </a>
-      
+
       <!-- site-menu -->
       <nav class="top-nav" data-action-controls>
         <div class="button-wrapper">
-          <button class="top-nav__button is-active" data-action="js-home">
-            Home
-          </button>
-          <button class="top-nav__button" data-action="js-library">
-            my library
-          </button>
+          <button class="top-nav__button is-active" data-action="js-home">Home</button>
+          <button class="top-nav__button" data-action="js-library">my library</button>
         </div>
         <!-- Theme toggler -->
         <div class="toolbar">
           <div class="theme-switch">
-            <svg
-              class="theme-switch__icon sun is-active"
-              role="img"
-              aria-label="Иконка солнца"
-            >
+            <svg class="theme-switch__icon sun is-active" role="img" aria-label="Иконка солнца">
               <use href="./images/svg/sprite.svg#icon-sun"></use>
             </svg>
 
@@ -41,20 +30,12 @@
                 id="theme-switch-toggle"
                 aria-label="Переключить между тёмной и светлой темой"
               />
-              <label
-                aria-hidden="true"
-                class="theme-switch__track"
-                for="theme-switch-toggle"
-              >
+              <label aria-hidden="true" class="theme-switch__track" for="theme-switch-toggle">
               </label>
               <div aria-hidden="true" class="theme-switch__marker"></div>
             </div>
 
-            <svg
-              class="theme-switch__icon moon"
-              role="img"
-              aria-label="Иконка луны"
-            >
+            <svg class="theme-switch__icon moon" role="img" aria-label="Иконка луны">
               <use href="./images/svg/sprite.svg#icon-moon"></use>
             </svg>
           </div>
@@ -64,5 +45,36 @@
 
     <!-- Changing block: show search-form or library-controls. -->
     <div class="header__controls" data-header-controls></div>
+
+    <!-- filters in header -->
+
+    <div class="filters-container" data-filters>
+      <!--  Фиксированные кнопки-переключатели toggle
+  (самые популярные за день/неделю, премьеры) -->
+
+      <div class="filters__group">
+        <h3 class="filters__title">Trending</h3>
+
+        <div class="filters__toggle trending-toggle">
+          <input
+            id="trending-toggle-id"
+            class="filters__radio visually-hidden"
+            name="trending"
+            type="checkbox"
+            value="day"
+            checked
+            data-trending-checkbox
+          />
+
+          <label for="trending-toggle-id" class="filters__label" data-trending-label>
+            <div class="filters__label-slider"></div>
+            <span class="filters__label-text">Daily</span>
+            <span class="filters__label-text">Weekly</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- <include src="./filter-btns.html"></include> -->
   </div>
 </header>

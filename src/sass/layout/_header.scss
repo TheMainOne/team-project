@@ -101,7 +101,8 @@
   &__wrapper {
     height: 230px;
     padding-top: 41px;
-    padding-bottom: 59px;
+    // padding-bottom: 59px;
+    padding-bottom: 20px;
 
     @media (max-width: $tablet) {
       padding-top: 21px;
