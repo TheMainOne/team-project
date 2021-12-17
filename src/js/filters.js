@@ -11,19 +11,21 @@ const onToggleRenderTrending = async () => {
   );
   const toggleSlider = headerRefs.trendingLabel.querySelector('.filters__label-slider');
 
-  const daily = labelText[0]?.clientWidth + 18;
-  const weekly = labelText[1]?.clientWidth + 14;
+  const daily = labelText[0]?.clientWidth + 16;
+  const weekly = labelText[1]?.clientWidth + 16;
   const isDaily = headerRefs.trendingCheckbox.checked;
+
+  const labelWidth = headerRefs.trendingLabel.clientWidth;
 
   if (isDaily) {
     videoapi.period = 'day';
     toggleSlider.style.width = `${daily}px`;
-    toggleSlider.style.transform = `translateX(0)`;
+    toggleSlider.style.transform = `translateX(${(labelWidth - daily - weekly) / 2}px)`;
     await renderTrendingVideos({ key: TRENDING.DAY });
   } else {
     videoapi.period = 'week';
     toggleSlider.style.width = `${weekly}px`;
-    toggleSlider.style.transform = `translateX(${daily - 6}px)`;
+    toggleSlider.style.transform = `translateX(${daily - 2 + (labelWidth - daily - weekly) / 2}px)`;
     await renderTrendingVideos({ key: TRENDING.WEEK });
   }
 };
