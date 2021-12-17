@@ -16,7 +16,7 @@ export function addToQueue(refQueueBtn, ourFilm) {
 
 export function removeFromQueue(refQueueBtn, ourFilm) {
   videoapi.deletedFilm.queue = ourFilm;
-  const filmsForQueue = load(QUEUE).filter(film => film.id !== ourFilm.id);
+  const filmsForQueue = load(QUEUE).filter(film => film?.id !== ourFilm.id);
   save(QUEUE, filmsForQueue);
 
   refQueueBtn.dataset.action = 'add-to-queue';
