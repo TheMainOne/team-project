@@ -17,6 +17,7 @@ import { scrollFunction, backToTop } from './js/back-to-top-btn';
 import { populateChooseTheme, onThemeToggle } from './js/change-theme';
 import getHeaderRefs from './js/getHearedRefs';
 import { onSubmitSearch } from './js/on-search';
+import './js/carousel';
 
 const refs = getRefs();
 const headerRefs = getHeaderRefs();

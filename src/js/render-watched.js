@@ -1,6 +1,7 @@
 import { videoapi } from './api-service';
 import { setFon } from './fon-library';
 import { renderCard } from './init-gallery';
+import { hideCarousels } from './carousel';
 import getRefs from './refs';
 
 const refs = getRefs();
@@ -14,6 +15,7 @@ const renderWatchedVideos = async () => {
 
   setFon();
   await renderCard({ key: WATCHED, perPage });
+  hideCarousels();
 };
 
 export { renderWatchedVideos };
