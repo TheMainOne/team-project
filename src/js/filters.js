@@ -20,7 +20,7 @@ const onToggleRenderTrending = async () => {
   if (isDaily) {
     videoapi.period = 'day';
     toggleSlider.style.width = `${daily}px`;
-    toggleSlider.style.transform = `translateX(${(labelWidth - daily - weekly) / 2}px)`;
+    toggleSlider.style.transform = `translateX(${(labelWidth - daily - weekly) / 2 - 2}px)`;
     await renderTrendingVideos({ key: TRENDING.DAY });
   } else {
     videoapi.period = 'week';
