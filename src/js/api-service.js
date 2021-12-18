@@ -22,8 +22,8 @@ class videoAPI {
   #language = 'en-US';
   #type = 'trendingVideosWeek';
   #currentPage = '';
+  #rendered = {};
   #keys = {
-    GENRES: 'filmoteka-genres',
     SEARCH: 'filmoteka-search',
     TRENDING: {
       DAY: 'filmoteka-trending-day',
@@ -31,7 +31,18 @@ class videoAPI {
     },
     QUEUE: 'filmoteka-queue',
     WATCHED: 'filmoteka-watched',
+    GENRES: 'filmoteka-genres',
   };
+
+  constructor(init = [{}]) {
+    this.#rendered = {
+      [this.#keys.SEARCH]: init,
+      [this.#keys.TRENDING.DAY]: init,
+      [this.#keys.TRENDING.WEEK]: init,
+      [this.#keys.QUEUE]: init,
+      [this.#keys.WATCHED]: init,
+    };
+  }
 
   async fetchData(dataURL = '') {
     if (!dataURL) return;
@@ -152,6 +163,14 @@ class videoAPI {
 
   set keys(newKeys) {
     this.#keys = newKeys;
+  }
+
+  get rendered() {
+    return this.#rendered;
+  }
+
+  set rendered(newRendered) {
+    this.#rendered = newRendered;
   }
 
   get currentPage() {

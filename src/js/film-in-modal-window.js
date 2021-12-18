@@ -80,13 +80,14 @@ async function contentModal(idOfFilm) {
       original_title: originalTitle = 'no found',
       vote_average: voteAverage = '-',
       vote_count: voteCount = '-',
+      backdrop_path: backdropPath = '',
     } = ourFilm;
 
     const posterUrl = getImageUrl(posterPath);
     const getGenreNames = (await Promise.all(genreIds.map(getGenreName))).join(', ');
     const poster = createPoster(posterUrl, title);
-    const isFilmInQueue = searchFilmInQueue(idOfFilm);
-    const isFilmInWatched = searchFilmInWatched(id);
+    const isFilmInQueue = searchFilmInQueue(Number(idOfFilm));
+    const isFilmInWatched = searchFilmInWatched(Number(id));
 
     const markup = createMarkup({
       isFilmInQueue,
@@ -101,6 +102,7 @@ async function contentModal(idOfFilm) {
       voteAverage,
       voteCount,
       getGenreNames,
+      backdropPath,
     });
 
     return markup;

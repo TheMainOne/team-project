@@ -26,6 +26,7 @@ export async function onClickBtnQueue(e) {
   const isClickOnAdd = refQueueBtn.dataset.action === 'add-to-queue';
   const movieId = Number(refQueueBtn.closest('.movie').dataset.id);
   const ourFilm = filmFinder(movieId);
+  console.log('onClickBtnQueue ~ ourFilm', ourFilm);
 
   if (isClickOnAdd) {
     addToQueue(refQueueBtn, ourFilm);

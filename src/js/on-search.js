@@ -1,12 +1,19 @@
-// prettier-ignore
-import { notifyStatus, renderGallery, notifyOptions    } from './init-gallery';
-import { Notify } from 'notiflix';
-import { setPagination } from './pagination';
-import { videoapi } from './api-service';
 import getRefs from './refs';
 import getHeaderRefs from './getHearedRefs';
+import { Notify } from 'notiflix';
+import { videoapi } from './api-service';
+import { setPagination } from './pagination';
 import { onToggleRenderTrending } from './filters';
-const { info, warning } = Notify;
+import { notifyStatus, renderGallery } from './init-gallery';
+
+const { info, warning, success } = Notify;
+const notifyOptions = time => ({
+  timeout: time,
+  clickToClose: true,
+  showOnlyTheLastOne: true,
+  fontSize: '14px',
+});
+
 const { error } = console;
 const refs = getRefs();
 const headerRefs = getHeaderRefs();
@@ -30,9 +37,9 @@ const onSubmitSearch = async e => {
   setTimeout(() => (searchBtn.disabled = false), 1000);
 
   if (!searchQuery || searchQuery.length === 0) {
-    return info('Please, enter search query.', notifyOptions);
+    return info('Please, enter search query.', notifyOptions(2000));
   }
-  const { SEARCH, TRENDING } = videoapi.keys;
+  const { SEARCH } = videoapi.keys;
 
   videoapi.query = searchQuery;
   videoapi.type = SEARCH;
@@ -59,4 +66,4 @@ const onSubmitSearch = async e => {
   }
 };
 
-export { onSubmitSearch };
+export { onSubmitSearch, info, warning, success, notifyOptions };

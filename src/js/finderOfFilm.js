@@ -1,5 +1,4 @@
 import { videoapi } from './api-service';
-import { load } from './storage';
 
 export function filmFinder(movieId) {
   if (!movieId) {
@@ -23,10 +22,14 @@ function getObjOfFilm(keysOfLS, id) {
   let arraysOfFilms = [];
 
   for (const keyOfLS of keysOfLS) {
-    const loadedStorage = load(keyOfLS);
-    arraysOfFilms = loadedStorage?.results ? loadedStorage?.results : loadedStorage;
-    const ourFilm = getFilmById(id, arraysOfFilms);
+    // const loadedStorage = load(keyOfLS);
+    // arraysOfFilms = loadedStorage?.results ? loadedStorage?.results : loadedStorage;
 
+    if (videoapi.type === keyOfLS) {
+      arraysOfFilms = videoapi.rendered[keyOfLS]; // to work in memory, without call to firebase
+    }
+
+    const ourFilm = getFilmById(id, arraysOfFilms);
     if (ourFilm) {
       return ourFilm;
     }

@@ -8,14 +8,7 @@ import { changeCardsTitle } from './change-theme';
 import { deleteCanvas } from './library';
 import { listenTrendingToggle, onToggleRenderTrending } from './filters';
 const refs = getRefs();
-
-const { log, error } = console;
-
-const notifyOptions = {
-  timeout: 2000,
-  clickToClose: true,
-};
-export { notifyOptions };
+const { error } = console;
 
 const notifyStatus = (videosCount, page, totalResults) => {
   if (videosCount < 1) {
@@ -29,6 +22,10 @@ const notifyStatus = (videosCount, page, totalResults) => {
   }
 };
 
+const flatKeys = Object.values(videoapi.keys).flatMap(value =>
+  typeof value === 'object' && value !== null ? Object.keys(value).map(key => value[key]) : value,
+);
+
 const renderGallery = async results => {
   try {
     refs.gallery.innerHTML = '';
@@ -39,6 +36,28 @@ const renderGallery = async results => {
     const galleryMarkup = string.join('');
 
     refs.gallery.innerHTML = galleryMarkup;
+
+    const checkTypeAndSaveResults = () => {
+      for (const key of flatKeys) {
+        if (videoapi.type !== key) continue;
+        videoapi.rendered[key] = results;
+        console.log('checkTypeAndSaveResults ~ key', key);
+        console.log('checkTypeAndSaveResults ~ videoapi.rendered[key]', videoapi.rendered[key]);
+
+        return videoapi.rendered[key];
+      }
+    };
+    checkTypeAndSaveResults();
+    // if (videoapi.type === TRENDING.WEEK) {
+    //   videoapi.rendered[TRENDING.WEEK] = results;
+    // }
+    // if (videoapi.type === TRENDING.DAY) {
+    //   videoapi.rendered[TRENDING.DAY] = results;
+    // }
+    // if (videoapi.type === SEARCH) {
+    //   videoapi.rendered[SEARCH] = results;
+    // }
+
     await changeCardsTitle();
   } catch (err) {
     error(err);

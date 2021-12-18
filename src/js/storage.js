@@ -2,6 +2,9 @@ const { error } = console;
 
 const save = (key, obj) => {
   try {
+    if (typeof obj === 'object' && obj == null) {
+      return error('obj is null or undefined');
+    }
     localStorage.setItem(key, JSON.stringify(obj));
   } catch (err) {
     error(err);

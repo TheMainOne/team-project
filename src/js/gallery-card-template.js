@@ -31,7 +31,7 @@ const genresParsed = initGenres();
 
 const getGenreName = async id => await (await genresParsed)?.find(genre => genre.id === id)?.name;
 
-const getGenres = async genreIds => {
+const getGenresString = async genreIds => {
   let genresJoined = genreIds.length === 0 ? '' : genreIds;
 
   // Если жанров 3 и менее рендерим все
@@ -48,7 +48,7 @@ const getGenres = async genreIds => {
   }
   return genresJoined;
 };
-export { getGenres };
+export { getGenresString };
 export { getGenreName };
 
 const galleryCardTemplate = async (
@@ -69,7 +69,7 @@ const galleryCardTemplate = async (
   const posterUrl = getImageUrl(posterPath);
   const poster = posterPath !== '' && posterUrl ? posterUrl : iconPlaceholder;
 
-  const genresJoined = await getGenres(genreIds);
+  const genresJoined = await getGenresString(genreIds);
 
   // const { type, keys } = videoapi;
   // if (type !== keys.WATCHED && type !== keys.QUEUE) {
