@@ -113,14 +113,14 @@ const markup = `
                     <p class="team__role">Developer</p>
                     <ul class="team__social">
                         <li class="team__icon list">
-                            <a class="team__git" href="https://github.com" target="_blank">
+                            <a class="team__git" href="https://github.com/Yuliia-Lysiuk" target="_blank">
                                 <svg type="image/svg+xml" class="logo__icon logo__icon-git" width="16" height="16" style="fill: black">
                                     <use type="image/svg+xml" href="${sprite}#icon-github"></use>
                                 </svg>
                             </a>
                         </li>
                         <li class="team__icon list">
-                            <a class="team__git" href="https://linkedin.com" target="_blank">
+                            <a class="team__git" href="https://www.linkedin.com/in/yuliia-lysuik-490748227/" target="_blank">
                                 <svg type="image/svg+xml" class="logo__icon" width="16" height="16" style=" fill: rgba(66, 114, 247, 0.993)">
                                     <use type="image/svg+xml" type="image/svg+xml" href="${sprite}#icon-linkedin"></use>
                                 </svg>
