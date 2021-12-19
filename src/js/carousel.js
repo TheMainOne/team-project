@@ -5,8 +5,8 @@ import getHeaderRefs from './getHearedRefs';
 import getRefs from './refs';
 import galleryCardTemplate from './gallery-card-template';
 import { changeCardsTitle } from './change-theme';
-import { fonLibrary } from './fon-library';
-import { setBgSnow } from './library';
+import { fonLibrary, setFon } from './fon-library';
+import { setBgSnow, deleteCanvas } from './library';
 
 const { WATCHED, QUEUE } = videoapi.keys;
 const {
@@ -28,11 +28,24 @@ function removeCarouselListeners(selector) {
 }
 
 function onLinraryBtnClick() {
+  gallery.innerHTML = '';
   hideGalleryAndPagination();
+  gallery.dataset.gallery = 'library';
   carousel.classList.remove('is-hidden');
 
-  rengerCarousel(WATCHED, carouselListWatched, carouselWatched, gifWatched);
-  rengerCarousel(QUEUE, carouselListQueue, carouselQueue, gifQueue);
+  if (
+    (!load(QUEUE) || load(QUEUE).length === 0) &&
+    (!load(WATCHED) || load(WATCHED).length === 0)
+  ) {
+    hideGalleryAndPagination();
+    carousel.classList.add('is-hidden');
+    deleteCanvas();
+    setBgSnow();
+    return;
+  }
+
+  renderCarousel(WATCHED, carouselListWatched, carouselWatched, gifWatched);
+  renderCarousel(QUEUE, carouselListQueue, carouselQueue, gifQueue);
 }
 
 function hideGalleryAndPagination() {
@@ -40,20 +53,12 @@ function hideGalleryAndPagination() {
   pagination.classList.add('is-hidden');
 }
 
-function rengerCarousel(localstorageKey, carouselList, carouselSelector, gifSelector) {
-  if (
-    (!load(QUEUE) || load(QUEUE).length === 0) &&
-    (!load(WATCHED) || load(WATCHED).length === 0)
-  ) {
-    hideGalleryAndPagination();
-    carousel.classList.add('is-hidden');
-    setBgSnow();
-    return;
-  }
-
+function renderCarousel(localstorageKey, carouselList, carouselSelector, gifSelector) {
   const items = load(localstorageKey);
 
   if (items && items.length > 0) {
+    deleteCanvas();
+    gallery.innerHTML = '';
     gifSelector.classList.add('is-hidden');
     carouselSelector.classList.remove('is-hidden');
     renderCarouselItems(items, carouselList);
@@ -159,6 +164,20 @@ function hideCarouselQueueItemsArrows(queueItems, currentCarousel) {
   }
 }
 
+function setSnowIfEmptyCarousels() {
+  const inLibraryPage = gallery.dataset.gallery === 'library';
+  if (inLibraryPage) {
+    if (
+      (!load(QUEUE) || load(QUEUE).length === 0) &&
+      (!load(WATCHED) || load(WATCHED).length === 0)
+    ) {
+      gallery.innerHTML = '';
+      hideCarousels();
+      setFon();
+    }
+  }
+}
+
 function hideCarousels() {
   gallery.classList.remove('is-hidden');
   carousel.classList.add('is-hidden');
@@ -166,4 +185,4 @@ function hideCarousels() {
   removeCarouselListeners(carouselQueue);
 }
 
-export { onLinraryBtnClick, hideCarousels, rengerCarousel };
+export { onLinraryBtnClick, hideCarousels, renderCarousel, setSnowIfEmptyCarousels };

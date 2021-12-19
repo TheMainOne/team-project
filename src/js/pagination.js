@@ -110,20 +110,11 @@ const onPaginationClick = async ({ page }) => {
     case WATCHED: {
       const filteredWatched = forPaginationFilter(load(WATCHED), perPage);
       const renderedWatchedOnPaginationClick = await renderGallery(filteredWatched);
-      console.log(
-        'onPaginationClick ~ renderedWatchedOnPaginationClick',
-        renderedWatchedOnPaginationClick,
-      );
       break;
     }
     case QUEUE: {
       const filteredQueue = forPaginationFilter(load(QUEUE), perPage);
       const renderedQueueOnPaginationClick = await renderGallery(filteredQueue);
-      console.log(
-        'onPaginationClick ~ renderedQueueOnPaginationClick',
-        renderedQueueOnPaginationClick,
-      );
-
       break;
     }
     default:

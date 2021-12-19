@@ -170,11 +170,6 @@ function onPageThemeToggle() {
   }
 }
 
-// async function changeCarouselCardsTitles(params) {
-//   const cards = await getCarouselCardsTitles();
-//   console.log(cards);
-// }
-
 export {
   populateChooseTheme,
   onThemeToggle,

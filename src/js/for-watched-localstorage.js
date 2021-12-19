@@ -2,10 +2,6 @@ import { save, load } from './storage';
 import { videoapi } from './api-service';
 const { WATCHED } = videoapi.keys;
 
-import { rengerCarousel } from './carousel';
-import carouselRefs from './get-carousel-refs';
-const { carouselListWatched, carouselWatched, gifWatched } = carouselRefs();
-
 export function addToWatch(refWatchedBtn, ourFilm) {
   const filmIdOfModalWindow = Number(refWatchedBtn.closest('.movie').dataset.id);
   const lastDeletedFilm = videoapi.deletedFilm.watched;
@@ -16,7 +12,6 @@ export function addToWatch(refWatchedBtn, ourFilm) {
 
   refWatchedBtn.dataset.action = 'remove-from-watched';
   refWatchedBtn.innerHTML = 'Remove from watched';
-  rengerCarousel(WATCHED, carouselListWatched, carouselWatched, gifWatched);
 }
 
 export function removeFromWatched(refWatchedBtn, ourFilm) {
@@ -26,7 +21,6 @@ export function removeFromWatched(refWatchedBtn, ourFilm) {
 
   refWatchedBtn.dataset.action = 'add-to-watched';
   refWatchedBtn.innerHTML = 'add to watched';
-  rengerCarousel(WATCHED, carouselListWatched, carouselWatched, gifWatched);
 }
 
 export function searchFilmInWatched(id) {

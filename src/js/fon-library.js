@@ -21,6 +21,7 @@ export { showGif, hideGif };
 export const setFon = () => {
   const inQueuePage = gallery.dataset.gallery === 'queue';
   const inWatchedPage = gallery.dataset.gallery === 'watch';
+  const inLibraryPage = gallery.dataset.gallery === 'library';
 
   gallery.innerHTML = '';
   hideGif();
@@ -29,24 +30,28 @@ export const setFon = () => {
   const isWatched = load(WATCHED);
   const isQueue = load(QUEUE);
 
-  const onlyInQueue = isQueue?.length > 0 && (!isWatched || isWatched.length === 0);
-
-  const onlyInWatched = isWatched?.length > 0 && (!isQueue || isQueue.length === 0);
-
-  if (inQueuePage) {
-    if (onlyInWatched) {
-      showGif();
-    } else {
-      hideGif();
+  if (inQueuePage || inWatchedPage) {
+    const onlyInQueue = isQueue?.length > 0 && (!isWatched || isWatched.length === 0);
+    const onlyInWatched = isWatched?.length > 0 && (!isQueue || isQueue.length === 0);
+    if (inQueuePage) {
+      if (onlyInWatched) {
+        showGif();
+      } else {
+        hideGif();
+      }
+    } else if (inWatchedPage) {
+      if (onlyInQueue) {
+        showGif();
+      } else {
+        hideGif();
+      }
     }
-  } else if (inWatchedPage) {
-    if (onlyInQueue) {
-      showGif();
-    } else {
-      hideGif();
+    deleteCanvas();
+    gallery.innerHTML = setBgSnow();
+  } else if (inLibraryPage) {
+    if ((!isQueue || isQueue.length === 0) && (!isWatched || isWatched.length === 0)) {
+      deleteCanvas();
+      gallery.innerHTML = setBgSnow();
     }
   }
-
-  deleteCanvas();
-  gallery.innerHTML = setBgSnow();
 };

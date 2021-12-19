@@ -139,7 +139,6 @@ refs.homeBtn.addEventListener('click', async () => {
   mainRefs.gallery.dataset.gallery = 'home';
   videoapi.type = TRENDING.DAY;
   videoapi.page = 1;
-  hideCarousels();
   deleteCanvas();
   hideGif();
   const { results, total_results: totalResults } = await videoapi.getTrendingVideos();
