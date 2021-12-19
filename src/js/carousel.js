@@ -21,13 +21,13 @@ const {
 const { libraryBtn } = getHeaderRefs();
 const { gallery, pagination } = getRefs();
 
-libraryBtn.addEventListener('click', onLinraryBtnClick);
+libraryBtn.addEventListener('click', onLibraryBtnClick);
 
 function removeCarouselListeners(selector) {
   selector.removeEventListener('click', onCarouselArrowClick);
 }
 
-function onLinraryBtnClick() {
+function onLibraryBtnClick() {
   gallery.innerHTML = '';
   hideGalleryAndPagination();
   gallery.dataset.gallery = 'library';
@@ -53,8 +53,8 @@ function hideGalleryAndPagination() {
   pagination.classList.add('is-hidden');
 }
 
-function renderCarousel(localstorageKey, carouselList, carouselSelector, gifSelector) {
-  const items = load(localstorageKey);
+function renderCarousel(localStorageKey, carouselList, carouselSelector, gifSelector) {
+  const items = load(localStorageKey);
 
   if (items && items.length > 0) {
     deleteCanvas();
@@ -132,7 +132,7 @@ function replaceItemToStartOfList(listSelector) {
 
 // Controls Queue arrows disappearance
 function hideCarouselQueueItemsArrows(queueItems, currentCarousel) {
-  const decktopMedia = window.matchMedia('(min-width: 1024px)').matches;
+  const desktopMedia = window.matchMedia('(min-width: 1024px)').matches;
   const tabletMedia = window.matchMedia('(max-width: 1023px)').matches;
   const mobileMedia = window.matchMedia('(max-width: 767px)').matches;
   const arrows = currentCarousel.querySelectorAll('.carousel__arrow');
@@ -154,7 +154,7 @@ function hideCarouselQueueItemsArrows(queueItems, currentCarousel) {
     return;
   }
 
-  if (decktopMedia) {
+  if (desktopMedia) {
     if (!queueItems || queueItems.length < 4) {
       arrows.forEach(arrow => arrow.classList.add('is-disabled'));
     } else {
@@ -185,4 +185,4 @@ function hideCarousels() {
   removeCarouselListeners(carouselQueue);
 }
 
-export { onLinraryBtnClick, hideCarousels, renderCarousel, setSnowIfEmptyCarousels };
+export { onLibraryBtnClick, hideCarousels, renderCarousel, setSnowIfEmptyCarousels };
