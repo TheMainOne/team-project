@@ -1,5 +1,7 @@
 export default function carouselRefs() {
   return {
+    gifQueue: document.querySelector('.gif-queue'),
+    gifWatched: document.querySelector('.gif-watched'),
     carousel: document.querySelector('.js-carousel'),
     carouselQueue: document.querySelector('[data-action="carousel-queue"]'),
     carouselWatched: document.querySelector('[data-action="carousel-watched"]'),

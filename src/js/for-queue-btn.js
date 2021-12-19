@@ -5,10 +5,14 @@ import { addToQueue, removeFromQueue } from './for-queue-localstorage';
 import { renderCard } from './init-gallery';
 import { setFon } from './fon-library';
 import { filmFinder } from './finderOfFilm';
+import { rengerCarousel } from './carousel';
+import carouselRefs from './get-carousel-refs';
+
 const { QUEUE } = videoapi.keys;
 const refs = getRefs();
 const refsGallery = refs.gallery;
 const perPage = 9;
+const { carouselListQueue, carouselQueue, gifQueue } = carouselRefs();
 
 export function queueAddEventListener() {
   const queue = document.querySelector('#queue-btn');
@@ -32,6 +36,7 @@ export async function onClickBtnQueue(e) {
   } else {
     removeFromQueue(refQueueBtn, ourFilm);
   }
+  rengerCarousel(QUEUE, carouselListQueue, carouselQueue, gifQueue);
 
   if (inQueuePage) {
     refsGallery.innerHTML = '';
