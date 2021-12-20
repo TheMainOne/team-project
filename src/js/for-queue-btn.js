@@ -33,13 +33,8 @@ export async function onClickBtnQueue(e) {
 
   if (isClickOnAdd) {
     addToQueue(refQueueBtn, ourFilm);
-    carousel.classList.remove('is-hidden');
   } else {
     removeFromQueue(refQueueBtn, ourFilm);
-  }
-
-  if (inLibrary) {
-    renderCarousel(QUEUE, carouselListQueue, carouselQueue, gifQueue);
   }
 
   if (inQueuePage) {
@@ -48,6 +43,9 @@ export async function onClickBtnQueue(e) {
     await renderCard({ key: QUEUE, perPage });
   }
 
-  setSnowIfEmptyCarousels();
-  // При клике на кнопку 'Add-to-queue/Remove-from-queue' -> Проверять
+  if (inLibrary) {
+    renderCarousel(QUEUE, carouselListQueue, carouselQueue, gifQueue);
+    carousel.classList.remove('is-hidden');
+    setSnowIfEmptyCarousels();
+  }
 }
