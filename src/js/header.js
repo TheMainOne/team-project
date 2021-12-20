@@ -8,6 +8,7 @@ import getRefs from './refs';
 import { deleteCanvas } from './library';
 import { hideGif } from './fon-library';
 import { listenTrendingToggle, unlistenTrendingToggle } from './filters';
+import { hideCarousels } from './carousel';
 
 const mainRefs = getRefs();
 const iconSearch = `${sprite}#icon-search`;
@@ -46,6 +47,7 @@ function onTopNavBtnClick(e) {
     renderSearchForm();
     refs.headerControlBox.removeEventListener('click', onLibraryButtonClick);
     listenTrendingToggle();
+    hideCarousels();
   }
 
   if (hasDataAttr === 'logo') {
@@ -127,7 +129,7 @@ function renderLibraryButtons() {
   refs.headerControlBox.innerHTML = `
   <div class="header__library-controls" data-library-buttons">
     <button class="button" data-action="watched">Watched</>
-    <button class="button is-active" data-action="queue">Queue</button>
+    <button class="button" data-action="queue">Queue</button>
   </div>
   `;
 }
@@ -137,7 +139,6 @@ refs.homeBtn.addEventListener('click', async () => {
   mainRefs.gallery.dataset.gallery = 'home';
   videoapi.type = TRENDING.DAY;
   videoapi.page = 1;
-
   deleteCanvas();
   hideGif();
   const { results, total_results: totalResults } = await videoapi.getTrendingVideos();

@@ -13,7 +13,9 @@ import { searchFilmInWatched } from './for-watched-localstorage';
 
 import { darkThemeForModal } from './change-theme';
 import { enableTrailerLink } from './trailer';
+import carouselRefs from './get-carousel-refs';
 
+const { carousel } = carouselRefs();
 const refs = getRefs();
 
 const modal = new tingle.modal({
@@ -36,6 +38,24 @@ const modal = new tingle.modal({
 });
 
 refs.gallery.addEventListener('click', async event => {
+  const li = event.target.closest('.gallery__item');
+  if (!li) return;
+
+  const id = Number(li.dataset.id);
+
+  modal.setContent(await contentModal(id));
+  isFalse(id);
+  modal.open();
+
+  // ===trailer
+  const searchRef = document.querySelector('.search-for-trailer');
+  searchRef.addEventListener('click', enableTrailerLink);
+  // ========
+
+  onBtnCloseModal();
+});
+
+carousel.addEventListener('click', async event => {
   const li = event.target.closest('.gallery__item');
   if (!li) return;
 

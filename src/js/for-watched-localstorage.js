@@ -3,9 +3,9 @@ import { videoapi } from './api-service';
 const { WATCHED } = videoapi.keys;
 
 export function addToWatch(refWatchedBtn, ourFilm) {
-const filmIdOfModalWindow = Number(refWatchedBtn.closest('.movie').dataset.id);
+  const filmIdOfModalWindow = Number(refWatchedBtn.closest('.movie').dataset.id);
   const lastDeletedFilm = videoapi.deletedFilm.watched;
-  
+
   ourFilm = lastDeletedFilm?.id === filmIdOfModalWindow ? lastDeletedFilm : ourFilm;
   const filmsForWatched = load(WATCHED) ? [ourFilm, ...load(WATCHED)] : [ourFilm];
   save(WATCHED, filmsForWatched);

@@ -1,7 +1,11 @@
 import { save, load } from './storage';
 import { videoapi } from './api-service';
+import { hideCarousels } from './carousel';
+import getRefs from './refs';
+
 const { QUEUE } = videoapi.keys;
 const { WATCHED } = videoapi.keys;
+const { gallery } = getRefs();
 
 let setIntervalID = null;
 

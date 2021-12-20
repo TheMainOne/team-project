@@ -14,6 +14,7 @@ const lightThemeIcon = themeSwitcher.previousElementSibling;
 const darkThemeIcon = themeSwitcher.nextElementSibling;
 const theme = localStorage.getItem('theme');
 const getCardTitles = async () => document.querySelectorAll('.card__title');
+// const getCarouselCardsTitles = async () => document.querySelectorAll('.js-item-watched');
 
 themeSwitcher.addEventListener('change', onControlThemeSwitch);
 teamRef.addEventListener('click', onTeamThemeToggle);
@@ -122,7 +123,6 @@ function onTeamThemeToggle() {
     }
   }, 0);
 }
-// }
 
 // change theme of film modal
 function darkThemeForModal(modal) {
@@ -170,7 +170,6 @@ function onPageThemeToggle() {
   }
 }
 
-// export { changeTheme, onThemeToggle, initThemeSwitcher, darkThemeForModal };
 export {
   populateChooseTheme,
   onThemeToggle,
@@ -179,4 +178,5 @@ export {
   changeCardsTitle,
   onPageThemeToggle,
   theme,
+  // changeCarouselCardsTitles,
 };

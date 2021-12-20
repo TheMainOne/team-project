@@ -4,19 +4,21 @@ import './film-in-modal-window';
 import getRefs from './refs';
 import { videoapi } from './api-service';
 import { setFon } from './fon-library';
+import { hideCarousels } from './carousel';
 
 const { QUEUE } = videoapi.keys;
 const refs = getHeaderRefs();
 const refGallery = getRefs();
-const btnLibrary = document.querySelector(`[data-action="js-library"]`);
+// const btnLibrary = document.querySelector(`[data-action="js-library"]`);
 
 const perPage = 9;
 
-btnLibrary.addEventListener('click', renderQueue);
+// btnLibrary.addEventListener('click', renderQueue);
 
 refs.headerControlBox.addEventListener('click', e => {
   if (e.target.dataset.action === 'queue') {
     renderQueue();
+    hideCarousels();
   }
 });
 
